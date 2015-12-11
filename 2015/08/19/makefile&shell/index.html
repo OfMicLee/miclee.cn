@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+<!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
+
+<title>makefile和shell脚本的区别</title>
+<meta name="author" content="MicLee">
+
+<meta name="keywords" content="undefined">
+
+<meta name="description " content="在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。">
+
+<link rel="icon" href="/favicon.png">
+
+<link rel="stylesheet" href="/css/style.css" type="text/css">
+  </head>
+  <body>
+    <aside id="sidebar">
+  <nav id="tags">
+    <a href="http://miclee.cn" id="avatar" style="background-image:url(/favicon.png)"></a>
+    <ul id="tags__ul">
+      <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
+      
+      <li id="blog" class="tags__li tags-btn">blog</li>
+      
+      <li id="java" class="tags__li tags-btn">java</li>
+      
+      <li id="nodejs" class="tags__li tags-btn">nodejs</li>
+      
+      <li id="移动端" class="tags__li tags-btn">移动端</li>
+      
+      <li id="技术综合" class="tags__li tags-btn">技术综合</li>
+      
+    </ul>
+    <div id="tags__bottom">
+      <a href="http://github.com/ofmiclee" rel="nofollow" id="icon-github" target="_blank" class="tags-btn fontello"></a>
+      <!-- <a href="https://github.com/OfMicLee/img-hosting/blob/master/qq.png" rel="nofollow" id="icon-qq" target="_blank" class="tags-btn fontello"></a> -->
+    </div>
+  </nav> <!-- end #tags -->
+  <div id="posts-list">
+    <!-- <form action="https://www.baidu.com/s?wd=site:miclee.cn" id="search-form" target="_blank">
+      <a href="/" id="mobile-avatar" style="background-image:url(/favicon.png)"></a>
+      <input id="search-input" type="text" placeholder="Search..." />
+    </form> -->
+    <nav id="pl__container">
+      
+            
+                <a class="blog pl__all" href="/2015/11/25/free-programming-books/" title="免费编程书籍">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">免费编程书籍</span><span class="pl__date">2015-11-25</span>
+                </a>
+            
+                <a class="blog pl__all" href="/2015/08/08/resource/" title="资源记录">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">资源记录</span><span class="pl__date">2015-08-08</span>
+                </a>
+            
+                <a class="blog pl__all" href="/2015/07/02/atom-keyboard-shortcuts/" title="atom 快捷键">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">atom 快捷键</span><span class="pl__date">2015-07-02</span>
+                </a>
+            
+                <a class="blog pl__all" href="/2015/05/19/markdown-syntax/" title="Markdown Syntax">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">Markdown Syntax</span><span class="pl__date">2015-05-19</span>
+                </a>
+            
+      
+            
+                <a class="java pl__all" href="/2015/08/27/java-design-pattern-3/" title="JAVA的23种设计模式(三)">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(三)</span><span class="pl__date">2015-08-27</span>
+                </a>
+            
+                <a class="java pl__all" href="/2015/08/27/java-design-pattern-2/" title="JAVA的23种设计模式(二)">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(二)</span><span class="pl__date">2015-08-27</span>
+                </a>
+            
+                <a class="java pl__all" href="/2015/08/27/jvm/" title="jvm">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">jvm</span><span class="pl__date">2015-08-27</span>
+                </a>
+            
+                <a class="java pl__all" href="/2015/08/27/java-design-pattern-1/" title="JAVA的23种设计模式(一)">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(一)</span><span class="pl__date">2015-08-27</span>
+                </a>
+            
+                <a class="java pl__all" href="/2015/08/10/spring-boot/" title="spring-boot快速开发spring应用">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">spring-boot快速开发sprin...</span><span class="pl__date">2015-08-10</span>
+                </a>
+            
+                <a class="java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">JAVA世界里的一些概念</span><span class="pl__date">2015-08-06</span>
+                </a>
+            
+      
+            
+                <a class="nodejs pl__all" href="/2015/08/22/wechat-platform/" title="微信第三方平台授权权限集">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">微信第三方平台授权权限集</span><span class="pl__date">2015-08-22</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/08/22/qm-wechat/" title="千米微信第三方平台应用">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">千米微信第三方平台应用</span><span class="pl__date">2015-08-22</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/07/23/node-profiler/" title="Node Profiler">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">Node Profiler</span><span class="pl__date">2015-07-23</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/07/03/koa/" title="koa框架">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">koa框架</span><span class="pl__date">2015-07-03</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/07/03/express/" title="express框架">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">express框架</span><span class="pl__date">2015-07-03</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/06/03/shen-ru-qian-chu-nodejs-reading-note/" title="深入浅出Nodejs读书笔记">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">深入浅出Nodejs读书笔记</span><span class="pl__date">2015-06-03</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/21/gulp/" title="［工具篇］Gulp：任务自动管理">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">［工具篇］Gulp：任务自动管理</span><span class="pl__date">2015-05-21</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/21/grunt/" title="［工具篇］Grunt">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">［工具篇］Grunt</span><span class="pl__date">2015-05-21</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/21/bower/" title="［工具篇］Bower">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">［工具篇］Bower</span><span class="pl__date">2015-05-21</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/20/process/" title="process 对象">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">process 对象</span><span class="pl__date">2015-05-20</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/20/packagejson/" title="package.json 文件">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">package.json 文件</span><span class="pl__date">2015-05-20</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/20/npm/" title="npm模块管理器">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">npm模块管理器</span><span class="pl__date">2015-05-20</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/20/fs/" title="fs 模块">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">fs 模块</span><span class="pl__date">2015-05-20</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/19/nodejs-basic/" title="Node.js 概述">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">Node.js 概述</span><span class="pl__date">2015-05-19</span>
+                </a>
+            
+                <a class="nodejs pl__all" href="/2015/05/18/commonjs/" title="CommonJS规范">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">CommonJS规范</span><span class="pl__date">2015-05-18</span>
+                </a>
+            
+      
+            
+                <a class="移动端 pl__all" href="/2015/08/20/ios-app-depolyment/" title="ios app 发布模式">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">ios app 发布模式</span><span class="pl__date">2015-08-20</span>
+                </a>
+            
+                <a class="移动端 pl__all" href="/2015/08/19/ios-app-publish/" title="ios app 发布流程">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">ios app 发布流程</span><span class="pl__date">2015-08-19</span>
+                </a>
+            
+                <a class="移动端 pl__all" href="/2015/08/06/ionic&&phonegap/" title="ionic">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">ionic</span><span class="pl__date">2015-08-06</span>
+                </a>
+            
+      
+            
+                <a class="技术综合 pl__all" href="/2015/08/19/makefile&shell/" title="makefile和shell脚本的区别">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">makefile和shell脚本的区别</span><span class="pl__date">2015-08-19</span>
+                </a>
+            
+                <a class="技术综合 pl__all" href="/2015/07/30/git/" title="git操作技巧">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">git操作技巧</span><span class="pl__date">2015-07-30</span>
+                </a>
+            
+                <a class="技术综合 pl__all" href="/2015/06/23/frontend-knowledge-structure/" title="Frontend Knowledge Structure">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">Frontend Knowledge S...</span><span class="pl__date">2015-06-23</span>
+                </a>
+            
+                <a class="技术综合 pl__all" href="/2015/05/29/http-status-code/" title="HTTP Status Code">
+                  
+                  <span class="pl__circle"></span><span class="pl__title">HTTP Status Code</span><span class="pl__date">2015-05-29</span>
+                </a>
+            
+      
+    </nav>
+  </div> <!-- end #posts-list -->
+</aside> <!-- end #sidebar -->
+
+    <div id="post">
+      <div id="pjax">
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-08-19">makefile和shell脚本的区别</h1>
+  <p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
+<hr>
+<ul>
+<li><p>####1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=&#34;/data/&#34;&#10;SUBPATH=$&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>####2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
+<p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
+</li>
+<li><p>####3）通配符区别</p>
+<p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
+</li>
+<li><p>####4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</p>
+<p>比如如下代码就是没有任何输出：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line">echo "$VAR"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo "$VAR"</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>以上代码，在make all的时候将会执行echo命令。</p>
+</li>
+<li><p>####5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
+<p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
+</li>
+<li><p>####6）获取当前目录</p>
+<p>PATH=<code>pwd</code> 注意是``,不是’’</p>
+</li>
+</ul>
+
+</article>
+<div id="post__share">
+    <!-- 打赏入口 -->
+    <a id="icon-heart" class="fontello" href="#"></a>
+</div>
+
+    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网">豆瓣网</a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记">有道云笔记</a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记">印象笔记</a></div>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","bdxc","kaixin001","tqf","tieba","douban","bdhome","sqq","thx","ibaidu","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","mail","isohu","wealink","ty","fbook","twi","linkedin","h163","evernotecn","print"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","weixin","douban","youdao","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'micleewj'; // required: replace example with your forum shortname 这个地方需要改成你配置的网站名
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
+
+        <hr>
+        <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</p>
+      </div>
+      <div id="post__toc-trigger">
+        <div id="post__toc">
+          <span id="post__toc-title">目录</span>
+          <ul id="post__toc-ul"></ul>
+        </div>
+      </div>
+    </div>
+    <button id="js-fullscreen"><span id="icon-arrow" class="fontello"></span></button>
+<script src="/js/js-lib.js" type="text/javascript"></script>
+<script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "//hm.baidu.com/hm.js?a01595b492af7e4a793230e3d49ae638";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+  </body>
+</html>

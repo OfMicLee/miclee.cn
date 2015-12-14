@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-14T02:42:04.000Z</updated>
+  <updated>2015-12-14T07:50:17.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[使用 Spring Security 保护 Web 应用的安全]]></title>
+    <link href="http://miclee.cn/2015/12/14/spring-security/"/>
+    <id>http://miclee.cn/2015/12/14/spring-security/</id>
+    <published>2015-12-14T03:29:16.000Z</published>
+    <updated>2015-12-14T07:50:17.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 安全一直是 Web 应用开发中非常重要的一个方面。从安全的角度来说，需要考虑用户认证和授权两个方面。为 Web 应用增加安全方面的能力并非一件简单的事情，需要考虑不同的认证和授权机制。Spring Security 为使用 Spring 框架的 Web 应用提供了良好的支持。本文将详细介绍如何使用 Spring Security 框架为 Web 应用提供安全支持。 </em></strong><br><a id="more"></a></p>
+<hr>
+<blockquote>
+<p>在 Web 应用开发中，安全一直是非常重要的一个方面。安全虽然属于应用的非功能性需求，但是应该在应用开发的初期就考虑进来。如果在应用开发的后期才考虑安全的问题，就可能陷入一个两难的境地：一方面，应用存在严重的安全漏洞，无法满足用户的要求，并可能造成用户的隐私数据被攻击者窃取；另一方面，应用的基本架构已经确定，要修复安全漏洞，可能需要对系统的架构做出比较重大的调整，因而需要更多的开发时间，影响应用的发布进程。因此，从应用开发的第一天就应该把安全相关的因素考虑进来，并在整个应用的开发过程中。</p>
+</blockquote>
+<h2 id="Spring_Security_简介">Spring Security 简介</h2><p>Spring Security 基于 Spring 框架，提供了一套 Web 应用安全性的完整解决方案。一般来说，Web 应用的安全性包括用户认证（Authentication）和用户授权（Authorization）两个部分。用户认证指的是验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用户名和密码。系统通过校验用户名和密码来完成认证过程。用户授权指的是验证某个用户是否有权限执行某个操作。在一个系统中，不同用户所具有的权限是不同的。比如对一个文件来说，有的用户只能进行读取，而有的用户可以进行修改。一般来说，系统会为不同的用户分配不同的角色，而每个角色则对应一系列的权限。</p>
+<p>对于上面提到的两种应用情景，Spring Security 框架都有很好的支持。在用户认证方面，Spring Security 框架支持主流的认证方式，包括 HTTP 基本认证、HTTP 表单验证、HTTP 摘要认证、OpenID 和 LDAP 等。在用户授权方面，Spring Security 提供了基于角色的访问控制和访问控制列表（Access Control List，ACL），可以对应用中的领域对象进行细粒度的控制。</p>
+<blockquote>
+<p>未完待续。。。。。。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[安全一直是 Web 应用开发中非常重要的一个方面。从安全的角度来说，需要考虑用户认证和授权两个方面。为 Web 应用增加安全方面的能力并非一件简单的事情，需要考虑不同的认证和授权机制。Spring Security 为使用 Spring 框架的 Web 应用提供了良好的支持。本文将详细介绍如何使用 Spring Security 框架为 Web 应用提供安全支持。]]>
+    
+    </summary>
+    
+      <category term="spring" scheme="http://miclee.cn/tags/spring/"/>
+    
+      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[spring-boot-admin 使用介绍]]></title>
@@ -638,71 +666,54 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JAVA的23种设计模式(二)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
+    <title><![CDATA[JAVA的23种设计模式(三)]]></title>
+    <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
+    <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-08-30T07:47:48.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
+    <updated>2015-12-14T02:37:20.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
 <hr>
-<pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
-</code></pre><p>其中对象的适配器模式是各种模式的起源，我们看下面的图：  <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-2.png" alt="结构型模式"></p>
+<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
+<ul>
+<li><p>第一类：通过父类与子类的关系进行实现</p>
+<ul>
+<li>策略模式</li>
+<li>模板方法模式</li>
+</ul>
+</li>
+<li><p>第二类：两个类之间</p>
+<ul>
+<li>观察者模式</li>
+<li>迭代子模式</li>
+<li>责任链模式</li>
+<li>命令模式</li>
+</ul>
+</li>
+<li><p>第三类：类的状态</p>
+<ul>
+<li>备忘录模式</li>
+<li>状态模式</li>
+</ul>
+</li>
+<li><p>第四类：通过中间类</p>
+<ul>
+<li>访问者模式</li>
+<li>中介者模式</li>
+<li>解释器模式</li>
+</ul>
+</li>
+</ul>
 <ol>
-<li><p>适配器模式（Adapter）</p>
-<p>适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。</p>
-<ul>
-<li>类的适配器模式</li>
-</ul>
-<p>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Source类，拥有一个方法，待适配</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      System.out.println(<span class="string">"this is original method!"</span>);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//目标接口 Targetable，即期望拥有的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* 与原类中的方法相同 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">/* 新类的方法 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter类继承Source类，实现Targetable接口，这样Targetable接口的实现类就具有了Source类的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对象的适配器模式  </li>
-</ul>
-<p>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wrapper</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Wrapper</span><span class="params">(Source source)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		source.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>接口的适配器模式（<strong>常用</strong>）</li>
-</ul>
-<p>这种模式比较常见，就是在接口和实现类之间增加一个抽象类来实现公共部分功能，子类继承抽象类，只需要实现抽象类里未实现的接口方法即可。</p>
+<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
 </li>
-<li><p>装饰模式</p>
-<p>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"the original method!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Sourceable source;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Sourceable source)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.source = source;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"before decorator!"</span>);  </span><br><span class="line">        source.method();  </span><br><span class="line">        System.out.println(<span class="string">"after decorator!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>应用场景：<ul>
-<li>需要扩展一个类的功能。</li>
-<li>动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）</li>
-</ul>
+<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
 </li>
-<li>缺点：产生过多相似的对象，不易排错！</li>
-</ul>
-</li>
-<li><p>代理模式（Proxy）</p>
-<p>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作。<br>代理模式和装饰的区别在于：<br>装饰模式是将功能类实例化出来后交给装饰类去补充功能；<br>代理模式是在代理类内部去实例化功能类，调用者不用关心功能类，完全交给代理类；<br>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = <span class="keyword">new</span> Source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"before proxy!"</span>);</span><br><span class="line">		source.method();</span><br><span class="line">    System.out.println(<span class="string">"after proxy!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>外观模式（Facade）</p>
-<p>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-facade.png" alt="外观模式"></p>
-<p>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式。</p>
-</li>
-</ol>
-<p>10、桥接模式（Bridge）</p>
-<p>  桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。<br>  如下：</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Bridge bridge = <span class="keyword">new</span> MyBridge();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第一个对象*/</span></span><br><span class="line">		Sourceable source1 = <span class="keyword">new</span> SourceSub1();</span><br><span class="line">		bridge.setSource(source1);</span><br><span class="line">		bridge.method();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第二个对象*/</span></span><br><span class="line">		Sourceable source2 = <span class="keyword">new</span> SourceSub2();</span><br><span class="line">		bridge.setSource(source2);</span><br><span class="line">		bridge.method();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。</p>
-<ol>
-<li><p>组合模式（Composite）</p>
-<p>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> TreeNode parent;</span><br><span class="line">	<span class="keyword">private</span> Vector&lt;TreeNode&gt; children = <span class="keyword">new</span> Vector&lt;TreeNode&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TreeNode <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParent</span><span class="params">(TreeNode parent)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.add(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.remove(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//取得孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Enumeration&lt;TreeNode&gt; <span class="title">getChildren</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> children.elements();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//树</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">	TreeNode root = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tree</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TreeNode(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Tree tree = <span class="keyword">new</span> Tree(<span class="string">"A"</span>);</span><br><span class="line">		TreeNode nodeB = <span class="keyword">new</span> TreeNode(<span class="string">"B"</span>);</span><br><span class="line">		TreeNode nodeC = <span class="keyword">new</span> TreeNode(<span class="string">"C"</span>);</span><br><span class="line"></span><br><span class="line">		nodeB.add(nodeC);</span><br><span class="line">		tree.root.add(nodeB);</span><br><span class="line">		System.out.println(<span class="string">"build the tree finished!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。</p>
-</li>
-<li><p>享元模式（Flyweight）</p>
-<p>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br>最典型的使用场景：数据库连接池的实现。</p>
+<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
 </li>
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[结构型模式 七种]]>
+    <![CDATA[行为型模式 11种]]>
     
     </summary>
     
@@ -834,54 +845,71 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JAVA的23种设计模式(三)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
+    <title><![CDATA[JAVA的23种设计模式(二)]]></title>
+    <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
+    <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-14T02:37:20.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
+    <updated>2015-08-30T07:47:48.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
 <hr>
-<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
-<ul>
-<li><p>第一类：通过父类与子类的关系进行实现</p>
-<ul>
-<li>策略模式</li>
-<li>模板方法模式</li>
-</ul>
-</li>
-<li><p>第二类：两个类之间</p>
-<ul>
-<li>观察者模式</li>
-<li>迭代子模式</li>
-<li>责任链模式</li>
-<li>命令模式</li>
-</ul>
-</li>
-<li><p>第三类：类的状态</p>
-<ul>
-<li>备忘录模式</li>
-<li>状态模式</li>
-</ul>
-</li>
-<li><p>第四类：通过中间类</p>
-<ul>
-<li>访问者模式</li>
-<li>中介者模式</li>
-<li>解释器模式</li>
-</ul>
-</li>
-</ul>
+<pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
+</code></pre><p>其中对象的适配器模式是各种模式的起源，我们看下面的图：  <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-2.png" alt="结构型模式"></p>
 <ol>
-<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
+<li><p>适配器模式（Adapter）</p>
+<p>适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。</p>
+<ul>
+<li>类的适配器模式</li>
+</ul>
+<p>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Source类，拥有一个方法，待适配</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      System.out.println(<span class="string">"this is original method!"</span>);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//目标接口 Targetable，即期望拥有的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* 与原类中的方法相同 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">/* 新类的方法 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter类继承Source类，实现Targetable接口，这样Targetable接口的实现类就具有了Source类的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对象的适配器模式  </li>
+</ul>
+<p>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wrapper</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Wrapper</span><span class="params">(Source source)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		source.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>接口的适配器模式（<strong>常用</strong>）</li>
+</ul>
+<p>这种模式比较常见，就是在接口和实现类之间增加一个抽象类来实现公共部分功能，子类继承抽象类，只需要实现抽象类里未实现的接口方法即可。</p>
 </li>
-<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
+<li><p>装饰模式</p>
+<p>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"the original method!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Sourceable source;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Sourceable source)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.source = source;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"before decorator!"</span>);  </span><br><span class="line">        source.method();  </span><br><span class="line">        System.out.println(<span class="string">"after decorator!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用场景：<ul>
+<li>需要扩展一个类的功能。</li>
+<li>动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）</li>
+</ul>
 </li>
-<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
+<li>缺点：产生过多相似的对象，不易排错！</li>
+</ul>
+</li>
+<li><p>代理模式（Proxy）</p>
+<p>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作。<br>代理模式和装饰的区别在于：<br>装饰模式是将功能类实例化出来后交给装饰类去补充功能；<br>代理模式是在代理类内部去实例化功能类，调用者不用关心功能类，完全交给代理类；<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = <span class="keyword">new</span> Source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"before proxy!"</span>);</span><br><span class="line">		source.method();</span><br><span class="line">    System.out.println(<span class="string">"after proxy!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>外观模式（Facade）</p>
+<p>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-facade.png" alt="外观模式"></p>
+<p>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式。</p>
+</li>
+</ol>
+<p>10、桥接模式（Bridge）</p>
+<p>  桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。<br>  如下：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Bridge bridge = <span class="keyword">new</span> MyBridge();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第一个对象*/</span></span><br><span class="line">		Sourceable source1 = <span class="keyword">new</span> SourceSub1();</span><br><span class="line">		bridge.setSource(source1);</span><br><span class="line">		bridge.method();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第二个对象*/</span></span><br><span class="line">		Sourceable source2 = <span class="keyword">new</span> SourceSub2();</span><br><span class="line">		bridge.setSource(source2);</span><br><span class="line">		bridge.method();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。</p>
+<ol>
+<li><p>组合模式（Composite）</p>
+<p>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> TreeNode parent;</span><br><span class="line">	<span class="keyword">private</span> Vector&lt;TreeNode&gt; children = <span class="keyword">new</span> Vector&lt;TreeNode&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TreeNode <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParent</span><span class="params">(TreeNode parent)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.add(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.remove(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//取得孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Enumeration&lt;TreeNode&gt; <span class="title">getChildren</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> children.elements();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//树</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">	TreeNode root = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tree</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TreeNode(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Tree tree = <span class="keyword">new</span> Tree(<span class="string">"A"</span>);</span><br><span class="line">		TreeNode nodeB = <span class="keyword">new</span> TreeNode(<span class="string">"B"</span>);</span><br><span class="line">		TreeNode nodeC = <span class="keyword">new</span> TreeNode(<span class="string">"C"</span>);</span><br><span class="line"></span><br><span class="line">		nodeB.add(nodeC);</span><br><span class="line">		tree.root.add(nodeB);</span><br><span class="line">		System.out.println(<span class="string">"build the tree finished!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。</p>
+</li>
+<li><p>享元模式（Flyweight）</p>
+<p>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br>最典型的使用场景：数据库连接池的实现。</p>
 </li>
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[行为型模式 11种]]>
+    <![CDATA[结构型模式 七种]]>
     
     </summary>
     
@@ -1016,51 +1044,6 @@
   </entry>
   
   <entry>
-    <title><![CDATA[makefile和shell脚本的区别]]></title>
-    <link href="http://miclee.cn/2015/08/19/makefile&shell/"/>
-    <id>http://miclee.cn/2015/08/19/makefile&shell/</id>
-    <published>2015-08-18T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
-<hr>
-<ul>
-<li><p>####1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=&#34;/data/&#34;&#10;SUBPATH=$&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>####2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
-<p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
-</li>
-<li><p>####3）通配符区别</p>
-<p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
-</li>
-<li><p>####4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</p>
-<p>比如如下代码就是没有任何输出：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line">echo "$VAR"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo "$VAR"</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>以上代码，在make all的时候将会执行echo命令。</p>
-</li>
-<li><p>####5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
-<p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
-</li>
-<li><p>####6）获取当前目录</p>
-<p>PATH=<code>pwd</code> 注意是``,不是’’</p>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。]]>
-    
-    </summary>
-    
-      <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[ios app 发布流程]]></title>
     <link href="http://miclee.cn/2015/08/19/ios-app-publish/"/>
     <id>http://miclee.cn/2015/08/19/ios-app-publish/</id>
@@ -1186,6 +1169,51 @@
       <category term="ios-app-publish" scheme="http://miclee.cn/tags/ios-app-publish/"/>
     
       <category term="移动端" scheme="http://miclee.cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[makefile和shell脚本的区别]]></title>
+    <link href="http://miclee.cn/2015/08/19/makefile&shell/"/>
+    <id>http://miclee.cn/2015/08/19/makefile&shell/</id>
+    <published>2015-08-18T16:00:00.000Z</published>
+    <updated>2015-08-27T07:20:02.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
+<hr>
+<ul>
+<li><p>####1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=&#34;/data/&#34;&#10;SUBPATH=$&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>####2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
+<p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
+</li>
+<li><p>####3）通配符区别</p>
+<p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
+</li>
+<li><p>####4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</p>
+<p>比如如下代码就是没有任何输出：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line">echo "$VAR"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo "$VAR"</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
+<p>以上代码，在make all的时候将会执行echo命令。</p>
+</li>
+<li><p>####5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</p>
+<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
+<p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
+</li>
+<li><p>####6）获取当前目录</p>
+<p>PATH=<code>pwd</code> 注意是``,不是’’</p>
+</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。]]>
+    
+    </summary>
+    
+      <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
     
   </entry>
   
@@ -1436,7 +1464,7 @@
     <link href="http://miclee.cn/2015/07/30/git/"/>
     <id>http://miclee.cn/2015/07/30/git/</id>
     <published>2015-07-29T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
+    <updated>2015-12-14T03:22:25.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 主要自己的使用笔记，不用到处去查 </em></strong><br><a id="more"></a></p>
 <hr>
 <h3 id="摘取分支上部分功能上线：">摘取分支上部分功能上线：</h3><p><strong><em>基于某个提交点构建分支,再合入主干的某一个commit</em></strong></p>
@@ -2061,414 +2089,6 @@
       <category term="nodejs" scheme="http://miclee.cn/tags/nodejs/"/>
     
       <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[atom 快捷键]]></title>
-    <link href="http://miclee.cn/2015/07/02/atom-keyboard-shortcuts/"/>
-    <id>http://miclee.cn/2015/07/02/atom-keyboard-shortcuts/</id>
-    <published>2015-07-01T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> A hackable text editor for the 21st Century </em></strong><br><a id="more"></a></p>
-<hr>
-<h1 id="Atom_Keyboard_Shortcuts">Atom Keyboard Shortcuts</h1><p>This page lists keyboard shortcuts for the <a href="https://atom.io" target="_blank" rel="external">Atom text editor</a> that I find valuable and use a lot. Feel free to fork the page and add your own favorites. Pull Requests welcome!</p>
-<p>This list is by no means meant to be a complete listing of every available shortcut. It simply lists the shortcuts that I use on a regular basis. For a complete listing of all available shortcuts, consult the <em>Settings &gt; Keybindings</em> page in Atom.</p>
-<p>Since I’m using a Mac, I have mainly listed the keyboard shortcuts for Mac OS X. Please feel free to add the Windows or Linux shortcuts.</p>
-<p>Where the shortcut is provided by a package, I have added a link to the package.</p>
-<h2 id="General">General</h2><p>Some general keyboard shortcuts that I use frequently.</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Mac OS X</th>
-<th>Windows</th>
-<th>Linux</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Preferences/Settings</td>
-<td><code>cmd-,</code></td>
-<td><code>ctrl-,</code></td>
-<td><code>ctrl-,</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Command Palette</td>
-<td><code>shift-cmd-p</code></td>
-<td><code>shift-ctrl-p</code></td>
-<td><code>ctrl-shift-p</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Open File (Fuzzy)</td>
-<td><code>cmd-p</code></td>
-<td><code>ctrl-p</code></td>
-<td><code>ctrl-p</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Browse Open Files</td>
-<td><code>cmd-b</code></td>
-<td><code>ctrl-b</code></td>
-<td><code>ctrl-b</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Grammar Selector</td>
-<td><code>ctrl-shift-l</code></td>
-<td><code>ctrl-shift-l</code></td>
-<td><code>ctrl-shift-l</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Markdown Preview</td>
-<td><code>ctrl-shift-m</code></td>
-<td><code>ctrl-shift-m</code></td>
-<td><code>ctrl-shift-m</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Key Binding Resolver</td>
-<td><code>cmd-.</code></td>
-<td><code>ctrl-.</code></td>
-<td><code>ctrl-.</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Toggle Tree View</td>
-<td><code>cmd-k cmd-b</code></td>
-<td><code>ctrl-k ctrl-b</code></td>
-<td><code>ctrl-k ctrl-b</code><br>or<br><code>ctrl-\</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Reload Atom</td>
-<td><code>ctrl-alt-cmd-l</code></td>
-<td><code>alt-ctrl-r</code></td>
-<td><code>alt-ctrl-r</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Open Link</td>
-<td><code>ctrl-shift-o</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Toggle Developer Tools</td>
-<td><code>alt-cmd-i</code></td>
-<td><code>ctrl-alt-i</code></td>
-<td><code>ctrl-shift-i</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Show Available Snippets</td>
-<td><code>alt-shift-s</code></td>
-<td><code>alt-shift-s</code></td>
-<td><code>alt-shift-s</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="Window_Management">Window Management</h2><table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Mac OS X</th>
-<th>Windows</th>
-<th>Linux</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>New File</td>
-<td><code>cmd-n</code></td>
-<td><code>ctrl-n</code></td>
-<td><code>ctrl-n</code></td>
-<td></td>
-</tr>
-<tr>
-<td>New Window</td>
-<td><code>shift-cmd-n</code></td>
-<td><code>ctrl-shift-n</code></td>
-<td><code>ctrl-shift-n</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Open</td>
-<td><code>cmd-o</code></td>
-<td><code>ctrl-o</code></td>
-<td><code>ctrl-o</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Open Folder</td>
-<td></td>
-<td><code>ctrl-shift-o</code></td>
-<td><code>ctrl-shift-o</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Save</td>
-<td><code>cmd-s</code></td>
-<td><code>ctrl-s</code></td>
-<td><code>ctrl-s</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Save As</td>
-<td><code>shift-cmd-s</code></td>
-<td><code>ctrl-shift-s</code></td>
-<td><code>ctrl-shift-s</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Save All</td>
-<td><code>alt-cmd-s</code></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Close Tab</td>
-<td><code>cmd-w</code></td>
-<td><code>ctrl-w</code></td>
-<td><code>ctrl-w</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Close Window</td>
-<td><code>shift-cmd-w</code></td>
-<td><code>ctrl-shift-w</code></td>
-<td><code>ctrl-shift-w</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="Editing">Editing</h2><table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Mac OS X</th>
-<th>Windows</th>
-<th>Linux</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Duplicate Lines</td>
-<td><code>shift-cmd-d</code></td>
-<td><code>ctrl-shift-d</code></td>
-<td><code>ctrl-shift-d</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Delete Line</td>
-<td><code>ctrl-shift-k</code></td>
-<td><code>ctrl-shift-k</code></td>
-<td><code>ctrl-shift-k</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Move Line Up</td>
-<td><code>ctrl-cmd-up</code></td>
-<td><code>ctrl-up</code></td>
-<td><code>ctrl-up</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Move Line Down</td>
-<td><code>ctrl-cmd-down</code></td>
-<td><code>ctrl-down</code></td>
-<td><code>ctrl-down</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Find/Replace</td>
-<td><code>cmd-f</code></td>
-<td><code>ctrl-f</code></td>
-<td><code>ctrl-f</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Find Next</td>
-<td><code>cmd-g</code></td>
-<td><code>F3</code></td>
-<td><code>F3</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Find Previous</td>
-<td></td>
-<td><code>shift-F3</code></td>
-<td><code>shift-F3</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Find in Project</td>
-<td><code>shift-cmd-f</code></td>
-<td><code>ctrl-shift-f</code></td>
-<td><code>ctrl-shift-f</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Go To Line</td>
-<td><code>ctrl-g</code></td>
-<td><code>ctrl-g</code></td>
-<td><code>ctrl-g</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Go To Matching Bracket</td>
-<td><code>ctrl-m</code></td>
-<td><code>ctrl-m</code></td>
-<td><code>ctrl-m</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Select Line</td>
-<td><code>cmd-l</code></td>
-<td><code>ctrl-l</code></td>
-<td><code>ctrl-l</code></td>
-<td></td>
-</tr>
-<tr>
-<td>Toggle Comment</td>
-<td><code>cmd-/</code></td>
-<td><code>ctrl-/</code></td>
-<td><code>ctrl-/</code></td>
-</tr>
-</tbody>
-</table>
-<h2 id="Various_Packages">Various Packages</h2><p>These are some packages I find useful, and their most useful key bindings. A list of my favorite packages can be found <a href="https://atom.io/users/nwinkler/stars" target="_blank" rel="external">here</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Mac OS X</th>
-<th>Windows</th>
-<th>Linux</th>
-<th>Package</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Block Travel up/down</td>
-<td><code>alt-up</code>, <code>alt-down</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/block-travel" target="_blank" rel="external">Block Travel</a></td>
-</tr>
-<tr>
-<td>Beautify</td>
-<td><code>ctrl-alt-b</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/atom-beautify" target="_blank" rel="external">Beautify</a></td>
-</tr>
-<tr>
-<td>Incremental Search</td>
-<td><code>cmd-i</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/incremental-search" target="_blank" rel="external">Incremental Search</a></td>
-</tr>
-<tr>
-<td>Git Plus Menu</td>
-<td><code>shift-cmd-h</code></td>
-<td><code>ctrl-shift-h</code></td>
-<td><code>ctrl-shift-h</code></td>
-<td><a href="https://atom.io/packages/git-plus" target="_blank" rel="external">Git Plus</a></td>
-</tr>
-<tr>
-<td>Jumpy</td>
-<td><code>shift-enter</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/jumpy" target="_blank" rel="external">Jumpy</a></td>
-</tr>
-<tr>
-<td>Minimap Toggle</td>
-<td><code>ctrl-k ctrl-m</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/minimap" target="_blank" rel="external">Minimap</a></td>
-</tr>
-<tr>
-<td>Open File in Browser</td>
-<td><code>ctrl-alt-m</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/open-in-browser" target="_blank" rel="external">Open in Browser</a></td>
-</tr>
-<tr>
-<td>Run Script</td>
-<td><code>ctrl-cmd-i</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/script" target="_blank" rel="external">Script</a> - Keybinding remapped from original <code>cmd-i</code> to avoid conflict with Incremental Search</td>
-</tr>
-<tr>
-<td>Open Terminal</td>
-<td><code>ctrl-alt-t</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/term2" target="_blank" rel="external">Term2</a></td>
-</tr>
-<tr>
-<td>Open Project</td>
-<td><code>ctrl-cmd-p</code></td>
-<td><code>ctrl-alt-shift-p</code></td>
-<td><code>ctrl-alt-shift-p</code></td>
-<td><a href="https://atom.io/packages/project-manager" target="_blank" rel="external">Project Manager</a></td>
-</tr>
-<tr>
-<td>Open In</td>
-<td><code>ctrl-alt-o</code></td>
-<td></td>
-<td></td>
-<td><a href="https://atom.io/packages/open-in" target="_blank" rel="external">Open In</a></td>
-</tr>
-</tbody>
-</table>
-<h2 id="apm">apm</h2><p><code>apm</code> is Atom’s package manager, based on Node’s <code>npm</code> tool.</p>
-<table>
-<thead>
-<tr>
-<th>Command</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>apm upgrade</code></td>
-<td>Updates all locally installed packages</td>
-</tr>
-<tr>
-<td><code>apm stars --install</code></td>
-<td>Installs/updates all packages that you have marked as a favorite (<em>starred</em>) in your Atom.io profile</td>
-</tr>
-<tr>
-<td><code>apm publish minor</code></td>
-<td>If you’re developing your own package, run this in the package’s directory to publish a new version of the package, increasing the minor version number by one.</td>
-</tr>
-</tbody>
-</table>
-]]></content>
-    <summary type="html">
-    <![CDATA[A hackable text editor for the 21st Century]]>
-    
-    </summary>
-    
-      <category term="atom" scheme="http://miclee.cn/tags/atom/"/>
-    
-      <category term="ide" scheme="http://miclee.cn/tags/ide/"/>
-    
-      <category term="blog" scheme="http://miclee.cn/categories/blog/"/>
     
   </entry>
   

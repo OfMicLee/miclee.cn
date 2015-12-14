@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-11-28T08:47:50.000Z</updated>
+  <updated>2015-12-14T02:42:04.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://miclee.cn/2015/11/28/spring-boot-admin/"/>
     <id>http://miclee.cn/2015/11/28/spring-boot-admin/</id>
     <published>2015-11-28T07:48:35.000Z</published>
-    <updated>2015-11-28T08:47:50.000Z</updated>
+    <updated>2015-12-14T02:42:04.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> spring-boot应用监控平台 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>spring-boot应用监控平台使用方法简介：</p>
@@ -55,6 +55,8 @@
     <![CDATA[spring-boot应用监控平台]]>
     
     </summary>
+    
+      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
     
   </entry>
   
@@ -836,8 +838,8 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-08-30T08:13:40.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
+    <updated>2015-12-14T02:37:20.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
 <ul>
@@ -879,7 +881,7 @@
 </ol>
 ]]></content>
     <summary type="html">
-    <![CDATA[结构型模式 七种]]>
+    <![CDATA[行为型模式 11种]]>
     
     </summary>
     
@@ -1192,11 +1194,10 @@
     <link href="http://miclee.cn/2015/08/10/spring-boot/"/>
     <id>http://miclee.cn/2015/08/10/spring-boot/</id>
     <published>2015-08-09T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
+    <updated>2015-12-14T02:41:53.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 使用spring-boot快速创建和运行一个spring 应用 </em></strong><br><a id="more"></a></p>
 <hr>
-<p>##Spring自动化框架</p>
-<p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
+<h2 id="Spring自动化框架">Spring自动化框架</h2><p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
 <p>针对这个问题spring开源社区一直都在持续不断地进行探索，提供相应的解决方案。</p>
 <ul>
 <li><p>grails  </p>
@@ -1209,9 +1210,7 @@
 <p>spring-boot 是spring社区今年推出的一个新项目，其主要目的也是提高生产率，尤其是快速创建和运行一个spring 应用。</p>
 </li>
 </ul>
-<p>##spring-boot</p>
-<p>###spring-boot功能特性</p>
-<ul>
+<h2 id="spring-boot">spring-boot</h2><h3 id="spring-boot功能特性">spring-boot功能特性</h3><ul>
 <li><p>创建独立运行的spring应用</p>
 <p>使用spring-boot，可将整个spring应用打包为一个独立的jar文件，内嵌tomcat或者jetty容器。通过 java -jar xxx.jar 即可运行，免去了部署到应用服务器的步骤。</p>
 </li>
@@ -1230,8 +1229,7 @@
 <p>spring-boot无代码生成，所有的配置可通过代码完成（spring 的javaconfig），不需要使用xml（虽然可以使用）。</p>
 </li>
 </ul>
-<p>###spring-boot组件</p>
-<p>spring-boot项目分为几个不同的组件，下面是每个组件的说明：</p>
+<h3 id="spring-boot组件">spring-boot组件</h3><p>spring-boot项目分为几个不同的组件，下面是每个组件的说明：</p>
 <ul>
 <li>spring-boot SpringBootApplication</li>
 </ul>
@@ -1270,7 +1268,7 @@
     
       <category term="spring-boot" scheme="http://miclee.cn/tags/spring-boot/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
     
   </entry>
   

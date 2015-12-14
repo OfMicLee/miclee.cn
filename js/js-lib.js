@@ -28,7 +28,7 @@ function titleClick(){
 }
 
 $().ready(function(){
-    titleClick();
+    // titleClick();
     afterPjax();
     NProgress.done();
 });

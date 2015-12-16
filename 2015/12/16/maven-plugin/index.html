@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>spring-boot快速开发spring应用</title>
+<title>常用Maven插件介绍</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="使用spring-boot快速创建和运行一个spring 应用">
+<meta name="description " content="Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，例如编译源代码是由maven-compiler-plugin完成的。进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。">
 
 <link rel="icon" href="/favicon.png">
 
@@ -242,70 +242,41 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-08-10">spring-boot快速开发spring应用</h1>
-  <p><strong><em> 使用spring-boot快速创建和运行一个spring 应用 </em></strong><br><a id="more"></a></p>
+  <h1 id="post__title" data-identifier="2015-12-16">常用Maven插件介绍</h1>
+  <p><strong><em> Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，例如编译源代码是由maven-compiler-plugin完成的。进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="Spring自动化框架">Spring自动化框架</h2><p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
-<p>针对这个问题spring开源社区一直都在持续不断地进行探索，提供相应的解决方案。</p>
-<ul>
-<li><p>grails  </p>
-<p>使用groovy语言，封装了spring，提供了一个高效的全栈框架，在开发效率方面可媲美ROR，但运行时性能比ROR要高很多。grails用户群较大，目前开发社区比较活跃。</p>
-</li>
-<li><p>spring roo</p>
-<p>在spring之上提供一个纯java的封装，使用到了osgi，aspectj等技术，提供类似ROR的开发模式，但未成功推广，用户不多，目前开发基本停滞。</p>
-</li>
-<li><p>spring-boot</p>
-<p>spring-boot 是spring社区今年推出的一个新项目，其主要目的也是提高生产率，尤其是快速创建和运行一个spring 应用。</p>
-</li>
-</ul>
-<h2 id="spring-boot">spring-boot</h2><h3 id="spring-boot功能特性">spring-boot功能特性</h3><ul>
-<li><p>创建独立运行的spring应用</p>
-<p>使用spring-boot，可将整个spring应用打包为一个独立的jar文件，内嵌tomcat或者jetty容器。通过 java -jar xxx.jar 即可运行，免去了部署到应用服务器的步骤。</p>
-</li>
-<li><p>启动器</p>
-<p>针对典型的应用需求，提供了一些标准的启动器配置，声明对这些启动器的依赖即可获得相关功能。例如如果需要使用jpa进行数据访问，仅需加入</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;project.groupId&#125;</span><br><span class="line"><span class="title">spring</span>-boot-starter-<span class="typedef"><span class="keyword">data</span>-jpa</span></span><br></pre></td></tr></table></figure>
-<p>spring-boot会自动配置通过jpa进行数据访问需要的bean。  </p>
-</li>
-<li><p>自动配置spring</p>
-<p>spring-boot会根据classpath包含的内容自动推测用户的需求并自动配置。例如如果在classpath包含了hsqldb，并且用户未配置数据库连接，spring-boot将会配置一个hsqldb内存数据库和数据源。</p>
-</li>
-<li><p>自动生成生产环境需要的特性</p>
-<p>spring-boot能够为应用自动加入一些典型的生产环境下的功能特性，例如：外部配置，安全，日志，管理，审计等。</p>
-</li>
-<li><p>无代码生成，无xml配置需求</p>
-<p>spring-boot无代码生成，所有的配置可通过代码完成（spring 的javaconfig），不需要使用xml（虽然可以使用）。</p>
-</li>
-</ul>
-<h3 id="spring-boot组件">spring-boot组件</h3><p>spring-boot项目分为几个不同的组件，下面是每个组件的说明：</p>
-<ul>
-<li>spring-boot SpringBootApplication</li>
-</ul>
-<p>提供静态方法，用于开发独立运行的应用<br>嵌入容器配置，tomcat或者jetty<br>外部配置支持，从命令行，属性文件读取配置<br>spring context 的初始化  </p>
-<ul>
-<li>spring-boot-autoconfigure</li>
-</ul>
-<p>自动配置框架：根据classpath推测用户需要的功能并自动配置。例如如果在classpath 包含了  HSQLDB，并且没有配置数据库连接，spring-boot-autoconfig将自动配置一个内存数据库。spring-boot-autoconfigure使用spring 的javaconfig功能，为一个 @Configuration 类加上 @Conditional注解，注解声明的条件满足时,配置就会生效。用户可编写自己的配置类对自动配置进行扩展。</p>
-<ul>
-<li>spring-boot-starters</li>
-</ul>
-<p>一组预定义的依赖，添加不同类型的应用功能。例如如果需要jpa数据访问，加入 spring-boot-starter-data-jpa</p>
-<ul>
-<li>spring-boot cli</li>
-</ul>
-<p>一个命令行工具，可以直接运行一个groovy脚本作为spring 应用。例如以下groovy代码定义<br>了一个spring mvc controller，通过运行  spring run HelloController.groovy 即可运行一个spring web 应用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>groovy语言语法非常类似java语言，大部分代码都可以直接拷贝使用。spring-boot cli提供的功能非常适用于快速原型开发，以及在开发环境中搭建测试/模拟服务器等。（今年一个国人开发的开源项目 moco获得了“ duke选择奖”，moco的主要功能就是搭建测试/模拟服务器，借助于spring-boot cli，只需要用java语言，几分钟之内也可以搭建一个测试/模拟服务器）  </p>
-<ul>
-<li>spring-boot-actuator</li>
-</ul>
-<p>提供更多面向生产环境的支持，安全，日志，管理，审计。</p>
-<ul>
-<li>spring-boot-loader</li>
-</ul>
-<p>使用java -jar xxx.jar 运行应用的实现，对打包文件格式进行了定义。一般通过gradle插件或者 maven插件使用。这两个插件提供了在gradle和maven构建系统中使用spring-boot的功能。使用你的IDE创建一个普通的java 项目，加入这两个插件即可在项目中引入spring-boot。下面是使用java语言开发的controller：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="annotation">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication.run(SampleController.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>相比较groovy而言，java语言开发的代码中需要包含一个 main 静态执行入口，在其中调用 SpringApplication.run 方法启动spring 应用。<br>对于包含上述代码的项目使用gradle和maven插件，可以将spring应用打包成为一个单独的jar文件，然后使用<br>java -jar xxxx.jar 执行。</p>
+<blockquote>
+<p>多年来Maven社区积累了大量的经验，并随之形成了一个成熟的插件生态圈。Maven官方有两个插件列表，第一个列表的GroupId为org.apache.maven.plugins，这里的插件最为成熟，具体地址为：<a href="http://maven.apache.org/plugins/index.html" target="_blank" rel="external">http://maven.apache.org/plugins/index.html</a>。第二个列表的GroupId为org.codehaus.mojo，这里的插件没有那么核心，但也有不少十分有用，其地址为：<a href="http://mojo.codehaus.org/plugins.html" target="_blank" rel="external">http://mojo.codehaus.org/plugins.html</a>。</p>
+</blockquote>
+<h2 id="maven-antrun-plugin">maven-antrun-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-antrun-plugin" target="_blank" rel="external">http://maven.apache.org/plugins/maven-antrun-plugin</a></p>
+<p>maven-antrun-plugin能让用户在Maven项目中运行Ant任务。用户可以直接在该插件的配置以Ant的方式编写Target，然后交给该插件的run目标去执行。在一些由Ant往Maven迁移的项目中，该插件尤其有用。此外当你发现需要编写一些自定义程度很高的任务，同时又觉得Maven不够灵活时，也可以以Ant的方式实现之。maven-antrun-plugin的run目标通常与生命周期绑定运行。</p>
+<h2 id="maven-archetype-plugin">maven-archetype-plugin</h2><p><a href="http://maven.apache.org/archetype/maven-archetype-plugin/" target="_blank" rel="external">http://maven.apache.org/archetype/maven-archetype-plugin/</a></p>
+<p>Archtype指项目的骨架，Maven初学者最开始执行的Maven命令可能就是mvn archetype:generate，这实际上就是让maven-archetype-plugin生成一个很简单的项目骨架，帮助开发者快速上手。可能也有人看到一些文档写了mvn archetype:create，但实际上create目标已经被弃用了，取而代之的是generate目标，该目标使用交互式的方式提示用户输入必要的信息以创建项目，体验更好。maven-archetype-plugin还有一些其他目标帮助用户自己定义项目原型，例如你由一个产品需要交付给很多客户进行二次开发，你就可以为他们提供一个Archtype，帮助他们快速上手。</p>
+<h2 id="maven-dependency-plugin">maven-dependency-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-dependency-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-dependency-plugin/</a></p>
+<p>maven-dependency-plugin最大的用途是帮助分析项目依赖，dependency:list能够列出项目最终解析到的依赖列表，dependency:tree能进一步的描绘项目依赖树，dependency:analyze可以告诉你项目依赖潜在的问题，如果你有直接使用到的却未声明的依赖，该目标就会发出警告。maven-dependency-plugin还有很多目标帮助你操作依赖文件，例如dependency:copy-dependencies能将项目依赖从本地Maven仓库复制到某个特定的文件夹下面。</p>
+<h2 id="maven-enforcer-plugin">maven-enforcer-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-enforcer-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-enforcer-plugin/</a></p>
+<p>在一个稍大一点的组织或团队中，你无法保证所有成员都熟悉Maven，那他们做一些比较愚蠢的事情就会变得很正常，例如给项目引入了外部的SNAPSHOT依赖而导致构建不稳定，使用了一个与大家不一致的Maven版本而经常抱怨构建出现诡异问题。maven-enforcer-plugin能够帮助你避免之类问题，它允许你创建一系列规则强制大家遵守，包括设定Java版本、设定Maven版本、禁止某些依赖、禁止SNAPSHOT依赖。只要在一个父POM配置规则，然后让大家继承，当规则遭到破坏的时候，Maven就会报错。除了标准的规则之外，你还可以扩展该插件，编写自己的规则。maven-enforcer-plugin的enforce目标负责检查规则，它默认绑定到生命周期的validate阶段。</p>
+<h2 id="maven-help-plugin">maven-help-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-help-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-help-plugin/</a></p>
+<p>maven-help-plugin是一个小巧的辅助工具，最简单的help:system可以打印所有可用的环境变量和Java系统属性。help:effective-pom和help:effective-settings最为有用，它们分别打印项目的有效POM和有效settings，有效POM是指合并了所有父POM（包括Super POM）后的XML，当你不确定POM的某些信息从何而来时，就可以查看有效POM。有效settings同理，特别是当你发现自己配置的settings.xml没有生效时，就可以用help:effective-settings来验证。此外，maven-help-plugin的describe目标可以帮助你描述任何一个Maven插件的信息，还有all-profiles目标和active-profiles目标帮助查看项目的Profile。</p>
+<h2 id="maven-release-plugin">maven-release-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-release-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-release-plugin/</a></p>
+<p>maven-release-plugin的用途是帮助自动化项目版本发布，它依赖于POM中的SCM信息。release:prepare用来准备版本发布，具体的工作包括检查是否有未提交代码、检查是否有SNAPSHOT依赖、升级项目的SNAPSHOT版本至RELEASE版本、为项目打标签等等。release:perform则是签出标签中的RELEASE源码，构建并发布。版本发布是非常琐碎的工作，它涉及了各种检查，而且由于该工作仅仅是偶尔需要，因此手动操作很容易遗漏一些细节，maven-release-plugin让该工作变得非常快速简便，不易出错。maven-release-plugin的各种目标通常直接在命令行调用，因为版本发布显然不是日常构建生命周期的一部分。</p>
+<h2 id="maven-resources-plugin">maven-resources-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-resources-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-resources-plugin/</a></p>
+<p>为了使项目结构更为清晰，Maven区别对待Java代码文件和资源文件，maven-compiler-plugin用来编译Java代码，maven-resources-plugin则用来处理资源文件。默认的主资源文件目录是src/main/resources，很多用户会需要添加额外的资源文件目录，这个时候就可以通过配置maven-resources-plugin来实现。此外，资源文件过滤也是Maven的一大特性，你可以在资源文件中使用${propertyName}形式的Maven属性，然后配置maven-resources-plugin开启对资源文件的过滤，之后就可以针对不同环境通过命令行或者Profile传入属性的值，以实现更为灵活的构建。</p>
+<h2 id="maven-surefire-plugin">maven-surefire-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-surefire-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-surefire-plugin/</a></p>
+<p>可能是由于历史的原因，Maven 2/3中用于执行测试的插件不是maven-test-plugin，而是maven-surefire-plugin。其实大部分时间内，只要你的测试类遵循通用的命令约定（以Test结尾、以TestCase结尾、或者以Test开头），就几乎不用知晓该插件的存在。然而在当你想要跳过测试、排除某些测试类、或者使用一些TestNG特性的时候，了解maven-surefire-plugin的一些配置选项就很有用了。例如 mvn test -Dtest=FooTest 这样一条命令的效果是仅运行FooTest测试类，这是通过控制maven-surefire-plugin的test参数实现的。</p>
+<h2 id="build-helper-maven-plugin">build-helper-maven-plugin</h2><p><a href="http://mojo.codehaus.org/build-helper-maven-plugin/" target="_blank" rel="external">http://mojo.codehaus.org/build-helper-maven-plugin/</a></p>
+<p>Maven默认只允许指定一个主Java代码目录和一个测试Java代码目录，虽然这其实是个应当尽量遵守的约定，但偶尔你还是会希望能够指定多个源码目录（例如为了应对遗留项目），build-helper-maven-plugin的add-source目标就是服务于这个目的，通常它被绑定到默认生命周期的generate-sources阶段以添加额外的源码目录。需要强调的是，这种做法还是不推荐的，因为它破坏了 Maven的约定，而且可能会遇到其他严格遵守约定的插件工具无法正确识别额外的源码目录。</p>
+<p>build-helper-maven-plugin的另一个非常有用的目标是attach-artifact，使用该目标你可以以classifier的形式选取部分项目文件生成附属构件，并同时install到本地仓库，也可以deploy到远程仓库。</p>
+<h2 id="exec-maven-plugin">exec-maven-plugin</h2><p><a href="http://mojo.codehaus.org/exec-maven-plugin/" target="_blank" rel="external">http://mojo.codehaus.org/exec-maven-plugin/</a></p>
+<p>exec-maven-plugin很好理解，顾名思义，它能让你运行任何本地的系统程序，在某些特定情况下，运行一个Maven外部的程序可能就是最简单的问题解决方案，这就是exec:exec的用途，当然，该插件还允许你配置相关的程序运行参数。除了exec目标之外，exec-maven-plugin还提供了一个java目标，该目标要求你提供一个mainClass参数，然后它能够利用当前项目的依赖作为classpath，在同一个JVM中运行该mainClass。有时候，为了简单的演示一个命令行Java程序，你可以在POM中配置好exec-maven-plugin的相关运行参数，然后直接在命令运行 mvn exec:java 以查看运行效果。</p>
+<h2 id="jetty-maven-plugin">jetty-maven-plugin</h2><p><a href="http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin" target="_blank" rel="external">http://wiki.eclipse.org/Jetty/Feature/Jetty_Maven_Plugin</a></p>
+<p>在进行Web开发的时候，打开浏览器对应用进行手动的测试几乎是无法避免的，这种测试方法通常就是将项目打包成war文件，然后部署到Web容器中，再启动容器进行验证，这显然十分耗时。为了帮助开发者节省时间，jetty-maven-plugin应运而生，它完全兼容 Maven项目的目录结构，能够周期性地检查源文件，一旦发现变更后自动更新到内置的Jetty Web容器中。做一些基本配置后（例如Web应用的contextPath和自动扫描变更的时间间隔），你只要执行 mvn jetty:run ，然后在IDE中修改代码，代码经IDE自动编译后产生变更，再由jetty-maven-plugin侦测到后更新至Jetty容器，这时你就可以直接测试Web页面了。需要注意的是，jetty-maven-plugin并不是宿主于Apache或Codehaus的官方插件，因此使用的时候需要额外的配置settings.xml的pluginGroups元素，将org.mortbay.jetty这个pluginGroup加入。</p>
+<h2 id="tomcat7-maven-plugin">tomcat7-maven-plugin</h2><p><a href="http://tomcat.apache.org/maven-plugin-trunk/" target="_blank" rel="external">http://tomcat.apache.org/maven-plugin-trunk/</a></p>
+<p>内嵌一个tomcat容器</p>
+<h2 id="versions-maven-plugin">versions-maven-plugin</h2><p><a href="http://mojo.codehaus.org/versions-maven-plugin/" target="_blank" rel="external">http://mojo.codehaus.org/versions-maven-plugin/</a></p>
+<p>很多Maven用户遇到过这样一个问题，当项目包含大量模块的时候，为他们集体更新版本就变成一件烦人的事情，到底有没有自动化工具能帮助完成这件事情呢？（当然你可以使用sed之类的文本操作工具，不过不在本文讨论范围）答案是肯定的，versions-maven- plugin提供了很多目标帮助你管理Maven项目的各种版本信息。例如最常用的，命令 mvn versions:set -DnewVersion=1.1-SNAPSHOT 就能帮助你把所有模块的版本更新到1.1-SNAPSHOT。该插件还提供了其他一些很有用的目标，display-dependency- updates能告诉你项目依赖有哪些可用的更新；类似的display-plugin-updates能告诉你可用的插件更新；然后use- latest-versions能自动帮你将所有依赖升级到最新版本。最后，如果你对所做的更改满意，则可以使用 mvn versions:commit 提交，不满意的话也可以使用 mvn versions:revert 进行撤销。</p>
+<h2 id="maven-javadoc-plugin">maven-javadoc-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-javadoc-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-javadoc-plugin/</a></p>
+<p>顾名思义，生成javadoc</p>
 
 </article>
 <div id="post__share">

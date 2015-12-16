@@ -23,11 +23,11 @@
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
       
+      <li id="java" class="tags__li tags-btn">java</li>
+      
       <li id="spring" class="tags__li tags-btn">spring</li>
       
       <li id="blog" class="tags__li tags-btn">blog</li>
-      
-      <li id="java" class="tags__li tags-btn">java</li>
       
       <li id="nodejs" class="tags__li tags-btn">nodejs</li>
       
@@ -47,6 +47,38 @@
       <input id="search-input" type="text" placeholder="Search..." />
     </form>
         <nav id="pl__container">
+          
+                
+                    <a class="java pl__all" href="/2015/12/16/maven-plugin/" title="常用Maven插件介绍">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">常用Maven插件介绍</span><span class="pl__date">2015-12-16</span>
+                    </a>
+                
+                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-3/" title="JAVA的23种设计模式(三)">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(三)</span><span class="pl__date">2015-08-27</span>
+                    </a>
+                
+                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-2/" title="JAVA的23种设计模式(二)">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(二)</span><span class="pl__date">2015-08-27</span>
+                    </a>
+                
+                    <a class="java pl__all" href="/2015/08/27/jvm/" title="jvm">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">jvm</span><span class="pl__date">2015-08-27</span>
+                    </a>
+                
+                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-1/" title="JAVA的23种设计模式(一)">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(一)</span><span class="pl__date">2015-08-27</span>
+                    </a>
+                
+                    <a class="java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">JAVA世界里的一些概念</span><span class="pl__date">2015-08-06</span>
+                    </a>
+                
           
                 
                     <a class="spring pl__all" href="/2015/12/14/spring-security/" title="使用 Spring Security 保护 Web 应用的安全">
@@ -84,33 +116,6 @@
                     <a class="blog pl__all" href="/2015/05/19/markdown-syntax/" title="Markdown Syntax">
                       
                       <span class="pl__circle"></span><span class="pl__title">Markdown Syntax</span><span class="pl__date">2015-05-19</span>
-                    </a>
-                
-          
-                
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-3/" title="JAVA的23种设计模式(三)">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(三)</span><span class="pl__date">2015-08-27</span>
-                    </a>
-                
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-2/" title="JAVA的23种设计模式(二)">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(二)</span><span class="pl__date">2015-08-27</span>
-                    </a>
-                
-                    <a class="java pl__all" href="/2015/08/27/jvm/" title="jvm">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">jvm</span><span class="pl__date">2015-08-27</span>
-                    </a>
-                
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-1/" title="JAVA的23种设计模式(一)">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(一)</span><span class="pl__date">2015-08-27</span>
-                    </a>
-                
-                    <a class="java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">JAVA世界里的一些概念</span><span class="pl__date">2015-08-06</span>
                     </a>
                 
           
@@ -241,30 +246,24 @@
   <p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
 <hr>
 <ul>
-<li><p>####1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
+<li><h4 id="1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。">1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=&#34;/data/&#34;&#10;SUBPATH=$&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>####2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
+<li><h4 id="2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。">2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
 <p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
 </li>
-<li><p>####3）通配符区别</p>
-<p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
+<li><h4 id="3）通配符区别">3）通配符区别</h4><p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
 </li>
-<li><p>####4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</p>
-<p>比如如下代码就是没有任何输出：</p>
+<li><h4 id="4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。">4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</h4><p>比如如下代码就是没有任何输出：</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line">echo "$VAR"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
 <figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo "$VAR"</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
 <p>以上代码，在make all的时候将会执行echo命令。</p>
 </li>
-<li><p>####5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
+<li><h4 id="5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;_\”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：">5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
 <p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
 </li>
-<li><p>####6）获取当前目录</p>
-<p>PATH=<code>pwd</code> 注意是``,不是’’</p>
+<li><h4 id="6）获取当前目录">6）获取当前目录</h4><p>PATH=<code>pwd</code> 注意是``,不是’’</p>
 </li>
 </ul>
 

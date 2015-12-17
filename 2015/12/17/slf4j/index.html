@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>spring-boot快速开发spring应用</title>
+<title>为什么要使用SLF4J而不是Log4J</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="使用spring-boot快速创建和运行一个spring 应用">
+<meta name="description " content="每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。">
 
 <link rel="icon" href="/favicon.png">
 
@@ -247,70 +247,37 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-08-10">spring-boot快速开发spring应用</h1>
-  <p><strong><em> 使用spring-boot快速创建和运行一个spring 应用 </em></strong><br><a id="more"></a></p>
+  <h1 id="post__title" data-identifier="2015-12-17">为什么要使用SLF4J而不是Log4J</h1>
+  <p><strong><em> 每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="Spring自动化框架">Spring自动化框架</h2><p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
-<p>针对这个问题spring开源社区一直都在持续不断地进行探索，提供相应的解决方案。</p>
+<h2 id="介绍">介绍</h2><p>SLF4J不同于其他日志类库，与其它有很大的不同。SLF4J(Simple logging Facade for Java)不是一个真正的日志实现，而是一个抽象层（ abstraction layer），它允许你在后台使用任意一个日志类库。如果是在编写供内外部都可以使用的API或者通用类库，那么你真不会希望使用你类库的客户端必须使用你选择的日志类库。</p>
+<p>如果一个项目已经使用了log4j，而你加载了一个类库，比方说 Apache Active MQ——它依赖于于另外一个日志类库logback，那么你就需要把它也加载进去。但如果Apache Active MQ使用了SLF4J，你可以继续使用你的日志类库而无语忍受加载和维护一个新的日志框架的痛苦。</p>
+<p>总的来说，SLF4J使你的代码独立于任意一个特定的日志API，这是一个对于开发API的开发者很好的思想。虽然抽象日志类库的思想已经不是新鲜的事物而且Apache commons logging也已经在使用这种思想了，但现在SLF4J正迅速成为Java世界的日志标准。让我们再看看几个使用SLF4J而不是log4j、logback或者java.util.logging的理由。</p>
+<h2 id="SLF4J对比Log4J，logback和java-util-Logging的优势">SLF4J对比Log4J，logback和java.util.Logging的优势</h2><p>正如我之前说的，在你的代码中使用SLF4J写日志语句的主要出发点是使得你的程序独立于任意特定的日志类库，依赖于特定类可能需要不同与你已有的配置，并且导致更多维护的麻烦。但除此之外，还要一个SLF4J API的特性使得我坚持使用SLF4J而抛弃我长期间钟爱的Lof4j的理由，是被称为占位符(place holder)，在代码中表示为“{}”的特性。占位符是一个非常类似于在String的format()方法中的%s，因为它会在运行时被某个提供的实际字符串所替换。这不仅降低了你代码中字符串连接次数，而且还节省了新建的String对象。即使你可能没需要那些对象，但这个依旧成立，取决于你的生产环境的日志级别，例如在DEBUG或者INFO级别的字符串连接。因为String对象是不可修改的并且它们建立在一个String池中，它们消耗堆内存( heap memory)而且大多数时间他们是不被需要的，例如当你的应用程序在生产环境以ERROR级别运行时候，一个String使用在DEBUG语句就是不被需要的。通过使用SLF4J,你可以在运行时延迟字符串的建立，这意味着只有需要的String对象才被建立。而如果你已经使用log4j，那么你已经对于在if条件中使用debug语句这种变通方案十分熟悉了，但SLF4J的占位符就比这个好用得多。</p>
+<p>这是你在Log4j中使用的方案，但肯定这一点都不有趣并且降低了代码可读性因为增加了不必要的繁琐重复代码(boiler-plate code)：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">    logger.debug(<span class="string">"Processing trade with id: "</span> + id + <span class="string">" symbol: "</span> + symbol);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>另一方面，如果你使用SLF4J的话，你可以得到在极简洁的格式的结果，就像以下展示的一样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">logger.debug(<span class="string">"Processing trade with id: &#123;&#125; and symbol : &#123;&#125; "</span>, id, symbol);</span><br></pre></td></tr></table></figure>
+<p>在SLF4J，我们不需要字符串连接而且不会导致暂时不需要的字符串消耗。取而代之的，我们在一个以占位符和以参数传递实际值的模板格式下写日志信息。你可能会在想万一我有很个参数怎么办？嗯，那么你可以选择使用变量参数版本的日志方法或者用以Object数组传递。这是一个相当的方便和高效方法的打日志方法。记住，在生产最终日志信息的字符串之前，这个方法会检查一个特定的日志级别是不是打开了，这不仅降低了内存消耗而且预先降低了CPU去处理字符串连接命令的时间。这里是使用SLF4J日志方法的代码，来自于slf4j-log4j12-1.6.1.jar中的Log4j的适配器类Log4jLoggerAdapter。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">debug</span><span class="params">(String format, Object arg1, Object arg2)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</span><br><span class="line">        FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);</span><br><span class="line">        logger.log(FQCN, Level.DEBUG, ft.getMessage(), ft.getThrowable());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>同时，我们也很值得知道打日志是对应用程序的性能有着很大影响的，在生产环节上只进行必要的日志记录是我们所建议的。</p>
+<h2 id="怎么用SLF4J做Log4J的日志记录">怎么用SLF4J做Log4J的日志记录</h2><p>除了以上好处，我想还有一个告诫，就是为了使用SLF4J，你不仅需要包含SLF4J的API jar包，例如 slf4j-api-1.6.1.jar，还需要相关Jar包，这取决于你在后台使用的日志类库。如果你想要使用和Log4J 一起使用SLF4J ，Simple Logging Facade for Java,，你需要包含以下的Jar包在你的classpath中，取决于哪个SLF4J和你在使用的Log4J的版本。例如：</p>
 <ul>
-<li><p>grails  </p>
-<p>使用groovy语言，封装了spring，提供了一个高效的全栈框架，在开发效率方面可媲美ROR，但运行时性能比ROR要高很多。grails用户群较大，目前开发社区比较活跃。</p>
-</li>
-<li><p>spring roo</p>
-<p>在spring之上提供一个纯java的封装，使用到了osgi，aspectj等技术，提供类似ROR的开发模式，但未成功推广，用户不多，目前开发基本停滞。</p>
-</li>
-<li><p>spring-boot</p>
-<p>spring-boot 是spring社区今年推出的一个新项目，其主要目的也是提高生产率，尤其是快速创建和运行一个spring 应用。</p>
-</li>
+<li>slf4j-api-1.6.1.jar – JAR for SLF4J API</li>
+<li>log4j-1.2.16.jar – JAR for Log4J API</li>
+<li>slf4j-log4j12-1.6.1.jar – Log4J Adapter for SLF4J</li>
 </ul>
-<h2 id="spring-boot">spring-boot</h2><h3 id="spring-boot功能特性">spring-boot功能特性</h3><ul>
-<li><p>创建独立运行的spring应用</p>
-<p>使用spring-boot，可将整个spring应用打包为一个独立的jar文件，内嵌tomcat或者jetty容器。通过 java -jar xxx.jar 即可运行，免去了部署到应用服务器的步骤。</p>
-</li>
-<li><p>启动器</p>
-<p>针对典型的应用需求，提供了一些标准的启动器配置，声明对这些启动器的依赖即可获得相关功能。例如如果需要使用jpa进行数据访问，仅需加入</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;project.groupId&#125;</span><br><span class="line"><span class="title">spring</span>-boot-starter-<span class="typedef"><span class="keyword">data</span>-jpa</span></span><br></pre></td></tr></table></figure>
-<p>spring-boot会自动配置通过jpa进行数据访问需要的bean。  </p>
-</li>
-<li><p>自动配置spring</p>
-<p>spring-boot会根据classpath包含的内容自动推测用户的需求并自动配置。例如如果在classpath包含了hsqldb，并且用户未配置数据库连接，spring-boot将会配置一个hsqldb内存数据库和数据源。</p>
-</li>
-<li><p>自动生成生产环境需要的特性</p>
-<p>spring-boot能够为应用自动加入一些典型的生产环境下的功能特性，例如：外部配置，安全，日志，管理，审计等。</p>
-</li>
-<li><p>无代码生成，无xml配置需求</p>
-<p>spring-boot无代码生成，所有的配置可通过代码完成（spring 的javaconfig），不需要使用xml（虽然可以使用）。</p>
-</li>
-</ul>
-<h3 id="spring-boot组件">spring-boot组件</h3><p>spring-boot项目分为几个不同的组件，下面是每个组件的说明：</p>
-<ul>
-<li>spring-boot SpringBootApplication</li>
-</ul>
-<p>提供静态方法，用于开发独立运行的应用<br>嵌入容器配置，tomcat或者jetty<br>外部配置支持，从命令行，属性文件读取配置<br>spring context 的初始化  </p>
-<ul>
-<li>spring-boot-autoconfigure</li>
-</ul>
-<p>自动配置框架：根据classpath推测用户需要的功能并自动配置。例如如果在classpath 包含了  HSQLDB，并且没有配置数据库连接，spring-boot-autoconfig将自动配置一个内存数据库。spring-boot-autoconfigure使用spring 的javaconfig功能，为一个 @Configuration 类加上 @Conditional注解，注解声明的条件满足时,配置就会生效。用户可编写自己的配置类对自动配置进行扩展。</p>
-<ul>
-<li>spring-boot-starters</li>
-</ul>
-<p>一组预定义的依赖，添加不同类型的应用功能。例如如果需要jpa数据访问，加入 spring-boot-starter-data-jpa</p>
-<ul>
-<li>spring-boot cli</li>
-</ul>
-<p>一个命令行工具，可以直接运行一个groovy脚本作为spring 应用。例如以下groovy代码定义<br>了一个spring mvc controller，通过运行  spring run HelloController.groovy 即可运行一个spring web 应用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>groovy语言语法非常类似java语言，大部分代码都可以直接拷贝使用。spring-boot cli提供的功能非常适用于快速原型开发，以及在开发环境中搭建测试/模拟服务器等。（今年一个国人开发的开源项目 moco获得了“ duke选择奖”，moco的主要功能就是搭建测试/模拟服务器，借助于spring-boot cli，只需要用java语言，几分钟之内也可以搭建一个测试/模拟服务器）  </p>
-<ul>
-<li>spring-boot-actuator</li>
-</ul>
-<p>提供更多面向生产环境的支持，安全，日志，管理，审计。</p>
-<ul>
-<li>spring-boot-loader</li>
-</ul>
-<p>使用java -jar xxx.jar 运行应用的实现，对打包文件格式进行了定义。一般通过gradle插件或者 maven插件使用。这两个插件提供了在gradle和maven构建系统中使用spring-boot的功能。使用你的IDE创建一个普通的java 项目，加入这两个插件即可在项目中引入spring-boot。下面是使用java语言开发的controller：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="annotation">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication.run(SampleController.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>相比较groovy而言，java语言开发的代码中需要包含一个 main 静态执行入口，在其中调用 SpringApplication.run 方法启动spring 应用。<br>对于包含上述代码的项目使用gradle和maven插件，可以将spring应用打包成为一个单独的jar文件，然后使用<br>java -jar xxxx.jar 执行。</p>
+<p>如果你在使用Maven去管理你的项目依赖，你只需要包含SLF4J JAR包，maven会包含它的依赖的相关包。为了和SLF4J一起中使用Log4J，你可以包含以下的依赖在你项目中的pom.xml。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.6.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.6.1<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>还有，如果你对于使用变量参数版本（variable argument version ）的日志方法感兴趣的话，那么就导入SLF4J 1.7的版本吧。</p>
+<h2 id="总结">总结</h2><p>总结这次说的，我建议使用SLF4J的而不是直接使用 Log4j, commons logging, logback 或者 java.util.logging 已经足够充分了。</p>
+<ol>
+<li>在你的开源或内部类库中使用SLF4J会使得它独立于任何一个特定的日志实现，这意味着不需要管理多个日志配置或者多个日志类库，你的客户端会很感激这点。</li>
+<li>SLF4J提供了基于占位符的日志方法，这通过去除检查isDebugEnabled(), isInfoEnabled()等等，提高了代码可读性。</li>
+<li>通过使用SLF4J的日志方法，你可以延迟构建日志信息（Srting）的开销，直到你真正需要，这对于内存和CPU都是高效的。</li>
+<li>作为附注，更少的暂时的字符串意味着垃圾回收器（Garbage Collector）需要做更好的工作，这意味着你的应用程序有为更好的吞吐量和性能。</li>
+<li>这些好处只是冰山一角，你将在开始使用SL4J和阅读其中代码的时候知道更多的好处。我强烈建议，任何一个新的Java程序员，都应该使用SLF4J做日志而不是使用包括Log4J在内的其他日志API。</li>
+</ol>
 
 </article>
 <div id="post__share">

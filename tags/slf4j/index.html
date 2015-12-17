@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>spring-boot快速开发spring应用</title>
+<title>Tag: slf4j</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="使用spring-boot快速创建和运行一个spring 应用">
+<meta name="description " content="分享技术生涯的点点滴滴">
 
 <link rel="icon" href="/favicon.png">
 
@@ -246,97 +246,7 @@
 
     <div id="post">
       <div id="pjax">
-        <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-08-10">spring-boot快速开发spring应用</h1>
-  <p><strong><em> 使用spring-boot快速创建和运行一个spring 应用 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="Spring自动化框架">Spring自动化框架</h2><p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
-<p>针对这个问题spring开源社区一直都在持续不断地进行探索，提供相应的解决方案。</p>
-<ul>
-<li><p>grails  </p>
-<p>使用groovy语言，封装了spring，提供了一个高效的全栈框架，在开发效率方面可媲美ROR，但运行时性能比ROR要高很多。grails用户群较大，目前开发社区比较活跃。</p>
-</li>
-<li><p>spring roo</p>
-<p>在spring之上提供一个纯java的封装，使用到了osgi，aspectj等技术，提供类似ROR的开发模式，但未成功推广，用户不多，目前开发基本停滞。</p>
-</li>
-<li><p>spring-boot</p>
-<p>spring-boot 是spring社区今年推出的一个新项目，其主要目的也是提高生产率，尤其是快速创建和运行一个spring 应用。</p>
-</li>
-</ul>
-<h2 id="spring-boot">spring-boot</h2><h3 id="spring-boot功能特性">spring-boot功能特性</h3><ul>
-<li><p>创建独立运行的spring应用</p>
-<p>使用spring-boot，可将整个spring应用打包为一个独立的jar文件，内嵌tomcat或者jetty容器。通过 java -jar xxx.jar 即可运行，免去了部署到应用服务器的步骤。</p>
-</li>
-<li><p>启动器</p>
-<p>针对典型的应用需求，提供了一些标准的启动器配置，声明对这些启动器的依赖即可获得相关功能。例如如果需要使用jpa进行数据访问，仅需加入</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;project.groupId&#125;</span><br><span class="line"><span class="title">spring</span>-boot-starter-<span class="typedef"><span class="keyword">data</span>-jpa</span></span><br></pre></td></tr></table></figure>
-<p>spring-boot会自动配置通过jpa进行数据访问需要的bean。  </p>
-</li>
-<li><p>自动配置spring</p>
-<p>spring-boot会根据classpath包含的内容自动推测用户的需求并自动配置。例如如果在classpath包含了hsqldb，并且用户未配置数据库连接，spring-boot将会配置一个hsqldb内存数据库和数据源。</p>
-</li>
-<li><p>自动生成生产环境需要的特性</p>
-<p>spring-boot能够为应用自动加入一些典型的生产环境下的功能特性，例如：外部配置，安全，日志，管理，审计等。</p>
-</li>
-<li><p>无代码生成，无xml配置需求</p>
-<p>spring-boot无代码生成，所有的配置可通过代码完成（spring 的javaconfig），不需要使用xml（虽然可以使用）。</p>
-</li>
-</ul>
-<h3 id="spring-boot组件">spring-boot组件</h3><p>spring-boot项目分为几个不同的组件，下面是每个组件的说明：</p>
-<ul>
-<li>spring-boot SpringBootApplication</li>
-</ul>
-<p>提供静态方法，用于开发独立运行的应用<br>嵌入容器配置，tomcat或者jetty<br>外部配置支持，从命令行，属性文件读取配置<br>spring context 的初始化  </p>
-<ul>
-<li>spring-boot-autoconfigure</li>
-</ul>
-<p>自动配置框架：根据classpath推测用户需要的功能并自动配置。例如如果在classpath 包含了  HSQLDB，并且没有配置数据库连接，spring-boot-autoconfig将自动配置一个内存数据库。spring-boot-autoconfigure使用spring 的javaconfig功能，为一个 @Configuration 类加上 @Conditional注解，注解声明的条件满足时,配置就会生效。用户可编写自己的配置类对自动配置进行扩展。</p>
-<ul>
-<li>spring-boot-starters</li>
-</ul>
-<p>一组预定义的依赖，添加不同类型的应用功能。例如如果需要jpa数据访问，加入 spring-boot-starter-data-jpa</p>
-<ul>
-<li>spring-boot cli</li>
-</ul>
-<p>一个命令行工具，可以直接运行一个groovy脚本作为spring 应用。例如以下groovy代码定义<br>了一个spring mvc controller，通过运行  spring run HelloController.groovy 即可运行一个spring web 应用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>groovy语言语法非常类似java语言，大部分代码都可以直接拷贝使用。spring-boot cli提供的功能非常适用于快速原型开发，以及在开发环境中搭建测试/模拟服务器等。（今年一个国人开发的开源项目 moco获得了“ duke选择奖”，moco的主要功能就是搭建测试/模拟服务器，借助于spring-boot cli，只需要用java语言，几分钟之内也可以搭建一个测试/模拟服务器）  </p>
-<ul>
-<li>spring-boot-actuator</li>
-</ul>
-<p>提供更多面向生产环境的支持，安全，日志，管理，审计。</p>
-<ul>
-<li>spring-boot-loader</li>
-</ul>
-<p>使用java -jar xxx.jar 运行应用的实现，对打包文件格式进行了定义。一般通过gradle插件或者 maven插件使用。这两个插件提供了在gradle和maven构建系统中使用spring-boot的功能。使用你的IDE创建一个普通的java 项目，加入这两个插件即可在项目中引入spring-boot。下面是使用java语言开发的controller：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="annotation">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication.run(SampleController.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>相比较groovy而言，java语言开发的代码中需要包含一个 main 静态执行入口，在其中调用 SpringApplication.run 方法启动spring 应用。<br>对于包含上述代码的项目使用gradle和maven插件，可以将spring应用打包成为一个单独的jar文件，然后使用<br>java -jar xxxx.jar 执行。</p>
-
-</article>
-<div id="post__share">
-    <!-- 打赏入口 -->
-    <a id="icon-heart" class="fontello" href="#"></a>
-</div>
-
-    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网">豆瓣网</a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记">有道云笔记</a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记">印象笔记</a></div>
-    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","bdxc","kaixin001","tqf","tieba","douban","bdhome","sqq","thx","ibaidu","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","mail","isohu","wealink","ty","fbook","twi","linkedin","h163","evernotecn","print"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","weixin","douban","youdao","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
-
-
-<div id="disqus_thread"></div>
-<script type="text/javascript">
-/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-var disqus_shortname = 'micleewj'; // required: replace example with your forum shortname 这个地方需要改成你配置的网站名
-
-/* * * DON'T EDIT BELOW THIS LINE * * */
-(function() {
-var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
-
-(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-})();
-</script>
-<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
+        
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

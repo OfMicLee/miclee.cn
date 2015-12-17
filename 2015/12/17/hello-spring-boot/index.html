@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>MicLee&#39;s Bolg - 技术创造价值，分享带来快乐</title>
+<title>Sring Boot 动手</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="分享技术生涯的点点滴滴">
+<meta name="description " content="动手构建基于spring-boot的hello world">
 
 <link rel="icon" href="/favicon.png">
 
@@ -251,10 +251,9 @@
 
     <div id="post">
       <div id="pjax">
-        
-    <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-12-17">Sring Boot 动手</h1>
-      <p><strong><em> 动手构建基于spring-boot的hello world </em></strong><br><a id="more"></a></p>
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-12-17">Sring Boot 动手</h1>
+  <p><strong><em> 动手构建基于spring-boot的hello world </em></strong><br><a id="more"></a></p>
 <hr>
 <h3 id="1-1_创建项目">1.1 创建项目</h3><p>按照约定我们使用Maven来创建一个空项目：</p>
 <figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate\</span><br><span class="line">-<span class="ruby"><span class="constant">DgroupId</span>=com.mycompany.app\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DartifactId</span>=hello-spring-boot\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DarchetypeArtifactId</span>=maven-archetype-quickstart\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DinteractiveMode</span>=<span class="keyword">false</span></span></span><br></pre></td></tr></table></figure>
@@ -313,8 +312,8 @@
 <p>大约就是这样的，你的启动程序及其Spring的所有配置类都直接放在<code>com.mycompany.myapp</code>package下。其他的业务相关的组件，让它们被扫描到上下文就好了。<br>SpringBoot建议你保持配置的清爽。 小老弟的所有配套示例代码，也基本上是使用这样一个package结构。</p>
 <p>请意识到，上面小节给出的”hello world”程序，<code>com.mycompany.app.Application</code>即是一个配置类，又同时是一个<code>Spring MVC Controller</code>，这只是为了使代码简短而生造的一个例子。</p>
 
-    </article>
-    <div id="post__share">
+</article>
+<div id="post__share">
     <!-- 打赏入口 -->
     <a id="icon-heart" class="fontello" href="#"></a>
 </div>
@@ -338,8 +337,6 @@ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
-
-
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

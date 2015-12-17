@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-17T06:01:51.000Z</updated>
+  <updated>2015-12-17T07:13:41.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -15,11 +15,87 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[Sring Boot 动手]]></title>
+    <link href="http://miclee.cn/2015/12/17/hello-spring-boot/"/>
+    <id>http://miclee.cn/2015/12/17/hello-spring-boot/</id>
+    <published>2015-12-17T07:06:38.000Z</published>
+    <updated>2015-12-17T07:13:41.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 动手构建基于spring-boot的hello world </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="1-1_创建项目">1.1 创建项目</h3><p>按照约定我们使用Maven来创建一个空项目：</p>
+<figure class="highlight haml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mvn archetype:generate\</span><br><span class="line">-<span class="ruby"><span class="constant">DgroupId</span>=com.mycompany.app\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DartifactId</span>=hello-spring-boot\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DarchetypeArtifactId</span>=maven-archetype-quickstart\</span><br><span class="line"></span>-<span class="ruby"><span class="constant">DinteractiveMode</span>=<span class="keyword">false</span></span></span><br></pre></td></tr></table></figure>
+<p>不出意外的话，我们应该会得到一个这样的目录：</p>
+<figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── pom.xml</span><br><span class="line">└── src</span><br><span class="line">    ├── main</span><br><span class="line">    │   └── java</span><br><span class="line">    │       └── com</span><br><span class="line">    │           └── mycompany</span><br><span class="line">    │               └── <span class="keyword">app</span></span><br><span class="line">    │                   └── <span class="keyword">App</span>.java</span><br><span class="line">    └── <span class="keyword">test</span></span><br><span class="line">        └── java</span><br><span class="line">            └── com</span><br><span class="line">                └── mycompany</span><br><span class="line">                    └── <span class="keyword">app</span></span><br><span class="line">                        └── AppTest.java</span><br></pre></td></tr></table></figure>
+<p>接下来就应该添加项目依赖了：在<code>pom.xml</code>中添加</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>然后再添加一个SpringBoot的Maven插件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>编写代码<code>com.mycompany.app.Application</code>如下：（注意包名哦）</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.mycompany.app;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RequestMapping;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.RestController;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@RestController</span></span><br><span class="line"><span class="annotation">@SpringBootApplication</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/hello"</span>)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">hello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"hello, spring-boot."</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>代码完成！我们把它运行起来吧。简单使用指令<code>mvn spring-boot:run</code>。<br>看到一大堆屏幕输入以后，有提示出现了：</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">... ...</span><br><span class="line"><span class="number">2015</span>-<span class="number">07</span>-<span class="number">31</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">36.722</span>  INFO <span class="number">10037</span> --- [           main] o<span class="class">.s</span><span class="class">.j</span><span class="class">.e</span><span class="class">.a</span><span class="class">.AnnotationMBeanExporter</span>        : Registering beans <span class="keyword">for</span> JMX exposure on startup</span><br><span class="line"><span class="number">2015</span>-<span class="number">07</span>-<span class="number">31</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">36.780</span>  INFO <span class="number">10037</span> --- [           main] s<span class="class">.b</span><span class="class">.c</span><span class="class">.e</span><span class="class">.t</span><span class="class">.TomcatEmbeddedServletContainer</span> : Tomcat started on <span class="function"><span class="title">port</span><span class="params">(s)</span></span>: <span class="number">8080</span> (http)</span><br><span class="line"><span class="number">2015</span>-<span class="number">07</span>-<span class="number">31</span> <span class="number">16</span>:<span class="number">26</span>:<span class="number">36.781</span>  INFO <span class="number">10037</span> --- [           main] com<span class="class">.mycompany</span><span class="class">.app</span><span class="class">.Application</span>            : Started Application <span class="keyword">in</span> <span class="number">2.312</span> seconds (JVM running <span class="keyword">for</span> <span class="number">2.717</span>)</span><br></pre></td></tr></table></figure>
+<p>用浏览器访问以下<code>http://127.0.0.1/hello</code>，看看。</p>
+<p>恭喜你！你的第一个SpringBoot程序运行起来了。<br><br>不过在欣喜之余，有没有感到有一丝不安？这个项目里没有<code>xml</code>的Spring配置文件；没有日志配置文件；甚至连<code>web.xml</code>都没有，一个基于<code>Servlet</code>和<code>Spring MVC</code>技术的程序就启动起来了。<br>你一定猜到了，这就是所谓的<code>约定优于配置</code>，麻雀虽小，五脏俱全，该有的组件当然都是存在于Spring上下文的，只不过都是采用的默认配置方式。下一个小节，小老弟展示给你看。</p>
+<h3 id="1-2_SpringBoot到底做了什么？">1.2 SpringBoot到底做了什么？</h3><p>到了祭出SpringBoot的一个<code>starter</code>的时候了。所谓<code>starter</code>的，其实就是SpringBoot的插件啦。 注意，我指的是SpringBoot插件，可不是说“SpringBoot相关Maven插件”，这个概念请理解。<br>我们在<a href="https://github.com/yingzhuo/play-with-spring-boot/blob/master/chapter13/index.md" target="_blank" rel="external">第13章</a>，将自己从头到尾自己写一个具有完整功能的<code>spring-boot-starter</code>。<br><br>这个<code>starter</code>的Maven坐标如下：快把它加到<code>pom.xml</code>。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这个插件功能比较强大，它“默默地”给你的SpringBoot程序，加上了一些<code>Controller</code>，来帮你达到监控等目的。好，加好了就可以，其他什么事情都不用做。<br>重新启动这个项目<code>mvn spring-boot:run</code>，再访问以下<code>http://127.0.0.1/beans</code>，看看。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">[</span><br><span class="line">  &#123;</span><br><span class="line">  "<span class="attribute">context</span>" : <span class="value"><span class="string">"application"</span></span>,</span><br><span class="line">  "<span class="attribute">parent</span>" : <span class="value"><span class="literal">null</span></span>,</span><br><span class="line">  "<span class="attribute">beans</span>" : <span class="value">[ &#123;</span><br><span class="line">    "<span class="attribute">bean</span>" : <span class="value"><span class="string">"application"</span></span>,</span><br><span class="line">    "<span class="attribute">scope</span>" : <span class="value"><span class="string">"singleton"</span></span>,</span><br><span class="line">    "<span class="attribute">type</span>" : <span class="value"><span class="string">"com.mycompany.app.Application$$EnhancerBySpringCGLIB$$a295be6a"</span></span>,</span><br><span class="line">    "<span class="attribute">resource</span>" : <span class="value"><span class="string">"null"</span></span>,</span><br><span class="line">    "<span class="attribute">dependencies</span>" : <span class="value">[ ]</span><br><span class="line">  </span>&#125;, &#123;</span><br><span class="line">    "<span class="attribute">bean</span>" : <span class="value"><span class="string">"org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration"</span></span>,</span><br><span class="line">    "<span class="attribute">scope</span>" : <span class="value"><span class="string">"singleton"</span></span>,</span><br><span class="line">    "<span class="attribute">type</span>" : <span class="value"><span class="string">"org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration$$EnhancerBySpringCGLIB$$1a9215c6"</span></span>,</span><br><span class="line">    "<span class="attribute">resource</span>" : <span class="value"><span class="string">"null"</span></span>,</span><br><span class="line">    "<span class="attribute">dependencies</span>" : <span class="value">[ ]</span><br><span class="line">  </span>&#125;, &#123;</span><br><span class="line">    "<span class="attribute">bean</span>" : <span class="value"><span class="string">"org.springframework.boot.autoconfigure.condition.BeanTypeRegistry"</span></span>,</span><br><span class="line">    "<span class="attribute">scope</span>" : <span class="value"><span class="string">"singleton"</span></span>,</span><br><span class="line">    "<span class="attribute">type</span>" : <span class="value"><span class="string">"org.springframework.boot.autoconfigure.condition.BeanTypeRegistry$OptimizedBeanTypeRegistry"</span></span>,</span><br><span class="line">    "<span class="attribute">resource</span>" : <span class="value"><span class="string">"null"</span></span>,</span><br><span class="line">    "<span class="attribute">dependencies</span>" : <span class="value">[ ]</span><br><span class="line">  </span>&#125;, &#123;</span><br><span class="line">    "<span class="attribute">bean</span>" : <span class="value"><span class="string">"propertySourcesPlaceholderConfigurer"</span></span>,</span><br><span class="line">    "<span class="attribute">scope</span>" : <span class="value"><span class="string">"singleton"</span></span>,</span><br><span class="line">    "<span class="attribute">type</span>" : <span class="value"><span class="string">"org.springframework.context.support.PropertySourcesPlaceholderConfigurer"</span></span>,</span><br><span class="line">    "<span class="attribute">resource</span>" : <span class="value"><span class="string">"class path resource [org/springframework/boot/autoconfigure/PropertyPlaceholderAutoConfiguration.class]"</span></span>,</span><br><span class="line">    "<span class="attribute">dependencies</span>" : <span class="value">[ ]</span><br><span class="line">  </span>&#125;</span><br><span class="line">]</span></span><br></pre></td></tr></table></figure>
+<p>不知道你发现了没有，我上面的的JSON是非常漂亮地被格式化了，非常方便阅读，你的浏览器看到的JSON，都是挤作一个团儿，非常难受吧。</p>
+<p>添加一个文件：<code>classpath:/META-INF/application.properties</code>，并添加仅仅一条配置。</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="class">.jackson</span><span class="class">.serialization</span><span class="class">.indent_output</span>=true</span><br></pre></td></tr></table></figure>
+<p>注意！小老弟是因为受篇幅的限制只列出了三项，这个一定要亲手试一试。在你遇到问题时，请使用此功能，你一定要非常了解你的Spring上下文中到底<br>有些什么组件，如果不是这样的话，可是很容易踩到坑的。 小老弟严肃地开发时，这些bean的源代码，都是一定要大致浏览一遍的。这里先告诉各位一个基本方法，<br>以后我们谈到具体某种技术的时候，再来详细剖析也不迟。</p>
+<h3 id="1-3_SpringBoot配置文件">1.3 SpringBoot配置文件</h3><p>正如上一个部分的小节你看到的：<code>classpath:META-INF/application.properties</code>。使用SpringBoot的一个好处就是你可以从成吨的<code>.xml</code>配置文件中稍微<br>解放出一点点。SpringBoot提供两种配置方式，<code>.properties</code>(你已经看到了)，另一种配置方式是<code>.yml</code>。你要是问我哪种方式更好，那么我告诉你，两种差不多。<br>你要问我为什么在整个文章坚持使用<code>.properties</code>，我还真没法回答你，小老弟我是南方人，虽然甜粽子也好吃，但我更偏好咸粽子。<br>想使用<code>.yml</code>方式配置的朋友自己看官方文档吧。</p>
+<p>诸如上面提到的<code>spring.jackson.serialization.indent_output</code>我姑且称呼为“SpringBoot预设配置”，SpringBoot提供的预设配置非常丰富，而且相当一部分是有默认值的。<br>如果你还是SpringBoot新手，那么你可能看得一头雾水。没关系，以后慢慢解释。官方文档附录收录了所有预设配置，请<a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties" target="_blank" rel="external">点击</a>这里。</p>
+<p>除了“SpringBoot预设配置”之外，我们能自定义吗？当然可以了。此外SpringBoot还提供了一个有用的元注释<code>@EnableConfigurationProperties</code> <br><br>它完整的名称是<code>org.springframework.boot.context.properties.EnableConfigurationProperties</code>，它的用法非常简单了。</p>
+<p>假设你的配置：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">foo<span class="class">.bar</span><span class="class">.name</span>=BillGates</span><br><span class="line">foo<span class="class">.bar</span><span class="class">.age</span>=<span class="number">60</span></span><br><span class="line">foo<span class="class">.bar</span><span class="class">.phone-number</span>=<span class="number">13812345678</span></span><br></pre></td></tr></table></figure></p>
+<p>你可以使用这样一个Bean来封装这样的配置:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@ConfigurationProperties</span>(prefix = <span class="string">"foo.bar"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfigBean</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line">    <span class="keyword">private</span> String phoneNumber;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// getter and setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你就可以让SpringBoot自动帮你把配置绑定到<code>MyConfigBean</code>上了。就像这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="annotation">@EnableConfigurationProperties</span>(&#123;MyConfigBean.class&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> MyConfigBean myConfigBean;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>非常方便吧？光是这样还不够好，其实你的<code>ConfigBean</code>里还可以添加上<code>hibernate-validator</code>(JSR-303)元注释，用来验证配置的正确性。这里就不举例子了，自己试一试就知道了。<br><br>其实还有一种配置项的读取方法，SpringBoot把所有的配置放在一个<code>Placeholder Configurer</code>这种方式出现的非常早了，早在Spring2.x时代貌似就有了。你如果对<code>xml</code>方式配置Spring的话，<br>你可能对下面一个片段比较熟悉。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">bean</span> <span class="attribute">id</span>=<span class="value">"dataSource"</span> <span class="attribute">class</span>=<span class="value">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> <span class="attribute">destroy-method</span>=<span class="value">"close"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"driverClass"</span> <span class="attribute">value</span>=<span class="value">"$&#123;jdbc.driverClass&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"jdbcUrl"</span> <span class="attribute">value</span>=<span class="value">"$&#123;jdbc.url&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"user"</span> <span class="attribute">value</span>=<span class="value">"$&#123;jdbc.username&#125;"</span> /&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="title">property</span> <span class="attribute">name</span>=<span class="value">"password"</span> <span class="attribute">value</span>=<span class="value">"$&#123;jdbc.password&#125;"</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">bean</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果你现在依然用<code>xml</code>来配置Spring的话，你的<code>application.properties</code>依然能这么用，这毫无问题。如果你使用“Java Code”配置Spring的话，你可以使用<code>@Value</code>元注释。<br>(这是Spring提供的功能，和SpringBoot关系并不大)就像是下面这样：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Value</span>(<span class="string">"$&#123;foo.bar.name&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> String name;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Value</span>(<span class="string">"$&#123;foo.bar.age&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Value</span>(<span class="string">"$&#123;foo.bar.phone-number&#125;"</span>)</span><br><span class="line">    <span class="keyword">private</span> phoneNumber;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@Bean</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> MyStupidBean <span class="title">myStupidBean</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyStupidBean(name, age, phoneNumber);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="1-4_Spring配置文件">1.4 Spring配置文件</h3><p>小老弟整个教程都将采用”Java Code”配置方式，但是你要是非要用<code>xml</code>或者你更激进一点喜欢使用<code>groovy dsl</code>，也不是不行。你可以这样做：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@SpringBootApplication</span></span><br><span class="line"><span class="annotation">@ImportResource</span>(&#123;<span class="string">"classpath:conf1.xml"</span>, <span class="string">"classpath:conf2.groovy"</span>&#125;)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        SpringApplication.run(Application.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>配置方式，并没有孰优孰劣之分。不要因为这个与别人争吵，挑一个你自己喜欢的方式就可以了。</p>
+<h3 id="1-5_关于Bean的Scan。">1.5 关于Bean的Scan。</h3><p>小老弟习惯用Bean的扫描，如果不用的话，所有的业务Bean，比如说”DAO”，”SERVICE”都需要一个个手工配置的，我觉得这并没有什么实际的好处。<br>事实上，<code>@SpringBootApplication</code>元注释“封装”了<code>@ComponentScan</code>，你使用<code>@SpringBootApplication</code>的同时，包扫描就自动打开了。<br>那么，我们的问题就来了，从哪个package开始扫描呢？是这样的，它扫描启动main方法所在的那个类所在的包及其所有的子包。稍微有点绕吧，没看懂的再看一遍。</p>
+<p>如果你正在开发一个基于SpringBoot的应用。那么官方给出的最佳实践是这样。看一看下面的目录结构。</p>
+<ul>
+<li>com.mycompany.myapp<ul>
+<li>dao<ul>
+<li>impl</li>
+</ul>
+</li>
+<li>service<ul>
+<li>impl</li>
+</ul>
+</li>
+<li>controller</li>
+<li>domain</li>
+</ul>
+</li>
+</ul>
+<p>大约就是这样的，你的启动程序及其Spring的所有配置类都直接放在<code>com.mycompany.myapp</code>package下。其他的业务相关的组件，让它们被扫描到上下文就好了。<br>SpringBoot建议你保持配置的清爽。 小老弟的所有配套示例代码，也基本上是使用这样一个package结构。</p>
+<p>请意识到，上面小节给出的”hello world”程序，<code>com.mycompany.app.Application</code>即是一个配置类，又同时是一个<code>Spring MVC Controller</code>，这只是为了使代码简短而生造的一个例子。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[动手构建基于spring-boot的hello world]]>
+    
+    </summary>
+    
+      <category term="spring-boot" scheme="http://miclee.cn/tags/spring-boot/"/>
+    
+      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[为什么要使用SLF4J而不是Log4J]]></title>
     <link href="http://miclee.cn/2015/12/17/slf4j/"/>
     <id>http://miclee.cn/2015/12/17/slf4j/</id>
     <published>2015-12-17T05:36:11.000Z</published>
-    <updated>2015-12-17T06:01:51.000Z</updated>
+    <updated>2015-12-17T06:10:52.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="介绍">介绍</h2><p>SLF4J不同于其他日志类库，与其它有很大的不同。SLF4J(Simple logging Facade for Java)不是一个真正的日志实现，而是一个抽象层（ abstraction layer），它允许你在后台使用任意一个日志类库。如果是在编写供内外部都可以使用的API或者通用类库，那么你真不会希望使用你类库的客户端必须使用你选择的日志类库。</p>
@@ -67,7 +143,7 @@
     <link href="http://miclee.cn/2015/12/16/maven-plugin/"/>
     <id>http://miclee.cn/2015/12/16/maven-plugin/</id>
     <published>2015-12-16T08:36:27.000Z</published>
-    <updated>2015-12-17T05:58:51.000Z</updated>
+    <updated>2015-12-17T06:10:58.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，例如编译源代码是由maven-compiler-plugin完成的。进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。 </em></strong><br><a id="more"></a></p>
 <hr>
 <blockquote>
@@ -119,7 +195,7 @@
     <link href="http://miclee.cn/2015/12/14/spring-security/"/>
     <id>http://miclee.cn/2015/12/14/spring-security/</id>
     <published>2015-12-14T03:29:16.000Z</published>
-    <updated>2015-12-15T00:54:47.000Z</updated>
+    <updated>2015-12-17T06:11:00.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 安全一直是 Web 应用开发中非常重要的一个方面。从安全的角度来说，需要考虑用户认证和授权两个方面。为 Web 应用增加安全方面的能力并非一件简单的事情，需要考虑不同的认证和授权机制。Spring Security 为使用 Spring 框架的 Web 应用提供了良好的支持。本文将详细介绍如何使用 Spring Security 框架为 Web 应用提供安全支持。 </em></strong><br><a id="more"></a></p>
 <hr>
 <blockquote>
@@ -147,7 +223,7 @@
     <link href="http://miclee.cn/2015/11/28/spring-boot-admin/"/>
     <id>http://miclee.cn/2015/11/28/spring-boot-admin/</id>
     <published>2015-11-28T07:48:35.000Z</published>
-    <updated>2015-12-14T02:42:04.000Z</updated>
+    <updated>2015-12-17T06:11:01.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> spring-boot应用监控平台 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>spring-boot应用监控平台使用方法简介：</p>
@@ -193,7 +269,7 @@
     <link href="http://miclee.cn/2015/11/25/free-programming-books/"/>
     <id>http://miclee.cn/2015/11/25/free-programming-books/</id>
     <published>2015-11-25T02:40:03.000Z</published>
-    <updated>2015-11-25T02:44:50.000Z</updated>
+    <updated>2015-12-17T06:11:02.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 免费编程书籍 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="目录">目录</h2><ul>
@@ -766,69 +842,11 @@
   </entry>
   
   <entry>
-    <title><![CDATA[JAVA的23种设计模式(三)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
-    <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T05:59:02.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
-<hr>
-<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
-<ul>
-<li><p>第一类：通过父类与子类的关系进行实现</p>
-<ul>
-<li>策略模式</li>
-<li>模板方法模式</li>
-</ul>
-</li>
-<li><p>第二类：两个类之间</p>
-<ul>
-<li>观察者模式</li>
-<li>迭代子模式</li>
-<li>责任链模式</li>
-<li>命令模式</li>
-</ul>
-</li>
-<li><p>第三类：类的状态</p>
-<ul>
-<li>备忘录模式</li>
-<li>状态模式</li>
-</ul>
-</li>
-<li><p>第四类：通过中间类</p>
-<ul>
-<li>访问者模式</li>
-<li>中介者模式</li>
-<li>解释器模式</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
-</li>
-<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
-</li>
-<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
-</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[行为型模式 11种]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://miclee.cn/tags/java/"/>
-    
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
-    
-  </entry>
-  
-  <entry>
     <title><![CDATA[JAVA的23种设计模式(二)]]></title>
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T05:59:08.000Z</updated>
+    <updated>2015-12-17T06:11:03.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
 <hr>
 <pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
@@ -903,7 +921,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-1/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-1/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T05:59:17.000Z</updated>
+    <updated>2015-12-17T06:11:05.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 创建型模式 五种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p><strong>设计模式（Design pattern）</strong> 是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现在中都有相应的原理来与之对应，每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是它能被广泛应用的原因。</p>
@@ -1020,11 +1038,69 @@
   </entry>
   
   <entry>
+    <title><![CDATA[JAVA的23种设计模式(三)]]></title>
+    <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
+    <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
+    <published>2015-08-27T09:18:22.000Z</published>
+    <updated>2015-12-17T06:11:02.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
+<hr>
+<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
+<ul>
+<li><p>第一类：通过父类与子类的关系进行实现</p>
+<ul>
+<li>策略模式</li>
+<li>模板方法模式</li>
+</ul>
+</li>
+<li><p>第二类：两个类之间</p>
+<ul>
+<li>观察者模式</li>
+<li>迭代子模式</li>
+<li>责任链模式</li>
+<li>命令模式</li>
+</ul>
+</li>
+<li><p>第三类：类的状态</p>
+<ul>
+<li>备忘录模式</li>
+<li>状态模式</li>
+</ul>
+</li>
+<li><p>第四类：通过中间类</p>
+<ul>
+<li>访问者模式</li>
+<li>中介者模式</li>
+<li>解释器模式</li>
+</ul>
+</li>
+</ul>
+<ol>
+<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
+</li>
+<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
+</li>
+<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[行为型模式 11种]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://miclee.cn/tags/java/"/>
+    
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[jvm]]></title>
     <link href="http://miclee.cn/2015/08/27/jvm/"/>
     <id>http://miclee.cn/2015/08/27/jvm/</id>
     <published>2015-08-27T09:09:51.000Z</published>
-    <updated>2015-12-17T05:59:12.000Z</updated>
+    <updated>2015-12-17T06:11:04.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 《深入理解JAVA虚拟机》读书笔记 </em></strong><br><a id="more"></a></p>
 <hr>
 ]]></content>
@@ -1312,12 +1388,12 @@
   </entry>
   
   <entry>
-    <title><![CDATA[spring-boot快速开发spring应用]]></title>
+    <title><![CDATA[spring-boot介绍]]></title>
     <link href="http://miclee.cn/2015/08/10/spring-boot/"/>
     <id>http://miclee.cn/2015/08/10/spring-boot/</id>
     <published>2015-08-09T16:00:00.000Z</published>
-    <updated>2015-12-14T02:41:53.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 使用spring-boot快速创建和运行一个spring 应用 </em></strong><br><a id="more"></a></p>
+    <updated>2015-12-17T07:11:42.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> spring-boot功能特性介绍 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="Spring自动化框架">Spring自动化框架</h2><p>spring多年以来一直都是java平台开发web应用的主流技术，在标准的J2EE架构之外提供了一个轻量级的解决方案。虽然spring提供了很多功能，简化了java平台的企业应用开发，降低了开发工作量，但相比较其它语言的一些框架（例如ruby on rails，python Django）来说，基于spring 的开发仍然比较复杂，尤其是新建一个项目时，需要进行各种配置，重复的工作量较大。</p>
 <p>针对这个问题spring开源社区一直都在持续不断地进行探索，提供相应的解决方案。</p>
@@ -1382,7 +1458,7 @@
 <p>相比较groovy而言，java语言开发的代码中需要包含一个 main 静态执行入口，在其中调用 SpringApplication.run 方法启动spring 应用。<br>对于包含上述代码的项目使用gradle和maven插件，可以将spring应用打包成为一个单独的jar文件，然后使用<br>java -jar xxxx.jar 执行。</p>
 ]]></content>
     <summary type="html">
-    <![CDATA[使用spring-boot快速创建和运行一个spring 应用]]>
+    <![CDATA[spring-boot功能特性介绍]]>
     
     </summary>
     
@@ -1578,99 +1654,6 @@
       <category term="git" scheme="http://miclee.cn/tags/git/"/>
     
       <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[Node Profiler]]></title>
-    <link href="http://miclee.cn/2015/07/23/node-profiler/"/>
-    <id>http://miclee.cn/2015/07/23/node-profiler/</id>
-    <published>2015-07-22T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> JavaScript性能调优工具 </em></strong><br><a id="more"></a></p>
-<hr>
-<p>##特点</p>
-<ul>
-<li>基于Node.js开发</li>
-<li>深度介入V8</li>
-<li>集成Inspector</li>
-</ul>
-<p>##运行时优化<br>V8能在运行的过程中，收集代码的执行频度，进而对哪些高频度运行的热点代码进行动态优化，<br>这项优化技术十分有效，它并不优化所有的代码，而是找到该优化的代码去优化，将好钢用到刀刃上。</p>
-<ul>
-<li>原生web-inspector只给出JS函数的执行占比，未说明函数是否被优化</li>
-<li>Node Profiler展示执行占比、是否优化、未被优化的原因</li>
-</ul>
-<h2 id="Bailout">Bailout</h2><ul>
-<li><p>###概念<br>即无法优化，或者优化失败的情况。V8针对JavaScript代码的优化是基于函数为单位的，也就是说一个函数的某段代码造成无法优化，会导致整个函数处于未优化的状态。所以即使某些Bailout情况无法避开，但可以确保它们处于一个极小的函数中，以避免整个函数无法优化。</p>
-</li>
-<li><p>###CASE</p>
-<ul>
-<li>带有try/catch或者try/finally语句的函数</li>
-<li>带有with语句的函数</li>
-<li>用for in来进行迭代并不是一种高效的做法，改进方式是使用Object.keys()取出keys，然后再进行普通的for循环</li>
-<li>带有yield语句的Generator函数</li>
-<li>赋值给形参中的参数</li>
-<li>其他。。。</li>
-</ul>
-</li>
-</ul>
-<p>##实测</p>
-<h3 id="使用示例">使用示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span> : <span class="string">'text/plain'</span> &#125;);</span><br><span class="line">    res.write(<span class="string">'Hi, MicLee!\n'</span>)</span><br><span class="line">    res.end(<span class="string">'hello world!'</span>);</span><br><span class="line">  &#125;).listen(<span class="number">2014</span>, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:2014/'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Server running at http://127.0.0.1:2014/&#10;webkit-devtools-agent: Spawning websocket service process...&#10;start agent&#10;&#10;webkit-devtools-agent: A proxy got connected.&#10;webkit-devtools-agent: Waiting for commands...&#10;webkit-devtools-agent: Websockets service started on 0.0.0.0:9999  &#60;==&#21551;&#21160;&#25104;&#21151;</span><br></pre></td></tr></table></figure>
-<p>如出现如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: listen EADDRINUSE           &#60;== &#21487;&#33021;&#26159;&#30001;&#20110;&#31471;&#21475;&#34987;&#21344;&#29992;</span><br></pre></td></tr></table></figure></p>
-<p>成功启动后，自动弹出chrome（如果有安装的话）url (<a href="http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0" target="_blank" rel="external">http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0</a>)<br>出现如下界面：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587127/7b54f88c-262a-11e5-9298-3a49c2b71d7c.jpg" alt=""></p>
-<p>默认<strong>Collect JavaSript CPU Profile</strong>，单击<strong>Start</strong>。</p>
-<p>可以采用压测脚本实现对服务进行压力测试，保证更多的结果：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ab -n1000 -c10 http://localhost:2014/</span><br></pre></td></tr></table></figure></p>
-<p>点击<strong>Stop</strong>，得到如下图的结果：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587247/8dc33cbc-262b-11e5-8a10-59c8f9de280e.jpg" alt=""></p>
-<p>可以看到更多关于函数在运行时的信息。</p>
-<h3 id="UI含义">UI含义</h3><table>
-<thead>
-<tr>
-<th>UI 栏目</th>
-<th>示意</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Self</td>
-<td>exclusive time</td>
-</tr>
-<tr>
-<td>Total</td>
-<td>inclusive time</td>
-</tr>
-<tr>
-<td><strong># of Hidden Classes</strong></td>
-<td>隐藏类个数</td>
-</tr>
-<tr>
-<td><strong>Bailout</strong></td>
-<td>v8中提取的最后一次去优化原因</td>
-</tr>
-<tr>
-<td><strong>Function</strong></td>
-<td>函数名称 script : line</td>
-</tr>
-</tbody>
-</table>
-<p><strong>红色表示函数未被优化， 淡绿色表示函数被V8优化过。</strong></p>
-<h3 id="注意事项">注意事项</h3><ul>
-<li>该工具目前只支持X64平台（Linux, Mac, Win)。</li>
-<li>切勿部署到线上，仅供自己调试使用。</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[JavaScript性能调优工具]]>
-    
-    </summary>
-    
-      <category term="debug" scheme="http://miclee.cn/tags/debug/"/>
-    
-      <category term="javascript" scheme="http://miclee.cn/tags/javascript/"/>
-    
-      <category term="nodejs" scheme="http://miclee.cn/tags/nodejs/"/>
-    
-      <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
     
   </entry>
   

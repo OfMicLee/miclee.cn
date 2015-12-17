@@ -23,7 +23,7 @@
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
       
-      <li id="java" class="tags__li tags-btn">java</li>
+      <li id="Java" class="tags__li tags-btn">Java</li>
       
       <li id="spring" class="tags__li tags-btn">spring</li>
       
@@ -49,39 +49,39 @@
         <nav id="pl__container">
           
                 
-                    <a class="java pl__all" href="/2015/12/16/maven-plugin/" title="常用Maven插件介绍">
+                    <a class="Java pl__all" href="/2015/12/17/slf4j/" title="为什么要使用SLF4J而不是Log4J">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">为什么要使用SLF4J而不是Log4J</span><span class="pl__date">2015-12-17</span>
+                    </a>
+                
+                    <a class="Java pl__all" href="/2015/12/16/maven-plugin/" title="常用Maven插件介绍">
                       
                       <span class="pl__circle"></span><span class="pl__title">常用Maven插件介绍</span><span class="pl__date">2015-12-16</span>
                     </a>
                 
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-3/" title="JAVA的23种设计模式(三)">
+                    <a class="Java pl__all" href="/2015/08/27/java-design-pattern-3/" title="JAVA的23种设计模式(三)">
                       
                       <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(三)</span><span class="pl__date">2015-08-27</span>
                     </a>
                 
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-2/" title="JAVA的23种设计模式(二)">
+                    <a class="Java pl__all" href="/2015/08/27/java-design-pattern-2/" title="JAVA的23种设计模式(二)">
                       
                       <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(二)</span><span class="pl__date">2015-08-27</span>
                     </a>
                 
-                    <a class="java pl__all" href="/2015/08/27/jvm/" title="jvm">
+                    <a class="Java pl__all" href="/2015/08/27/jvm/" title="jvm">
                       
                       <span class="pl__circle"></span><span class="pl__title">jvm</span><span class="pl__date">2015-08-27</span>
                     </a>
                 
-                    <a class="java pl__all" href="/2015/08/27/java-design-pattern-1/" title="JAVA的23种设计模式(一)">
+                    <a class="Java pl__all" href="/2015/08/27/java-design-pattern-1/" title="JAVA的23种设计模式(一)">
                       
                       <span class="pl__circle"></span><span class="pl__title">JAVA的23种设计模式(一)</span><span class="pl__date">2015-08-27</span>
                     </a>
                 
-                    <a class="java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
+                    <a class="Java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
                       
                       <span class="pl__circle"></span><span class="pl__title">JAVA世界里的一些概念</span><span class="pl__date">2015-08-06</span>
-                    </a>
-                
-                    <a class="java pl__all" href="/2015/12/17/slf4j/" title="为什么要使用SLF4J而不是Log4J">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">为什么要使用SLF4J而不是Log4J</span><span class="pl__date">2015-12-17</span>
                     </a>
                 
           
@@ -248,30 +248,18 @@
       <div id="pjax">
         
     <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-08-22">千米微信第三方平台应用</h1>
-      <p><strong><em> 让天下没有难做的微商 </em></strong><br><a id="more"></a></p>
+      <h1 id="post__title" data-identifier="2015-08-22">微信第三方平台授权权限集</h1>
+      <p><strong><em> 微信第三方平台授权权限集说明 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="历史的痛点">历史的痛点</h2><ul>
-<li>在公众平台配置繁琐参数</li>
-<li>熟读微信开发者文档，开发业务功能</li>
-<li>各团队重复劳动，人力浪费</li>
-</ul>
-<h2 id="解决方案">解决方案</h2><p>一键授权给我们微信第三方平台，后面的事就交给我们吧，去专注你的业务去</p>
-<h2 id="我们能做什么？">我们能做什么？</h2><ul>
-<li><p>对内</p>
-<ul>
-<li>代理公司内部团队所有微信相关交互</li>
-</ul>
-</li>
-<li><p>对外</p>
-<ul>
-<li>提供公众号能力的 <strong>行业解决方案</strong>，如针对电商行业的商家解决方案；</li>
-<li>帮助公众号 <strong>功能优化</strong>，如针对餐饮行业优化的用户管理功能；</li>
-<li>甚至，公众号 <strong>行业运营专家</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="我们的愿景？">我们的愿景？</h2><p><strong>让天下没有难做的微商</strong></p>
+<h2 id="消息与菜单权限集">消息与菜单权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的消息与菜单相关的权限。由于涉及到接收并回复粉丝消息，为了防止多方对话交叠而导致用户收到多条消息，故一个公众号至多只能授权给一个公众号第三方平台，即授权互斥。具体包括：</p>
+<p>1) 接收和回复被动响应消息能力<br>2) 客服消息接口<br>3) 获取语音识别开关状态<br>4) 设置语音识别开关<br>5) 上传下载多媒体文件接口<br>6) 自定义菜单的创建、查询和删除<br>7) 自定义菜单点击事件接收<br>8) 订阅/取消订阅事件推送  </p>
+<h2 id="用户管理权限集">用户管理权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的用户管理权限。由于可供多方获取，故授权不互斥。具体包括：</p>
+<p>1) 获取用户基本信息接口<br>2) 获取用户列表接口<br>3) 用户分组管理接口<br>4) 用户备注名设置接口<br>5) 设置用户地理位置的开关及上报方式<br>6) 获取用户地理位置上报的开关状态及上报方式  </p>
+<h2 id="帐号管理权限集">帐号管理权限集</h2><p>该权限集主要进行公众帐号的帐号管理，包括获取和设置公众帐号信息，由于可供多方获取和设置，故授权不互斥。具体包括：</p>
+<h2 id="网页开发权限集">网页开发权限集</h2><p>1) 生成带参数二维码接口<br>2) 扫描带参数二维码的事件接收<br>3) 获取公众帐号基础信息(头像昵称/帐号类型等,此接口暂为服务方独有)<br>4）上传下载多媒体文件接口  </p>
+<h2 id="网页开发权限集-1">网页开发权限集</h2><p>该权限集主要指公众号第三方平台可以代替公众帐号发起微信网页授权，并在授权后可以合法获得相关的授权信息，还包括可以代替公众号使用JS SDK。由于可供多方使用，故授权不互斥。具体包括：<br>1) 发起微信内网页授权的权限<br>2) 授权后获取授权用户的基本信息（权限根据应用授权作用域scope的不同而不同：scope为snsapi_base时不弹出授权页面但只能获取用户openid）；scope为snsapi_userinfo时弹出授权页面但可通过openid拿到用户昵称、性别、所在地）<br>3）代替公众号使用JS SDK  </p>
+<h2 id="微信小店权限集">微信小店权限集</h2><p>该权限集主要是指管理微信公众平台小店的功能，由于可供多方使用，故授权不互斥。具体包括：<br>1) 微信小店所有接口权限<br>2) 微信小店所有事件推送（事件将推送到创建服务时填写的公众号消息与事件接收URL）</p>
+<h2 id="多客服权限集">多客服权限集</h2><p>该权限集主要指能否设置和获取公众账号的多客服功能开关的状态。一旦打开开关之后，客服消息将不再推送给第三方平台方，而是推送给微信多客服功能后台。此时，公众号运营者需要在mp.weixin.qq.com的多客服模块中下载多客服PC客户端来使用，与发客服消息的粉丝进行CRM沟通互动。该权限集可以授权给多个服务方，即授权不互斥，具体包括：<br>1）微信多客服所有接口权限  </p>
 
     </article>
     <div id="post__share">

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-17T05:57:24.000Z</updated>
+  <updated>2015-12-17T06:01:51.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://miclee.cn/2015/12/17/slf4j/"/>
     <id>http://miclee.cn/2015/12/17/slf4j/</id>
     <published>2015-12-17T05:36:11.000Z</published>
-    <updated>2015-12-17T05:57:24.000Z</updated>
+    <updated>2015-12-17T06:01:51.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="介绍">介绍</h2><p>SLF4J不同于其他日志类库，与其它有很大的不同。SLF4J(Simple logging Facade for Java)不是一个真正的日志实现，而是一个抽象层（ abstraction layer），它允许你在后台使用任意一个日志类库。如果是在编写供内外部都可以使用的API或者通用类库，那么你真不会希望使用你类库的客户端必须使用你选择的日志类库。</p>
@@ -58,7 +58,7 @@
     
       <category term="slf4j" scheme="http://miclee.cn/tags/slf4j/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   
@@ -67,7 +67,7 @@
     <link href="http://miclee.cn/2015/12/16/maven-plugin/"/>
     <id>http://miclee.cn/2015/12/16/maven-plugin/</id>
     <published>2015-12-16T08:36:27.000Z</published>
-    <updated>2015-12-16T09:07:18.000Z</updated>
+    <updated>2015-12-17T05:58:51.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，例如编译源代码是由maven-compiler-plugin完成的。进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。 </em></strong><br><a id="more"></a></p>
 <hr>
 <blockquote>
@@ -110,7 +110,7 @@
     
       <category term="maven" scheme="http://miclee.cn/tags/maven/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   
@@ -770,7 +770,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-14T02:37:20.000Z</updated>
+    <updated>2015-12-17T05:59:02.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
@@ -819,7 +819,82 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[JAVA的23种设计模式(二)]]></title>
+    <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
+    <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
+    <published>2015-08-27T09:18:22.000Z</published>
+    <updated>2015-12-17T05:59:08.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
+<hr>
+<pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
+</code></pre><p>其中对象的适配器模式是各种模式的起源，我们看下面的图：  <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-2.png" alt="结构型模式"></p>
+<ol>
+<li><p>适配器模式（Adapter）</p>
+<p>适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。</p>
+<ul>
+<li>类的适配器模式</li>
+</ul>
+<p>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Source类，拥有一个方法，待适配</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      System.out.println(<span class="string">"this is original method!"</span>);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//目标接口 Targetable，即期望拥有的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* 与原类中的方法相同 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">/* 新类的方法 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter类继承Source类，实现Targetable接口，这样Targetable接口的实现类就具有了Source类的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>对象的适配器模式  </li>
+</ul>
+<p>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wrapper</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Wrapper</span><span class="params">(Source source)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		source.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>接口的适配器模式（<strong>常用</strong>）</li>
+</ul>
+<p>这种模式比较常见，就是在接口和实现类之间增加一个抽象类来实现公共部分功能，子类继承抽象类，只需要实现抽象类里未实现的接口方法即可。</p>
+</li>
+<li><p>装饰模式</p>
+<p>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例。代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"the original method!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Sourceable source;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Sourceable source)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.source = source;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"before decorator!"</span>);  </span><br><span class="line">        source.method();  </span><br><span class="line">        System.out.println(<span class="string">"after decorator!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>应用场景：<ul>
+<li>需要扩展一个类的功能。</li>
+<li>动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）</li>
+</ul>
+</li>
+<li>缺点：产生过多相似的对象，不易排错！</li>
+</ul>
+</li>
+<li><p>代理模式（Proxy）</p>
+<p>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作。<br>代理模式和装饰的区别在于：<br>装饰模式是将功能类实例化出来后交给装饰类去补充功能；<br>代理模式是在代理类内部去实例化功能类，调用者不用关心功能类，完全交给代理类；<br>代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = <span class="keyword">new</span> Source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"before proxy!"</span>);</span><br><span class="line">		source.method();</span><br><span class="line">    System.out.println(<span class="string">"after proxy!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>外观模式（Facade）</p>
+<p>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-facade.png" alt="外观模式"></p>
+<p>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式。</p>
+</li>
+</ol>
+<p>10、桥接模式（Bridge）</p>
+<p>  桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。<br>  如下：</p>
+  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Bridge bridge = <span class="keyword">new</span> MyBridge();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第一个对象*/</span></span><br><span class="line">		Sourceable source1 = <span class="keyword">new</span> SourceSub1();</span><br><span class="line">		bridge.setSource(source1);</span><br><span class="line">		bridge.method();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第二个对象*/</span></span><br><span class="line">		Sourceable source2 = <span class="keyword">new</span> SourceSub2();</span><br><span class="line">		bridge.setSource(source2);</span><br><span class="line">		bridge.method();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>  这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。</p>
+<ol>
+<li><p>组合模式（Composite）</p>
+<p>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> TreeNode parent;</span><br><span class="line">	<span class="keyword">private</span> Vector&lt;TreeNode&gt; children = <span class="keyword">new</span> Vector&lt;TreeNode&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TreeNode <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParent</span><span class="params">(TreeNode parent)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.add(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.remove(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//取得孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Enumeration&lt;TreeNode&gt; <span class="title">getChildren</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> children.elements();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//树</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">	TreeNode root = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tree</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TreeNode(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Tree tree = <span class="keyword">new</span> Tree(<span class="string">"A"</span>);</span><br><span class="line">		TreeNode nodeB = <span class="keyword">new</span> TreeNode(<span class="string">"B"</span>);</span><br><span class="line">		TreeNode nodeC = <span class="keyword">new</span> TreeNode(<span class="string">"C"</span>);</span><br><span class="line"></span><br><span class="line">		nodeB.add(nodeC);</span><br><span class="line">		tree.root.add(nodeB);</span><br><span class="line">		System.out.println(<span class="string">"build the tree finished!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。</p>
+</li>
+<li><p>享元模式（Flyweight）</p>
+<p>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br>最典型的使用场景：数据库连接池的实现。</p>
+</li>
+</ol>
+]]></content>
+    <summary type="html">
+    <![CDATA[结构型模式 七种]]>
+    
+    </summary>
+    
+      <category term="java" scheme="http://miclee.cn/tags/java/"/>
+    
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   
@@ -828,7 +903,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-1/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-1/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-08-28T09:09:12.000Z</updated>
+    <updated>2015-12-17T05:59:17.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 创建型模式 五种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p><strong>设计模式（Design pattern）</strong> 是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现在中都有相应的原理来与之对应，每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是它能被广泛应用的原因。</p>
@@ -940,82 +1015,7 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA的23种设计模式(二)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
-    <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-08-30T07:47:48.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
-<hr>
-<pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
-</code></pre><p>其中对象的适配器模式是各种模式的起源，我们看下面的图：  <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-2.png" alt="结构型模式"></p>
-<ol>
-<li><p>适配器模式（Adapter）</p>
-<p>适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。</p>
-<ul>
-<li>类的适配器模式</li>
-</ul>
-<p>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Source类，拥有一个方法，待适配</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      System.out.println(<span class="string">"this is original method!"</span>);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//目标接口 Targetable，即期望拥有的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* 与原类中的方法相同 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">/* 新类的方法 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter类继承Source类，实现Targetable接口，这样Targetable接口的实现类就具有了Source类的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对象的适配器模式  </li>
-</ul>
-<p>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wrapper</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Wrapper</span><span class="params">(Source source)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		source.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>接口的适配器模式（<strong>常用</strong>）</li>
-</ul>
-<p>这种模式比较常见，就是在接口和实现类之间增加一个抽象类来实现公共部分功能，子类继承抽象类，只需要实现抽象类里未实现的接口方法即可。</p>
-</li>
-<li><p>装饰模式</p>
-<p>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"the original method!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Sourceable source;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Sourceable source)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.source = source;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"before decorator!"</span>);  </span><br><span class="line">        source.method();  </span><br><span class="line">        System.out.println(<span class="string">"after decorator!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>应用场景：<ul>
-<li>需要扩展一个类的功能。</li>
-<li>动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）</li>
-</ul>
-</li>
-<li>缺点：产生过多相似的对象，不易排错！</li>
-</ul>
-</li>
-<li><p>代理模式（Proxy）</p>
-<p>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作。<br>代理模式和装饰的区别在于：<br>装饰模式是将功能类实例化出来后交给装饰类去补充功能；<br>代理模式是在代理类内部去实例化功能类，调用者不用关心功能类，完全交给代理类；<br>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = <span class="keyword">new</span> Source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"before proxy!"</span>);</span><br><span class="line">		source.method();</span><br><span class="line">    System.out.println(<span class="string">"after proxy!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>外观模式（Facade）</p>
-<p>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-facade.png" alt="外观模式"></p>
-<p>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式。</p>
-</li>
-</ol>
-<p>10、桥接模式（Bridge）</p>
-<p>  桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。<br>  如下：</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Bridge bridge = <span class="keyword">new</span> MyBridge();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第一个对象*/</span></span><br><span class="line">		Sourceable source1 = <span class="keyword">new</span> SourceSub1();</span><br><span class="line">		bridge.setSource(source1);</span><br><span class="line">		bridge.method();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第二个对象*/</span></span><br><span class="line">		Sourceable source2 = <span class="keyword">new</span> SourceSub2();</span><br><span class="line">		bridge.setSource(source2);</span><br><span class="line">		bridge.method();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。</p>
-<ol>
-<li><p>组合模式（Composite）</p>
-<p>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> TreeNode parent;</span><br><span class="line">	<span class="keyword">private</span> Vector&lt;TreeNode&gt; children = <span class="keyword">new</span> Vector&lt;TreeNode&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TreeNode <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParent</span><span class="params">(TreeNode parent)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.add(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.remove(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//取得孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Enumeration&lt;TreeNode&gt; <span class="title">getChildren</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> children.elements();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//树</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">	TreeNode root = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tree</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TreeNode(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Tree tree = <span class="keyword">new</span> Tree(<span class="string">"A"</span>);</span><br><span class="line">		TreeNode nodeB = <span class="keyword">new</span> TreeNode(<span class="string">"B"</span>);</span><br><span class="line">		TreeNode nodeC = <span class="keyword">new</span> TreeNode(<span class="string">"C"</span>);</span><br><span class="line"></span><br><span class="line">		nodeB.add(nodeC);</span><br><span class="line">		tree.root.add(nodeB);</span><br><span class="line">		System.out.println(<span class="string">"build the tree finished!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。</p>
-</li>
-<li><p>享元模式（Flyweight）</p>
-<p>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br>最典型的使用场景：数据库连接池的实现。</p>
-</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[结构型模式 七种]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://miclee.cn/tags/java/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   
@@ -1024,7 +1024,7 @@
     <link href="http://miclee.cn/2015/08/27/jvm/"/>
     <id>http://miclee.cn/2015/08/27/jvm/</id>
     <published>2015-08-27T09:09:51.000Z</published>
-    <updated>2015-08-30T12:11:52.000Z</updated>
+    <updated>2015-12-17T05:59:12.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 《深入理解JAVA虚拟机》读书笔记 </em></strong><br><a id="more"></a></p>
 <hr>
 ]]></content>
@@ -1035,34 +1035,7 @@
     
       <category term="jvm" scheme="http://miclee.cn/tags/jvm/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[微信第三方平台授权权限集]]></title>
-    <link href="http://miclee.cn/2015/08/22/wechat-platform/"/>
-    <id>http://miclee.cn/2015/08/22/wechat-platform/</id>
-    <published>2015-08-21T16:00:00.000Z</published>
-    <updated>2015-08-27T07:24:22.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 微信第三方平台授权权限集说明 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="消息与菜单权限集">消息与菜单权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的消息与菜单相关的权限。由于涉及到接收并回复粉丝消息，为了防止多方对话交叠而导致用户收到多条消息，故一个公众号至多只能授权给一个公众号第三方平台，即授权互斥。具体包括：</p>
-<p>1) 接收和回复被动响应消息能力<br>2) 客服消息接口<br>3) 获取语音识别开关状态<br>4) 设置语音识别开关<br>5) 上传下载多媒体文件接口<br>6) 自定义菜单的创建、查询和删除<br>7) 自定义菜单点击事件接收<br>8) 订阅/取消订阅事件推送  </p>
-<h2 id="用户管理权限集">用户管理权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的用户管理权限。由于可供多方获取，故授权不互斥。具体包括：</p>
-<p>1) 获取用户基本信息接口<br>2) 获取用户列表接口<br>3) 用户分组管理接口<br>4) 用户备注名设置接口<br>5) 设置用户地理位置的开关及上报方式<br>6) 获取用户地理位置上报的开关状态及上报方式  </p>
-<h2 id="帐号管理权限集">帐号管理权限集</h2><p>该权限集主要进行公众帐号的帐号管理，包括获取和设置公众帐号信息，由于可供多方获取和设置，故授权不互斥。具体包括：</p>
-<h2 id="网页开发权限集">网页开发权限集</h2><p>1) 生成带参数二维码接口<br>2) 扫描带参数二维码的事件接收<br>3) 获取公众帐号基础信息(头像昵称/帐号类型等,此接口暂为服务方独有)<br>4）上传下载多媒体文件接口  </p>
-<h2 id="网页开发权限集-1">网页开发权限集</h2><p>该权限集主要指公众号第三方平台可以代替公众帐号发起微信网页授权，并在授权后可以合法获得相关的授权信息，还包括可以代替公众号使用JS SDK。由于可供多方使用，故授权不互斥。具体包括：<br>1) 发起微信内网页授权的权限<br>2) 授权后获取授权用户的基本信息（权限根据应用授权作用域scope的不同而不同：scope为snsapi_base时不弹出授权页面但只能获取用户openid）；scope为snsapi_userinfo时弹出授权页面但可通过openid拿到用户昵称、性别、所在地）<br>3）代替公众号使用JS SDK  </p>
-<h2 id="微信小店权限集">微信小店权限集</h2><p>该权限集主要是指管理微信公众平台小店的功能，由于可供多方使用，故授权不互斥。具体包括：<br>1) 微信小店所有接口权限<br>2) 微信小店所有事件推送（事件将推送到创建服务时填写的公众号消息与事件接收URL）</p>
-<h2 id="多客服权限集">多客服权限集</h2><p>该权限集主要指能否设置和获取公众账号的多客服功能开关的状态。一旦打开开关之后，客服消息将不再推送给第三方平台方，而是推送给微信多客服功能后台。此时，公众号运营者需要在mp.weixin.qq.com的多客服模块中下载多客服PC客户端来使用，与发客服消息的粉丝进行CRM沟通互动。该权限集可以授权给多个服务方，即授权不互斥，具体包括：<br>1）微信多客服所有接口权限  </p>
-]]></content>
-    <summary type="html">
-    <![CDATA[微信第三方平台授权权限集说明]]>
-    
-    </summary>
-    
-      <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   
@@ -1104,6 +1077,33 @@
       <category term="nodejs" scheme="http://miclee.cn/tags/nodejs/"/>
     
       <category term="wechat" scheme="http://miclee.cn/tags/wechat/"/>
+    
+      <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[微信第三方平台授权权限集]]></title>
+    <link href="http://miclee.cn/2015/08/22/wechat-platform/"/>
+    <id>http://miclee.cn/2015/08/22/wechat-platform/</id>
+    <published>2015-08-21T16:00:00.000Z</published>
+    <updated>2015-08-27T07:24:22.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 微信第三方平台授权权限集说明 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="消息与菜单权限集">消息与菜单权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的消息与菜单相关的权限。由于涉及到接收并回复粉丝消息，为了防止多方对话交叠而导致用户收到多条消息，故一个公众号至多只能授权给一个公众号第三方平台，即授权互斥。具体包括：</p>
+<p>1) 接收和回复被动响应消息能力<br>2) 客服消息接口<br>3) 获取语音识别开关状态<br>4) 设置语音识别开关<br>5) 上传下载多媒体文件接口<br>6) 自定义菜单的创建、查询和删除<br>7) 自定义菜单点击事件接收<br>8) 订阅/取消订阅事件推送  </p>
+<h2 id="用户管理权限集">用户管理权限集</h2><p>指公众号第三方平台方在获得该权限集后，可以获得被授权公众号的用户管理权限。由于可供多方获取，故授权不互斥。具体包括：</p>
+<p>1) 获取用户基本信息接口<br>2) 获取用户列表接口<br>3) 用户分组管理接口<br>4) 用户备注名设置接口<br>5) 设置用户地理位置的开关及上报方式<br>6) 获取用户地理位置上报的开关状态及上报方式  </p>
+<h2 id="帐号管理权限集">帐号管理权限集</h2><p>该权限集主要进行公众帐号的帐号管理，包括获取和设置公众帐号信息，由于可供多方获取和设置，故授权不互斥。具体包括：</p>
+<h2 id="网页开发权限集">网页开发权限集</h2><p>1) 生成带参数二维码接口<br>2) 扫描带参数二维码的事件接收<br>3) 获取公众帐号基础信息(头像昵称/帐号类型等,此接口暂为服务方独有)<br>4）上传下载多媒体文件接口  </p>
+<h2 id="网页开发权限集-1">网页开发权限集</h2><p>该权限集主要指公众号第三方平台可以代替公众帐号发起微信网页授权，并在授权后可以合法获得相关的授权信息，还包括可以代替公众号使用JS SDK。由于可供多方使用，故授权不互斥。具体包括：<br>1) 发起微信内网页授权的权限<br>2) 授权后获取授权用户的基本信息（权限根据应用授权作用域scope的不同而不同：scope为snsapi_base时不弹出授权页面但只能获取用户openid）；scope为snsapi_userinfo时弹出授权页面但可通过openid拿到用户昵称、性别、所在地）<br>3）代替公众号使用JS SDK  </p>
+<h2 id="微信小店权限集">微信小店权限集</h2><p>该权限集主要是指管理微信公众平台小店的功能，由于可供多方使用，故授权不互斥。具体包括：<br>1) 微信小店所有接口权限<br>2) 微信小店所有事件推送（事件将推送到创建服务时填写的公众号消息与事件接收URL）</p>
+<h2 id="多客服权限集">多客服权限集</h2><p>该权限集主要指能否设置和获取公众账号的多客服功能开关的状态。一旦打开开关之后，客服消息将不再推送给第三方平台方，而是推送给微信多客服功能后台。此时，公众号运营者需要在mp.weixin.qq.com的多客服模块中下载多客服PC客户端来使用，与发客服消息的粉丝进行CRM沟通互动。该权限集可以授权给多个服务方，即授权不互斥，具体包括：<br>1）微信多客服所有接口权限  </p>
+]]></content>
+    <summary type="html">
+    <![CDATA[微信第三方平台授权权限集说明]]>
+    
+    </summary>
     
       <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
     
@@ -1462,7 +1462,7 @@
     <link href="http://miclee.cn/2015/08/06/java/"/>
     <id>http://miclee.cn/2015/08/06/java/</id>
     <published>2015-08-05T16:00:00.000Z</published>
-    <updated>2015-08-30T12:09:49.000Z</updated>
+    <updated>2015-12-17T05:59:36.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> JAVA世界里的一些概念名词，用于个人小记 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="EJB（Enterprice_JavaBeans）">EJB（Enterprice JavaBeans）</h2><h4 id="概念">概念</h4><p>Enterprice JavaBeans是一个用于分布式业务应用的标准服务端组件模型。<br>采用Enterprice JavaBeans架构编写的应用是可延伸的、事务性的、多用户安全的。采用ejb编写的这些应用，可以部署在任何支持Enterprice JavaBeans规范的服务器平台，如jboss、weblogic等。</p>
@@ -1495,7 +1495,7 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
+      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
     
   </entry>
   

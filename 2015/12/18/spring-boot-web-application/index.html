@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>spring-boot-web-application</title>
+<title>使用spring-boot开发WEB应用</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用sspring-boot-starter-web模块进行快速搭建和运行。">
+<meta name="description " content="Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用spring-boot-starter-web模块进行快速搭建和运行。">
 
 <link rel="icon" href="/favicon.png">
 
@@ -49,9 +49,9 @@
         <nav id="pl__container">
           
                 
-                    <a class="spring pl__all" href="/2015/12/18/spring-boot-web-application/" title="spring-boot-web-application">
+                    <a class="spring pl__all" href="/2015/12/18/spring-boot-web-application/" title="使用spring-boot开发WEB应用">
                       
-                      <span class="pl__circle"></span><span class="pl__title">spring-boot-web-appl...</span><span class="pl__date">2015-12-18</span>
+                      <span class="pl__circle"></span><span class="pl__title">使用spring-boot开发WEB应用</span><span class="pl__date">2015-12-18</span>
                     </a>
                 
                     <a class="spring pl__all" href="/2015/12/17/spring-boot-hello/" title="Sring Boot 动手">
@@ -257,8 +257,8 @@
     <div id="post">
       <div id="pjax">
         <article id="post__content">
-  <h1 id="post__title" data-identifier="2015-12-18">spring-boot-web-application</h1>
-  <p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用sspring-boot-starter-web模块进行快速搭建和运行。 </em></strong><br><a id="more"></a></p>
+  <h1 id="post__title" data-identifier="2015-12-18">使用spring-boot开发WEB应用</h1>
+  <p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用spring-boot-starter-web模块进行快速搭建和运行。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="Spring_Web_MVC_框架">Spring Web MVC 框架</h2><p>Spring MVC框架是一个富”模型，视图，控制器”的web框架。 Spring MVC允许你创建特定的 @Controller 或 @RestController beans来处理传入的HTTP请求。 使用 @RequestMapping 注解可以将控制器中的方法映射到相应的HTTP请求。以下是个典型的 @RestController ：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RestController</span></span><br><span class="line"><span class="annotation">@RequestMapping</span>(value=<span class="string">"/users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;/customers"</span>, method=RequestMethod.GET)</span><br><span class="line">    <span class="function">List&lt;Customer&gt; <span class="title">getUserCustomers</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.DELETE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>

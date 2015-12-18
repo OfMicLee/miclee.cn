@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>MicLee&#39;s Bolg - 技术创造价值，分享带来快乐</title>
+<title>spring-boot-web-application</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="分享技术生涯的点点滴滴">
+<meta name="description " content="Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用sspring-boot-starter-web模块进行快速搭建和运行。">
 
 <link rel="icon" href="/favicon.png">
 
@@ -256,10 +256,9 @@
 
     <div id="post">
       <div id="pjax">
-        
-    <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-12-18">spring-boot-web-application</h1>
-      <p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用sspring-boot-starter-web模块进行快速搭建和运行。 </em></strong><br><a id="more"></a></p>
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-12-18">spring-boot-web-application</h1>
+  <p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用sspring-boot-starter-web模块进行快速搭建和运行。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="Spring_Web_MVC_框架">Spring Web MVC 框架</h2><p>Spring MVC框架是一个富”模型，视图，控制器”的web框架。 Spring MVC允许你创建特定的 @Controller 或 @RestController beans来处理传入的HTTP请求。 使用 @RequestMapping 注解可以将控制器中的方法映射到相应的HTTP请求。以下是个典型的 @RestController ：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@RestController</span></span><br><span class="line"><span class="annotation">@RequestMapping</span>(value=<span class="string">"/users"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRestController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.GET)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;/customers"</span>, method=RequestMethod.GET)</span><br><span class="line">    <span class="function">List&lt;Customer&gt; <span class="title">getUserCustomers</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.DELETE)</span><br><span class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -321,8 +320,8 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Bean</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> EmbeddedServletContainerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    TomcatEmbeddedServletContainerFactory factory = <span class="keyword">new</span> TomcatEmbeddedServletContainerFactory();</span><br><span class="line">    factory.setPort(<span class="number">9000</span>);</span><br><span class="line">    factory.setSessionTimeout(<span class="number">10</span>, TimeUnit.MINUTES);</span><br><span class="line">    factory.addErrorPages(<span class="keyword">new</span> ErrorPage(HttpStatus.NOT_FOUND, <span class="string">"/notfound.html"</span>);</span><br><span class="line">    <span class="keyword">return</span> factory;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>很多可选的配置都提供了setter方法，也提供了一些受保护的钩子方法以满足你的某些特殊需求。具体参考相关文档。</p>
 
-    </article>
-    <div id="post__share">
+</article>
+<div id="post__share">
     <!-- 打赏入口 -->
     <a id="icon-heart" class="fontello" href="#"></a>
 </div>
@@ -346,8 +345,6 @@ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
-
-
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

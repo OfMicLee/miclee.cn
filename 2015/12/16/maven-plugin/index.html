@@ -23,9 +23,9 @@
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
       
-      <li id="Java" class="tags__li tags-btn">Java</li>
-      
       <li id="spring" class="tags__li tags-btn">spring</li>
+      
+      <li id="Java" class="tags__li tags-btn">Java</li>
       
       <li id="blog" class="tags__li tags-btn">blog</li>
       
@@ -47,6 +47,33 @@
       <input id="search-input" type="text" placeholder="Search..." />
     </form>
         <nav id="pl__container">
+          
+                
+                    <a class="spring pl__all" href="/2015/12/18/spring-boot-web-application/" title="spring-boot-web-application">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">spring-boot-web-appl...</span><span class="pl__date">2015-12-18</span>
+                    </a>
+                
+                    <a class="spring pl__all" href="/2015/12/17/spring-boot-hello/" title="Sring Boot 动手">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">Sring Boot 动手</span><span class="pl__date">2015-12-17</span>
+                    </a>
+                
+                    <a class="spring pl__all" href="/2015/12/14/spring-security/" title="使用 Spring Security 保护 Web 应用的安全">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">使用 Spring Security 保...</span><span class="pl__date">2015-12-14</span>
+                    </a>
+                
+                    <a class="spring pl__all" href="/2015/11/28/spring-boot-admin/" title="spring-boot-admin 使用介绍">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">spring-boot-admin 使用...</span><span class="pl__date">2015-11-28</span>
+                    </a>
+                
+                    <a class="spring pl__all" href="/2015/08/10/spring-boot/" title="spring-boot介绍">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">spring-boot介绍</span><span class="pl__date">2015-08-10</span>
+                    </a>
+                
           
                 
                     <a class="Java pl__all" href="/2015/12/17/slf4j/" title="为什么要使用SLF4J而不是Log4J">
@@ -82,28 +109,6 @@
                     <a class="Java pl__all" href="/2015/08/06/java/" title="JAVA世界里的一些概念">
                       
                       <span class="pl__circle"></span><span class="pl__title">JAVA世界里的一些概念</span><span class="pl__date">2015-08-06</span>
-                    </a>
-                
-          
-                
-                    <a class="spring pl__all" href="/2015/12/17/hello-spring-boot/" title="Sring Boot 动手">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">Sring Boot 动手</span><span class="pl__date">2015-12-17</span>
-                    </a>
-                
-                    <a class="spring pl__all" href="/2015/12/14/spring-security/" title="使用 Spring Security 保护 Web 应用的安全">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">使用 Spring Security 保...</span><span class="pl__date">2015-12-14</span>
-                    </a>
-                
-                    <a class="spring pl__all" href="/2015/11/28/spring-boot-admin/" title="spring-boot-admin 使用介绍">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">spring-boot-admin 使用...</span><span class="pl__date">2015-11-28</span>
-                    </a>
-                
-                    <a class="spring pl__all" href="/2015/08/10/spring-boot/" title="spring-boot介绍">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">spring-boot介绍</span><span class="pl__date">2015-08-10</span>
                     </a>
                 
           
@@ -287,6 +292,39 @@
 <p>很多Maven用户遇到过这样一个问题，当项目包含大量模块的时候，为他们集体更新版本就变成一件烦人的事情，到底有没有自动化工具能帮助完成这件事情呢？（当然你可以使用sed之类的文本操作工具，不过不在本文讨论范围）答案是肯定的，versions-maven- plugin提供了很多目标帮助你管理Maven项目的各种版本信息。例如最常用的，命令 mvn versions:set -DnewVersion=1.1-SNAPSHOT 就能帮助你把所有模块的版本更新到1.1-SNAPSHOT。该插件还提供了其他一些很有用的目标，display-dependency- updates能告诉你项目依赖有哪些可用的更新；类似的display-plugin-updates能告诉你可用的插件更新；然后use- latest-versions能自动帮你将所有依赖升级到最新版本。最后，如果你对所做的更改满意，则可以使用 mvn versions:commit 提交，不满意的话也可以使用 mvn versions:revert 进行撤销。</p>
 <h2 id="maven-javadoc-plugin">maven-javadoc-plugin</h2><p><a href="http://maven.apache.org/plugins/maven-javadoc-plugin/" target="_blank" rel="external">http://maven.apache.org/plugins/maven-javadoc-plugin/</a></p>
 <p>顾名思义，生成javadoc</p>
+<h2 id="spring-boot-maven-plugin">spring-boot-maven-plugin</h2><p><a href="http://docs.spring.io/spring-boot/docs/current/maven-plugin/" target="_blank" rel="external">http://docs.spring.io/spring-boot/docs/current/maven-plugin/</a></p>
+<p>SpringBoot的Maven插件，根据不同goal有不同用处：</p>
+<table>
+<thead>
+<tr>
+<th>Goal</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>spring-boot:help</td>
+<td>展示插件帮助信息</td>
+</tr>
+<tr>
+<td>spring-boot:repackage</td>
+<td>将maven-jar-plugin插件构建的JAR包 或者maven-war-plugin插件构建的war包重新打包（类型根据项目packaging属性）。repackage的类型默认根据package的类型去猜测，可能的值有JAR, WAR, ZIP, DIR, NONE。WAR/JAR的项目默认打包成可执行的，此时需要有main class。或者设置属性 layout=NONE，则只简单打包成jar或者war。</td>
+</tr>
+<tr>
+<td>spring-boot:run</td>
+<td>执行一个项目（基于pom而不是jar）</td>
+</tr>
+<tr>
+<td>spring-boot:start</td>
+<td>不同于run，start可以加入其他goal，常用于跟测试整合，如需要应用在某个测试案例前或者后启动</td>
+</tr>
+<tr>
+<td>spring-boot-stop</td>
+<td>关闭被”start” goal开启的应用，常用于某个测试案例完成后调用</td>
+</tr>
+</tbody>
+</table>
+<p>加上springloaded依赖，则可实现热部署。<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>springloaded<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.2.3.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">dependencies</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 
 </article>
 <div id="post__share">

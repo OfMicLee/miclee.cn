@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>Tag: grunt</title>
+<title>常用模板语言</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="分享技术生涯的点点滴滴">
+<meta name="description " content="常用的模板引擎语言">
 
 <link rel="icon" href="/favicon.png">
 
@@ -265,7 +265,71 @@
 
     <div id="post">
       <div id="pjax">
-        
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-12-18">常用模板语言</h1>
+  <p><strong><em> 常用的模板引擎语言 </em></strong><br><a id="more"></a></p>
+<hr>
+<blockquote>
+<p>在java领域，表现层技术主要有三种：jsp、freemarker、velocity<br>在javascript领域，主要有：EJS、Jade、doT、swig等等，参考<a href="http://garann.github.io/template-chooser/" target="_blank" rel="external">http://garann.github.io/template-chooser/</a></p>
+</blockquote>
+<h2 id="JSP">JSP</h2><h3 id="优点">优点</h3><ol>
+<li>功能强大，可以写java代码</li>
+<li>支持jsp标签（jsp tag）</li>
+<li>支持表达式语言（el）</li>
+<li>官方标准，用户群广，丰富的第三方jsp标签库</li>
+<li>性能良好。jsp编译成class文件执行，有很好的性能表现<h3 id="缺点">缺点</h3>jsp没有明显缺点，非要挑点骨头那就是，由于可以编写java代码，如使用不当容易破坏mvc结构。</li>
+</ol>
+<h2 id="velocity是较早出现的用于代替jsp的模板语言">velocity是较早出现的用于代替jsp的模板语言</h2><h3 id="优点-1">优点</h3><ol>
+<li>不能编写java代码，可以实现严格的mvc分离</li>
+<li>性能良好，据说比jsp性能还要好些</li>
+<li>使用表达式语言，据说jsp的表达式语言就是学velocity的<h3 id="缺点-1">缺点</h3></li>
+<li>不是官方标准</li>
+<li>用户群体和第三方标签库没有jsp多。</li>
+<li>对jsp标签支持不够好</li>
+</ol>
+<h2 id="freemarker">freemarker</h2><h3 id="优点-2">优点</h3><ol>
+<li>不能编写java代码，可以实现严格的mvc分离</li>
+<li>性能。velocity应该是最好的，其次是jsp，普通的页面freemarker性能最差（虽然只是几毫秒到十几毫秒的差距）。但是在复杂页面上（包含大量判断. 日期金额格式化）的页面上，freemarker的性能比使用tag和el的jsp好。</li>
+<li>对jsp标签支持良好</li>
+<li>内置大量常用功能，比如html过滤，日期金额格式化等等，使用非常方便</li>
+<li>宏定义（类似jsp标签）非常方便，优于jsp的tag</li>
+<li>使用表达式语言<h3 id="缺点-2">缺点</h3></li>
+<li>不是官方标准</li>
+<li>用户群体和第三方标签库没有jsp多</li>
+</ol>
+<h2 id="Jade">Jade</h2><ul>
+<li>Jade 很简洁，表达能力也很强，但不够直观，学习和适应成本高，大量的tab和空格容易出错。</li>
+<li>Jade 处理模板时计算量大，在没有缓存的情况下性能低是肯定的。</li>
+<li>Jade 对于一个不擅长前端、喜欢Bootstrap和Ctrl c + v 实在不能提高开发效率。</li>
+<li>适合后端人员用</li>
+</ul>
+<h2 id="EJS">EJS</h2><p>简单易用的模板引擎，不过不支持继承，如果只是想要个模板往里面填充数据，是最好的选择</p>
+
+</article>
+<div id="post__share">
+    <!-- 打赏入口 -->
+    <a id="icon-heart" class="fontello" href="#"></a>
+</div>
+
+    <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more">分享到：</a><a href="#" class="bds_qzone" data-cmd="qzone" title="分享到QQ空间">QQ空间</a><a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博">新浪微博</a><a href="#" class="bds_tqq" data-cmd="tqq" title="分享到腾讯微博">腾讯微博</a><a href="#" class="bds_weixin" data-cmd="weixin" title="分享到微信">微信</a><a href="#" class="bds_douban" data-cmd="douban" title="分享到豆瓣网">豆瓣网</a><a href="#" class="bds_youdao" data-cmd="youdao" title="分享到有道云笔记">有道云笔记</a><a href="#" class="bds_evernotecn" data-cmd="evernotecn" title="分享到印象笔记">印象笔记</a></div>
+    <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":["mshare","qzone","tsina","bdysc","weixin","renren","tqq","bdxc","kaixin001","tqf","tieba","douban","bdhome","sqq","thx","ibaidu","mogujie","diandian","huaban","duitang","hx","fx","youdao","sdo","qingbiji","mail","isohu","wealink","ty","fbook","twi","linkedin","h163","evernotecn","print"],"bdPic":"","bdStyle":"0","bdSize":"16"},"share":{"bdSize":16},"image":{"viewList":["qzone","tsina","tqq","weixin","douban","youdao","evernotecn"],"viewText":"分享到：","viewSize":"16"}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+
+
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+/* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+var disqus_shortname = 'micleewj'; // required: replace example with your forum shortname 这个地方需要改成你配置的网站名
+
+/* * * DON'T EDIT BELOW THIS LINE * * */
+(function() {
+var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
+
+(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

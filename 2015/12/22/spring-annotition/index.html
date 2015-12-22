@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>MicLee&#39;s Bolg - 技术创造价值，分享带来快乐</title>
+<title>spring注解原理剖析与实现</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="分享技术生涯的点点滴滴">
+<meta name="description " content="讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理">
 
 <link rel="icon" href="/favicon.png">
 
@@ -270,10 +270,9 @@
 
     <div id="post">
       <div id="pjax">
-        
-    <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-12-22">spring注解原理剖析与实现</h1>
-      <p><strong><em> 讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理 </em></strong><br><a id="more"></a></p>
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-12-22">spring注解原理剖析与实现</h1>
+  <p><strong><em> 讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="一、注解的基本概念和原理">一、注解的基本概念和原理</h2><h4 id="概念">概念</h4><p>注解（Annotation）提供了一种安全的类似注释的机制，为我们在代码中添加信息提供了一种形式化得方法，使我们可以在稍后某个时刻方便的使用这些数据（通过解析注解来使用这些数据），用来将任何的信息或者元数据与程序元素（类、方法、成员变量等）进行关联。其实就是更加直观更加明了的说明，这些说明信息与程序业务逻辑没有关系，并且是供指定的工具或框架使用的。Annotation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的申明语句中。</p>
 <p>Annotation其实是一种接口。通过java的反射机制相关的API来访问Annotation信息。相关类（框架或工具中的类）根据这些信息来决定如何使用该程序元素或改变它们的行为。Java语言解释器在工作时会忽略这些Annotation，因此在JVM中这些Annotation是“不起作用”的，只能通过配套的工具才能对这些Annotation类型的信息进行访问和处理。</p>
@@ -340,8 +339,8 @@
 <p>@MicLeeResource 注解本身不做任何事情，只是像xml文件一样起到配置作用。注解代表的是某种业务意义，注解背后处理器的工作原理如上源码实现：首先解析所有属性，判断属性上是否存在指定注解，如果存在则根据搜索规则取得bean，然后利用反射原理注入。如果标注在字段上面，也可以通过字段的反射技术取得注解，根据搜索规则取得bean，然后利用反射技术注入。</p>
 </blockquote>
 
-    </article>
-    <div id="post__share">
+</article>
+<div id="post__share">
     <!-- 打赏入口 -->
     <a id="icon-heart" class="fontello" href="#"></a>
 </div>
@@ -365,8 +364,6 @@ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
-
-
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

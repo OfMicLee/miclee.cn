@@ -23,9 +23,9 @@
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
       
-      <li id="java" class="tags__li tags-btn">java</li>
-      
       <li id="spring" class="tags__li tags-btn">spring</li>
+      
+      <li id="java" class="tags__li tags-btn">java</li>
       
       <li id="Java" class="tags__li tags-btn">Java</li>
       
@@ -51,12 +51,10 @@
         <nav id="pl__container">
           
                 
-                    <a class="java pl__all" href="/2015/12/18/template-language/" title="常用模板语言">
+                    <a class="spring pl__all" href="/2015/12/22/spring-annotition/" title="spring注解原理剖析与实现">
                       
-                      <span class="pl__circle"></span><span class="pl__title">常用模板语言</span><span class="pl__date">2015-12-18</span>
+                      <span class="pl__circle"></span><span class="pl__title">spring注解原理剖析与实现</span><span class="pl__date">2015-12-22</span>
                     </a>
-                
-          
                 
                     <a class="spring pl__all" href="/2015/12/18/spring-boot-web-application/" title="使用spring-boot开发WEB应用">
                       
@@ -81,6 +79,13 @@
                     <a class="spring pl__all" href="/2015/08/10/spring-boot/" title="spring-boot介绍">
                       
                       <span class="pl__circle"></span><span class="pl__title">spring-boot介绍</span><span class="pl__date">2015-08-10</span>
+                    </a>
+                
+          
+                
+                    <a class="java pl__all" href="/2015/12/18/template-language/" title="常用模板语言">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">常用模板语言</span><span class="pl__date">2015-12-18</span>
                     </a>
                 
           
@@ -289,7 +294,9 @@
 <h2 id="Static_静态内容">Static 静态内容</h2><p>默认情况下，Spring Boot从classpath下一个叫/static（/public，/resources或/META-INF/resources）的文件夹或从ServletContext根目录提供静态内容。这使用了Spring MVC的ResourceHttpRequestHandler，所以你可以通过添加自己的WebMvcConfigurerAdapter并覆写addResourceHandlers方法来改变这个行为（加载静态文件）。</p>
 <p>在一个单独的web应用中，容器默认的servlet是开启的，如果Spring决定不处理某些请求，默认的servlet作为一个回退（降级）将从ServletContext根目录加载内容。大多数时候，这不会发生（除非你修改默认的MVC配置），因为Spring总能够通过DispatcherServlet处理请求。</p>
 <p>此外，上述标准的静态资源位置有个例外情况是Webjars内容。任何在/webjars/** 路径下的资源都将从jar文件中提供，只要它们以Webjars的格式打包。</p>
-<p><strong>注：如果你的应用将被打包成jar，那就不要使用src/main/webapp文件夹。尽管该文件夹是一个共同的标准，但它仅在打包成war的情况下起作用，并且如果产生一个jar，多数构建工具都会静悄悄的忽略它。</strong></p>
+<blockquote>
+<p>注：如果你的应用将被打包成jar，那就不要使用src/main/webapp文件夹。尽管该文件夹是一个共同的标准，但它仅在打包成war的情况下起作用，并且如果产生一个jar，多数构建工具都会静悄悄的忽略它。</p>
+</blockquote>
 <h2 id="Template_engines_模板引擎">Template engines 模板引擎</h2><p>正如REST web服务，你也可以使用Spring MVC提供动态HTML内容。Spring MVC支持各种各样的模板技术，包括Velocity, FreeMarker和JSPs。很多其他的模板引擎也提供它们自己的Spring MVC集成。</p>
 <p>Spring Boot为以下的模板引擎提供自动配置支持：</p>
 <ul>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-22T07:02:10.000Z</updated>
+  <updated>2015-12-22T07:06:52.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,12 +19,12 @@
     <link href="http://miclee.cn/2015/12/22/spring-annotition/"/>
     <id>http://miclee.cn/2015/12/22/spring-annotition/</id>
     <published>2015-12-22T05:47:51.000Z</published>
-    <updated>2015-12-22T07:02:10.000Z</updated>
+    <updated>2015-12-22T07:06:52.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="一、注解的基本概念和原理">一、注解的基本概念和原理</h2><h4 id="概念">概念</h4><p>注解（Annotation）提供了一种安全的类似注释的机制，为我们在代码中添加信息提供了一种形式化得方法，使我们可以在稍后某个时刻方便的使用这些数据（通过解析注解来使用这些数据），用来将任何的信息或者元数据与程序元素（类、方法、成员变量等）进行关联。其实就是更加直观更加明了的说明，这些说明信息与程序业务逻辑没有关系，并且是供指定的工具或框架使用的。Annotation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的申明语句中。</p>
+<h2 id="一、注解的基本概念和原理">一、注解的基本概念和原理</h2><h3 id="概念">概念</h3><p>注解（Annotation）提供了一种安全的类似注释的机制，为我们在代码中添加信息提供了一种形式化得方法，使我们可以在稍后某个时刻方便的使用这些数据（通过解析注解来使用这些数据），用来将任何的信息或者元数据与程序元素（类、方法、成员变量等）进行关联。其实就是更加直观更加明了的说明，这些说明信息与程序业务逻辑没有关系，并且是供指定的工具或框架使用的。Annotation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的申明语句中。</p>
 <p>Annotation其实是一种接口。通过java的反射机制相关的API来访问Annotation信息。相关类（框架或工具中的类）根据这些信息来决定如何使用该程序元素或改变它们的行为。Java语言解释器在工作时会忽略这些Annotation，因此在JVM中这些Annotation是“不起作用”的，只能通过配套的工具才能对这些Annotation类型的信息进行访问和处理。</p>
-<h4 id="Annotation和interface的异同">Annotation和interface的异同</h4><ol>
+<h3 id="Annotation和interface的异同">Annotation和interface的异同</h3><ol>
 <li>Annotition的类型使用关键字 @interface 而不是interface。它继承了java.lang.annotition.Annotition接口，并非申明了一个interface。</li>
 <li><p>Annotation类型、方法定义是独特的、受限制的：</p>
 <ul>
@@ -41,7 +41,7 @@
 </li>
 <li>Annotation类型又与接口有着近似之处：它可以定义常量、静态成员类型（比如枚举类型定义）；Annotation类型也可以如接口一般被实现或者继承。</li>
 </ol>
-<h4 id="元注解_@Target,_@Retention,_@Documented,_@Inherited">元注解 @Target, @Retention, @Documented, @Inherited</h4><ol>
+<h3 id="元注解_@Target,_@Retention,_@Documented,_@Inherited">元注解 @Target, @Retention, @Documented, @Inherited</h3><ol>
 <li>@Target 表示该注解用于什么地方，可能的 ElemenetType 参数包括：<ul>
 <li>ElemenetType.CONSTRUCTOR 构造器声明</li>
 <li>ElemenetType.FIELD 域声明（包括 enum 实例）</li>
@@ -61,7 +61,7 @@
 <li>@Documented 将此注解包含在 javadoc 中</li>
 <li>@Inherited 允许子类继承父类中的注解</li>
 </ol>
-<h4 id="演示一个demo">演示一个demo</h4><ol>
+<h3 id="演示一个demo">演示一个demo</h3><ol>
 <li><p>定义注解Test：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//该注解用于方法声明</span></span><br><span class="line"><span class="annotation">@Target</span>(ElementType.METHOD)</span><br><span class="line"><span class="comment">//VM将在运行期也保留注释，因此可以通过反射机制读取注解的信息</span></span><br><span class="line"><span class="annotation">@Retention</span>(RetentionPolicy.RUNTIME)</span><br><span class="line"><span class="comment">//将此注解包含在javadoc中</span></span><br><span class="line"><span class="annotation">@Documented</span></span><br><span class="line"><span class="comment">//允许子类继承父类中的注解</span></span><br><span class="line"><span class="annotation">@Inherited</span></span><br><span class="line"><span class="keyword">public</span> <span class="annotation">@interface</span> Test &#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">description</span><span class="params">()</span> <span class="keyword">default</span> "no description"</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>

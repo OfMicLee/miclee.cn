@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-23T08:08:57.000Z</updated>
+  <updated>2015-12-23T08:10:44.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,8 +19,8 @@
     <link href="http://miclee.cn/2015/12/23/spring-boot-6/"/>
     <id>http://miclee.cn/2015/12/23/spring-boot-6/</id>
     <published>2015-12-23T05:22:26.000Z</published>
-    <updated>2015-12-23T08:08:57.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> spring-boot 重要注解解析。spring-boot哎哟不错系列第五篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
+    <updated>2015-12-23T08:10:44.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> spring-boot 重要注解解析。spring-boot哎哟不错系列第六篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="一、_@SpringBootApplication">一、 @SpringBootApplication</h2><ul>
 <li><strong>spring-boot</strong> 定义的注解，属于包 <strong><em>org.springframework.boot.autoconfigure</em></strong>，先看源代码：</li>
@@ -105,7 +105,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="annotation">@EnableConfigurationProperties</span>(ConnectionSettings.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
-    <![CDATA[spring-boot 重要注解解析。spring-boot哎哟不错系列第五篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
+    <![CDATA[spring-boot 重要注解解析。spring-boot哎哟不错系列第六篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
     
     </summary>
     

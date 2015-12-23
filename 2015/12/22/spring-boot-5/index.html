@@ -51,6 +51,11 @@
         <nav id="pl__container">
           
                 
+                    <a class="spring pl__all" href="/2015/12/23/spring-boot-6/" title="spring-boot哎哟不错(六) —— spring-boot 重要注解解析">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">spring-boot哎哟不错(六) —...</span><span class="pl__date">2015-12-23</span>
+                    </a>
+                
                     <a class="spring pl__all" href="/2015/12/22/spring-boot-5/" title="spring-boot哎哟不错(五) —— spring-boot 自定义配置详解">
                       
                       <span class="pl__circle"></span><span class="pl__title">spring-boot哎哟不错(五) —...</span><span class="pl__date">2015-12-22</span>
@@ -306,11 +311,9 @@
 </ol>
 <blockquote>
 <ul>
-<li>在spring boot中默认会加载<br>classpath:/ | classpath:/config/ | file:./ | file:./config/ 路径下以application命名的property或yaml文件；<ul>
-<li>参数spring.config.location设置配置文件存放位置</li>
-<li>参数spring.config.name设置配置文件名称</li>
-</ul>
-</li>
+<li>在spring boot中默认会加载<br>classpath:/ | classpath:/config/ | file:./ | file:./config/ 路径下以application命名的property或yaml文件；</li>
+<li>参数spring.config.location设置配置文件存放位置；</li>
+<li>参数spring.config.name设置配置文件名称；</li>
 </ul>
 </blockquote>
 <h2 id="三、配置文件里获取随机数">三、配置文件里获取随机数</h2><p>在spring boot配置文件里能调用Random中的方法，如在application.properties中为user增加age参数：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name=MicLee&#10;age=$&#123;random.int&#125;</span><br></pre></td></tr></table></figure></p>

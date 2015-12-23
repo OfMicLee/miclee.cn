@@ -5,12 +5,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 <!--[if lte IE 9]><meta http-equiv="refresh" content="0;url=/ie.html"><![endif]-->
 
-<title>MicLee&#39;s Bolg - 技术创造价值，分享带来快乐</title>
+<title>spring-boot哎哟不错(六) —— spring-boot 重要注解解析</title>
 <meta name="author" content="MicLee">
 
 <meta name="keywords" content="undefined">
 
-<meta name="description " content="分享技术生涯的点点滴滴">
+<meta name="description " content="spring-boot 重要注解解析。spring-boot哎哟不错系列第五篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。">
 
 <link rel="icon" href="/favicon.png">
 
@@ -280,10 +280,9 @@
 
     <div id="post">
       <div id="pjax">
-        
-    <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-12-23">spring-boot哎哟不错(六) —— spring-boot 重要注解解析</h1>
-      <p><strong><em> spring-boot 重要注解解析。spring-boot哎哟不错系列第五篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
+        <article id="post__content">
+  <h1 id="post__title" data-identifier="2015-12-23">spring-boot哎哟不错(六) —— spring-boot 重要注解解析</h1>
+  <p><strong><em> spring-boot 重要注解解析。spring-boot哎哟不错系列第五篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="一、_@SpringBootApplication">一、 @SpringBootApplication</h2><ul>
 <li><strong>spring-boot</strong> 定义的注解，属于包 <strong><em>org.springframework.boot.autoconfigure</em></strong>，先看源代码：</li>
@@ -367,8 +366,8 @@
 <p>你可以通过在@EnableConfigurationProperties注解中直接简单的列出属性类来快捷的注册@ConfigurationProperties bean的定义。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="annotation">@EnableConfigurationProperties</span>(ConnectionSettings.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-    </article>
-    <div id="post__share">
+</article>
+<div id="post__share">
     <!-- 打赏入口 -->
     <a id="icon-heart" class="fontello" href="#"></a>
 </div>
@@ -392,8 +391,6 @@ dsq.src = 'http://' + disqus_shortname + '.disqus.com/embed.js';
 </script>
 <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="http://disqus.com" class="dsq-brlink">blog comments powered by <span class="logo-disqus">Disqus</span></a
-
-
 
         <hr>
         <p id="copyright"> © 2015 MicLee&nbsp;&nbsp;|&nbsp;&nbsp;Powered by <a href="http://hexo.io" target="_blank">Hexo</a></p>

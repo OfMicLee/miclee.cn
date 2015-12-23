@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-23T08:10:44.000Z</updated>
+  <updated>2015-12-23T09:55:19.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://miclee.cn/2015/12/23/spring-boot-6/"/>
     <id>http://miclee.cn/2015/12/23/spring-boot-6/</id>
     <published>2015-12-23T05:22:26.000Z</published>
-    <updated>2015-12-23T08:10:44.000Z</updated>
+    <updated>2015-12-23T09:55:19.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> spring-boot 重要注解解析。spring-boot哎哟不错系列第六篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="一、_@SpringBootApplication">一、 @SpringBootApplication</h2><ul>
@@ -103,6 +103,7 @@
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyService</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> ConnectionSettings connection;</span><br><span class="line">     <span class="comment">//...</span></span><br><span class="line">    <span class="annotation">@PostConstruct</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">openConnection</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Server server = <span class="keyword">new</span> Server();</span><br><span class="line">        <span class="keyword">this</span>.connection.configure(server);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>你可以通过在@EnableConfigurationProperties注解中直接简单的列出属性类来快捷的注册@ConfigurationProperties bean的定义。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="annotation">@EnableConfigurationProperties</span>(ConnectionSettings.class)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//@Component 这样ConnectionSettings类上面就不用标示 @Component注解了</span></span><br><span class="line"><span class="annotation">@ConfigurationProperties</span>(prefix=<span class="string">"connection"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ConnectionSettings</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> String username;</span><br><span class="line">    <span class="keyword">private</span> InetAddress remoteAddress;</span><br><span class="line">    <span class="comment">// ... getters and setters</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[spring-boot 重要注解解析。spring-boot哎哟不错系列第六篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
@@ -321,7 +322,7 @@
     <link href="http://miclee.cn/2015/12/18/spring-boot-3/"/>
     <id>http://miclee.cn/2015/12/18/spring-boot-3/</id>
     <published>2015-12-18T02:04:11.000Z</published>
-    <updated>2015-12-22T07:51:23.000Z</updated>
+    <updated>2015-12-23T13:12:26.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用spring-boot-starter-web模块进行快速搭建和运行。spring-boot哎哟不错系列第三篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="Spring_Web_MVC_框架">Spring Web MVC 框架</h2><p>Spring MVC框架是一个富”模型，视图，控制器”的web框架。 Spring MVC允许你创建特定的 @Controller 或 @RestController beans来处理传入的HTTP请求。 使用 @RequestMapping 注解可以将控制器中的方法映射到相应的HTTP请求。以下是个典型的 @RestController ：</p>
@@ -364,7 +365,9 @@
 <li>不能使用Jetty作为内嵌式容器</li>
 <li>不能使用Undertow作为容器</li>
 </ul>
+<p>使用jsp时必须增加Jasper模块依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="title">scope</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 </blockquote>
+<p>Jasper子模块：这个子模块负责jsp页面的解析、jsp属性的验证，同时也负责将jsp页面动态转换为java代码并编译成class文件。在Tomcat源代码中，凡是属于org.apache.jasper包及其子包中的源代码都属于这个子模块；</p>
 <p>当你使用这些引擎的任何一种，并采用默认的配置，你的模板将会从src/main/resources/templates目录下自动加载。</p>
 <p>注：IntelliJ IDEA根据你运行应用的方式会对classpath进行不同的整理。在IDE里通过main方法运行你的应用跟从Maven或Gradle或打包好的jar中运行相比会导致不同的顺序。这可能导致Spring Boot不能从classpath下成功地找到模板。如果遇到这个问题，你可以在IDE里重新对classpath进行排序，将模块的类和资源放到第一位。或者，你可以配置模块的前缀为classpath*:/templates/，这样会查找classpath下的所有模板目录。</p>
 <h2 id="Error_Handling_错误处理">Error Handling 错误处理</h2><p>Spring Boot默认提供一个/error映射用来以合适的方式处理所有的错误，并且它在servlet容器中注册了一个全局的 错误页面。对于机器客户端（相对于浏览器而言，浏览器偏重于人的行为），它会产生一个具有详细错误，HTTP状态，异常信息的JSON响应。对于浏览器客户端，它会产生一个白色标签样式（whitelabel）的错误视图，该视图将以HTML格式显示同样的数据（可以添加一个解析为erro的View来自定义它）。为了完全替换默认的行为，你可以实现ErrorController，并注册一个该类型的bean定义，或简单地添加一个ErrorAttributes类型的bean以使用现存的机制，只是替换显示的内容。</p>

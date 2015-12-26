@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-25T05:35:25.000Z</updated>
+  <updated>2015-12-26T07:59:39.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[iOS 和 Android 的后台推送原理]]></title>
+    <link href="http://miclee.cn/2015/12/26/ios-android-push/"/>
+    <id>http://miclee.cn/2015/12/26/ios-android-push/</id>
+    <published>2015-12-26T07:42:15.000Z</published>
+    <updated>2015-12-26T07:59:39.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 因为手机平台本身、电量、网络流量的限制，移动互联网应用在设计上跟传统 PC 上的应用很大不一样，需要根据手机本身的特点，尽量的节省电量和流量，同时又要尽可能的保证数据能及时到达客户端。为了解决数据同步的问题，在手机平台上，常用的方法有2种。一种是定时去服务器上查询数据，也叫Polling，还有一种手机跟服务器之间维护一个 TCP 长连接，当服务器有数据时，实时推送到客户端，也就是我们说的 Push。从耗费的电量、流量和数据送达的及时性来说，Push都会有明显的优势，但 Push 的实现和维护成本相对较高。在移动无线网络下维护长连接，相对也有一些技术上的难度。本文介绍下IOS和Android目前不同的PUSH方案。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="运行机制">运行机制</h2><p>iOS 系统的推送（APNS，即 Apple Push Notification Service）依托一个或几个系统常驻进程运作，是全局的（接管所有应用的消息推送），所以可看作是独立于应用之外，而且是设备和苹果服务器之间的通讯，而非应用的提供商服务器。如 腾讯 QQ 的服务器（Provider）会给苹果公司对应的服务器（APNs）发出通知，然后再中转传送到你的设备（Devices）之上。当你接收到通知，打开应用，才开始从腾讯服务器接收数据，跟你之前看到通知里内容一样，但却是经由两个不同的通道而来。</p>
+<p>而 Android，就不同，更像是传统桌面电脑系统做法。每个需要后台推送的应用有各自的单独后台进程，才能和各自的服务器通讯，交换数据。另外其实 Android 也有类似 APNS 的 GCM（Google Cloud Message），属于开发者可选，非强制。所以你大概看出来区别，iOS 的消息推送机制面世之时是一种全新的解决方案（堪称平台中的平台），应用本身不能有常驻的后台进程，系统的开销少，内存使用更少，电量也更少（把更多的运算和资源开销放在云端，非设备端）。而 Android 的特点，虽然开销大，优点是更稳定快速，但不明显。</p>
+<h2 id="实现原理">实现原理</h2><p>本质上，APNs 与 GCM 是类似的技术实现原理：即系统层有一个常驻的 TCP 长连接，一直保持的长连接，即使手机休眠的时候也在保持的长连接。这里对于大部分人来说，最不理解的就是，休眠时候都保持在那里的 TCP 长连接，不会耗电很厉害么？答案是：不会。这是手机的设计来做到的。TCP长连接有个心跳的时间，在国外可以很长比如30分钟，在国内则因为网络环境复杂一般10分钟。客户端发起的心跳，会短暂地消耗手机电能，但在这个心跳间隔期间，则消耗电能是很少的。当在心跳期间服务器端有推送信息过来时，客户端可以收到并做处理。</p>
+<p>再说 APNs 的设计成功处。iOS 为了真正地为用户体验负责，不允许应用在后台活动。有了这个限制，但是对于终端设备，应用又是有必要“通知”到达用户的，随时与用户主动沟通起来的（典型的如聊天应用）。这就是 APNs 的逻辑所在：iOS 自己做个长驻后台保持连接。所有应用，有必要（申请）并且被允许（用户可以改设置）的话，可以通过 APNs 中转到达用户。这样就完善了！有可能很多人没有真正地体会到 iOS 不允许后台应用的好处。我是 Android 开发人员，Android 手机上一般只保留几个常用的应用，不常用就卸载。但是我的 iPhone / iPad 上则是，除非空间不足，一般不会删除应用。Android 就像 Windows，你要真的很费心去维护：有软件在干背后干坏事么？设备又给拖慢了，要清理。要考虑杀毒了。。。Android 因为后台可以长驻，尤其是国内的 Android 的手机上 Google自家的推送服务 GCM 处于基本不可用的状态。所以，各App各显神通。聊天类应用的话，大多数直接借用 XMPP 规范里的一些成果。少量如微信有IM底子的，自己开发协议。这些在实现原理上与 APNs / GCM 没有本质的区别，但有一定的技术门槛。而大多数普遍应用，要使用推送的话，则使用轮询的方式简单实现。其实，国外如 Urban Airship 自己实现了 Android 上的第三方提供的推送平台。近期国内如极光推送也实现了第三方的推送平台（技术与微信、GCM、APNs类似）。理论上，如果一个 Android 设备上多款应用都使用极光推送这种第三方推送平台的话，也可以如 APNs 一样达到节省电量、流量消耗的效果。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[因为手机平台本身、电量、网络流量的限制，移动互联网应用在设计上跟传统 PC 上的应用很大不一样，需要根据手机本身的特点，尽量的节省电量和流量，同时又要尽可能的保证数据能及时到达客户端。为了解决数据同步的问题，在手机平台上，常用的方法有2种。一种是定时去服务器上查询数据，也叫Polling，还有一种手机跟服务器之间维护一个 TCP 长连接，当服务器有数据时，实时推送到客户端，也就是我们说的 Push。从耗费的电量、流量和数据送达的及时性来说，Push都会有明显的优势，但 Push 的实现和维护成本相对较高。在移动无线网络下维护长连接，相对也有一些技术上的难度。本文介绍下IOS和Android目前不同的PUSH方案。]]>
+    
+    </summary>
+    
+      <category term="push" scheme="http://miclee.cn/tags/push/"/>
+    
+      <category term="移动端" scheme="http://miclee.cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[spring-boot哎哟不错(七) —— 使用spring-boot 打包可执行jar和war包]]></title>
@@ -1694,45 +1718,6 @@
     </summary>
     
       <category term="移动端" scheme="http://miclee.cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[makefile和shell脚本的区别]]></title>
-    <link href="http://miclee.cn/2015/08/19/makefile&shell/"/>
-    <id>http://miclee.cn/2015/08/19/makefile&shell/</id>
-    <published>2015-08-18T16:00:00.000Z</published>
-    <updated>2015-12-14T07:58:35.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
-<hr>
-<ul>
-<li><h4 id="1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。">1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="constant">SUBPATH</span>=<span class="variable">$(PATH)</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PATH=&#34;/data/&#34;&#10;SUBPATH=$&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><h4 id="2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。">2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">PATH</span>="/data/"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo $&#123;PATH&#125;</span><br></pre></td></tr></table></figure>
-<p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
-</li>
-<li><h4 id="3）通配符区别">3）通配符区别</h4><p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
-</li>
-<li><h4 id="4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。">4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</h4><p>比如如下代码就是没有任何输出：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line">echo "$VAR"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">VAR</span>="Hello"</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    echo "$VAR"</span><br><span class="line">......</span><br></pre></td></tr></table></figure>
-<p>以上代码，在make all的时候将会执行echo命令。</p>
-</li>
-<li><h4 id="5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;_\”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：">5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="constant">SUBDIR</span>=src example</span><br><span class="line"><span class="title">all:</span></span><br><span class="line">    @for subdir in $(SUBDIR); \</span><br><span class="line">    do\</span><br><span class="line">        echo "building "; \</span><br></pre></td></tr></table></figure>
-<p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
-</li>
-<li><h4 id="6）获取当前目录">6）获取当前目录</h4><p>PATH=<code>pwd</code> 注意是``,不是’’</p>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。]]>
-    
-    </summary>
-    
-      <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
     
   </entry>
   

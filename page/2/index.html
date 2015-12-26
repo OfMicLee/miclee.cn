@@ -23,6 +23,8 @@
     <ul id="tags__ul">
       <li id="pl__all" class="tags__li tags-btn active">所有文章</li>
       
+      <li id="移动端" class="tags__li tags-btn">移动端</li>
+      
       <li id="spring" class="tags__li tags-btn">spring</li>
       
       <li id="java" class="tags__li tags-btn">java</li>
@@ -32,8 +34,6 @@
       <li id="blog" class="tags__li tags-btn">blog</li>
       
       <li id="nodejs" class="tags__li tags-btn">nodejs</li>
-      
-      <li id="移动端" class="tags__li tags-btn">移动端</li>
       
       <li id="技术综合" class="tags__li tags-btn">技术综合</li>
       
@@ -49,6 +49,28 @@
       <input id="search-input" type="text" placeholder="Search..." />
     </form>
         <nav id="pl__container">
+          
+                
+                    <a class="移动端 pl__all" href="/2015/12/26/ios-android-push/" title="iOS 和 Android 的后台推送原理">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">iOS 和 Android 的后台推送原...</span><span class="pl__date">2015-12-26</span>
+                    </a>
+                
+                    <a class="移动端 pl__all" href="/2015/08/20/ios-app-depolyment/" title="ios app 发布模式">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">ios app 发布模式</span><span class="pl__date">2015-08-20</span>
+                    </a>
+                
+                    <a class="移动端 pl__all" href="/2015/08/19/ios-app-publish/" title="ios app 发布流程">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">ios app 发布流程</span><span class="pl__date">2015-08-19</span>
+                    </a>
+                
+                    <a class="移动端 pl__all" href="/2015/08/06/ionic&&phonegap/" title="ionic">
+                      
+                      <span class="pl__circle"></span><span class="pl__title">ionic</span><span class="pl__date">2015-08-06</span>
+                    </a>
+                
           
                 
                     <a class="spring pl__all" href="/2015/12/25/spring-boot-7/" title="spring-boot哎哟不错(七) —— 使用spring-boot 打包可执行jar和war包">
@@ -241,23 +263,6 @@
                 
           
                 
-                    <a class="移动端 pl__all" href="/2015/08/20/ios-app-depolyment/" title="ios app 发布模式">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">ios app 发布模式</span><span class="pl__date">2015-08-20</span>
-                    </a>
-                
-                    <a class="移动端 pl__all" href="/2015/08/19/ios-app-publish/" title="ios app 发布流程">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">ios app 发布流程</span><span class="pl__date">2015-08-19</span>
-                    </a>
-                
-                    <a class="移动端 pl__all" href="/2015/08/06/ionic&&phonegap/" title="ionic">
-                      
-                      <span class="pl__circle"></span><span class="pl__title">ionic</span><span class="pl__date">2015-08-06</span>
-                    </a>
-                
-          
-                
                     <a class="技术综合 pl__all" href="/2015/08/19/makefile&shell/" title="makefile和shell脚本的区别">
                       
                       <span class="pl__circle"></span><span class="pl__title">makefile和shell脚本的区别</span><span class="pl__date">2015-08-19</span>
@@ -287,37 +292,17 @@
       <div id="pjax">
         
     <article id="post__content">
-      <h1 id="post__title" data-identifier="2015-11-28">spring-boot哎哟不错(四) —— spring-boot-admin 使用介绍</h1>
-      <p><strong><em> spring-boot应用监控平台。spring-boot哎哟不错系列第四篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
+      <h1 id="post__title" data-identifier="2015-12-14">使用 Spring Security 保护 Web 应用的安全</h1>
+      <p><strong><em> 安全一直是 Web 应用开发中非常重要的一个方面。从安全的角度来说，需要考虑用户认证和授权两个方面。为 Web 应用增加安全方面的能力并非一件简单的事情，需要考虑不同的认证和授权机制。Spring Security 为使用 Spring 框架的 Web 应用提供了良好的支持。本文将详细介绍如何使用 Spring Security 框架为 Web 应用提供安全支持。 </em></strong><br><a id="more"></a></p>
 <hr>
-<p>spring-boot应用监控平台使用方法简介：</p>
-<h2 id="客户端">客户端</h2><ul>
-<li>pom.xml增加以下依赖：</li>
-</ul>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>de.codecentric<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-admin-starter-client<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li>配置文件增加属性：</li>
-</ul>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="class">.boot</span><span class="class">.admin</span><span class="class">.url</span>=http:<span class="comment">//localhost:8001</span></span><br></pre></td></tr></table></figure>
-<p>如果为.yml格式，则如下：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">boot</span>:</span><br><span class="line">    <span class="attribute">admin</span>:</span><br><span class="line">      <span class="attribute">url</span>: <span class="attribute">http</span>:<span class="comment">//localhost:8001</span></span><br></pre></td></tr></table></figure>
-<h2 id="服务端">服务端</h2><ul>
-<li>只提供服务</li>
-</ul>
-<p>pom.xml增加以下依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>de.codecentric<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-admin-server<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>de.codecentric<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-boot-admin-server-ui<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.3.0<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>只需要增加 @EnableAdminServer 一个注解即可创建admin应用：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Configuration</span></span><br><span class="line"><span class="annotation">@EnableAutoConfiguration</span></span><br><span class="line"><span class="annotation">@EnableAdminServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">      SpringApplication.run(Application.class, args);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>服务端加客户端（注册自身）</li>
-</ul>
-<p>在上面配置之外，再增加属性配置：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring<span class="class">.boot</span><span class="class">.admin</span><span class="class">.url</span>=http:<span class="comment">//localhost:8001</span></span><br></pre></td></tr></table></figure>
-<p>如果为.yml格式，则如下：</p>
-<figure class="highlight less"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">spring</span>:</span><br><span class="line">  <span class="attribute">boot</span>:</span><br><span class="line">    <span class="attribute">admin</span>:</span><br><span class="line">      <span class="attribute">url</span>: <span class="attribute">http</span>:<span class="comment">//localhost:8001</span></span><br></pre></td></tr></table></figure>
-<h2 id="客户端免配置模式">客户端免配置模式</h2><p>特别的，服务端增加spring-clouds注解 @EnableDiscoveryClient，并包含一个实现方式，(e.g. Eureka)，即可实现客户端免配置。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Configuration</span><br><span class="line">@EnableAutoConfiguration</span><br><span class="line">@EnableDiscoveryClient</span><br><span class="line">@EnableAdminServer</span><br><span class="line">public class SpringBootAdminApplication &#123;</span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        SpringApplication.run(SpringBootAdminApplication.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="title">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">artifactId</span>&gt;</span>spring-cloud-starter-eureka<span class="tag">&lt;/<span class="title">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">version</span>&gt;</span>1.0.3.RELEASE<span class="tag">&lt;/<span class="title">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在 Web 应用开发中，安全一直是非常重要的一个方面。安全虽然属于应用的非功能性需求，但是应该在应用开发的初期就考虑进来。如果在应用开发的后期才考虑安全的问题，就可能陷入一个两难的境地：一方面，应用存在严重的安全漏洞，无法满足用户的要求，并可能造成用户的隐私数据被攻击者窃取；另一方面，应用的基本架构已经确定，要修复安全漏洞，可能需要对系统的架构做出比较重大的调整，因而需要更多的开发时间，影响应用的发布进程。因此，从应用开发的第一天就应该把安全相关的因素考虑进来，并在整个应用的开发过程中。</p>
+</blockquote>
+<h2 id="Spring_Security_简介">Spring Security 简介</h2><p>Spring Security 基于 Spring 框架，提供了一套 Web 应用安全性的完整解决方案。一般来说，Web 应用的安全性包括用户认证（Authentication）和用户授权（Authorization）两个部分。用户认证指的是验证某个用户是否为系统中的合法主体，也就是说用户能否访问该系统。用户认证一般要求用户提供用户名和密码。系统通过校验用户名和密码来完成认证过程。用户授权指的是验证某个用户是否有权限执行某个操作。在一个系统中，不同用户所具有的权限是不同的。比如对一个文件来说，有的用户只能进行读取，而有的用户可以进行修改。一般来说，系统会为不同的用户分配不同的角色，而每个角色则对应一系列的权限。</p>
+<p>对于上面提到的两种应用情景，Spring Security 框架都有很好的支持。在用户认证方面，Spring Security 框架支持主流的认证方式，包括 HTTP 基本认证、HTTP 表单验证、HTTP 摘要认证、OpenID 和 LDAP 等。在用户授权方面，Spring Security 提供了基于角色的访问控制和访问控制列表（Access Control List，ACL），可以对应用中的领域对象进行细粒度的控制。</p>
+<blockquote>
+<p>未完待续。。。。。。<br>原文链接</p>
+</blockquote>
 
     </article>
     <div id="post__share">

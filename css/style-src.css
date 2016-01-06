@@ -378,7 +378,7 @@ a {
 #post {
     height: 100%;
     color: #2c353d;
-    font-size: 14px;
+    font-size: 18px;
     line-height: 1.5;
     background: white;
     overflow-x: hidden;
@@ -419,7 +419,7 @@ a {
         margin: 0 auto; } }
 
 h1, h2, h3, h4, h5, h6 {
-    font-weight: 300; }
+    font-weight: 400; }
 
 #post__title {
     margin: 0;
@@ -445,7 +445,7 @@ h1, h2, h3, h4, h5, h6 {
     border-radius: 5px; }
 
 strong {
-    font-weight: 500; }
+    font-weight: 600; }
 
 blockquote {
     margin: 1.5em 0 1.5em 2em;

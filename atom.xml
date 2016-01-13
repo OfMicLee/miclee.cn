@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2015-12-28T03:11:39.000Z</updated>
+  <updated>2016-01-13T07:26:46.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,22 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[spring-boot-8]]></title>
+    <link href="http://miclee.cn/2016/01/13/spring-boot-8/"/>
+    <id>http://miclee.cn/2016/01/13/spring-boot-8/</id>
+    <published>2016-01-13T07:26:46.000Z</published>
+    <updated>2016-01-13T07:26:46.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em>  </em></strong><br><a id="more"></a></p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong><em>  </em></strong><br>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[maven scope 类型]]></title>
@@ -1666,49 +1682,6 @@
     <![CDATA[微信第三方平台授权权限集说明]]>
     
     </summary>
-    
-      <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[千米微信第三方平台应用]]></title>
-    <link href="http://miclee.cn/2015/08/22/qm-wechat/"/>
-    <id>http://miclee.cn/2015/08/22/qm-wechat/</id>
-    <published>2015-08-21T16:00:00.000Z</published>
-    <updated>2015-08-27T07:20:02.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 让天下没有难做的微商 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="历史的痛点">历史的痛点</h2><ul>
-<li>在公众平台配置繁琐参数</li>
-<li>熟读微信开发者文档，开发业务功能</li>
-<li>各团队重复劳动，人力浪费</li>
-</ul>
-<h2 id="解决方案">解决方案</h2><p>一键授权给我们微信第三方平台，后面的事就交给我们吧，去专注你的业务去</p>
-<h2 id="我们能做什么？">我们能做什么？</h2><ul>
-<li><p>对内</p>
-<ul>
-<li>代理公司内部团队所有微信相关交互</li>
-</ul>
-</li>
-<li><p>对外</p>
-<ul>
-<li>提供公众号能力的 <strong>行业解决方案</strong>，如针对电商行业的商家解决方案；</li>
-<li>帮助公众号 <strong>功能优化</strong>，如针对餐饮行业优化的用户管理功能；</li>
-<li>甚至，公众号 <strong>行业运营专家</strong></li>
-</ul>
-</li>
-</ul>
-<h2 id="我们的愿景？">我们的愿景？</h2><p><strong>让天下没有难做的微商</strong></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[让天下没有难做的微商]]>
-    
-    </summary>
-    
-      <category term="nodejs" scheme="http://miclee.cn/tags/nodejs/"/>
-    
-      <category term="wechat" scheme="http://miclee.cn/tags/wechat/"/>
     
       <category term="nodejs" scheme="http://miclee.cn/categories/nodejs/"/>
     

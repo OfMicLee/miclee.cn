@@ -79,7 +79,7 @@
     <link href="http://miclee.cn/2015/12/28/maven-scope/"/>
     <id>http://miclee.cn/2015/12/28/maven-scope/</id>
     <published>2015-12-28T03:04:46.000Z</published>
-    <updated>2016-04-07T03:38:11.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 依赖范围控制哪些依赖在哪些classpath 中可用，哪些依赖包含在一个应用中。记录下以作备忘。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="一、compile（编译范围）">一、compile（编译范围）</h2><p><strong>compile是默认的范围</strong>；如果没有提供一个范围，编译范围依赖在所有的classpath中可用，同时它们也会被打包。而且这些dependency会传递到依赖的项目中。</p>
@@ -97,7 +97,7 @@
     
       <category term="maven" scheme="http://miclee.cn/tags/maven/"/>
     
-      <category term="j2ee" scheme="http://miclee.cn/categories/j2ee/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -439,7 +439,7 @@
     <link href="http://miclee.cn/2015/12/18/template-language/"/>
     <id>http://miclee.cn/2015/12/18/template-language/</id>
     <published>2015-12-18T09:11:40.000Z</published>
-    <updated>2015-12-28T03:08:12.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 常用的模板引擎语言 </em></strong><br><a id="more"></a></p>
 <hr>
 <blockquote>
@@ -485,7 +485,7 @@
     
       <category term="template" scheme="http://miclee.cn/tags/template/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -653,7 +653,7 @@
     <link href="http://miclee.cn/2015/12/17/slf4j/"/>
     <id>http://miclee.cn/2015/12/17/slf4j/</id>
     <published>2015-12-17T05:36:11.000Z</published>
-    <updated>2015-12-17T06:10:52.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="介绍">介绍</h2><p>SLF4J不同于其他日志类库，与其它有很大的不同。SLF4J(Simple logging Facade for Java)不是一个真正的日志实现，而是一个抽象层（ abstraction layer），它允许你在后台使用任意一个日志类库。如果是在编写供内外部都可以使用的API或者通用类库，那么你真不会希望使用你类库的客户端必须使用你选择的日志类库。</p>
@@ -692,7 +692,7 @@
     
       <category term="slf4j" scheme="http://miclee.cn/tags/slf4j/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -701,7 +701,7 @@
     <link href="http://miclee.cn/2015/12/16/maven-plugin/"/>
     <id>http://miclee.cn/2015/12/16/maven-plugin/</id>
     <published>2015-12-16T08:36:27.000Z</published>
-    <updated>2015-12-18T06:01:24.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Maven本质上是一个插件框架，它的核心并不执行任何具体的构建任务，所有这些任务都交给插件来完成，例如编译源代码是由maven-compiler-plugin完成的。进一步说，每个任务对应了一个插件目标（goal），每个插件会有一个或者多个目标，例如maven-compiler-plugin的compile目标用来编译位于src/main/java/目录下的主源码，testCompile目标用来编译位于src/test/java/目录下的测试源码。 </em></strong><br><a id="more"></a></p>
 <hr>
 <blockquote>
@@ -777,7 +777,7 @@
     
       <category term="maven" scheme="http://miclee.cn/tags/maven/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -1437,7 +1437,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T06:11:02.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
@@ -1486,7 +1486,7 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -1495,7 +1495,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T06:11:03.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
 <hr>
 <pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
@@ -1561,7 +1561,7 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -1570,7 +1570,7 @@
     <link href="http://miclee.cn/2015/08/27/java-design-pattern-1/"/>
     <id>http://miclee.cn/2015/08/27/java-design-pattern-1/</id>
     <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2015-12-17T06:11:05.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 创建型模式 五种 </em></strong><br><a id="more"></a></p>
 <hr>
 <p><strong>设计模式（Design pattern）</strong> 是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现在中都有相应的原理来与之对应，每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是它能被广泛应用的原因。</p>
@@ -1682,7 +1682,7 @@
     
       <category term="java" scheme="http://miclee.cn/tags/java/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   
@@ -1691,7 +1691,7 @@
     <link href="http://miclee.cn/2015/08/27/jvm/"/>
     <id>http://miclee.cn/2015/08/27/jvm/</id>
     <published>2015-08-27T09:09:51.000Z</published>
-    <updated>2015-12-17T06:11:04.000Z</updated>
+    <updated>2016-04-07T03:45:14.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 《深入理解JAVA虚拟机》读书笔记 </em></strong><br><a id="more"></a></p>
 <hr>
 ]]></content>
@@ -1702,7 +1702,7 @@
     
       <category term="jvm" scheme="http://miclee.cn/tags/jvm/"/>
     
-      <category term="Java" scheme="http://miclee.cn/categories/Java/"/>
+      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   

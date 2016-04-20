@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://miclee.cn/2016/04/20/React开发神器Webpack/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。">
-<meta property="og:updated_time" content="2016-04-20T10:43:37.000Z">
+<meta property="og:updated_time" content="2016-04-20T10:49:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="React开发神器Webpack">
 <meta name="twitter:description" content="Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。">
@@ -110,20 +110,20 @@
 </li>
 <li><p>使用监听模式</p>
 <p>‘webpack –watch’命令，不过需要手动刷新页面，但不需要重启服务。</p>
-<h3 id="react-hot-loader加载器具体实现：">react-hot-loader加载器具体实现：</h3><ol>
-<li><p>安装依赖</p>
+<h3 id="react-hot-loader加载器具体实现：">react-hot-loader加载器具体实现：</h3><ul>
+<li><p>1、安装依赖</p>
 <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-hot-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>更改webpack.config.js<br>为了热加载React组件，我们需要在前端页面中加入相应的代码，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render:</p>
+<li><p>2、更改webpack.config.js<br>为了热加载React组件，我们需要在前端页面中加入相应的代码，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">entry: [</span><br><span class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></span><br><span class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</span><br><span class="line">  <span class="string">'./main'</span> <span class="comment">// Your appʼs entry point</span></span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<p>下一步，我们需要让Webpack用react-hot-loader去加载React组件:</p>
+<li><p>3、下一步，我们需要让Webpack用react-hot-loader去加载React组件:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">loaders: [&#123;</span><br><span class="line">    test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">    loader: <span class="string">'react-hot!babel'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  …</span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
-<ol>
-<li>修改package.json文件<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build": "webpack",</span><br><span class="line">  "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
+<li><p>4、修改package.json文件</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build": "webpack",</span><br><span class="line">  "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 <p>参数含义：</p>
 <ul>
 <li>webpack-dev-server - 在 localhost:8080 建立一个 Web 服务器</li>
@@ -131,17 +131,19 @@
 <li>progress - 显示合并代码进度</li>
 <li>colors - Yay，命令行中显示颜色！</li>
 <li>hot - 开启HMR参数hot</li>
-<li>content-base - 指向设置的输出目录,后面可以写你想指向的输出目录 不写默认为空目录</li>
+<li>content-base - 指向设置的输出目录,后面可以写你想指向的输出目录 不写默认为空目录  </li>
 </ul>
-<p>使用：</p>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="command">run</span> dev</span><br></pre></td></tr></table></figure>
+<ul>
+<li>5、使用<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="command">run</span> dev</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
 </li>
 </ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/04/20/React开发神器Webpack/" data-id="cin8qev3b00012ws6h065a7el" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/04/20/React开发神器Webpack/" data-id="cin8qmsua00013bs6gw7zo0og" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/04/20/React开发神器Webpack/#disqus_thread" class="article-comment-link">Comments</a>
       

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2016-05-25T09:27:39.000Z</updated>
+  <updated>2016-05-25T09:30:25.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,31 +19,23 @@
     <link href="http://miclee.cn/2016/05/25/jpa-inherit-type/"/>
     <id>http://miclee.cn/2016/05/25/jpa-inherit-type/</id>
     <published>2016-05-25T09:00:27.000Z</published>
-    <updated>2016-05-25T09:27:39.000Z</updated>
+    <updated>2016-05-25T09:30:25.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="策略">策略</h2><h3 id="一、Single-table_策略">一、Single-table 策略</h3><p>这是继承映射中的缺省策略，在不特别指明的情况下，系统默认就是采用这种映射策略进行映射的。这个策略的映射原则就是父类包括子类中新添加的属性全部映射到一张数据库表中，数据库表中有一个自动生成的字段用来存储区分不同的子类的信息。</p>
-<blockquote>
-<p>就是不管有几张子实体，统统存在一张表里，父实体会为每个子实体冗余一条数据，通过自动生成的’DTYPE’字段来区分属于谁的数据。</p>
-</blockquote>
+<p><strong><em>就是不管有几张子实体，统统存在一张表里，父实体会为每个子实体冗余一条数据，通过自动生成的’DTYPE’字段来区分属于谁的数据。</em></strong></p>
 <h3 id="二、Joined-subclass_策略">二、Joined-subclass 策略</h3><p>这种映射策略中，继承关系中的每一个实体类，无论是具体类 (concrete entity) 或者抽象类 (abstract entity)，数据库中都有一个单独的表与他对应。子实体对应的表中不含有从根实体继承而来的属性，它们之间通过共享主键的方式进行关联。</p>
-<blockquote>
-<p>子实体会自动存入父实体的主键ID字段，父实体会为每个子实体存一条记录，通过自动生成的’DTYPE’字段来区分属于谁的数据。</p>
-</blockquote>
+<p><strong><em>子实体会自动存入父实体的主键ID字段，父实体会为每个子实体存一条记录，通过自动生成的’DTYPE’字段来区分属于谁的数据。</em></strong></p>
 <h3 id="三、Table-per-concrete-class_策略">三、Table-per-concrete-class 策略</h3><p>这个策略就是将继承关系中的每一个实体映射到数据库中的一个单独的表中，与“Joined”策略不同的是，子实体对应的表中含有从根实体继承而来的属性。这种策略在 JPA2.0 中仍然是自由选取得，也就是说实现 JPA2.0 规范的持久化引擎，如 Toplink，Hibernate 等 , 仍然可以自由选取是否实现这种策略。</p>
-<blockquote>
-<p>每个子实体都有单独表冗余进父实体的字段</p>
-</blockquote>
+<p><strong><em>每个子实体都有单独表冗余进父实体的字段</em></strong></p>
 <h2 id="注解">注解</h2><p>得益于注解 (annotation) 方式的使用，JPA 2.0 中实现继承关系的映射非常简单。当实体 (entity) 之间有继承关系的时候，一定有一个根实体 (root entity)，JPA2.0 中只需要在这个根实体 (root entity) 上标注 @Inheritance 注解并且指明想要采用的映射策略就可以了。如果是不用 @Inheritance 注解，或者使用了 @Inheritance 注解但是没有指明所要采用的映射策略的时候，默认就是采用单表策略 (Single-table strategy)。下面用图 1 这个继承关系分别说明这三种映射策略的使用。</p>
 <h3 id="1、@Inheritance">1、@Inheritance</h3><p>用于父，对应策略一</p>
 <h3 id="2、@Inheritance(strategy=InheritanceType-JOINED)">2、@Inheritance(strategy=InheritanceType.JOINED)</h3><p>用于父，对应策略二</p>
 <h3 id="3、_@Inheritance(strategy=InheritanceType-TABLE_PER_CLASS)">3、 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)</h3><p>用于父，对应策略三</p>
 <h3 id="4、用@MappedSuperclass来替代@Entity">4、用@MappedSuperclass来替代@Entity</h3><p>用于父，父实体一般为抽象的不用被实例，数据库不会生成对应表，子实体会继承字段</p>
 <h3 id="5、@Embeddable_和_@Embedded">5、@Embeddable 和 @Embedded</h3><p>@Embeddable用于父，@Embedded用于子。嵌套映射，子实体里定义父实体的类型变量。</p>
-<blockquote>
-<p>需要注意的是，如有重复字段，需要用 @Transient 注解排除</p>
-<p>实际使用中可以用改良版 Joined-subclass 策略，父实体和子实体各自一张表，父实体只存储一份数据，由子实体通过父ID共享。</p>
-</blockquote>
+<p><strong><em>需要注意的是，如有重复字段，需要用 @Transient 注解排除 </em></strong></p>
+<p><strong><em>实际使用中可以用改良版 Joined-subclass 策略，父实体和子实体各自一张表，父实体只存储一份数据，由子实体通过父ID共享。</em></strong></p>
 ]]></content>
     <summary type="html">
     <![CDATA[Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。]]>

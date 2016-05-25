@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2016-04-20T10:51:57.000Z</updated>
+  <updated>2016-05-25T09:25:55.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -15,11 +15,125 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[JPA 对象关系模型之继承映射策略]]></title>
+    <link href="http://miclee.cn/2016/05/25/jpa-inherit-type/"/>
+    <id>http://miclee.cn/2016/05/25/jpa-inherit-type/</id>
+    <published>2016-05-25T09:00:27.000Z</published>
+    <updated>2016-05-25T09:25:55.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="策略">策略</h2><h3 id="一、Single-table_策略">一、Single-table 策略</h3><p>这是继承映射中的缺省策略，在不特别指明的情况下，系统默认就是采用这种映射策略进行映射的。这个策略的映射原则就是父类包括子类中新添加的属性全部映射到一张数据库表中，数据库表中有一个自动生成的字段用来存储区分不同的子类的信息。</p>
+<blockquote>
+<p>就是不管有几张子实体，统统存在一张表里，父实体会为每个子实体冗余一条数据，通过自动生成的’DTYPE’字段来区分属于谁的数据。</p>
+</blockquote>
+<h3 id="二、Joined-subclass_策略">二、Joined-subclass 策略</h3><p>这种映射策略中，继承关系中的每一个实体类，无论是具体类 (concrete entity) 或者抽象类 (abstract entity)，数据库中都有一个单独的表与他对应。子实体对应的表中不含有从根实体继承而来的属性，它们之间通过共享主键的方式进行关联。</p>
+<blockquote>
+<p>子实体会自动存入父实体的主键ID字段，父实体会为每个子实体存一条记录，通过自动生成的’DTYPE’字段来区分属于谁的数据。</p>
+</blockquote>
+<h3 id="三、Table-per-concrete-class_策略">三、Table-per-concrete-class 策略</h3><p>这个策略就是将继承关系中的每一个实体映射到数据库中的一个单独的表中，与“Joined”策略不同的是，子实体对应的表中含有从根实体继承而来的属性。这种策略在 JPA2.0 中仍然是自由选取得，也就是说实现 JPA2.0 规范的持久化引擎，如 Toplink，Hibernate 等 , 仍然可以自由选取是否实现这种策略。</p>
+<blockquote>
+<p>每个子实体都有单独表冗余进父实体的字段</p>
+</blockquote>
+<h2 id="注解">注解</h2><p>得益于注解 (annotation) 方式的使用，JPA 2.0 中实现继承关系的映射非常简单。当实体 (entity) 之间有继承关系的时候，一定有一个根实体 (root entity)，JPA2.0 中只需要在这个根实体 (root entity) 上标注 @Inheritance 注解并且指明想要采用的映射策略就可以了。如果是不用 @Inheritance 注解，或者使用了 @Inheritance 注解但是没有指明所要采用的映射策略的时候，默认就是采用单表策略 (Single-table strategy)。下面用图 1 这个继承关系分别说明这三种映射策略的使用。</p>
+<h3 id="1、@Inheritance">1、@Inheritance</h3><p>用于父，对应策略一</p>
+<h3 id="2、@Inheritance(strategy=InheritanceType-JOINED)">2、@Inheritance(strategy=InheritanceType.JOINED)</h3><p>用于父，对应策略二</p>
+<h3 id="3、_@Inheritance(strategy=InheritanceType-TABLE_PER_CLASS)">3、 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)</h3><p>用于父，对应策略三</p>
+<h3 id="4、用@MappedSuperclass来替代@Entity">4、用@MappedSuperclass来替代@Entity</h3><p>用于父，父实体一般为抽象的不用被实例，数据库不会生成对应表，子实体会继承字段</p>
+<h3 id="5、@Embeddable_和_@Embedded">5、@Embeddable 和 @Embedded</h3><p>@Embeddable用于父，@Embedded用于子。嵌套映射，子实体里定义父实体的类型变量。</p>
+<blockquote>
+<p>需要注意的是，如有重复字段，需要用 @Transient 注解排除</p>
+<p>实际使用中可以用改良版 Joined-subclass 策略，父实体和子实体各自一张表，父实体只存储一份数据，由子实体通过父ID共享。</p>
+</blockquote>
+]]></content>
+    <summary type="html">
+    <![CDATA[Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。]]>
+    
+    </summary>
+    
+      <category term="jpa" scheme="http://miclee.cn/tags/jpa/"/>
+    
+      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[redis 安装]]></title>
+    <link href="http://miclee.cn/2016/05/12/redis-setup/"/>
+    <id>http://miclee.cn/2016/05/12/redis-setup/</id>
+    <published>2016-05-12T08:33:43.000Z</published>
+    <updated>2016-05-12T13:02:19.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/) </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="一、下载">一、下载</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line">$ tar -xzf redis-<span class="number">3.2</span>.<span class="number">0</span><span class="class">.tar</span><span class="class">.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="二、编译">二、编译</h3><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ cd redis-<span class="number">3.2</span><span class="number">.0</span></span><br><span class="line">$ make</span><br></pre></td></tr></table></figure>
+<h3 id="三、安装">三、安装</h3><figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>make <span class="constant">PREFIX</span>=<span class="regexp">/usr/local</span><span class="regexp">/redis install</span></span><br></pre></td></tr></table></figure>
+<p>这步完了之后，Redis就被安装到了/usr/local/redis/ 下面了</p>
+<h3 id="四、测试">四、测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ make <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果没安装有tcl那么会包下面这错误：<br>    You need tcl 8.5 or newer in order to run the Redis test​<br>   【安装Tcl-8.6.3】<br>​     [root@localhost202 src]# wget <a href="http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz" target="_blank" rel="external">http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz</a><br>     [root@localhost202 src]# tar -zxf tcl8.6.3-src.tar.gz<br>     [root@localhost202 src]# cd ​tcl8.6.3/unix/<br>     [root@localhost202 src]# ./configure<br>     [root@localhost202 src]# make<br>     [root@localhost202 src]# make install</p>
+</blockquote>
+<h3 id="五、配置">五、配置</h3><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ cp src/redis-server src/redis-<span class="keyword">cli</span> /usr/bin/bin</span><br><span class="line">$ cp ./redis.<span class="keyword">conf</span> /usr/<span class="keyword">local</span>/redis/</span><br><span class="line">$ vim /usr/<span class="keyword">local</span>/redis/redis.<span class="keyword">conf</span></span><br><span class="line"></span><br><span class="line">daemonize   yes      #redis将以守护进程的方式运行，默认为<span class="keyword">no</span>会暂用你的终端</span><br><span class="line">timeout 300​          #当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span><br><span class="line">requirepass password123</span><br></pre></td></tr></table></figure>
+<h3 id="六、运行">六、运行</h3><figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ redis-server <span class="regexp">/usr/</span>local<span class="regexp">/redis/</span>redis.conf</span><br></pre></td></tr></table></figure>
+<h3 id="七、防火墙里开启6379端口">七、防火墙里开启6379端口</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>vi /etc/sysconfig/iptables</span><br></pre></td></tr></table></figure>
+<p>加入： -A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT<br>重启防火墙<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$ </span>service iptables restart</span><br></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/)]]>
+    
+    </summary>
+    
+      <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[react-component]]></title>
+    <link href="http://miclee.cn/2016/04/20/react-component/"/>
+    <id>http://miclee.cn/2016/04/20/react-component/</id>
+    <published>2016-04-20T11:01:42.000Z</published>
+    <updated>2016-04-20T11:03:50.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 可以这么说，一个 React 应用就是构建在 React 组件之上的。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h1 id="React_组件">React 组件</h1><p>组件有两个核心概念：</p>
+<ul>
+<li>props</li>
+<li>state</li>
+</ul>
+<p>一个组件就是通过这两个属性的值在 <code>render</code> 方法里面生成这个组件对应的 HTML 结构。</p>
+<p><em>注意：组件生成的 HTML 结构只能有一个单一的根节点。</em></p>
+<h2 id="props">props</h2><p>前面也提到很多次了，<code>props</code> 就是组件的属性，由外部通过 JSX<br>属性传入设置，一旦初始设置完成，就可以认为 <code>this.props</code> 是不可更改的，所以<strong>不要</strong>轻易更改设置 <code>this.props</code> 里面的值（虽然对于一个 JS 对象你可以做任何事）。</p>
+<h2 id="state">state</h2><p><code>state</code> 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 <code>state</code><br>呈现不同的 UI 展示。</p>
+<p>一旦状态（数据）更改，组件就会自动调用 <code>render</code> 重新渲染 UI，这个更改的动作会通过<br><code>this.setState</code> 方法来触发。</p>
+<h2 id="划分状态数据">划分状态数据</h2><p>一条原则：让组件尽可能地少状态。</p>
+<p>这样组件逻辑就越容易维护。</p>
+<p>什么样的数据属性可以当作状态？</p>
+<p>当更改这个状态（数据）需要更新组件 UI 的就可以认为是 <code>state</code>，下面这些可以认为<strong>不是</strong>状态：</p>
+<ul>
+<li>可计算的数据：比如一个数组的长度</li>
+<li>和 props 重复的数据：除非这个数据是要做变更的</li>
+</ul>
+<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in<br>React</a>，相信会对组件有更深刻的认识。</p>
+<h2 id="无状态组件">无状态组件</h2><p>你也可以用纯粹的函数来定义无状态的组件(stateless function)，这种组件没有状态，没有生命周期，只是简单的接受 props 渲染生成 DOM 结构。无状态组件非常简单，开销很低，如果可能的话尽量使用无状态组件。比如使用箭头函数定义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HelloMessage = (props) =&gt; <span class="xml"><span class="tag">&lt;<span class="title">div</span>&gt;</span> Hello &#123;props.name&#125;<span class="tag">&lt;/<span class="title">div</span>&gt;</span>;</span></span><br><span class="line">render(<span class="xml"><span class="tag">&lt;<span class="title">HelloMessage</span> <span class="attribute">name</span>=<span class="value">"John"</span> /&gt;</span>, mountNode);</span></span><br></pre></td></tr></table></figure>
+<p>因为无状态组件只是函数，所以它没有实例返回，这点在想用 refs<br>获取无状态组件的时候要注意，参见<a href="dom.md">DOM 操作</a>。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[可以这么说，一个 React 应用就是构建在 React 组件之上的。]]>
+    
+    </summary>
+    
+      <category term="react" scheme="http://miclee.cn/tags/react/"/>
+    
+      <category term="react" scheme="http://miclee.cn/categories/react/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[React开发神器Webpack]]></title>
-    <link href="http://miclee.cn/2016/04/20/React%E5%BC%80%E5%8F%91%E7%A5%9E%E5%99%A8Webpack/"/>
-    <id>http://miclee.cn/2016/04/20/React开发神器Webpack/</id>
+    <link href="http://miclee.cn/2016/04/20/react-webpack/"/>
+    <id>http://miclee.cn/2016/04/20/react-webpack/</id>
     <published>2016-04-20T09:19:55.000Z</published>
-    <updated>2016-04-20T10:51:57.000Z</updated>
+    <updated>2016-04-20T12:01:03.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>Webpack将项目中用到的一切静态资源都视之为模块，模块之间可以互相依赖。Webpack对它们进行统一的管理以及打包发布。</p>
@@ -29,7 +143,8 @@
 <figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack —config webpack<span class="class">.custom</span><span class="class">.config</span><span class="class">.js</span></span><br></pre></td></tr></table></figure>
 <h2 id="二、Webpack模块加载器（Loaders）">二、Webpack模块加载器（Loaders）</h2><p>Webpack将所有静态资源都认为是模块，比如JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等等，从而可以对其进行统一管理。每一种资源都可以通过对应的加载器处理成模块。和大多数包管理器不一样的是，Webpack的加载器之间可以进行串联，一个加载器的输出可以成为另一个加载器的输入。比如LESS文件先通过less-load处理成css，然后再通过css-loader加载成css模块，最后由style-loader加载器对其做最后的处理，从而运行时可以通过style标签将其应用到最终的浏览器环境。</p>
 <p>为了让Webpack识别什么样的资源应该用什么加载器去载入，需要在配置文件进行配置：通过正则表达式对文件名进行匹配。</p>
-<h2 id="三、config文件">三、config文件</h2><p>配置文件通常放在项目根目录之下，其本身也是一个标准的CommonJS模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'./build'</span>, <span class="comment">// 打包文件存放的绝对路径</span></span><br><span class="line">    publicPath: <span class="string">'/build'</span>, <span class="comment">// 网站运行时的访问路径</span></span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123; <span class="comment">//resolve 指定可以被 import 的文件后缀。比如 Hello.jsx 这样的文件就可以直接用 import Hello from 'Hello' 引用。</span></span><br><span class="line">       extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>]</span><br><span class="line">   &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123; test: <span class="regexp">/\.(js|jsx)$/</span>, loader: <span class="string">'babel'</span> &#125;, <span class="comment">//指定 babel-loader 编译后缀名为 .js 或者 .jsx的文件。</span></span><br><span class="line">      &#123; test: <span class="regexp">/\.less$/</span>, loader: <span class="string">'style-loader!css-loader!less-loader'</span> &#125;,</span><br><span class="line">      &#123; test: <span class="regexp">/\.css$/</span>, loader: <span class="string">'style-loader!css-loader'</span> &#125;,</span><br><span class="line">      &#123; test: <span class="regexp">/\.(png|jpg)$/</span>, loader: <span class="string">'url-loader?limit=8192'</span> &#125; <span class="comment">// inline base64 URLs for &lt;=8k images, direct URLs for the rest</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
+<h3 id="特别的，使用babel解析js或jsx">特别的，使用babel解析js或jsx</h3><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-loader</span><br><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-react</span><br><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-es2015</span><br></pre></td></tr></table></figure>
+<h2 id="三、config文件">三、config文件</h2><p>配置文件通常放在项目根目录之下，其本身也是一个标准的CommonJS模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./js/main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'./build'</span>, <span class="comment">// 打包文件存放的绝对路径</span></span><br><span class="line">    publicPath: <span class="string">'/build'</span>, <span class="comment">// 网站运行时的访问路径</span></span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123; <span class="comment">//resolve 指定可以被 import 的文件后缀。比如 Hello.jsx 这样的文件就可以直接用 import Hello from 'Hello' 引用。</span></span><br><span class="line">       extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>]</span><br><span class="line">   &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123; test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">        query:</span><br><span class="line">        &#123;</span><br><span class="line">			    presets:[<span class="string">'es2015'</span>,<span class="string">'react'</span>]</span><br><span class="line">			  &#125;</span><br><span class="line">      &#125;, <span class="comment">//指定 babel-loader 编译后缀名为 .js 或者 .jsx 的文件</span></span><br><span class="line">      &#123; test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        loader: <span class="string">'style-loader!css-loader'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; test: <span class="regexp">/\.(png|jpg)$/</span>,</span><br><span class="line">        loader: <span class="string">'url-loader?limit=8192'</span></span><br><span class="line">      &#125; <span class="comment">// inline base64 URLs for &lt;=8k images, direct URLs for the rest</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <h2 id="四、webpack服务器">四、webpack服务器</h2><p>在webpack里面有一个开发工具就是可以自动开启一个服务器。可以和webpack一样作为全局的npm模块安装：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> webpack-dev-<span class="keyword">server</span></span></span><br></pre></td></tr></table></figure></p>
 <h2 id="五、实现热替换(HMR)功能">五、实现热替换(HMR)功能</h2><ul>
 <li><p>Webpack本身具有运行时模块替换功能，称之为Hot Module Replacement (HMR)。</p>
@@ -45,7 +160,7 @@
 <figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-hot-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
 </li>
 <li><p>2、更改webpack.config.js<br>为了热加载React组件，我们需要在前端页面中加入相应的代码，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">entry: [</span><br><span class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></span><br><span class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</span><br><span class="line">  <span class="string">'./main'</span> <span class="comment">// Your appʼs entry point</span></span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">entry: [</span><br><span class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></span><br><span class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</span><br><span class="line">  <span class="string">'./js/main'</span> <span class="comment">// Your appʼs entry point</span></span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>3、下一步，我们需要让Webpack用react-hot-loader去加载React组件:</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">loaders: [&#123;</span><br><span class="line">    test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">    loader: <span class="string">'react-hot!babel'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  …</span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
@@ -1496,260 +1611,6 @@
       <category term="books" scheme="http://miclee.cn/tags/books/"/>
     
       <category term="blog" scheme="http://miclee.cn/categories/blog/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA的23种设计模式(三)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-3/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-3/</id>
-    <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
-<hr>
-<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
-<ul>
-<li><p>第一类：通过父类与子类的关系进行实现</p>
-<ul>
-<li>策略模式</li>
-<li>模板方法模式</li>
-</ul>
-</li>
-<li><p>第二类：两个类之间</p>
-<ul>
-<li>观察者模式</li>
-<li>迭代子模式</li>
-<li>责任链模式</li>
-<li>命令模式</li>
-</ul>
-</li>
-<li><p>第三类：类的状态</p>
-<ul>
-<li>备忘录模式</li>
-<li>状态模式</li>
-</ul>
-</li>
-<li><p>第四类：通过中间类</p>
-<ul>
-<li>访问者模式</li>
-<li>中介者模式</li>
-<li>解释器模式</li>
-</ul>
-</li>
-</ul>
-<ol>
-<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
-</li>
-<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
-</li>
-<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
-</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[行为型模式 11种]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://miclee.cn/tags/java/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA的23种设计模式(二)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-2/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-2/</id>
-    <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 结构型模式 七种 </em></strong><br><a id="more"></a></p>
-<hr>
-<pre><code>在JAVA的<span class="number">23</span>种设计模式(一)中讲了<span class="number">5</span>种创建型模式，这篇讲以下<span class="number">7</span>种结构型模式：适配器模式、装饰模式、代理模式、外观模式、桥接模式、组合模式、享元模式。
-</code></pre><p>其中对象的适配器模式是各种模式的起源，我们看下面的图：  <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-2.png" alt="结构型模式"></p>
-<ol>
-<li><p>适配器模式（Adapter）</p>
-<p>适配器模式将某个类的接口转换成客户端期望的另一个接口表示，目的是消除由于接口不匹配所造成的类的兼容性问题。主要分为三类：类的适配器模式、对象的适配器模式、接口的适配器模式。</p>
-<ul>
-<li>类的适配器模式</li>
-</ul>
-<p>核心思想就是：有一个Source类，拥有一个方法，待适配，目标接口时Targetable，通过Adapter类，将Source的功能扩展到Targetable里</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Source类，拥有一个方法，待适配</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">      System.out.println(<span class="string">"this is original method!"</span>);  </span><br><span class="line">  &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="comment">//目标接口 Targetable，即期望拥有的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="comment">/* 与原类中的方法相同 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span></span>;</span><br><span class="line">	<span class="comment">/* 新类的方法 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Adapter类继承Source类，实现Targetable接口，这样Targetable接口的实现类就具有了Source类的功能</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Adapter</span> <span class="keyword">extends</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>对象的适配器模式  </li>
-</ul>
-<p>基本思路和类的适配器模式相同，只是将Adapter类作修改，这次不继承Source类，而是持有Source类的实例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Wrapper</span> <span class="keyword">implements</span> <span class="title">Targetable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Wrapper</span><span class="params">(Source source)</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = source;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"this is the targetable method!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		source.method1();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>接口的适配器模式（<strong>常用</strong>）</li>
-</ul>
-<p>这种模式比较常见，就是在接口和实现类之间增加一个抽象类来实现公共部分功能，子类继承抽象类，只需要实现抽象类里未实现的接口方法即可。</p>
-</li>
-<li><p>装饰模式</p>
-<p>顾名思义，装饰模式就是给一个对象增加一些新的功能，而且是动态的，要求装饰对象和被装饰对象实现同一个接口，装饰对象持有被装饰对象的实例。代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span></span>;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Source</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"the original method!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Decorator</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;  </span><br><span class="line">    <span class="keyword">private</span> Sourceable source;  </span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Decorator</span><span class="params">(Sourceable source)</span></span>&#123;  </span><br><span class="line">        <span class="keyword">super</span>();  </span><br><span class="line">        <span class="keyword">this</span>.source = source;  </span><br><span class="line">    &#125;  </span><br><span class="line">    <span class="annotation">@Override</span>  </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">        System.out.println(<span class="string">"before decorator!"</span>);  </span><br><span class="line">        source.method();  </span><br><span class="line">        System.out.println(<span class="string">"after decorator!"</span>);  </span><br><span class="line">    &#125;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>应用场景：<ul>
-<li>需要扩展一个类的功能。</li>
-<li>动态的为一个对象增加功能，而且还能动态撤销。（继承不能做到这一点，继承的功能是静态的，不能动态增删。）</li>
-</ul>
-</li>
-<li>缺点：产生过多相似的对象，不易排错！</li>
-</ul>
-</li>
-<li><p>代理模式（Proxy）</p>
-<p>其实每个模式名称就表明了该模式的作用，代理模式就是多一个代理类出来，替原对象进行一些操作。<br>代理模式和装饰的区别在于：<br>装饰模式是将功能类实例化出来后交给装饰类去补充功能；<br>代理模式是在代理类内部去实例化功能类，调用者不用关心功能类，完全交给代理类；<br>代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Proxy</span> <span class="keyword">implements</span> <span class="title">Sourceable</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> Source source;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Proxy</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">super</span>();</span><br><span class="line">		<span class="keyword">this</span>.source = <span class="keyword">new</span> Source();</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="annotation">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    System.out.println(<span class="string">"before proxy!"</span>);</span><br><span class="line">		source.method();</span><br><span class="line">    System.out.println(<span class="string">"after proxy!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>外观模式（Facade）</p>
-<p>外观模式是为了解决类与类之家的依赖关系的，像spring一样，可以将类和类之间的关系配置到配置文件中，而外观模式就是将他们的关系放在一个Facade类中，降低了类类之间的耦合度，该模式中没有涉及到接口，看下类图：（我们以一个计算机的启动过程为例）<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design-facade.png" alt="外观模式"></p>
-<p>如果我们没有Computer类，那么，CPU、Memory、Disk他们之间将会相互持有实例，产生关系，这样会造成严重的依赖，修改一个类，可能会带来其他类的修改，这不是我们想要看到的，有了Computer类，他们之间的关系被放在了Computer类里，这样就起到了解耦的作用，这，就是外观模式。</p>
-</li>
-</ol>
-<p>10、桥接模式（Bridge）</p>
-<p>  桥接模式就是把事物和其具体实现分开，使他们可以各自独立的变化。桥接的用意是：将抽象化与实现化解耦，使得二者可以独立变化，像我们常用的JDBC桥DriverManager一样，JDBC进行连接数据库的时候，在各个数据库之间进行切换，基本不需要动太多的代码，甚至丝毫不用动，原因就是JDBC提供统一接口，每个数据库提供各自的实现，用一个叫做数据库驱动的程序来桥接就行了。<br>  如下：</p>
-  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BridgeTest</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Bridge bridge = <span class="keyword">new</span> MyBridge();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第一个对象*/</span></span><br><span class="line">		Sourceable source1 = <span class="keyword">new</span> SourceSub1();</span><br><span class="line">		bridge.setSource(source1);</span><br><span class="line">		bridge.method();</span><br><span class="line"></span><br><span class="line">		<span class="comment">/*调用第二个对象*/</span></span><br><span class="line">		Sourceable source2 = <span class="keyword">new</span> SourceSub2();</span><br><span class="line">		bridge.setSource(source2);</span><br><span class="line">		bridge.method();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>  这样，就通过对Bridge类的调用，实现了对接口Sourceable的实现类SourceSub1和SourceSub2的调用。</p>
-<ol>
-<li><p>组合模式（Composite）</p>
-<p>组合模式有时又叫部分-整体模式在处理类似树形结构的问题时比较方便，代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//节点</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> String name;</span><br><span class="line">	<span class="keyword">private</span> TreeNode parent;</span><br><span class="line">	<span class="keyword">private</span> Vector&lt;TreeNode&gt; children = <span class="keyword">new</span> Vector&lt;TreeNode&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(String name)</span></span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> TreeNode <span class="title">getParent</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setParent</span><span class="params">(TreeNode parent)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.parent = parent;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//添加孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">add</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.add(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//删除孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">remove</span><span class="params">(TreeNode node)</span></span>&#123;</span><br><span class="line">		children.remove(node);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//取得孩子节点</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Enumeration&lt;TreeNode&gt; <span class="title">getChildren</span><span class="params">()</span></span>&#123;</span><br><span class="line">		<span class="keyword">return</span> children.elements();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//树</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">	TreeNode root = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">Tree</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		root = <span class="keyword">new</span> TreeNode(name);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		Tree tree = <span class="keyword">new</span> Tree(<span class="string">"A"</span>);</span><br><span class="line">		TreeNode nodeB = <span class="keyword">new</span> TreeNode(<span class="string">"B"</span>);</span><br><span class="line">		TreeNode nodeC = <span class="keyword">new</span> TreeNode(<span class="string">"C"</span>);</span><br><span class="line"></span><br><span class="line">		nodeB.add(nodeC);</span><br><span class="line">		tree.root.add(nodeB);</span><br><span class="line">		System.out.println(<span class="string">"build the tree finished!"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用场景：将多个对象组合在一起进行操作，常用于表示树形结构中，例如二叉树，数等。</p>
-</li>
-<li><p>享元模式（Flyweight）</p>
-<p>享元模式的主要目的是实现对象的共享，即共享池，当系统中对象多的时候可以减少内存的开销，通常与工厂模式一起使用。<br>最典型的使用场景：数据库连接池的实现。</p>
-</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[结构型模式 七种]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://miclee.cn/tags/java/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JAVA的23种设计模式(一)]]></title>
-    <link href="http://miclee.cn/2015/08/27/java-design-pattern-1/"/>
-    <id>http://miclee.cn/2015/08/27/java-design-pattern-1/</id>
-    <published>2015-08-27T09:18:22.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 创建型模式 五种 </em></strong><br><a id="more"></a></p>
-<hr>
-<p><strong>设计模式（Design pattern）</strong> 是一套被反复使用、多数人知晓的、经过分类编目的、代码设计经验的总结。使用设计模式是为了可重用代码、让代码更容易被他人理解、保证代码可靠性。 毫无疑问，设计模式于己于他人于系统都是多赢的，设计模式使代码编制真正工程化，设计模式是软件工程的基石，如同大厦的一块块砖石一样。项目中合理的运用设计模式可以完美的解决很多问题，每种模式在现在中都有相应的原理来与之对应，每一个模式描述了一个在我们周围不断重复发生的问题，以及该问题的核心解决方案，这也是它能被广泛应用的原因。</p>
-<h2 id="设计模式的分类">设计模式的分类</h2><ul>
-<li><p>创建型模式 五种</p>
-<ul>
-<li>工厂方法模式</li>
-<li>抽象工厂模式</li>
-<li>单例模式</li>
-<li>建造者模式</li>
-<li>原型模式</li>
-</ul>
-</li>
-<li><p>结构型模式 七种</p>
-<ul>
-<li>适配器模式</li>
-<li>装饰器模式</li>
-<li>代理模式</li>
-<li>外观模式</li>
-<li>桥接模式</li>
-<li>组合模式</li>
-<li>享元模式</li>
-</ul>
-</li>
-<li><p>行为型模式 十一种</p>
-<ul>
-<li>策略模式</li>
-<li>模板方法模式</li>
-<li>观察者模式</li>
-<li>迭代子模式</li>
-<li>责任链模式</li>
-<li>命令模式</li>
-<li>备忘录模式</li>
-<li>状态模式</li>
-<li>访问者模式</li>
-<li>中介者模式</li>
-<li>解释器模式</li>
-</ul>
-</li>
-<li><p>其实还有两类：并发型模式和线程池模式</p>
-</li>
-</ul>
-<p><strong><em> 用一张图来表示下设计模式之间的关系：</em></strong> <img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/java-design.png" alt="java-design"></p>
-<h2 id="设计模式的六大原则">设计模式的六大原则</h2><ol>
-<li><p>开闭原则（Open Close Principle）</p>
-<p>开闭原则就是说对扩展开放，对修改关闭。在程序需要进行拓展的时候，不能去修改原有的代码，实现一个热插拔的效果。所以一句话概括就是：为了使程序的扩展性好，易于维护和升级。想要达到这样的效果，我们需要使用接口和抽象类</p>
-</li>
-<li><p>里氏替换原则（Liskov Substitution Principle）</p>
-<p>任何基类可以出现的地方，子类一定可以出现。<br>里氏代换原则是对“开-闭”原则的补充。实现“开-闭”原则的关键步骤就是抽象化。而基类与子类的继承关系就是抽象化的具体实现，所以里氏代换原则是对实现抽象化的具体步骤的规范。</p>
-</li>
-<li><p>依赖倒转原则（Dependence Inversion Principle）</p>
-<p>这个是开闭原则的基础，具体内容：针对接口编程，依赖于抽象而不依赖于具体。</p>
-</li>
-<li><p>接口隔离原则（Interface Segregation Principle）</p>
-<p>这个原则的意思是：使用多个隔离的接口，比使用单个接口要好。还是一个降低类之间的耦合度的意思，从这儿我们看出，其实设计模式就是一个软件的设计思想，从大型软件架构出发，为了升级和维护方便。所以上文中多次出现：降低依赖，降低耦合。</p>
-</li>
-<li><p>迪米特原则（最少知道原则）（Demeter Principle）</p>
-<p>为什么叫最少知道原则，就是说：一个实体应当尽量少的与其他实体之间发生相互作用，使得系统功能模块相对独立。</p>
-</li>
-<li><p>合成复用原则（Composite Reuse Principle）</p>
-<p>原则是尽量使用合成/聚合的方式，而不是使用继承。</p>
-</li>
-</ol>
-<h2 id="Java的23中设计模式">Java的23中设计模式</h2><ol>
-<li><p>工厂方法模式（Factory Method）</p>
-<ul>
-<li><p>普通工厂模式</p>
-<p>就是建立一个工厂类，对实现了同一接口的一些类进行实例的创建。</p>
-</li>
-<li><p>多个工厂方法模式</p>
-<p>多个工厂方法模式是在一个工厂类里提供多个工厂方法，分别创建不同的对象</p>
-</li>
-<li><p>静态工厂方法模式</p>
-<p>创建实例对象的方法为static， 一般情况下会采用这种模式</p>
-</li>
-</ul>
-</li>
-<li><p>抽象工厂模式（Abstract Factory）</p>
-<p>工厂方法模式有一个问题就是，类的创建依赖工厂类，也就是说，如果想要拓展程序，必须对工厂类进行修改，这违背了闭包原则，<br>所以，从设计角度考虑，有一定的问题，如何解决？就用到抽象工厂模式，创建多个工厂类，这样一旦需要增加新的功能，<br>直接增加新的工厂类就可以了，不需要修改之前的代码。<br>简而言之，就是将原先的工厂类设计为Interface，实例不同对象用不同的工厂实例。</p>
-</li>
-<li><p>单例模式（Singleton）</p>
-<p>单例对象（Singleton）是一种常用的设计模式。在Java应用中，单例对象能保证在一个JVM中，该对象只有一个实例存在。这样的模式有几个好处：</p>
-<ul>
-<li>某些类创建比较频繁，对于一些大型的对象，这是一笔很大的系统开销。</li>
-<li>省去了new操作符，降低了系统内存的使用频率，减轻GC压力。</li>
-<li>有些类如交易所的核心交易引擎，控制着交易流程，如果该类可以创建多个的话，系统完全乱了。（比如一个军队出现了多个司令员同时指挥，肯定会乱成一团），所以只有使用单例模式，才能保证核心交易服务器独立控制整个流程。</li>
-</ul>
-</li>
-<li><p>建造者模式（Builder）</p>
-<p>工厂类模式提供的是创建单个类的模式，而建造者模式则是将各种产品集中起来进行管理，用来创建复合对象。如：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Builder</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> List&lt;Sender&gt; list = <span class="keyword">new</span> ArrayList&lt;Sender&gt;();</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produceMailSender</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count; i++)&#123;</span><br><span class="line">			list.add(<span class="keyword">new</span> MailSender());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">produceSmsSender</span><span class="params">(<span class="keyword">int</span> count)</span></span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;count; i++)&#123;</span><br><span class="line">			list.add(<span class="keyword">new</span> SmsSender());</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从这点看出，建造者模式将很多功能集成到一个类里，这个类可以创造出比较复杂的东西。<br>所以与工厂模式的区别就是：工厂模式关注的是创建单个产品，而建造者模式则关注创建复合对象，多个部分。因此，是选择工厂模式还是建造者模式，依实际情况而定。</p>
-</li>
-<li><p>原型模式（Prototype）</p>
-<p>原型模式的思想就是将一个对象作为原型，对其进行复制、克隆，产生一个和原对象类似的新对象。<br>在Java中，复制对象通过clone()实现。</p>
-<ul>
-<li>浅复制：将一个对象复制后，基本数据类型的变量都会重新创建，而引用类型，指向的还是原对象所指向的。</li>
-<li>深复制：将一个对象复制后，不论是基本数据类型还有引用类型，都是重新创建的。</li>
-</ul>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Prototype</span> <span class="keyword">implements</span> <span class="title">Cloneable</span>, <span class="title">Serializable</span> </span>&#123;  </span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;  </span><br><span class="line">   <span class="keyword">private</span> String string;  </span><br><span class="line"></span><br><span class="line">   <span class="keyword">private</span> SerializableObject obj;  </span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 浅复制 */</span>  </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException </span>&#123;  </span><br><span class="line">       Prototype proto = (Prototype) <span class="keyword">super</span>.clone();  </span><br><span class="line">       <span class="keyword">return</span> proto;  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">   <span class="comment">/* 深复制 */</span>  </span><br><span class="line">   <span class="function"><span class="keyword">public</span> Object <span class="title">deepClone</span><span class="params">()</span> <span class="keyword">throws</span> IOException, ClassNotFoundException </span>&#123;  </span><br><span class="line"></span><br><span class="line">       <span class="comment">/* 写入当前对象的二进制流 */</span>  </span><br><span class="line">       ByteArrayOutputStream bos = <span class="keyword">new</span> ByteArrayOutputStream();  </span><br><span class="line">       ObjectOutputStream oos = <span class="keyword">new</span> ObjectOutputStream(bos);  </span><br><span class="line">       oos.writeObject(<span class="keyword">this</span>);  </span><br><span class="line"></span><br><span class="line">       <span class="comment">/* 读出二进制流产生的新对象 */</span>  </span><br><span class="line">       ByteArrayInputStream bis = <span class="keyword">new</span> ByteArrayInputStream(bos.toByteArray());  </span><br><span class="line">       ObjectInputStream ois = <span class="keyword">new</span> ObjectInputStream(bis);  </span><br><span class="line">       <span class="keyword">return</span> ois.readObject();  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> String <span class="title">getString</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">return</span> string;  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setString</span><span class="params">(String string)</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">this</span>.string = string;  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> SerializableObject <span class="title">getObj</span><span class="params">()</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">return</span> obj;  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setObj</span><span class="params">(SerializableObject obj)</span> </span>&#123;  </span><br><span class="line">       <span class="keyword">this</span>.obj = obj;  </span><br><span class="line">   &#125;  </span><br><span class="line"></span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SerializableObject</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;  </span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = <span class="number">1L</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><strong><em>要实现深复制，需要采用流的形式读入当前对象的二进制输入，再写出二进制数据对应的对象</em></strong>  </p>
-</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[创建型模式 五种]]>
-    
-    </summary>
-    
-      <category term="java" scheme="http://miclee.cn/tags/java/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2016-05-25T09:25:55.000Z</updated>
+  <updated>2016-05-25T09:27:39.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://miclee.cn/2016/05/25/jpa-inherit-type/"/>
     <id>http://miclee.cn/2016/05/25/jpa-inherit-type/</id>
     <published>2016-05-25T09:00:27.000Z</published>
-    <updated>2016-05-25T09:25:55.000Z</updated>
+    <updated>2016-05-25T09:27:39.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="策略">策略</h2><h3 id="一、Single-table_策略">一、Single-table 策略</h3><p>这是继承映射中的缺省策略，在不特别指明的情况下，系统默认就是采用这种映射策略进行映射的。这个策略的映射原则就是父类包括子类中新添加的属性全部映射到一张数据库表中，数据库表中有一个自动生成的字段用来存储区分不同的子类的信息。</p>

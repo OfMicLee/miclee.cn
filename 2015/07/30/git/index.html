@@ -11,7 +11,7 @@
 <meta property="og:url" content="http://miclee.cn/2015/07/30/git/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="主要自己的使用笔记，不用到处去查">
-<meta property="og:updated_time" content="2015-12-14T03:22:25.000Z">
+<meta property="og:updated_time" content="2016-09-30T06:04:48.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="git操作技巧">
 <meta name="twitter:description" content="主要自己的使用笔记，不用到处去查">
@@ -101,11 +101,13 @@
 <figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b develop-<span class="keyword">pos</span> origin/develop-<span class="keyword">pos</span></span><br></pre></td></tr></table></figure>
 <h3 id="本地分支提交到远程：">本地分支提交到远程：</h3><p><strong><em>本地test分支提交到远程，并作为master分支或者名叫test的分支</em></strong></p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:master</span><br><span class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:<span class="keyword">test</span></span><br></pre></td></tr></table></figure>
+<h3 id="储藏（Stashing）">储藏（Stashing）</h3><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">git stash <span class="keyword">list</span></span><br><span class="line">git stash <span class="keyword">apply</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>储藏创建为新的分支</em></strong><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">git</span> stash <span class="keyword">branch </span>newBranch</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="ciomo77nf0038i4s6smml5llw" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="citpd8f0g0038els6kkkbry31" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/07/30/git/#disqus_thread" class="article-comment-link">Comments</a>
       

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-19T06:51:30.000Z</updated>
+  <updated>2017-04-19T09:45:30.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,95 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[安全证书]]></title>
+    <link href="http://miclee.cn/2017/04/19/certificate/"/>
+    <id>http://miclee.cn/2017/04/19/certificate/</id>
+    <published>2017-04-19T09:09:27.000Z</published>
+    <updated>2017-04-19T09:45:30.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 证书、标准、格式、转换方式 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="SSL">SSL</h2><p>SSL - Secure Sockets Layer，现在应该叫”TLS”，但由于习惯问题，我们还是叫”SSL”比较多.http协议默认情况下是不加密内容的，这样就很可能在内容传播的时候被别人监听到，对于安全性要求较高的场合，必须要加密，https就是带加密的http协议，而https的加密是基于SSL的，它执行的是一个比较下层的加密，也就是说，在加密前，你的服务器程序在干嘛，加密后也一样在干嘛，不用动，这个加密对用户和开发者来说都是透明的。</p>
+<h2 id="OpenSSL">OpenSSL</h2><p>OpenSSL - 简单地说，OpenSSL是SSL的一个实现，SSL只是一种规范.理论上来说，SSL这种规范是安全的，目前的技术水平很难破解，但SSL的实现就可能有些漏洞，如著名的”心脏出血”.OpenSSL还提供了一大堆强大的工具软件，强大到90%我们都用不到.</p>
+<h2 id="证书标准-X-509">证书标准-X.509</h2><p>X.509是常见通用的证书标准，主要定义了证书中应该包含哪些内容。所有的证书都符合为Public Key<br>Infrastructure (PKI) 制定的 ITU-T X509 国际标准。其详情可以参考RFC5280，SSL使用的就是这种证书标准。</p>
+<h2 id="编码格式">编码格式</h2><ul>
+<li>PEM - Privacy Enhanced Mail</li>
+</ul>
+<p>PEM格式通常用于数字证书认证机构（Certificate Authorities，CA）。内容为Base64编码的ASCII码文件，有类似”—–BEGIN CERTIFICATE—–” 和 “—–END CERTIFICATE—–”的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式（认证证书其实就是公钥）。Apache和*NIX服务器偏向于使用这种编码格式。</p>
+<p>常用扩展名：.pem | .crt | .cer | .key</p>
+<p>查看PEM格式证书的信息：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -<span class="keyword">in</span> certificate<span class="selector-class">.pem</span> -text -noout</div></pre></td></tr></table></figure></p>
+<ul>
+<li>DER - Distinguished Encoding Rules</li>
+</ul>
+<p>DER格式与PEM不同之处在于其使用二进制而不是Base64编码的ASCII。所有类型的认证证书和私钥都可以存储为DER格式。Java和Windows服务器偏向于使用这种编码格式。</p>
+<p>常用扩展名：.der | .cer</p>
+<p>查看DER格式证书的信息：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -<span class="keyword">in</span> certificate<span class="selector-class">.der</span> -inform der -text -noout</div></pre></td></tr></table></figure></p>
+<ul>
+<li>PKCS - Public-Key Cryptography Standards</li>
+</ul>
+<p>PKCS是由 RSA 实验室与其它安全系统开发商为促进公钥密码的发展而制订的一系列标准，PKCS 目前共发布过 15 个标准。 常用的有：</p>
+<ul>
+<li>PKCS#7 Cryptographic Message Syntax Standard</li>
+<li>PKCS#10 Certification Request Standard</li>
+<li>PKCS#12 Personal Information Exchange Syntax Standard</li>
+</ul>
+<h2 id="转换方式">转换方式</h2><ul>
+<li>PEM &lt;-&gt; DER<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -outform der -<span class="keyword">in</span> certificate<span class="selector-class">.pem</span> -out certificate.der</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -inform der -<span class="keyword">in</span> certificate<span class="selector-class">.cer</span> -out certificate.pem</div></pre></td></tr></table></figure>
+<ul>
+<li>PEM &lt;-&gt; P7B<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl crl2pkcs7 -nocrl -certfile certificate<span class="selector-class">.cer</span> -out certificate<span class="selector-class">.p7b</span> -certfile CACert.cer</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs7 -print_certs -<span class="keyword">in</span> certificate<span class="selector-class">.p7b</span> -out certificate.cer</div></pre></td></tr></table></figure>
+<ul>
+<li>PEM &lt;-&gt; PFX<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs12 -export -out certificate<span class="selector-class">.pfx</span> -inkey privateKey<span class="selector-class">.key</span> -<span class="keyword">in</span> certificate<span class="selector-class">.crt</span> -certfile CACert.crt</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs12 -<span class="keyword">in</span> certificate<span class="selector-class">.pfx</span> -out certificate<span class="selector-class">.cer</span> -nodes</div></pre></td></tr></table></figure>
+<p>PXF转PEM后certificate.cer文件包含认证证书和私钥，需要把它们分开存储才能使用。</p>
+<blockquote>
+<p>要转换KEY文件也类似，只不过把x509换成rsa，要转CSR的话，把x509换成req</p>
+</blockquote>
+<h2 id="证书获取">证书获取</h2><ul>
+<li>向权威证书颁发机构申请证书</li>
+</ul>
+<p>用这命令生成一个csr:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">openssl</span> <span class="selector-tag">req</span> <span class="selector-tag">-newkey</span> <span class="selector-tag">rsa</span><span class="selector-pseudo">:2048</span> <span class="selector-tag">-new</span> <span class="selector-tag">-nodes</span> <span class="selector-tag">-keyout</span> <span class="selector-tag">my</span><span class="selector-class">.key</span> <span class="selector-tag">-out</span> <span class="selector-tag">my</span><span class="selector-class">.csr</span></div></pre></td></tr></table></figure></p>
+<p>把csr交给权威证书颁发机构，权威证书颁发机构对此进行签名，完成.保留好csr，当权威证书颁发机构颁发的证书过期的时候，你还可以用同样的csr来申请新的证书，key保持不变.</p>
+<ul>
+<li>生成自签名的证书</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">openssl</span> <span class="selector-tag">req</span> <span class="selector-tag">-newkey</span> <span class="selector-tag">rsa</span><span class="selector-pseudo">:2048</span> <span class="selector-tag">-new</span> <span class="selector-tag">-nodes</span> <span class="selector-tag">-x509</span> <span class="selector-tag">-days</span> 3650 <span class="selector-tag">-keyout</span> <span class="selector-tag">key</span><span class="selector-class">.pem</span> <span class="selector-tag">-out</span> <span class="selector-tag">cert</span><span class="selector-class">.pem</span></div></pre></td></tr></table></figure>
+<p>在生成证书的过程中会要你填一堆的东西，其实真正要填的只有Common Name，通常填写你服务器的域名，如”yourcompany.com”，或者你服务器的IP地址，其它都可以留空的.<br>生产环境中还是不要使用自签的证书，否则浏览器会不认，或者如果你是企业应用的话能够强制让用户的浏览器接受你的自签证书也行.向权威机构要证书通常是要钱的，但现在也有免费的，仅仅需要一个简单的域名验证即可。有兴趣的话查查”沃通数字证书”。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[证书、标准、格式、转换方式]]>
+    
+    </summary>
+    
+      <category term="加密技术" scheme="http://miclee.cn/tags/%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF/"/>
+    
+      <category term="加密技术" scheme="http://miclee.cn/categories/%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[keystore]]></title>
+    <link href="http://miclee.cn/2017/04/19/keystore/"/>
+    <id>http://miclee.cn/2017/04/19/keystore/</id>
+    <published>2017-04-19T09:00:13.000Z</published>
+    <updated>2017-04-19T09:00:13.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em>  </em></strong><br><a id="more"></a></p>
+<hr>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong><em>  </em></strong><br>]]>
+    
+    </summary>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python之禅]]></title>
@@ -870,130 +959,6 @@
       <category term="spring" scheme="http://miclee.cn/tags/spring/"/>
     
       <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[spring-boot哎哟不错(二) —— HelloWorld]]></title>
-    <link href="http://miclee.cn/2015/12/17/spring-boot-2/"/>
-    <id>http://miclee.cn/2015/12/17/spring-boot-2/</id>
-    <published>2015-12-17T07:06:38.000Z</published>
-    <updated>2015-12-25T02:44:22.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 动手构建基于spring-boot的hello world。spring-boot哎哟不错系列第二篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h3 id="1-1_创建项目">1.1 创建项目</h3><p>按照约定我们使用Maven来创建一个空项目：</p>
-<figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">mvn archetype:generate\</div><div class="line">-<span class="ruby">DgroupId=com.mycompany.app\</span></div><div class="line">-<span class="ruby">DartifactId=hello-spring-boot\</span></div><div class="line">-<span class="ruby">DarchetypeArtifactId=maven-archetype-quickstart\</span></div><div class="line">-<span class="ruby">DinteractiveMode=<span class="literal">false</span></span></div></pre></td></tr></table></figure>
-<p>不出意外的话，我们应该会得到一个这样的目录：</p>
-<figure class="highlight stata"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">.</div><div class="line">├── pom.xml</div><div class="line">└── src</div><div class="line">    ├── main</div><div class="line">    │   └── java</div><div class="line">    │       └── com</div><div class="line">    │           └── mycompany</div><div class="line">    │               └── <span class="keyword">app</span></div><div class="line">    │                   └── <span class="keyword">App</span>.java</div><div class="line">    └── <span class="keyword">test</span></div><div class="line">        └── java</div><div class="line">            └── com</div><div class="line">                └── mycompany</div><div class="line">                    └── <span class="keyword">app</span></div><div class="line">                        └── AppTest.java</div></pre></td></tr></table></figure>
-<p>接下来就应该添加项目依赖了：在<code>pom.xml</code>中添加</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>然后再添加一个SpringBoot的Maven插件：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>编写代码<code>com.mycompany.app.Application</code>如下：（注意包名哦）</p>
-<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.mycompany.app;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RequestMapping;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.<span class="keyword">annotation</span>.RestController;</div><div class="line"></div><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> static void main(String[] args) &#123;</div><div class="line">        SpringApplication.run(Application.<span class="keyword">class</span>, args);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping(<span class="meta-string">"/hello"</span>)</span></div><div class="line">    <span class="keyword">public</span> String hello() &#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"hello, spring-boot."</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码完成！我们把它运行起来吧。简单使用指令<code>mvn spring-boot:run</code>。<br>看到一大堆屏幕输入以后，有提示出现了：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="string">...</span> <span class="string">...</span></div><div class="line"><span class="number">2015</span><span class="bullet">-07</span><span class="bullet">-31</span> <span class="number">16</span><span class="string">:26:36.722</span>  <span class="string">INFO</span> <span class="number">10037</span> <span class="meta">---</span> <span class="string">[</span>           <span class="string">main]</span> <span class="string">o.s.j.e.a.AnnotationMBeanExporter</span>        <span class="string">:</span> <span class="string">Registering</span> <span class="string">beans</span> <span class="string">for</span> <span class="string">JMX</span> <span class="string">exposure</span> <span class="string">on</span> <span class="string">startup</span></div><div class="line"><span class="number">2015</span><span class="bullet">-07</span><span class="bullet">-31</span> <span class="number">16</span><span class="string">:26:36.780</span>  <span class="string">INFO</span> <span class="number">10037</span> <span class="meta">---</span> <span class="string">[</span>           <span class="string">main]</span> <span class="string">s.b.c.e.t.TomcatEmbeddedServletContainer</span> <span class="string">:</span> <span class="string">Tomcat</span> <span class="string">started</span> <span class="string">on</span> <span class="string">port(s):</span> <span class="number">8080</span> <span class="string">(http)</span></div><div class="line"><span class="number">2015</span><span class="bullet">-07</span><span class="bullet">-31</span> <span class="number">16</span><span class="string">:26:36.781</span>  <span class="string">INFO</span> <span class="number">10037</span> <span class="meta">---</span> <span class="string">[</span>           <span class="string">main]</span> <span class="string">com.mycompany.app.Application</span>            <span class="string">:</span> <span class="string">Started</span> <span class="string">Application</span> <span class="string">in</span> <span class="number">2.312</span> <span class="string">seconds</span> <span class="string">(JVM</span> <span class="string">running</span> <span class="string">for</span> <span class="number">2.717</span><span class="string">)</span></div></pre></td></tr></table></figure>
-<p>用浏览器访问以下<code>http://127.0.0.1/hello</code>，看看。</p>
-<p>恭喜你！你的第一个SpringBoot程序运行起来了。<br><br>不过在欣喜之余，有没有感到有一丝不安？这个项目里没有<code>xml</code>的Spring配置文件；没有日志配置文件；甚至连<code>web.xml</code>都没有，一个基于<code>Servlet</code>和<code>Spring MVC</code>技术的程序就启动起来了。<br>你一定猜到了，这就是所谓的<code>约定优于配置</code>，麻雀虽小，五脏俱全，该有的组件当然都是存在于Spring上下文的，只不过都是采用的默认配置方式。下一个小节，小老弟展示给你看。</p>
-<h3 id="1-2_SpringBoot到底做了什么？">1.2 SpringBoot到底做了什么？</h3><p>到了祭出SpringBoot的一个<code>starter</code>的时候了。所谓<code>starter</code>的，其实就是SpringBoot的插件啦。 注意，我指的是SpringBoot插件，可不是说“SpringBoot相关Maven插件”，这个概念请理解。<br>我们在<a href="https://github.com/yingzhuo/play-with-spring-boot/blob/master/chapter13/index.md" target="_blank" rel="external">第13章</a>，将自己从头到尾自己写一个具有完整功能的<code>spring-boot-starter</code>。<br><br>这个<code>starter</code>的Maven坐标如下：快把它加到<code>pom.xml</code>。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-actuator<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>这个插件功能比较强大，它“默默地”给你的SpringBoot程序，加上了一些<code>Controller</code>，来帮你达到监控等目的。好，加好了就可以，其他什么事情都不用做。<br>重新启动这个项目<code>mvn spring-boot:run</code>，再访问以下<code>http://127.0.0.1/beans</code>，看看。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">  &#123;</div><div class="line">  <span class="attr">"context"</span> : <span class="string">"application"</span>,</div><div class="line">  <span class="attr">"parent"</span> : <span class="literal">null</span>,</div><div class="line">  <span class="attr">"beans"</span> : [ &#123;</div><div class="line">    <span class="attr">"bean"</span> : <span class="string">"application"</span>,</div><div class="line">    <span class="attr">"scope"</span> : <span class="string">"singleton"</span>,</div><div class="line">    <span class="attr">"type"</span> : <span class="string">"com.mycompany.app.Application$$EnhancerBySpringCGLIB$$a295be6a"</span>,</div><div class="line">    <span class="attr">"resource"</span> : <span class="string">"null"</span>,</div><div class="line">    <span class="attr">"dependencies"</span> : [ ]</div><div class="line">  &#125;, &#123;</div><div class="line">    <span class="attr">"bean"</span> : <span class="string">"org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration"</span>,</div><div class="line">    <span class="attr">"scope"</span> : <span class="string">"singleton"</span>,</div><div class="line">    <span class="attr">"type"</span> : <span class="string">"org.springframework.boot.autoconfigure.PropertyPlaceholderAutoConfiguration$$EnhancerBySpringCGLIB$$1a9215c6"</span>,</div><div class="line">    <span class="attr">"resource"</span> : <span class="string">"null"</span>,</div><div class="line">    <span class="attr">"dependencies"</span> : [ ]</div><div class="line">  &#125;, &#123;</div><div class="line">    <span class="attr">"bean"</span> : <span class="string">"org.springframework.boot.autoconfigure.condition.BeanTypeRegistry"</span>,</div><div class="line">    <span class="attr">"scope"</span> : <span class="string">"singleton"</span>,</div><div class="line">    <span class="attr">"type"</span> : <span class="string">"org.springframework.boot.autoconfigure.condition.BeanTypeRegistry$OptimizedBeanTypeRegistry"</span>,</div><div class="line">    <span class="attr">"resource"</span> : <span class="string">"null"</span>,</div><div class="line">    <span class="attr">"dependencies"</span> : [ ]</div><div class="line">  &#125;, &#123;</div><div class="line">    <span class="attr">"bean"</span> : <span class="string">"propertySourcesPlaceholderConfigurer"</span>,</div><div class="line">    <span class="attr">"scope"</span> : <span class="string">"singleton"</span>,</div><div class="line">    <span class="attr">"type"</span> : <span class="string">"org.springframework.context.support.PropertySourcesPlaceholderConfigurer"</span>,</div><div class="line">    <span class="attr">"resource"</span> : <span class="string">"class path resource [org/springframework/boot/autoconfigure/PropertyPlaceholderAutoConfiguration.class]"</span>,</div><div class="line">    <span class="attr">"dependencies"</span> : [ ]</div><div class="line">  &#125;</div><div class="line">]</div></pre></td></tr></table></figure>
-<p>不知道你发现了没有，我上面的的JSON是非常漂亮地被格式化了，非常方便阅读，你的浏览器看到的JSON，都是挤作一个团儿，非常难受吧。</p>
-<p>添加一个文件：<code>classpath:/META-INF/application.properties</code>，并添加仅仅一条配置。</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">spring<span class="selector-class">.jackson</span><span class="selector-class">.serialization</span><span class="selector-class">.indent_output</span>=true</div></pre></td></tr></table></figure>
-<p>注意！小老弟是因为受篇幅的限制只列出了三项，这个一定要亲手试一试。在你遇到问题时，请使用此功能，你一定要非常了解你的Spring上下文中到底<br>有些什么组件，如果不是这样的话，可是很容易踩到坑的。 小老弟严肃地开发时，这些bean的源代码，都是一定要大致浏览一遍的。这里先告诉各位一个基本方法，<br>以后我们谈到具体某种技术的时候，再来详细剖析也不迟。</p>
-<h3 id="1-3_SpringBoot配置文件">1.3 SpringBoot配置文件</h3><p>正如上一个部分的小节你看到的：<code>classpath:META-INF/application.properties</code>。使用SpringBoot的一个好处就是你可以从成吨的<code>.xml</code>配置文件中稍微<br>解放出一点点。SpringBoot提供两种配置方式，<code>.properties</code>(你已经看到了)，另一种配置方式是<code>.yml</code>。你要是问我哪种方式更好，那么我告诉你，两种差不多。<br>你要问我为什么在整个文章坚持使用<code>.properties</code>，我还真没法回答你，小老弟我是南方人，虽然甜粽子也好吃，但我更偏好咸粽子。<br>想使用<code>.yml</code>方式配置的朋友自己看官方文档吧。</p>
-<p>诸如上面提到的<code>spring.jackson.serialization.indent_output</code>我姑且称呼为“SpringBoot预设配置”，SpringBoot提供的预设配置非常丰富，而且相当一部分是有默认值的。<br>如果你还是SpringBoot新手，那么你可能看得一头雾水。没关系，以后慢慢解释。官方文档附录收录了所有预设配置，请<a href="http://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#common-application-properties" target="_blank" rel="external">点击</a>这里。</p>
-<p>除了“SpringBoot预设配置”之外，我们能自定义吗？当然可以了。此外SpringBoot还提供了一个有用的元注释<code>@EnableConfigurationProperties</code> <br><br>它完整的名称是<code>org.springframework.boot.context.properties.EnableConfigurationProperties</code>，它的用法非常简单了。</p>
-<p>假设你的配置：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">foo<span class="selector-class">.bar</span><span class="selector-class">.name</span>=BillGates</div><div class="line">foo<span class="selector-class">.bar</span><span class="selector-class">.age</span>=<span class="number">60</span></div><div class="line">foo<span class="selector-class">.bar</span><span class="selector-class">.phone-number</span>=<span class="number">13812345678</span></div></pre></td></tr></table></figure></p>
-<p>你可以使用这样一个Bean来封装这样的配置:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"foo.bar"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfigBean</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line">    <span class="keyword">private</span> String phoneNumber;</div><div class="line"></div><div class="line">    <span class="comment">// getter and setter</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>你就可以让SpringBoot自动帮你把配置绑定到<code>MyConfigBean</code>上了。就像这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="meta">@EnableConfigurationProperties</span>(&#123;MyConfigBean.class&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Resource</span></div><div class="line">    <span class="keyword">private</span> MyConfigBean myConfigBean;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>非常方便吧？光是这样还不够好，其实你的<code>ConfigBean</code>里还可以添加上<code>hibernate-validator</code>(JSR-303)元注释，用来验证配置的正确性。这里就不举例子了，自己试一试就知道了。<br><br>其实还有一种配置项的读取方法，SpringBoot把所有的配置放在一个<code>Placeholder Configurer</code>这种方式出现的非常早了，早在Spring2.x时代貌似就有了。你如果对<code>xml</code>方式配置Spring的话，<br>你可能对下面一个片段比较熟悉。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"dataSource"</span> <span class="attr">class</span>=<span class="string">"com.mchange.v2.c3p0.ComboPooledDataSource"</span> <span class="attr">destroy-method</span>=<span class="string">"close"</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"driverClass"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.driverClass&#125;"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.url&#125;"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"user"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.username&#125;"</span> /&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"password"</span> <span class="attr">value</span>=<span class="string">"$&#123;jdbc.password&#125;"</span> /&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>如果你现在依然用<code>xml</code>来配置Spring的话，你的<code>application.properties</code>依然能这么用，这毫无问题。如果你使用“Java Code”配置Spring的话，你可以使用<code>@Value</code>元注释。<br>(这是Spring提供的功能，和SpringBoot关系并不大)就像是下面这样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;foo.bar.name&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;foo.bar.age&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age;</div><div class="line"></div><div class="line">    <span class="meta">@Value</span>(<span class="string">"$&#123;foo.bar.phone-number&#125;"</span>)</div><div class="line">    <span class="keyword">private</span> phoneNumber;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> MyStupidBean <span class="title">myStupidBean</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> MyStupidBean(name, age, phoneNumber);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="1-4_Spring配置文件">1.4 Spring配置文件</h3><p>小老弟整个教程都将采用”Java Code”配置方式，但是你要是非要用<code>xml</code>或者你更激进一点喜欢使用<code>groovy dsl</code>，也不是不行。你可以这样做：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@SpringBootApplication</span></div><div class="line"><span class="meta">@ImportResource</span>(&#123;<span class="string">"classpath:conf1.xml"</span>, <span class="string">"classpath:conf2.groovy"</span>&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Application</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        SpringApplication.run(Application.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>配置方式，并没有孰优孰劣之分。不要因为这个与别人争吵，挑一个你自己喜欢的方式就可以了。</p>
-<h3 id="1-5_关于Bean的Scan。">1.5 关于Bean的Scan。</h3><p>小老弟习惯用Bean的扫描，如果不用的话，所有的业务Bean，比如说”DAO”，”SERVICE”都需要一个个手工配置的，我觉得这并没有什么实际的好处。<br>事实上，<code>@SpringBootApplication</code>元注释“封装”了<code>@ComponentScan</code>，你使用<code>@SpringBootApplication</code>的同时，包扫描就自动打开了。<br>那么，我们的问题就来了，从哪个package开始扫描呢？是这样的，它扫描启动main方法所在的那个类所在的包及其所有的子包。稍微有点绕吧，没看懂的再看一遍。</p>
-<p>如果你正在开发一个基于SpringBoot的应用。那么官方给出的最佳实践是这样。看一看下面的目录结构。</p>
-<ul>
-<li>com.mycompany.myapp<ul>
-<li>dao<ul>
-<li>impl</li>
-</ul>
-</li>
-<li>service<ul>
-<li>impl</li>
-</ul>
-</li>
-<li>controller</li>
-<li>domain</li>
-</ul>
-</li>
-</ul>
-<p>大约就是这样的，你的启动程序及其Spring的所有配置类都直接放在<code>com.mycompany.myapp</code>package下。其他的业务相关的组件，让它们被扫描到上下文就好了。<br>SpringBoot建议你保持配置的清爽。 小老弟的所有配套示例代码，也基本上是使用这样一个package结构。</p>
-<p>请意识到，上面小节给出的”hello world”程序，<code>com.mycompany.app.Application</code>即是一个配置类，又同时是一个<code>Spring MVC Controller</code>，这只是为了使代码简短而生造的一个例子。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[动手构建基于spring-boot的hello world。spring-boot哎哟不错系列第二篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
-    
-    </summary>
-    
-      <category term="spring-boot" scheme="http://miclee.cn/tags/spring-boot/"/>
-    
-      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[为什么要使用SLF4J而不是Log4J]]></title>
-    <link href="http://miclee.cn/2015/12/17/slf4j/"/>
-    <id>http://miclee.cn/2015/12/17/slf4j/</id>
-    <published>2015-12-17T05:36:11.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="介绍">介绍</h2><p>SLF4J不同于其他日志类库，与其它有很大的不同。SLF4J(Simple logging Facade for Java)不是一个真正的日志实现，而是一个抽象层（ abstraction layer），它允许你在后台使用任意一个日志类库。如果是在编写供内外部都可以使用的API或者通用类库，那么你真不会希望使用你类库的客户端必须使用你选择的日志类库。</p>
-<p>如果一个项目已经使用了log4j，而你加载了一个类库，比方说 Apache Active MQ——它依赖于于另外一个日志类库logback，那么你就需要把它也加载进去。但如果Apache Active MQ使用了SLF4J，你可以继续使用你的日志类库而无语忍受加载和维护一个新的日志框架的痛苦。</p>
-<p>总的来说，SLF4J使你的代码独立于任意一个特定的日志API，这是一个对于开发API的开发者很好的思想。虽然抽象日志类库的思想已经不是新鲜的事物而且Apache commons logging也已经在使用这种思想了，但现在SLF4J正迅速成为Java世界的日志标准。让我们再看看几个使用SLF4J而不是log4j、logback或者java.util.logging的理由。</p>
-<h2 id="SLF4J对比Log4J，logback和java-util-Logging的优势">SLF4J对比Log4J，logback和java.util.Logging的优势</h2><p>正如我之前说的，在你的代码中使用SLF4J写日志语句的主要出发点是使得你的程序独立于任意特定的日志类库，依赖于特定类可能需要不同与你已有的配置，并且导致更多维护的麻烦。但除此之外，还要一个SLF4J API的特性使得我坚持使用SLF4J而抛弃我长期间钟爱的Lof4j的理由，是被称为占位符(place holder)，在代码中表示为“{}”的特性。占位符是一个非常类似于在String的format()方法中的%s，因为它会在运行时被某个提供的实际字符串所替换。这不仅降低了你代码中字符串连接次数，而且还节省了新建的String对象。即使你可能没需要那些对象，但这个依旧成立，取决于你的生产环境的日志级别，例如在DEBUG或者INFO级别的字符串连接。因为String对象是不可修改的并且它们建立在一个String池中，它们消耗堆内存( heap memory)而且大多数时间他们是不被需要的，例如当你的应用程序在生产环境以ERROR级别运行时候，一个String使用在DEBUG语句就是不被需要的。通过使用SLF4J,你可以在运行时延迟字符串的建立，这意味着只有需要的String对象才被建立。而如果你已经使用log4j，那么你已经对于在if条件中使用debug语句这种变通方案十分熟悉了，但SLF4J的占位符就比这个好用得多。</p>
-<p>这是你在Log4j中使用的方案，但肯定这一点都不有趣并且降低了代码可读性因为增加了不必要的繁琐重复代码(boiler-plate code)：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">    logger.debug(<span class="string">"Processing trade with id: "</span> + id + <span class="string">" symbol: "</span> + symbol);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>另一方面，如果你使用SLF4J的话，你可以得到在极简洁的格式的结果，就像以下展示的一样：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">logger.debug(<span class="string">"Processing trade with id: &#123;&#125; and symbol : &#123;&#125; "</span>, id, symbol);</div></pre></td></tr></table></figure>
-<p>在SLF4J，我们不需要字符串连接而且不会导致暂时不需要的字符串消耗。取而代之的，我们在一个以占位符和以参数传递实际值的模板格式下写日志信息。你可能会在想万一我有很个参数怎么办？嗯，那么你可以选择使用变量参数版本的日志方法或者用以Object数组传递。这是一个相当的方便和高效方法的打日志方法。记住，在生产最终日志信息的字符串之前，这个方法会检查一个特定的日志级别是不是打开了，这不仅降低了内存消耗而且预先降低了CPU去处理字符串连接命令的时间。这里是使用SLF4J日志方法的代码，来自于slf4j-log4j12-1.6.1.jar中的Log4j的适配器类Log4jLoggerAdapter。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">debug</span><span class="params">(String format, Object arg1, Object arg2)</span> </span>&#123;</div><div class="line">    <span class="keyword">if</span> (logger.isDebugEnabled()) &#123;</div><div class="line">        FormattingTuple ft = MessageFormatter.format(format, arg1, arg2);</div><div class="line">        logger.log(FQCN, Level.DEBUG, ft.getMessage(), ft.getThrowable());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>同时，我们也很值得知道打日志是对应用程序的性能有着很大影响的，在生产环节上只进行必要的日志记录是我们所建议的。</p>
-<h2 id="怎么用SLF4J做Log4J的日志记录">怎么用SLF4J做Log4J的日志记录</h2><p>除了以上好处，我想还有一个告诫，就是为了使用SLF4J，你不仅需要包含SLF4J的API jar包，例如 slf4j-api-1.6.1.jar，还需要相关Jar包，这取决于你在后台使用的日志类库。如果你想要使用和Log4J 一起使用SLF4J ，Simple Logging Facade for Java,，你需要包含以下的Jar包在你的classpath中，取决于哪个SLF4J和你在使用的Log4J的版本。例如：</p>
-<ul>
-<li>slf4j-api-1.6.1.jar – JAR for SLF4J API</li>
-<li>log4j-1.2.16.jar – JAR for Log4J API</li>
-<li>slf4j-log4j12-1.6.1.jar – Log4J Adapter for SLF4J</li>
-</ul>
-<p>如果你在使用Maven去管理你的项目依赖，你只需要包含SLF4J JAR包，maven会包含它的依赖的相关包。为了和SLF4J一起中使用Log4J，你可以包含以下的依赖在你项目中的pom.xml。</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.slf4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>slf4j-log4j12<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>还有，如果你对于使用变量参数版本（variable argument version ）的日志方法感兴趣的话，那么就导入SLF4J 1.7的版本吧。</p>
-<h2 id="总结">总结</h2><p>总结这次说的，我建议使用SLF4J的而不是直接使用 Log4j, commons logging, logback 或者 java.util.logging 已经足够充分了。</p>
-<ol>
-<li>在你的开源或内部类库中使用SLF4J会使得它独立于任何一个特定的日志实现，这意味着不需要管理多个日志配置或者多个日志类库，你的客户端会很感激这点。</li>
-<li>SLF4J提供了基于占位符的日志方法，这通过去除检查isDebugEnabled(), isInfoEnabled()等等，提高了代码可读性。</li>
-<li>通过使用SLF4J的日志方法，你可以延迟构建日志信息（Srting）的开销，直到你真正需要，这对于内存和CPU都是高效的。</li>
-<li>作为附注，更少的暂时的字符串意味着垃圾回收器（Garbage Collector）需要做更好的工作，这意味着你的应用程序有为更好的吞吐量和性能。</li>
-<li>这些好处只是冰山一角，你将在开始使用SL4J和阅读其中代码的时候知道更多的好处。我强烈建议，任何一个新的Java程序员，都应该使用SLF4J做日志而不是使用包括Log4J在内的其他日志API。</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[每一个Java程序员都知道日志对于任何一个Java应用程序，尤其是服务端程序是至关重要的，而很多程序员也已经熟悉各种不同的日志库如java.util.logging、Apache log4j、logback。但如果你还不知道SLF4J（Simple logging facade for Java）的话，那么是时候去在你项目中学习使用SLF4J了。 在这篇文章中，我们将学习为什么使用SLF4J比log4j或者java.util.logging要优秀。]]>
-    
-    </summary>
-    
-      <category term="slf4j" scheme="http://miclee.cn/tags/slf4j/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   

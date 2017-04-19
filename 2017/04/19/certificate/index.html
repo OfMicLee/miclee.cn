@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>安全证书 | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="证书、标准、格式、转换方式">
+<meta name="keywords" content="加密技术">
+<meta property="og:type" content="article">
+<meta property="og:title" content="安全证书">
+<meta property="og:url" content="http://miclee.cn/2017/04/19/certificate/index.html">
+<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:description" content="证书、标准、格式、转换方式">
+<meta property="og:updated_time" content="2017-04-19T09:45:30.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="安全证书">
+<meta name="twitter:description" content="证书、标准、格式、转换方式">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术创造价值，分享带来快乐</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-certificate" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/04/19/certificate/" class="article-date">
+  <time datetime="2017-04-19T09:09:27.000Z" itemprop="datePublished">2017-04-19</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/加密技术/">加密技术</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      安全证书
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 证书、标准、格式、转换方式 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="SSL">SSL</h2><p>SSL - Secure Sockets Layer，现在应该叫”TLS”，但由于习惯问题，我们还是叫”SSL”比较多.http协议默认情况下是不加密内容的，这样就很可能在内容传播的时候被别人监听到，对于安全性要求较高的场合，必须要加密，https就是带加密的http协议，而https的加密是基于SSL的，它执行的是一个比较下层的加密，也就是说，在加密前，你的服务器程序在干嘛，加密后也一样在干嘛，不用动，这个加密对用户和开发者来说都是透明的。</p>
+<h2 id="OpenSSL">OpenSSL</h2><p>OpenSSL - 简单地说，OpenSSL是SSL的一个实现，SSL只是一种规范.理论上来说，SSL这种规范是安全的，目前的技术水平很难破解，但SSL的实现就可能有些漏洞，如著名的”心脏出血”.OpenSSL还提供了一大堆强大的工具软件，强大到90%我们都用不到.</p>
+<h2 id="证书标准-X-509">证书标准-X.509</h2><p>X.509是常见通用的证书标准，主要定义了证书中应该包含哪些内容。所有的证书都符合为Public Key<br>Infrastructure (PKI) 制定的 ITU-T X509 国际标准。其详情可以参考RFC5280，SSL使用的就是这种证书标准。</p>
+<h2 id="编码格式">编码格式</h2><ul>
+<li>PEM - Privacy Enhanced Mail</li>
+</ul>
+<p>PEM格式通常用于数字证书认证机构（Certificate Authorities，CA）。内容为Base64编码的ASCII码文件，有类似”—–BEGIN CERTIFICATE—–” 和 “—–END CERTIFICATE—–”的头尾标记。服务器认证证书，中级认证证书和私钥都可以储存为PEM格式（认证证书其实就是公钥）。Apache和*NIX服务器偏向于使用这种编码格式。</p>
+<p>常用扩展名：.pem | .crt | .cer | .key</p>
+<p>查看PEM格式证书的信息：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -<span class="keyword">in</span> certificate<span class="selector-class">.pem</span> -text -noout</div></pre></td></tr></table></figure></p>
+<ul>
+<li>DER - Distinguished Encoding Rules</li>
+</ul>
+<p>DER格式与PEM不同之处在于其使用二进制而不是Base64编码的ASCII。所有类型的认证证书和私钥都可以存储为DER格式。Java和Windows服务器偏向于使用这种编码格式。</p>
+<p>常用扩展名：.der | .cer</p>
+<p>查看DER格式证书的信息：<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -<span class="keyword">in</span> certificate<span class="selector-class">.der</span> -inform der -text -noout</div></pre></td></tr></table></figure></p>
+<ul>
+<li>PKCS - Public-Key Cryptography Standards</li>
+</ul>
+<p>PKCS是由 RSA 实验室与其它安全系统开发商为促进公钥密码的发展而制订的一系列标准，PKCS 目前共发布过 15 个标准。 常用的有：</p>
+<ul>
+<li>PKCS#7 Cryptographic Message Syntax Standard</li>
+<li>PKCS#10 Certification Request Standard</li>
+<li>PKCS#12 Personal Information Exchange Syntax Standard</li>
+</ul>
+<h2 id="转换方式">转换方式</h2><ul>
+<li>PEM &lt;-&gt; DER<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -outform der -<span class="keyword">in</span> certificate<span class="selector-class">.pem</span> -out certificate.der</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl x509 -inform der -<span class="keyword">in</span> certificate<span class="selector-class">.cer</span> -out certificate.pem</div></pre></td></tr></table></figure>
+<ul>
+<li>PEM &lt;-&gt; P7B<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl crl2pkcs7 -nocrl -certfile certificate<span class="selector-class">.cer</span> -out certificate<span class="selector-class">.p7b</span> -certfile CACert.cer</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs7 -print_certs -<span class="keyword">in</span> certificate<span class="selector-class">.p7b</span> -out certificate.cer</div></pre></td></tr></table></figure>
+<ul>
+<li>PEM &lt;-&gt; PFX<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs12 -export -out certificate<span class="selector-class">.pfx</span> -inkey privateKey<span class="selector-class">.key</span> -<span class="keyword">in</span> certificate<span class="selector-class">.crt</span> -certfile CACert.crt</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">openssl pkcs12 -<span class="keyword">in</span> certificate<span class="selector-class">.pfx</span> -out certificate<span class="selector-class">.cer</span> -nodes</div></pre></td></tr></table></figure>
+<p>PXF转PEM后certificate.cer文件包含认证证书和私钥，需要把它们分开存储才能使用。</p>
+<blockquote>
+<p>要转换KEY文件也类似，只不过把x509换成rsa，要转CSR的话，把x509换成req</p>
+</blockquote>
+<h2 id="证书获取">证书获取</h2><ul>
+<li>向权威证书颁发机构申请证书</li>
+</ul>
+<p>用这命令生成一个csr:<br><figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">openssl</span> <span class="selector-tag">req</span> <span class="selector-tag">-newkey</span> <span class="selector-tag">rsa</span><span class="selector-pseudo">:2048</span> <span class="selector-tag">-new</span> <span class="selector-tag">-nodes</span> <span class="selector-tag">-keyout</span> <span class="selector-tag">my</span><span class="selector-class">.key</span> <span class="selector-tag">-out</span> <span class="selector-tag">my</span><span class="selector-class">.csr</span></div></pre></td></tr></table></figure></p>
+<p>把csr交给权威证书颁发机构，权威证书颁发机构对此进行签名，完成.保留好csr，当权威证书颁发机构颁发的证书过期的时候，你还可以用同样的csr来申请新的证书，key保持不变.</p>
+<ul>
+<li>生成自签名的证书</li>
+</ul>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="selector-tag">openssl</span> <span class="selector-tag">req</span> <span class="selector-tag">-newkey</span> <span class="selector-tag">rsa</span><span class="selector-pseudo">:2048</span> <span class="selector-tag">-new</span> <span class="selector-tag">-nodes</span> <span class="selector-tag">-x509</span> <span class="selector-tag">-days</span> 3650 <span class="selector-tag">-keyout</span> <span class="selector-tag">key</span><span class="selector-class">.pem</span> <span class="selector-tag">-out</span> <span class="selector-tag">cert</span><span class="selector-class">.pem</span></div></pre></td></tr></table></figure>
+<p>在生成证书的过程中会要你填一堆的东西，其实真正要填的只有Common Name，通常填写你服务器的域名，如”yourcompany.com”，或者你服务器的IP地址，其它都可以留空的.<br>生产环境中还是不要使用自签的证书，否则浏览器会不认，或者如果你是企业应用的话能够强制让用户的浏览器接受你的自签证书也行.向权威机构要证书通常是要钱的，但现在也有免费的，仅仅需要一个简单的域名验证即可。有兴趣的话查查”沃通数字证书”。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.cn/2017/04/19/certificate/" data-id="cj1oti2fa004vabs6ge730j24" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.cn/2017/04/19/certificate/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/加密技术/">加密技术</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/19/keystore/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          keystore
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Python/" style="font-size: 16.67px;">Python</a> <a href="/tags/annotation/" style="font-size: 10px;">annotation</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/fs/" style="font-size: 10px;">fs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/ios-app-publish/" style="font-size: 10px;">ios-app-publish</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 13.33px;">maven</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/push/" style="font-size: 10px;">push</a> <a href="/tags/react/" style="font-size: 13.33px;">react</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/spring/" style="font-size: 16.67px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 13.33px;">spring-boot</a> <a href="/tags/status/" style="font-size: 10px;">status</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/加密技术/" style="font-size: 10px;">加密技术</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/04/19/certificate/">安全证书</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/keystore/">keystore</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/19/Python之禅/">Python之禅</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/18/py_virtualenvwrapper/">virtualenvwrapper设置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/18/py_jurpyter/">Jupyter 安装</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 MicLee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.cn/2017/04/19/certificate/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

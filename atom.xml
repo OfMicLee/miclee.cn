@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-18T11:26:23.000Z</updated>
+  <updated>2017-04-19T01:52:19.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://miclee.cn/2017/04/18/py_virtualenvwrapper/"/>
     <id>http://miclee.cn/2017/04/18/py_virtualenvwrapper/</id>
     <published>2017-04-18T11:16:24.000Z</published>
-    <updated>2017-04-18T11:26:23.000Z</updated>
+    <updated>2017-04-19T01:52:19.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> virtualenv 是一个可以在同一计算机中隔离多个python版本的工具。有时，两个不同的项目可能需要不同版本的python，如 python2.6.6 / python3.0 ，但是如果都装到一起，经常会导致问题。所以需要一个工具能够将这两种或几种不同版本的环境隔离开来，需要哪个版本就切换到哪个版本做为默认版本。virtualenv 既是满足这个需求的工具。它能够用于创建独立的Python环境，多个Python相互独立，互不影响。 </em></strong><br><a id="more"></a></p>
 <hr>
 <p>virtualenvwrapper是virtualenv的扩展管理包，用于更方便管理虚拟环境，它可以做：</p>
@@ -28,9 +28,9 @@
 <li>管理（新增，删除，复制）虚拟环境</li>
 <li>切换虚拟环境</li>
 </ul>
-<h2 id="安装">安装</h2><p>‘’’<br>pip install virtualenv<br>pip install virtualenvwrapper<br>‘’’</p>
+<h2 id="安装">安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> virtualenv</span><br><span class="line">pip <span class="keyword">install</span> virtualenvwrapper</span><br></pre></td></tr></table></figure>
 <h2 id="配置">配置</h2><p>在 ~/.bashrc 文件里添加以下配置：</p>
-<p>‘’’<br>export WORKON_HOME=~/.virtualenvs<br>source /usr/local/bin/virtualenvwrapper.sh<br>‘’’</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs</span><br><span class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
 <p>别忘了执行 source .bashrc</p>
 <h2 id="使用方法">使用方法</h2><p>所有的命令可使用：virtualenvwrapper –help 进行查看，这里列出几个常用的：</p>
 <ul>
@@ -41,11 +41,11 @@
 <li>列出所有环境：workon 或者 lsvirtualenv -b</li>
 </ul>
 <h2 id="安装Python3_环境">安装Python3 环境</h2><p>先安装Python3：</p>
-<p>‘’’<br>brew install Python3<br>‘’’</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span>install Python3</span><br></pre></td></tr></table></figure>
 <p>创建环境：</p>
-<p>‘’’<br>mkvirtualenv –python=/usr/local/bin/python3 envname<br>‘’’</p>
+<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv --python=<span class="regexp">/usr/local</span><span class="regexp">/bin/python</span>3 envname</span><br></pre></td></tr></table></figure>
 <p>查看环境：</p>
-<p>‘’’<br>workon<br>‘’’</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[virtualenv 是一个可以在同一计算机中隔离多个python版本的工具。有时，两个不同的项目可能需要不同版本的python，如 python2.6.6 / python3.0 ，但是如果都装到一起，经常会导致问题。所以需要一个工具能够将这两种或几种不同版本的环境隔离开来，需要哪个版本就切换到哪个版本做为默认版本。virtualenv 既是满足这个需求的工具。它能够用于创建独立的Python环境，多个Python相互独立，互不影响。]]>
@@ -63,13 +63,13 @@
     <link href="http://miclee.cn/2017/04/18/py_jurpyter/"/>
     <id>http://miclee.cn/2017/04/18/py_jurpyter/</id>
     <published>2017-04-18T11:09:03.000Z</published>
-    <updated>2017-04-18T11:15:06.000Z</updated>
+    <updated>2017-04-19T01:52:25.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Jupyter NoteBook 支持python2和3 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="全新安装">全新安装</h2><p>‘’’<br> pip3 install jupyter<br>‘’’</p>
-<h2 id="增加Python3的支持">增加Python3的支持</h2><p>‘’’<br>python3 -m pip install ipykernel<br>python3 -m ipykernel install –user<br>‘’’</p>
-<h2 id="增加Python2的支持">增加Python2的支持</h2><p>‘’’<br>python -m pip install ipykernel<br>python -m ipykernel install –user<br>‘’’</p>
-<h2 id="新的启动命令">新的启动命令</h2><p>‘’’<br>jupyter notebook<br>‘’’</p>
+<h2 id="全新安装">全新安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip3 <span class="keyword">install</span> jupyter</span><br></pre></td></tr></table></figure>
+<h2 id="增加Python3的支持">增加Python3的支持</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python3 -m pip <span class="operator"><span class="keyword">install</span> ipykernel</span><br><span class="line">python3 -<span class="keyword">m</span> ipykernel <span class="keyword">install</span> <span class="comment">--user</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="增加Python2的支持">增加Python2的支持</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python -m pip <span class="operator"><span class="keyword">install</span> ipykernel</span><br><span class="line">python -<span class="keyword">m</span> ipykernel <span class="keyword">install</span> <span class="comment">--user</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="新的启动命令">新的启动命令</h2><figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title">jupyter</span> notebook</span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[Jupyter NoteBook 支持python2和3]]>

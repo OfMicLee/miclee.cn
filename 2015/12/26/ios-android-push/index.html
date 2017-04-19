@@ -6,6 +6,7 @@
   <title>iOS 和 Android 的后台推送原理 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="因为手机平台本身、电量、网络流量的限制，移动互联网应用在设计上跟传统 PC 上的应用很大不一样，需要根据手机本身的特点，尽量的节省电量和流量，同时又要尽可能的保证数据能及时到达客户端。为了解决数据同步的问题，在手机平台上，常用的方法有2种。一种是定时去服务器上查询数据，也叫Polling，还有一种手机跟服务器之间维护一个 TCP 长连接，当服务器有数据时，实时推送到客户端，也就是我们说的 Push">
+<meta name="keywords" content="push">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 和 Android 的后台推送原理">
 <meta property="og:url" content="http://miclee.cn/2015/12/26/ios-android-push/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -100,7 +101,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/12/26/ios-android-push/" data-id="cj1oc02d60012xfs64p6ymobz" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/12/26/ios-android-push/" data-id="cj1oc4bwf003q00s6amfmdqpw" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/12/26/ios-android-push/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -113,19 +114,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/12/28/maven-scope/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/12/25/spring-boot-7/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          maven scope 类型
+          spring-boot哎哟不错(七) —— 使用spring-boot 打包可执行jar和war包
         
       </div>
     </a>
   
   
-    <a href="/2015/12/25/spring-boot-7/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/12/28/maven-scope/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">spring-boot哎哟不错(七) —— 使用spring-boot 打包可执行jar和war包</div>
+      <div class="article-nav-title">maven scope 类型</div>
     </a>
   
 </nav>
@@ -242,11 +243,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

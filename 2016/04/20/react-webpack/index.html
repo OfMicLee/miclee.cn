@@ -6,6 +6,7 @@
   <title>React开发神器Webpack | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。">
+<meta name="keywords" content="react">
 <meta property="og:type" content="article">
 <meta property="og:title" content="React开发神器Webpack">
 <meta property="og:url" content="http://miclee.cn/2016/04/20/react-webpack/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -94,14 +95,14 @@
 <hr>
 <p>Webpack将项目中用到的一切静态资源都视之为模块，模块之间可以互相依赖。Webpack对它们进行统一的管理以及打包发布。</p>
 <h2 id="一、安装Webpack">一、安装Webpack</h2><p>Webpack一般作为全局的npm模块安装：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> Webpack</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> -g Webpack</div></pre></td></tr></table></figure>
 <p>直接执行此命令会默认使用当前目录的webpack.config.js作为配置文件。如果要指定另外的配置文件，可以执行：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">webpack —config webpack<span class="class">.custom</span><span class="class">.config</span><span class="class">.js</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">webpack —config webpack<span class="selector-class">.custom</span><span class="selector-class">.config</span><span class="selector-class">.js</span></div></pre></td></tr></table></figure>
 <h2 id="二、Webpack模块加载器（Loaders）">二、Webpack模块加载器（Loaders）</h2><p>Webpack将所有静态资源都认为是模块，比如JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等等，从而可以对其进行统一管理。每一种资源都可以通过对应的加载器处理成模块。和大多数包管理器不一样的是，Webpack的加载器之间可以进行串联，一个加载器的输出可以成为另一个加载器的输入。比如LESS文件先通过less-load处理成css，然后再通过css-loader加载成css模块，最后由style-loader加载器对其做最后的处理，从而运行时可以通过style标签将其应用到最终的浏览器环境。</p>
 <p>为了让Webpack识别什么样的资源应该用什么加载器去载入，需要在配置文件进行配置：通过正则表达式对文件名进行匹配。</p>
-<h3 id="特别的，使用babel解析js或jsx">特别的，使用babel解析js或jsx</h3><figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-loader</span><br><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-react</span><br><span class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-es2015</span><br></pre></td></tr></table></figure>
-<h2 id="三、config文件">三、config文件</h2><p>配置文件通常放在项目根目录之下，其本身也是一个标准的CommonJS模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: <span class="string">'./js/main.js'</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    path: <span class="string">'./build'</span>, <span class="comment">// 打包文件存放的绝对路径</span></span><br><span class="line">    publicPath: <span class="string">'/build'</span>, <span class="comment">// 网站运行时的访问路径</span></span><br><span class="line">    filename: <span class="string">'bundle.js'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  resolve: &#123; <span class="comment">//resolve 指定可以被 import 的文件后缀。比如 Hello.jsx 这样的文件就可以直接用 import Hello from 'Hello' 引用。</span></span><br><span class="line">       extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>]</span><br><span class="line">   &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    loaders: [</span><br><span class="line">      &#123; test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">        exclude: <span class="regexp">/node_modules/</span>,</span><br><span class="line">        loader: <span class="string">'babel-loader'</span>,</span><br><span class="line">        query:</span><br><span class="line">        &#123;</span><br><span class="line">			    presets:[<span class="string">'es2015'</span>,<span class="string">'react'</span>]</span><br><span class="line">			  &#125;</span><br><span class="line">      &#125;, <span class="comment">//指定 babel-loader 编译后缀名为 .js 或者 .jsx 的文件</span></span><br><span class="line">      &#123; test: <span class="regexp">/\.css$/</span>,</span><br><span class="line">        loader: <span class="string">'style-loader!css-loader'</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123; test: <span class="regexp">/\.(png|jpg)$/</span>,</span><br><span class="line">        loader: <span class="string">'url-loader?limit=8192'</span></span><br><span class="line">      &#125; <span class="comment">// inline base64 URLs for &lt;=8k images, direct URLs for the rest</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<h2 id="四、webpack服务器">四、webpack服务器</h2><p>在webpack里面有一个开发工具就是可以自动开启一个服务器。可以和webpack一样作为全局的npm模块安装：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> -<span class="keyword">g</span> webpack-dev-<span class="keyword">server</span></span></span><br></pre></td></tr></table></figure></p>
+<h3 id="特别的，使用babel解析js或jsx">特别的，使用babel解析js或jsx</h3><figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-loader</div><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-react</div><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-es2015</div></pre></td></tr></table></figure>
+<h2 id="三、config文件">三、config文件</h2><p>配置文件通常放在项目根目录之下，其本身也是一个标准的CommonJS模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./js/main.js'</span>,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">path</span>: <span class="string">'./build'</span>, <span class="comment">// 打包文件存放的绝对路径</span></div><div class="line">    publicPath: <span class="string">'/build'</span>, <span class="comment">// 网站运行时的访问路径</span></div><div class="line">    filename: <span class="string">'bundle.js'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">resolve</span>: &#123; <span class="comment">//resolve 指定可以被 import 的文件后缀。比如 Hello.jsx 这样的文件就可以直接用 import Hello from 'Hello' 引用。</span></div><div class="line">       extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>]</div><div class="line">   &#125;,</div><div class="line">  <span class="attr">module</span>: &#123;</div><div class="line">    <span class="attr">loaders</span>: [</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.(js|jsx)$/</span>,</div><div class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'babel-loader'</span>,</div><div class="line">        <span class="attr">query</span>:</div><div class="line">        &#123;</div><div class="line">			    <span class="attr">presets</span>:[<span class="string">'es2015'</span>,<span class="string">'react'</span>]</div><div class="line">			  &#125;</div><div class="line">      &#125;, <span class="comment">//指定 babel-loader 编译后缀名为 .js 或者 .jsx 的文件</span></div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'style-loader!css-loader'</span></div><div class="line">      &#125;,</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.(png|jpg)$/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'url-loader?limit=8192'</span></div><div class="line">      &#125; <span class="comment">// inline base64 URLs for &lt;=8k images, direct URLs for the rest</span></div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
+<h2 id="四、webpack服务器">四、webpack服务器</h2><p>在webpack里面有一个开发工具就是可以自动开启一个服务器。可以和webpack一样作为全局的npm模块安装：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> -g webpack-dev-<span class="keyword">server</span></div></pre></td></tr></table></figure></p>
 <h2 id="五、实现热替换(HMR)功能">五、实现热替换(HMR)功能</h2><ul>
 <li><p>Webpack本身具有运行时模块替换功能，称之为Hot Module Replacement (HMR)。</p>
 <p>当某个模块代码发生变化时，Webpack实时打包将其推送到页面并进行替换，从而无需刷新页面就实现代码替换。这个过程相对比较复杂，需要进行多方面考虑和配置。</p>
@@ -113,16 +114,16 @@
 <p>‘webpack –watch’命令，不过需要手动刷新页面，但不需要重启服务。</p>
 <h3 id="react-hot-loader加载器具体实现：">react-hot-loader加载器具体实现：</h3><ul>
 <li><p>1、安装依赖</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install react-hot-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install react-hot-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></div></pre></td></tr></table></figure>
 </li>
 <li><p>2、更改webpack.config.js<br>为了热加载React组件，我们需要在前端页面中加入相应的代码，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">entry: [</span><br><span class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></span><br><span class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</span><br><span class="line">  <span class="string">'./js/main'</span> <span class="comment">// Your appʼs entry point</span></span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack.config.js</span></div><div class="line">...</div><div class="line">entry: [</div><div class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></div><div class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</div><div class="line">  <span class="string">'./js/main'</span> <span class="comment">// Your appʼs entry point</span></div><div class="line">]</div><div class="line">...</div></pre></td></tr></table></figure>
 </li>
 <li><p>3、下一步，我们需要让Webpack用react-hot-loader去加载React组件:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//webpack.config.js</span></span><br><span class="line">...</span><br><span class="line">loaders: [&#123;</span><br><span class="line">    test: <span class="regexp">/\.(js|jsx)$/</span>,</span><br><span class="line">    loader: <span class="string">'react-hot!babel'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  …</span><br><span class="line">]</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack.config.js</span></div><div class="line">...</div><div class="line">loaders: [&#123;</div><div class="line">    <span class="attr">test</span>: <span class="regexp">/\.(js|jsx)$/</span>,</div><div class="line">    <span class="attr">loader</span>: <span class="string">'react-hot!babel'</span></div><div class="line">  &#125;,</div><div class="line">  …</div><div class="line">]</div><div class="line">...</div></pre></td></tr></table></figure>
 </li>
 <li><p>4、修改package.json文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">"scripts": &#123;</span><br><span class="line">  "build": "webpack",</span><br><span class="line">  "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">"scripts": &#123;</div><div class="line">  "build": "webpack",</div><div class="line">  "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 </li>
 </ul>
 <p>参数含义：</p>
@@ -135,7 +136,7 @@
 <li>content-base - 指向设置的输出目录,后面可以写你想指向的输出目录 不写默认为空目录</li>
 </ul>
 <ul>
-<li>5、使用<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="command">run</span> dev</span><br></pre></td></tr></table></figure>
+<li>5、使用<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">run</span><span class="bash"> dev</span></div></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
@@ -144,7 +145,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/04/20/react-webpack/" data-id="cj1oc02cv000kxfs6yprgpbqh" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/04/20/react-webpack/" data-id="cj1oc4bwm004800s661b0zrpf" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/04/20/react-webpack/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -157,19 +158,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/20/react-component/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/02/23/Catalina-Base/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          react-component
+          Catalina_Base和Catalina_HOME的区别
         
       </div>
     </a>
   
   
-    <a href="/2016/02/23/Catalina-Base/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/20/react-component/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Catalina_Base和Catalina_HOME的区别</div>
+      <div class="article-nav-title">react-component</div>
     </a>
   
 </nav>
@@ -286,11 +287,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

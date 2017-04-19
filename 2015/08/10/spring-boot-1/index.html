@@ -6,6 +6,7 @@
   <title>spring-boot哎哟不错(一) —— 功能特性介绍 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="spring-boot功能特性介绍。spring-boot哎哟不错系列第一篇，spring-boot系列只记录使用过程中重要的部分。">
+<meta name="keywords" content="spring,spring-boot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-boot哎哟不错(一) —— 功能特性介绍">
 <meta property="og:url" content="http://miclee.cn/2015/08/10/spring-boot-1/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -111,7 +112,7 @@
 </li>
 <li><p>启动器</p>
 <p>针对典型的应用需求，提供了一些标准的启动器配置，声明对这些启动器的依赖即可获得相关功能。例如如果需要使用jpa进行数据访问，仅需加入</p>
-<figure class="highlight haskell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$&#123;project.groupId&#125;</span><br><span class="line"><span class="title">spring</span>-boot-starter-<span class="typedef"><span class="keyword">data</span>-jpa</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight haskell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$&#123;project.groupId&#125;</div><div class="line"><span class="title">spring</span>-boot-starter-<span class="class"><span class="keyword">data</span>-jpa</span></div></pre></td></tr></table></figure>
 <p>spring-boot会自动配置通过jpa进行数据访问需要的bean。  </p>
 </li>
 <li><p>自动配置spring</p>
@@ -141,7 +142,7 @@
 <li>spring-boot cli</li>
 </ul>
 <p>一个命令行工具，可以直接运行一个groovy脚本作为spring 应用。例如以下groovy代码定义<br>了一个spring mvc controller，通过运行  spring run HelloController.groovy 即可运行一个spring web 应用。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">HelloController</span> </span>&#123;</div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/"</span>)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>groovy语言语法非常类似java语言，大部分代码都可以直接拷贝使用。spring-boot cli提供的功能非常适用于快速原型开发，以及在开发环境中搭建测试/模拟服务器等。（今年一个国人开发的开源项目 moco获得了“ duke选择奖”，moco的主要功能就是搭建测试/模拟服务器，借助于spring-boot cli，只需要用java语言，几分钟之内也可以搭建一个测试/模拟服务器）  </p>
 <ul>
 <li>spring-boot-actuator</li>
@@ -151,13 +152,13 @@
 <li>spring-boot-loader</li>
 </ul>
 <p>使用java -jar xxx.jar 运行应用的实现，对打包文件格式进行了定义。一般通过gradle插件或者 maven插件使用。这两个插件提供了在gradle和maven构建系统中使用spring-boot的功能。使用你的IDE创建一个普通的java 项目，加入这两个插件即可在项目中引入spring-boot。下面是使用java语言开发的controller：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> hello;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.stereotype.*;</span><br><span class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</span><br><span class="line"></span><br><span class="line"><span class="annotation">@Controller</span></span><br><span class="line"><span class="annotation">@EnableAutoConfiguration</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="annotation">@RequestMapping</span>(<span class="string">"/"</span>)</span><br><span class="line">    <span class="annotation">@ResponseBody</span></span><br><span class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        SpringApplication.run(SampleController.class, args);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> hello;</div><div class="line"></div><div class="line"><span class="keyword">import</span> org.springframework.boot.*;</div><div class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.*;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.*;</div><div class="line"><span class="keyword">import</span> org.springframework.web.bind.annotation.*;</div><div class="line"></div><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="meta">@EnableAutoConfiguration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">SampleController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(<span class="string">"/"</span>)</div><div class="line">    <span class="meta">@ResponseBody</span></div><div class="line">    <span class="function">String <span class="title">home</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="string">"Hello World!"</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        SpringApplication.run(SampleController.class, args);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>相比较groovy而言，java语言开发的代码中需要包含一个 main 静态执行入口，在其中调用 SpringApplication.run 方法启动spring 应用。<br>对于包含上述代码的项目使用gradle和maven插件，可以将spring应用打包成为一个单独的jar文件，然后使用<br>java -jar xxxx.jar 执行。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/08/10/spring-boot-1/" data-id="cj1oc02ee0036xfs6r6xqsi9l" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/08/10/spring-boot-1/" data-id="cj1oc4bv4001s00s6ta09e5kg" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/08/10/spring-boot-1/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -170,19 +171,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/08/19/ios-app-publish/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/08/resource/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ios app 发布流程
+          资源记录
         
       </div>
     </a>
   
   
-    <a href="/2015/08/08/resource/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/08/19/makefile&shell/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">资源记录</div>
+      <div class="article-nav-title">makefile和shell脚本的区别</div>
     </a>
   
 </nav>
@@ -299,11 +300,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

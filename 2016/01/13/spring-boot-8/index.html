@@ -6,6 +6,7 @@
   <title>spring-boot哎哟不错(八) —— 使用jpa | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="JPA是Sun官方提出的Java持久化规范。它为Java开发人员提供了一种对象/关系映射工具来管理Java应用中的关系数据。JPA的宗旨是为POJO提供持久化标准规范，伴随 Java EE 5 发布以来，受到了各大厂商及开源社区的追捧，各种商用的和开源的 JPA 框架如雨后春笋般出现，为开发者提供了丰富的选择。它一改之前 EJB 2.x 中实体 Bean 笨重且难以使用的形象，充分吸收了在开源社区">
+<meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="spring-boot哎哟不错(八) —— 使用jpa">
 <meta property="og:url" content="http://miclee.cn/2016/01/13/spring-boot-8/index.html">
@@ -16,6 +17,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="spring-boot哎哟不错(八) —— 使用jpa">
 <meta name="twitter:description" content="JPA是Sun官方提出的Java持久化规范。它为Java开发人员提供了一种对象/关系映射工具来管理Java应用中的关系数据。JPA的宗旨是为POJO提供持久化标准规范，伴随 Java EE 5 发布以来，受到了各大厂商及开源社区的追捧，各种商用的和开源的 JPA 框架如雨后春笋般出现，为开发者提供了丰富的选择。它一改之前 EJB 2.x 中实体 Bean 笨重且难以使用的形象，充分吸收了在开源社区">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/spring-boot-jpa.png">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -23,7 +25,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -59,7 +61,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -94,7 +96,7 @@
         <p><strong><em> JPA是Sun官方提出的Java持久化规范。它为Java开发人员提供了一种对象/关系映射工具来管理Java应用中的关系数据。JPA的宗旨是为POJO提供持久化标准规范，伴随 Java EE 5 发布以来，受到了各大厂商及开源社区的追捧，各种商用的和开源的 JPA 框架如雨后春笋般出现，为开发者提供了丰富的选择。它一改之前 EJB 2.x 中实体 Bean 笨重且难以使用的形象，充分吸收了在开源社区已经相对成熟的 ORM 思想。另外，它并不依赖于 EJB 容器，可以作为一个独立的持久层技术而存在。目前比较成熟的 JPA 框架主要包括 Jboss 的 Hibernate EntityManager、Oracle 捐献给 Eclipse 社区的 EclipseLink(曾经的toplink)、Apache 的 OpenJPA等。所以使用Jpa的一个好处是，可以更换实现而不必改动太多代码。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="Spring-Boot持久层发展历史">Spring-Boot持久层发展历史</h2><p><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/spring-boot-jpa.png" alt="spring-boot-jpa"></p>
-<h2 id="Spring-boot-jpa_常用配置">Spring-boot-jpa 常用配置</h2><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring:&#10;  jpa:&#10;     database: MYSQL&#10;     show-sql: true&#10;     hibernate:&#10;           ddl-auto: update&#10;           # ddl-auto: none, create, create-drop, update, validate&#10;           naming_strategy: org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy&#10;           # naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy</span><br></pre></td></tr></table></figure>
+<h2 id="Spring-boot-jpa_常用配置">Spring-boot-jpa 常用配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  jpa:</span></div><div class="line"><span class="attr">     database:</span> <span class="string">MYSQL</span></div><div class="line"><span class="attr">     show-sql:</span> <span class="literal">true</span></div><div class="line"><span class="attr">     hibernate:</span></div><div class="line"><span class="attr">           ddl-auto:</span> <span class="string">update</span></div><div class="line">           <span class="comment"># ddl-auto: none, create, create-drop, update, validate</span></div><div class="line"><span class="attr">           naming_strategy:</span> <span class="string">org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</span></div><div class="line">           <span class="comment"># naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy</span></div></pre></td></tr></table></figure>
 <h3 id="ddl-auto">ddl-auto</h3><p>主要用于：自动创建|更新|验证数据库表结构。如果不是此方面的需求建议set value=”none”。</p>
 <ul>
 <li><p>create ：<br>每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。</p>
@@ -114,7 +116,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/01/13/spring-boot-8/" data-id="cj1oc02d1000vxfs6zw7r8ofw" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/01/13/spring-boot-8/" data-id="cj1oc4bwi003x00s6fqtmvbww" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/01/13/spring-boot-8/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -125,19 +127,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/02/23/Catalina-Base/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/12/28/maven-scope/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Catalina_Base和Catalina_HOME的区别
+          maven scope 类型
         
       </div>
     </a>
   
   
-    <a href="/2015/12/28/maven-scope/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/02/23/Catalina-Base/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">maven scope 类型</div>
+      <div class="article-nav-title">Catalina_Base和Catalina_HOME的区别</div>
     </a>
   
 </nav>
@@ -254,11 +256,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

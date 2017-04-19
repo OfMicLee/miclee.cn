@@ -6,6 +6,7 @@
   <title>git操作技巧 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="主要自己的使用笔记，不用到处去查">
+<meta name="keywords" content="git">
 <meta property="og:type" content="article">
 <meta property="og:title" content="git操作技巧">
 <meta property="og:url" content="http://miclee.cn/2015/07/30/git/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -93,21 +94,21 @@
         <p><strong><em> 主要自己的使用笔记，不用到处去查 </em></strong><br><a id="more"></a></p>
 <hr>
 <h3 id="摘取分支上部分功能上线：">摘取分支上部分功能上线：</h3><p><strong><em>基于某个提交点构建分支,再合入主干的某一个commit</em></strong></p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b publish 9eed4b17&#10;&#10;git cherry-pick 5a2623e6</span><br></pre></td></tr></table></figure>
-<h3 id="删除远程分支：">删除远程分支：</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin --delete publish</span><br></pre></td></tr></table></figure>
-<h3 id="撤销远程分支的某次提交：">撤销远程分支的某次提交：</h3><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">git</span> <span class="keyword">revert </span>a50a0f90</span><br><span class="line"><span class="label">git</span> <span class="keyword">push</span></span><br></pre></td></tr></table></figure>
-<h3 id="拉取远程分支：">拉取远程分支：</h3><figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout origin/develop-<span class="keyword">pos</span> -b develop-<span class="keyword">pos</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git checkout -b publish 9eed4b17</div><div class="line"></div><div class="line">git cherry-pick 5a2623e6</div></pre></td></tr></table></figure>
+<h3 id="删除远程分支：">删除远程分支：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete publish</div></pre></td></tr></table></figure>
+<h3 id="撤销远程分支的某次提交：">撤销远程分支的某次提交：</h3><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">revert</span> a50a0f90</div><div class="line">git <span class="built_in">push</span></div></pre></td></tr></table></figure>
+<h3 id="拉取远程分支：">拉取远程分支：</h3><figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout origin/develop-<span class="keyword">pos</span> -b develop-<span class="keyword">pos</span></div></pre></td></tr></table></figure>
 <p><em>或者</em></p>
-<figure class="highlight perl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout -b develop-<span class="keyword">pos</span> origin/develop-<span class="keyword">pos</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b develop-<span class="keyword">pos</span> origin/develop-<span class="keyword">pos</span></div></pre></td></tr></table></figure>
 <h3 id="本地分支提交到远程：">本地分支提交到远程：</h3><p><strong><em>本地test分支提交到远程，并作为master分支或者名叫test的分支</em></strong></p>
-<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:master</span><br><span class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:<span class="keyword">test</span></span><br></pre></td></tr></table></figure>
-<h3 id="储藏（Stashing）">储藏（Stashing）</h3><figure class="highlight tcl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">git stash <span class="keyword">list</span></span><br><span class="line">git stash <span class="keyword">apply</span></span><br></pre></td></tr></table></figure>
-<p><strong><em>储藏创建为新的分支</em></strong><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="label">git</span> stash <span class="keyword">branch </span>newBranch</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:master</div><div class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:<span class="keyword">test</span></div></pre></td></tr></table></figure>
+<h3 id="储藏（Stashing）">储藏（Stashing）</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git stash <span class="built_in">list</span></div><div class="line">git stash <span class="built_in">apply</span></div></pre></td></tr></table></figure>
+<p><strong><em>储藏创建为新的分支</em></strong><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">git</span> stash <span class="keyword">branch </span>newBranch</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="cj1oc02eq003jxfs602697jgi" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="cj1oc4buu001e00s6m3s7xyvf" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/07/30/git/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -120,19 +121,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/08/06/ionic&&phonegap/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/07/23/node-profiler/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ionic
+          Node Profiler
         
       </div>
     </a>
   
   
-    <a href="/2015/07/23/node-profiler/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/08/06/java/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Node Profiler</div>
+      <div class="article-nav-title">JAVA世界里的一些概念</div>
     </a>
   
 </nav>
@@ -249,11 +250,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

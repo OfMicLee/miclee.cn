@@ -6,6 +6,7 @@
   <title>JPA 对象关系模型之继承映射策略 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。">
+<meta name="keywords" content="jpa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JPA 对象关系模型之继承映射策略">
 <meta property="og:url" content="http://miclee.cn/2016/05/25/jpa-inherit-type/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -110,7 +111,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/05/25/jpa-inherit-type/" data-id="cj1oc02cr000cxfs6ouun862c" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/05/25/jpa-inherit-type/" data-id="cj1oc4bwp004f00s6hykt8e1t" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/05/25/jpa-inherit-type/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -123,19 +124,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/03/13/py_collections/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/12/redis-setup/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Python模块 - collections
+          redis 安装
         
       </div>
     </a>
   
   
-    <a href="/2016/05/12/redis-setup/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/03/13/py_collections/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">redis 安装</div>
+      <div class="article-nav-title">Python模块 - collections</div>
     </a>
   
 </nav>
@@ -252,11 +253,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

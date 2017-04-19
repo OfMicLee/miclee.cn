@@ -6,6 +6,7 @@
   <title>virtualenvwrapper设置 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="virtualenv 是一个可以在同一计算机中隔离多个python版本的工具。有时，两个不同的项目可能需要不同版本的python，如 python2.6.6 / python3.0 ，但是如果都装到一起，经常会导致问题。所以需要一个工具能够将这两种或几种不同版本的环境隔离开来，需要哪个版本就切换到哪个版本做为默认版本。virtualenv 既是满足这个需求的工具。它能够用于创建独立的Python环">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
 <meta property="og:title" content="virtualenvwrapper设置">
 <meta property="og:url" content="http://miclee.cn/2017/04/18/py_virtualenvwrapper/index.html">
@@ -22,7 +23,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -58,7 +59,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -98,9 +99,9 @@
 <li>管理（新增，删除，复制）虚拟环境</li>
 <li>切换虚拟环境</li>
 </ul>
-<h2 id="安装">安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> virtualenv</span><br><span class="line">pip <span class="keyword">install</span> virtualenvwrapper</span><br></pre></td></tr></table></figure>
+<h2 id="安装">安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip <span class="keyword">install</span> virtualenv</div><div class="line">pip <span class="keyword">install</span> virtualenvwrapper</div></pre></td></tr></table></figure>
 <h2 id="配置">配置</h2><p>在 ~/.bashrc 文件里添加以下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs</span><br><span class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs</div><div class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</div></pre></td></tr></table></figure>
 <p>别忘了执行 source .bashrc</p>
 <h2 id="使用方法">使用方法</h2><p>所有的命令可使用：virtualenvwrapper –help 进行查看，这里列出几个常用的：</p>
 <ul>
@@ -111,16 +112,16 @@
 <li>列出所有环境：workon 或者 lsvirtualenv -b</li>
 </ul>
 <h2 id="安装Python3_环境">安装Python3 环境</h2><p>先安装Python3：</p>
-<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span>install Python3</span><br></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>Python3</div></pre></td></tr></table></figure>
 <p>创建环境：</p>
-<figure class="highlight elixir"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv --python=<span class="regexp">/usr/local</span><span class="regexp">/bin/python</span>3 envname</span><br></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkvirtualenv --python=<span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>python3 envname</div></pre></td></tr></table></figure>
 <p>查看环境：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">workon</span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">workon</span></div></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/04/18/py_virtualenvwrapper/" data-id="cj1oc02cf0001xfs60rs9sudm" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/04/18/py_virtualenvwrapper/" data-id="cj1oc4bww004p00s6omlrfwzf" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/04/18/py_virtualenvwrapper/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -133,11 +134,15 @@
     
 <nav id="article-nav">
   
-  
-    <a href="/2017/04/18/py_jurpyter/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Jupyter 安装</div>
+    <a href="/2017/04/18/py_jurpyter/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Jupyter 安装
+        
+      </div>
     </a>
+  
   
 </nav>
 
@@ -253,11 +258,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

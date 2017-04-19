@@ -6,6 +6,7 @@
   <title>Node Profiler | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="JavaScript性能调优工具">
+<meta name="keywords" content="nodejs,javascript,debug">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Node Profiler">
 <meta property="og:url" content="http://miclee.cn/2015/07/23/node-profiler/index.html">
@@ -17,6 +18,7 @@
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Node Profiler">
 <meta name="twitter:description" content="JavaScript性能调优工具">
+<meta name="twitter:image" content="https://cloud.githubusercontent.com/assets/3832082/8587127/7b54f88c-262a-11e5-9298-3a49c2b71d7c.jpg">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -24,7 +26,7 @@
     <link rel="icon" href="/favicon.png">
   
   <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
   
 
 </head>
@@ -60,7 +62,7 @@
         <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
       </div>
     </div>
   </div>
@@ -117,12 +119,12 @@
 </ul>
 </li>
 </ul>
-<h2 id="实测">实测</h2><h3 id="使用示例">使用示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span> : <span class="string">'text/plain'</span> &#125;);</span><br><span class="line">    res.write(<span class="string">'Hi, MicLee!\n'</span>)</span><br><span class="line">    res.end(<span class="string">'hello world!'</span>);</span><br><span class="line">  &#125;).listen(<span class="number">2014</span>, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:2014/'</span>);</span><br></pre></td></tr></table></figure>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Server running at http://127.0.0.1:2014/&#10;webkit-devtools-agent: Spawning websocket service process...&#10;start agent&#10;&#10;webkit-devtools-agent: A proxy got connected.&#10;webkit-devtools-agent: Waiting for commands...&#10;webkit-devtools-agent: Websockets service started on 0.0.0.0:9999  &#60;==&#21551;&#21160;&#25104;&#21151;</span><br></pre></td></tr></table></figure>
-<p>如出现如下：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Error: listen EADDRINUSE           &#60;== &#21487;&#33021;&#26159;&#30001;&#20110;&#31471;&#21475;&#34987;&#21344;&#29992;</span><br></pre></td></tr></table></figure></p>
+<h2 id="实测">实测</h2><h3 id="使用示例">使用示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span> : <span class="string">'text/plain'</span> &#125;);</div><div class="line">    res.write(<span class="string">'Hi, MicLee!\n'</span>)</div><div class="line">    res.end(<span class="string">'hello world!'</span>);</div><div class="line">  &#125;).listen(<span class="number">2014</span>, <span class="string">'127.0.0.1'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:2014/'</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server running at http://127.0.0.1:2014/</div><div class="line">webkit-devtools-agent: Spawning websocket service process...</div><div class="line">start agent</div><div class="line"></div><div class="line">webkit-devtools-agent: A proxy got connected.</div><div class="line">webkit-devtools-agent: Waiting for commands...</div><div class="line">webkit-devtools-agent: Websockets service started on 0.0.0.0:9999  &lt;==启动成功</div></pre></td></tr></table></figure>
+<p>如出现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: listen EADDRINUSE           &lt;== 可能是由于端口被占用</div></pre></td></tr></table></figure></p>
 <p>成功启动后，自动弹出chrome（如果有安装的话）url (<a href="http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0" target="_blank" rel="external">http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0</a>)<br>出现如下界面：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587127/7b54f88c-262a-11e5-9298-3a49c2b71d7c.jpg" alt=""></p>
 <p>默认<strong>Collect JavaSript CPU Profile</strong>，单击<strong>Start</strong>。</p>
-<p>可以采用压测脚本实现对服务进行压力测试，保证更多的结果：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ab -n1000 -c10 http://localhost:2014/</span><br></pre></td></tr></table></figure></p>
+<p>可以采用压测脚本实现对服务进行压力测试，保证更多的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ab -n1000 -c10 http://localhost:2014/</div></pre></td></tr></table></figure></p>
 <p>点击<strong>Stop</strong>，得到如下图的结果：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587247/8dc33cbc-262b-11e5-8a10-59c8f9de280e.jpg" alt=""></p>
 <p>可以看到更多关于函数在运行时的信息。</p>
 <h3 id="UI含义">UI含义</h3><table>
@@ -164,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/07/23/node-profiler/" data-id="cj1oc02er003nxfs6packvmyf" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/07/23/node-profiler/" data-id="cj1oc4bun001300s6j0s9s8tu" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/07/23/node-profiler/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -177,19 +179,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/30/git/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/07/03/koa/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          git操作技巧
+          koa框架
         
       </div>
     </a>
   
   
-    <a href="/2015/07/03/koa/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/07/30/git/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">koa框架</div>
+      <div class="article-nav-title">git操作技巧</div>
     </a>
   
 </nav>
@@ -306,11 +308,11 @@
 <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-  <script src="/fancybox/jquery.fancybox.pack.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
 
 
-<script src="/js/script.js" type="text/javascript"></script>
+<script src="/js/script.js"></script>
 
   </div>
 </body>

@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://miclee.cn/2017/04/19/Java_keytool/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="Keytool是一个Java数据证书的管理工具，它使用户能够管理自己的公钥/私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户/服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。Keytool将密钥（key）和证书（certificates）存在一个称为秘钥仓库(keystore)的文件中。">
-<meta property="og:updated_time" content="2017-04-19T10:15:24.000Z">
+<meta property="og:updated_time" content="2017-04-19T10:18:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java keytool">
 <meta name="twitter:description" content="Keytool是一个Java数据证书的管理工具，它使用户能够管理自己的公钥/私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户/服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。Keytool将密钥（key）和证书（certificates）存在一个称为秘钥仓库(keystore)的文件中。">
@@ -103,9 +103,7 @@
 <h2 id="生成keystore">生成keystore</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -genkey -<span class="built_in">alias</span> miclee -keyalg RSA -validity <span class="number">1000</span> -keystore miclee.keystore</div></pre></td></tr></table></figure>
 <h2 id="查看证书">查看证书</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -<span class="type">list</span> -keystore miclee.keystore -storepass <span class="number">123456</span> -v</div></pre></td></tr></table></figure>
 <h2 id="导出证书（只能导出公钥）">导出证书（只能导出公钥）</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -exportcert -alias miclee -keystore miclee<span class="selector-class">.keystore</span> -file miclee<span class="selector-class">.crt</span> -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
-<blockquote>
 <p>导出的miclee.crt为二进制格式，如果想要ASCII格式，请参考博文：<a href="http://miclee.cn/2017/04/19/certificate/">安全证书</a></p>
-</blockquote>
 <h2 id="查看导出的证书">查看导出的证书</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -printcert -<span class="built_in">file</span> miclee.crt</div></pre></td></tr></table></figure>
 <h2 id="证书条目的删除">证书条目的删除</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -<span class="keyword">delete</span> -<span class="keyword">alias</span> miclee -keystore miclee.keystore -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
 <h2 id="证书条目口令的修改">证书条目口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -keypasswd -alias miclee -keypass <span class="number">123456</span> -new <span class="number">654321</span> -keystore miclee.keystore -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
@@ -176,7 +174,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -196,15 +194,15 @@
           </li>
         
           <li>
-            <a href="/2017/04/19/keystore/">keystore</a>
-          </li>
-        
-          <li>
             <a href="/2017/04/19/Python之禅/">Python之禅</a>
           </li>
         
           <li>
             <a href="/2017/04/18/py_virtualenvwrapper/">virtualenvwrapper设置</a>
+          </li>
+        
+          <li>
+            <a href="/2017/04/18/py_jurpyter/">Jupyter 安装</a>
           </li>
         
       </ul>

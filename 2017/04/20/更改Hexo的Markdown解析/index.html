@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Jupyter 安装 | MicLee&#39;s Bolg</title>
+  <title>更改Hexo的Markdown解析 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Jupyter NoteBook 支持python2和3">
-<meta name="keywords" content="Python">
+  <meta name="description" content="Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。">
+<meta name="keywords" content="blog">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Jupyter 安装">
-<meta property="og:url" content="http://miclee.cn/2017/04/18/py_jurpyter/index.html">
+<meta property="og:title" content="更改Hexo的Markdown解析">
+<meta property="og:url" content="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
-<meta property="og:description" content="Jupyter NoteBook 支持python2和3">
-<meta property="og:updated_time" content="2017-04-19T02:37:33.000Z">
+<meta property="og:description" content="Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。">
+<meta property="og:updated_time" content="2017-04-20T09:04:38.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Jupyter 安装">
-<meta name="twitter:description" content="Jupyter NoteBook 支持python2和3">
+<meta name="twitter:title" content="更改Hexo的Markdown解析">
+<meta name="twitter:description" content="Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -65,14 +65,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-py_jurpyter" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-更改Hexo的Markdown解析" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/04/18/py_jurpyter/" class="article-date">
-  <time datetime="2017-04-18T11:09:03.000Z" itemprop="datePublished">2017-04-18</time>
+    <a href="/2017/04/20/更改Hexo的Markdown解析/" class="article-date">
+  <time datetime="2017-04-20T08:28:45.000Z" itemprop="datePublished">2017-04-20</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Python/">Python</a>
+    <a class="article-category-link" href="/categories/blog/">blog</a>
   </div>
 
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Jupyter 安装
+      更改Hexo的Markdown解析
     </h1>
   
 
@@ -91,23 +91,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em> Jupyter NoteBook 支持python2和3 </em></strong><br><a id="more"></a></p>
+        <p><strong><em> Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="全新安装"><a href="#全新安装" class="headerlink" title="全新安装"></a>全新安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">pip3 <span class="keyword">install</span> jupyter</div></pre></td></tr></table></figure>
-<h2 id="增加Python3的支持"><a href="#增加Python3的支持" class="headerlink" title="增加Python3的支持"></a>增加Python3的支持</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python3 -m pip <span class="keyword">install</span> ipykernel</div><div class="line">python3 -m ipykernel <span class="keyword">install</span> <span class="comment">--user</span></div></pre></td></tr></table></figure>
-<h2 id="增加Python2的支持"><a href="#增加Python2的支持" class="headerlink" title="增加Python2的支持"></a>增加Python2的支持</h2><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">python -m pip <span class="keyword">install</span> ipykernel</div><div class="line">python -m ipykernel <span class="keyword">install</span> <span class="comment">--user</span></div></pre></td></tr></table></figure>
-<h2 id="新的启动命令"><a href="#新的启动命令" class="headerlink" title="新的启动命令"></a>新的启动命令</h2><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">jupyter notebook</span></div></pre></td></tr></table></figure>
-<h2 id="页面支持内嵌图表"><a href="#页面支持内嵌图表" class="headerlink" title="页面支持内嵌图表"></a>页面支持内嵌图表</h2><p>在notebook页面执行：<br><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">%<span class="selector-tag">pylab</span></span> inline</div></pre></td></tr></table></figure></p>
-
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在写博文<a href="http://miclee.cn/2017/04/20/Python下划线使用">Python下划线使用</a>时因为有一堆的下滑线要写，hexo默认使用marked.js去解析我们写的markdown，比如一些符号，_代表斜体，会被处理为<em>标签，比如x_i在开始被渲染的时候，处理为x<em>i</em>，比如__init__会被处理成<strong>init</strong>。</em></p>
+<p>考虑到我后面会写机器学习相关的一些东西，里面会涉及到很多数学公式，会影响解析，SO趁现在动动手。</p>
+<h2 id="利用MathJax来渲染LaTeX数学公式"><a href="#利用MathJax来渲染LaTeX数学公式" class="headerlink" title="利用MathJax来渲染LaTeX数学公式"></a>利用MathJax来渲染LaTeX数学公式</h2><p>题外一下，MathJax的hexo插件安装方法。<br>cd到博文目录：<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></div><div class="line">hexo <span class="built_in">math</span> install</div></pre></td></tr></table></figure></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ./node_modules/marked/lib/marked.js</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#+\-.!_&gt;])/,</span></div><div class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/</span>,</div><div class="line"></div><div class="line"><span class="comment">//strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,</span></div><div class="line">strong: <span class="regexp">/^\*\*([\s\S]+?)\*\*(?!\*)/</span>,</div><div class="line"></div><div class="line"><span class="comment">//em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></div><div class="line">em:<span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</div></pre></td></tr></table></figure>
+<p>So以后写 <em>斜体</em> 和 <strong>粗体</strong> 只能用* 和 ** 了</p>
+<h2 id="解决方案二：更换Markdown引擎"><a href="#解决方案二：更换Markdown引擎" class="headerlink" title="解决方案二：更换Markdown引擎"></a>解决方案二：更换Markdown引擎</h2><p>比如换成pandoc：</p>
+<ol>
+<li><p>安装pandoc</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>Pandoc</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <a href="https://github.com/wzpan/hexo-renderer-pandoc" target="_blank" rel="external">hexo-renderer-pandoc</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></div><div class="line">npm <span class="keyword">install</span> hexo-renderer-pandoc <span class="comment">--save</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="解决方案三：一个个用-转义吧"><a href="#解决方案三：一个个用-转义吧" class="headerlink" title="解决方案三：一个个用\\转义吧"></a>解决方案三：一个个用\\转义吧</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/04/18/py_jurpyter/" data-id="cj1q6luu1004kbjs6dem5257r" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/" data-id="cj1q6luuc0058bjs6g95ifxd5" class="article-share-link">Share</a>
       
-        <a href="http://miclee.cn/2017/04/18/py_jurpyter/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
 
     </footer>
   </div>
@@ -115,20 +125,15 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/03/13/py_collections/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/20/Python下划线使用0/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Python模块 - collections
+          Python下划线使用
         
       </div>
     </a>
   
-  
-    <a href="/2017/04/18/py_virtualenvwrapper/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">virtualenvwrapper设置</div>
-    </a>
   
 </nav>
 
@@ -229,7 +234,7 @@
 <script>
   var disqus_shortname = 'micleewj';
   
-  var disqus_url = 'http://miclee.cn/2017/04/18/py_jurpyter/';
+  var disqus_url = 'http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/';
   
   (function(){
     var dsq = document.createElement('script');

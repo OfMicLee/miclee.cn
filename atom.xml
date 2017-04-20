@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-20T08:26:41.000Z</updated>
+  <updated>2017-04-20T09:04:38.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -15,11 +15,104 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[更改Hexo的Markdown解析]]></title>
+    <link href="http://miclee.cn/2017/04/20/%E6%9B%B4%E6%94%B9Hexo%E7%9A%84Markdown%E8%A7%A3%E6%9E%90/"/>
+    <id>http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/</id>
+    <published>2017-04-20T08:28:45.000Z</published>
+    <updated>2017-04-20T09:04:38.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在写博文<a href="http://miclee.cn/2017/04/20/Python下划线使用">Python下划线使用</a>时因为有一堆的下滑线要写，hexo默认使用marked.js去解析我们写的markdown，比如一些符号，_代表斜体，会被处理为<em>标签，比如x_i在开始被渲染的时候，处理为x<em>i</em>，比如__init__会被处理成<strong>init</strong>。</em></p>
+<p>考虑到我后面会写机器学习相关的一些东西，里面会涉及到很多数学公式，会影响解析，SO趁现在动动手。</p>
+<h2 id="利用MathJax来渲染LaTeX数学公式"><a href="#利用MathJax来渲染LaTeX数学公式" class="headerlink" title="利用MathJax来渲染LaTeX数学公式"></a>利用MathJax来渲染LaTeX数学公式</h2><p>题外一下，MathJax的hexo插件安装方法。<br>cd到博文目录：<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></div><div class="line">hexo <span class="built_in">math</span> install</div></pre></td></tr></table></figure></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ./node_modules/marked/lib/marked.js</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#+\-.!_&gt;])/,</span></div><div class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/</span>,</div><div class="line"></div><div class="line"><span class="comment">//strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,</span></div><div class="line">strong: <span class="regexp">/^\*\*([\s\S]+?)\*\*(?!\*)/</span>,</div><div class="line"></div><div class="line"><span class="comment">//em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></div><div class="line">em:<span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</div></pre></td></tr></table></figure>
+<p>So以后写 <em>斜体</em> 和 <strong>粗体</strong> 只能用* 和 ** 了</p>
+<h2 id="解决方案二：更换Markdown引擎"><a href="#解决方案二：更换Markdown引擎" class="headerlink" title="解决方案二：更换Markdown引擎"></a>解决方案二：更换Markdown引擎</h2><p>比如换成pandoc：</p>
+<ol>
+<li><p>安装pandoc</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>Pandoc</div></pre></td></tr></table></figure>
+</li>
+<li><p>安装 <a href="https://github.com/wzpan/hexo-renderer-pandoc" target="_blank" rel="external">hexo-renderer-pandoc</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></div><div class="line">npm <span class="keyword">install</span> hexo-renderer-pandoc <span class="comment">--save</span></div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="解决方案三：一个个用-转义吧"><a href="#解决方案三：一个个用-转义吧" class="headerlink" title="解决方案三：一个个用\\转义吧"></a>解决方案三：一个个用\\转义吧</h2>]]></content>
+    <summary type="html">
+    <![CDATA[Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。]]>
+    
+    </summary>
+    
+      <category term="blog" scheme="http://miclee.cn/tags/blog/"/>
+    
+      <category term="blog" scheme="http://miclee.cn/categories/blog/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[Python下划线使用]]></title>
     <link href="http://miclee.cn/2017/04/20/Python%E4%B8%8B%E5%88%92%E7%BA%BF%E4%BD%BF%E7%94%A8/"/>
     <id>http://miclee.cn/2017/04/20/Python下划线使用/</id>
     <published>2017-04-20T05:43:52.000Z</published>
-    <updated>2017-04-20T08:26:41.000Z</updated>
+    <updated>2017-04-20T09:03:16.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？ </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="单下划线（-）"><a href="#单下划线（-）" class="headerlink" title="单下划线（_）"></a>单下划线（_）</h2><p>通常情况下，会在以下3种场景中使用：</p>
+<ol>
+<li><p>在解释器中：在这种情况下，‘_‘代表交互式解释器会话中上一条执行的语句的结果。这种用法首先被标准CPython解释器采用，然后其他类型的解释器也先后采用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>_ Traceback (most recent call last):</div><div class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">NameError: name <span class="string">'_'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">42</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>_</div><div class="line"><span class="number">42</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'alright!'</span> <span class="keyword">if</span> _ <span class="keyword">else</span> <span class="string">':('</span></div><div class="line"><span class="string">'alright!'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>_</div><div class="line"><span class="string">'alright!'</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>作为一个名称：这与上面一点稍微有些联系，此时‘_‘作为临时性的名称使用。这样，当其他人阅读你的代码时将会知道，你分配了一个特定的名称，但是并不会在后面再次用到该名称。例如，下面的例子中，你可能对循环计数中的实际值并不感兴趣，此时就可以使用‘_‘。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">n = <span class="number">42</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(n):</div><div class="line">    do_something()</div></pre></td></tr></table></figure>
+</li>
+<li><p>国际化：也许你也曾看到‘_‘会被作为一个函数来使用。这种情况下，它通常用于实现国际化和本地化字符串之间翻译查找的函数名称，这似乎源自并遵循相应的C约定。例如，在Django文档‘转换‘章节中，你将能看到如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> django.utils.translation <span class="keyword">import</span> ugettext <span class="keyword">as</span> _</div><div class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_view</span><span class="params">(request)</span>:</span></div><div class="line">	output = _(<span class="string">"Welcome to my site."</span>)</div><div class="line">	<span class="keyword">return</span> HttpResponse(output)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以发现，场景二和场景三中的使用方法可能会相互冲突，所以我们需要避免在使用”_”作为国际化查找转换功能的代码块中同时使用‘_‘作为临时名称。</p>
+<h2 id="名称前的单下划线（如：-shahriar）"><a href="#名称前的单下划线（如：-shahriar）" class="headerlink" title="名称前的单下划线（如：_shahriar）"></a>名称前的单下划线（如：_shahriar）</h2><p>程序员使用名称前的单下划线，用于指定该名称属性为‘私有‘。这有点类似于惯例，为了使其他人（或你自己）使用这些代码时将会知道以‘_‘开头的名称只供内部使用。正如Python文档中所述：</p>
+<p>以下划线‘_‘为前缀的名称（如_spam）应该被视为API中非公开的部分（不管是函数、方法还是数据成员）。此时，应该将它们看作是一种实现细节，在修改它们时无需对外部通知。</p>
+<p>正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码‘from &lt;模块/包名&gt; import *‘，那么以‘_‘开头的名称都不会被导入，除非模块或包中的‘__all__‘列表显式地包含了它们。了解更多请查看 <a href="https://shahriar.svbtle.com/importing-star-in-python" target="_blank" rel="external">Importing * in Python</a></p>
+<h2 id="名称前的双下划线（如：-shahriar）"><a href="#名称前的双下划线（如：-shahriar）" class="headerlink" title="名称前的双下划线（如：__shahriar）"></a>名称前的双下划线（如：__shahriar）</h2><p>名称（具体为一个方法名）前双下划线（__）的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，‘__spam‘这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被‘_classname__spam‘这种形式原文取代，在这里‘classname‘是去掉前导下划线的当前类名。例如下面的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">_internal_use</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">__method_name</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(A())</div><div class="line">[<span class="string">'_A__method_name'</span>, ..., <span class="string">'_internal_use'</span>]</div></pre></td></tr></table></figure></p>
+<p>正如所预料的，‘_internal_use‘并未改变，而‘__method_name‘却被变成了‘_ClassName__method_name‘。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法‘__method_name‘。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">__method_name</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(B())</div><div class="line">[<span class="string">'_A__method_name'</span>, <span class="string">'_B__method_name'</span>, ..., <span class="string">'_internal_use'</span>]</div></pre></td></tr></table></figure>
+<p>通常用作类的私有成员</p>
+<h2 id="名称前后的双下划线（如：-init-）"><a href="#名称前后的双下划线（如：-init-）" class="headerlink" title="名称前后的双下划线（如：__init__）"></a>名称前后的双下划线（如：__init__）</h2><p>这种用法表示Python中特殊的方法名。其实，这只是一种惯例，对Python系统来说，这将确保不会与用户自定义的名称冲突。通常，你将会覆写这些方法，并在里面实现你所需要的功能，以便Python调用它们。例如，当定义一个类时，你经常会覆写‘__init__‘方法。</p>
+<p>双下划线开头双下划线结尾的是一些 Python 的‘魔术‘对象，如类成员的 __init__、__del__、__add__、__getitem__ 等，以及全局的 __file__、__name__ 等。 Python 官方推荐永远不要将这样的命名方式应用于自己的变量或函数，而是按照文档说明来使用。虽然你也可以编写自己的特殊方法名，但不要这样做。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(object)</span>:</span></div><div class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__mine__</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span>        <span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(C)</div><div class="line"><span class="meta">... </span>[..., <span class="string">'__mine__'</span>, ...]</div></pre></td></tr></table></figure>
+<h2 id="用-all-暴露接口"><a href="#用-all-暴露接口" class="headerlink" title="用 __all__ 暴露接口"></a>用 __all__ 暴露接口</h2><p>Python 可以在模块级别暴露接口：</p>
+<p>__all__ = [“foo”, “bar”]</p>
+<p>很多时候这么做还是很有好处的……</p>
+<p>提供了哪些是公开接口的约定</p>
+<p>不像 Ruby 或者 Java，Python 没有语言原生的可见性控制，而是靠一套需要大家自觉遵守的‘约定‘下工作。比如下划线开头的应该对外部不可见。同样，__all__ 也是对于模块公开接口的一种约定，比起下划线，__all__ 提供了暴露接口用的‘白名单‘。一些不以下划线开头的变量（比如从其他地方 import 到当前模块的成员）可以同样被排除出去。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Python 用下划线作为变量前缀和后缀指定特殊变量。</p>
+<ul>
+<li>_xxx     不能用’from module import *‘导入</li>
+<li>__xxx__  系统定义名字</li>
+<li>__xxx    类中的私有变量名</li>
+</ul>
+<p>_xxx 被看作是‘私有的‘，在模块或类外不可以使用。当变量是私有的时候，用_xxx 来表示变量是很好的习惯。</p>
+<p>__xxx__ 对Python 来说有特殊含义，对于普通的变量应当避免这种命名风格。</p>
+<p>__xxx 是私有成员，意思是只有类对象自己能访问，连子类对象也不能访问到这个数据。</p>
+<h2 id="PEP规范"><a href="#PEP规范" class="headerlink" title="PEP规范"></a>PEP规范</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">PEP-0008:</div><div class="line"></div><div class="line">In addition, the following special forms using leading or trailing underscores are recognized (these can generally be combined with any case convention):</div><div class="line"></div><div class="line"><span class="code">    - _single_leading_underscore: weak "internal use" indicator. E.g. "from M import \*" does not import objects whose name starts with an underscore.</span></div><div class="line"></div><div class="line"><span class="code">    - single_trailing_underscore_: used by convention to avoid conflicts with Python keyword, e.g.</span></div><div class="line"></div><div class="line"><span class="code">      Tkinter.Toplevel(master, class_='ClassName')</span></div><div class="line"></div><div class="line"><span class="code">    - __double_leading_underscore: when naming a class attribute, invokes name mangling (inside class FooBar, __boo becomes _FooBar__boo; see below).</span></div><div class="line"></div><div class="line"><span class="code">    - __double_leading_and_trailing_underscore__: "magic" objects or attributes that live in user-controlled namespaces. E.g. __init__,</span></div><div class="line"><span class="code">      __import__ or __file__. Never invent such names; only use them as documented.</span></div></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[Python下划线使用]]></title>
+    <link href="http://miclee.cn/2017/04/20/Python%E4%B8%8B%E5%88%92%E7%BA%BF%E4%BD%BF%E7%94%A80/"/>
+    <id>http://miclee.cn/2017/04/20/Python下划线使用0/</id>
+    <published>2017-04-20T05:43:52.000Z</published>
+    <updated>2017-04-20T09:02:45.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？ </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="单下划线（-）"><a href="#单下划线（-）" class="headerlink" title="单下划线（_）"></a>单下划线（_）</h2><p>通常情况下，会在以下3种场景中使用：</p>
@@ -813,137 +906,6 @@
     </summary>
     
       <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[spring注解原理剖析与实现]]></title>
-    <link href="http://miclee.cn/2015/12/22/spring-annotition/"/>
-    <id>http://miclee.cn/2015/12/22/spring-annotition/</id>
-    <published>2015-12-22T05:47:51.000Z</published>
-    <updated>2015-12-22T07:09:36.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="一、注解的基本概念和原理"><a href="#一、注解的基本概念和原理" class="headerlink" title="一、注解的基本概念和原理"></a>一、注解的基本概念和原理</h2><h3 id="1）概念"><a href="#1）概念" class="headerlink" title="1）概念"></a>1）概念</h3><p>注解（Annotation）提供了一种安全的类似注释的机制，为我们在代码中添加信息提供了一种形式化得方法，使我们可以在稍后某个时刻方便的使用这些数据（通过解析注解来使用这些数据），用来将任何的信息或者元数据与程序元素（类、方法、成员变量等）进行关联。其实就是更加直观更加明了的说明，这些说明信息与程序业务逻辑没有关系，并且是供指定的工具或框架使用的。Annotation像一种修饰符一样，应用于包、类型、构造方法、方法、成员变量、参数及本地变量的申明语句中。</p>
-<p>Annotation其实是一种接口。通过java的反射机制相关的API来访问Annotation信息。相关类（框架或工具中的类）根据这些信息来决定如何使用该程序元素或改变它们的行为。Java语言解释器在工作时会忽略这些Annotation，因此在JVM中这些Annotation是“不起作用”的，只能通过配套的工具才能对这些Annotation类型的信息进行访问和处理。</p>
-<h3 id="2）Annotation和interface的异同"><a href="#2）Annotation和interface的异同" class="headerlink" title="2）Annotation和interface的异同"></a>2）Annotation和interface的异同</h3><ol>
-<li>Annotition的类型使用关键字 @interface 而不是interface。它继承了java.lang.annotition.Annotition接口，并非申明了一个interface。</li>
-<li><p>Annotation类型、方法定义是独特的、受限制的：</p>
-<ul>
-<li><p>Annotation类型的方法必须申明为无参数、无异常抛出的。这些方法定义了 <strong>Annotation的成员：方法名为成员名，而方法返回值为成员的类型。</strong></p>
-<blockquote>
-<p>特别的，如果方法名为 value()， 则在注解的地方需要设置属性值时可以直接写入值，如：@Target({ElemenetType.TYPE}) 而不必写为 @Target(value={ElemenetType.TYPE})</p>
-</blockquote>
-</li>
-<li><p>方法返回值必须为primitive类型、Class类型、枚举类型、Annotation类型或者由前面类型之一作为元素的一位数组。</p>
-</li>
-<li>方法的后面可以使用default关键字加一个默认数值来申明成员的默认值，null不能作为成员的默认值，这与我们在非Annotation类型中定义方法有很大不同。</li>
-<li>Annotation类型和他的方法不能使用Annotation类型的参数，成员不能是generic。只有返回值类型是Class的方法可以在Annotation类型中使用generic，因为此方法能够用类转换将各种类型转换为Class。</li>
-</ul>
-</li>
-<li>Annotation类型又与接口有着近似之处：它可以定义常量、静态成员类型（比如枚举类型定义）；Annotation类型也可以如接口一般被实现或者继承。</li>
-</ol>
-<h3 id="3）元注解-Target-Retention-Documented-Inherited"><a href="#3）元注解-Target-Retention-Documented-Inherited" class="headerlink" title="3）元注解 @Target, @Retention, @Documented, @Inherited"></a>3）元注解 @Target, @Retention, @Documented, @Inherited</h3><ol>
-<li>@Target 表示该注解用于什么地方，可能的 ElemenetType 参数包括：<ul>
-<li>ElemenetType.CONSTRUCTOR 构造器声明</li>
-<li>ElemenetType.FIELD 域声明（包括 enum 实例）</li>
-<li>ElemenetType.LOCAL_VARIABLE 局部变量声明</li>
-<li>ElemenetType.METHOD 方法声明</li>
-<li>ElemenetType.PACKAGE 包声明</li>
-<li>ElemenetType.PARAMETER 参数声明</li>
-<li>ElemenetType.TYPE 类，接口（包括注解类型）或enum声明</li>
-</ul>
-</li>
-<li>@Retention 表示在什么级别保存该注解信息。可选的 RetentionPolicy 参数包括：<ul>
-<li>RetentionPolicy.SOURCE 注解将被编译器丢弃</li>
-<li>RetentionPolicy.CLASS 注解在class文件中可用，但会被VM丢弃</li>
-<li>RetentionPolicy.RUNTIME VM将在运行期也保留注释，因此可以通过反射机制读取注解的信息</li>
-</ul>
-</li>
-<li>@Documented 将此注解包含在 javadoc 中</li>
-<li>@Inherited 允许子类继承父类中的注解</li>
-</ol>
-<h3 id="4）演示一个demo"><a href="#4）演示一个demo" class="headerlink" title="4）演示一个demo"></a>4）演示一个demo</h3><ol>
-<li><p>定义注解Test：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//该注解用于方法声明</span></div><div class="line"><span class="meta">@Target</span>(ElementType.METHOD)</div><div class="line"><span class="comment">//VM将在运行期也保留注释，因此可以通过反射机制读取注解的信息</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="comment">//将此注解包含在javadoc中</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="comment">//允许子类继承父类中的注解</span></div><div class="line"><span class="meta">@Inherited</span></div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Test &#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">id</span><span class="params">()</span></span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">description</span><span class="params">()</span> <span class="keyword">default</span> "no description"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用注解：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Test_1</span></span>&#123;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 被注释的三个方法</div><div class="line">     */</div><div class="line">    <span class="meta">@Test</span>(id = <span class="number">1</span>, description = <span class="string">"hello method1"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method1</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span>(id = <span class="number">2</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method2</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line"></div><div class="line">    <span class="meta">@Test</span>(id = <span class="number">3</span>, description = <span class="string">"last method3"</span>)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">method3</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>解析注解:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainClass</span></span>&#123;  </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        Method[] methods = Test_1.class.getDeclaredMethods();</div><div class="line">        <span class="keyword">for</span> (Method method : methods) &#123;</div><div class="line">            <span class="comment">//判断方法中是否有指定注解类型的注解</span></div><div class="line">            <span class="keyword">boolean</span> hasAnnotation = method.isAnnotationPresent(Test.class);</div><div class="line">            <span class="keyword">if</span> (hasAnnotation) &#123;</div><div class="line">                <span class="comment">//根据注解类型返回方法的指定类型注解</span></div><div class="line">                Test annotation = method.getAnnotation(Test.class);</div><div class="line">                System.out.println(<span class="string">"Test(method="</span> + method.getName() + <span class="string">",id="</span> + annotation.id()</div><div class="line">                                   + <span class="string">",description="</span> + annotation.description() + <span class="string">")"</span>);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ol>
-<h2 id="二、自定义-Resource注解"><a href="#二、自定义-Resource注解" class="headerlink" title="二、自定义 @Resource注解"></a>二、自定义 @Resource注解</h2><h3 id="1）定义Annotition-MicLeeResource"><a href="#1）定义Annotition-MicLeeResource" class="headerlink" title="1）定义Annotition @MicLeeResource"></a>1）定义Annotition @MicLeeResource</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="meta">@Target</span>( &#123; ElementType.FIELD, ElementType.METHOD &#125;)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MicLeeResource &#123;</div><div class="line">    <span class="function">String <span class="title">name</span><span class="params">()</span> <span class="keyword">default</span> ""</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="2）使用注解"><a href="#2）使用注解" class="headerlink" title="2）使用注解"></a>2）使用注解</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PeopleServiceImpl</span> <span class="keyword">implements</span> <span class="title">PeopleService</span> </span>&#123;</div><div class="line">    <span class="meta">@MicLeeResource</span></div><div class="line">    <span class="keyword">private</span> PeopleDao peopleDao;</div><div class="line">    <span class="keyword">private</span> String    name = <span class="string">"MicLee"</span>;</div><div class="line">    <span class="keyword">private</span> Integer   id   = <span class="number">1</span>;</div><div class="line">    <span class="comment">/**</span></div><div class="line">     * <span class="doctag">@param</span> peopleDao 或者注解在set方法上</div><div class="line">     */</div><div class="line">    <span class="comment">//@MicLeeResource</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setPeopleDao</span><span class="params">(PeopleDao peopleDao)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.peopleDao = peopleDao;</div><div class="line">    &#125;</div><div class="line">…</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="3）实现注入原理，在自定义spring容器中添加注解功能"><a href="#3）实现注入原理，在自定义spring容器中添加注解功能" class="headerlink" title="3）实现注入原理，在自定义spring容器中添加注解功能"></a>3）实现注入原理，在自定义spring容器中添加注解功能</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MicLeeClassPathXMLApplicationContext</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">//存放BeanDefinition的列表，在beans.xml中定义的bean可能不止一个</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> List&lt;BeanDefinition&gt; beanDefines = <span class="keyword">new</span> ArrayList&lt;BeanDefinition&gt;();</div><div class="line">    <span class="comment">//将类名作为索引，将创建的Bean对象存入到Map中</span></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Map&lt;String, Object&gt;  sigletons   = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">MicLeeClassPathXMLApplicationContext</span><span class="params">(String fileName)</span> </span>&#123;</div><div class="line">        <span class="comment">//读取xml配置文件</span></div><div class="line">        <span class="keyword">this</span>.readXML(fileName);</div><div class="line">        <span class="comment">//实例化bean</span></div><div class="line">        <span class="keyword">this</span>.instanceBeans();</div><div class="line">        <span class="comment">//处理注解方式</span></div><div class="line">        <span class="keyword">this</span>.annotationInject();</div><div class="line">        <span class="comment">//注入对象</span></div><div class="line">        <span class="keyword">this</span>.injectObject();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     * 使用注解方式注入对象方法实现</div><div class="line">     * <span class="doctag">@throws</span> IntrospectionException</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">annotationInject</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">//循环所有bean对象</span></div><div class="line">        <span class="keyword">for</span> (String beanName : sigletons.keySet()) &#123;</div><div class="line">            <span class="comment">//获取bean对象</span></div><div class="line">            Object bean = sigletons.get(beanName);</div><div class="line">            <span class="comment">//如果bean不为空,取得bean的属性</span></div><div class="line">            <span class="keyword">if</span> (bean != <span class="keyword">null</span>) &#123;</div><div class="line">                <span class="keyword">try</span> &#123;</div><div class="line">                    <span class="comment">//按属性注入</span></div><div class="line">                    PropertyDescriptor[] ps = Introspector.getBeanInfo(bean.getClass())</div><div class="line">                        .getPropertyDescriptors();</div><div class="line">                    <span class="keyword">for</span> (PropertyDescriptor properdesc : ps) &#123;</div><div class="line">                        <span class="comment">//获取属性的setter方法</span></div><div class="line">                        Method setter = properdesc.getWriteMethod();</div><div class="line">                        <span class="comment">//判断注解是否存在</span></div><div class="line">                        <span class="keyword">if</span> (setter != <span class="keyword">null</span> &amp;&amp; setter.isAnnotationPresent(MicLeeResource.class)) &#123;</div><div class="line">                            <span class="comment">//取得注解</span></div><div class="line">                            MicLeeResource resource = setter.getAnnotation(MicLeeResource.class);</div><div class="line">                            Object value = <span class="keyword">null</span>;</div><div class="line">                            <span class="comment">//如果按名字找到</span></div><div class="line">                            <span class="keyword">if</span> (resource.name() != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(resource.name())) &#123;</div><div class="line">                                <span class="comment">//取得容器中的bean对象</span></div><div class="line">                                value = sigletons.get(resource.name());</div><div class="line"></div><div class="line">                            &#125; <span class="keyword">else</span> &#123;<span class="comment">//没有按名字找到，按类型寻找</span></div><div class="line">                                <span class="comment">//取得容器中的bean对象</span></div><div class="line">                                value = sigletons.get(resource.name());</div><div class="line">                                <span class="keyword">if</span> (value == <span class="keyword">null</span>) &#123;</div><div class="line">                                    <span class="keyword">for</span> (String key : sigletons.keySet()) &#123;</div><div class="line">                                        <span class="keyword">if</span> (properdesc.getPropertyType().isAssignableFrom(</div><div class="line">                                            sigletons.get(key).getClass())) &#123;</div><div class="line">                                            value = sigletons.get(key);</div><div class="line">                                            <span class="keyword">break</span>;</div><div class="line">                                        &#125;</div><div class="line">                                    &#125;</div><div class="line">                                &#125;</div><div class="line">                            &#125;</div><div class="line">                            <span class="comment">//把引用对象注入到属性</span></div><div class="line">                            setter.setAccessible(<span class="keyword">true</span>);</div><div class="line">                            setter.invoke(bean, value);</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                    <span class="comment">//按字段注入</span></div><div class="line">                    Field[] fields = bean.getClass().getDeclaredFields();</div><div class="line">                    <span class="keyword">for</span> (Field field : fields) &#123;</div><div class="line">                        <span class="comment">//如果注解存在</span></div><div class="line">                        <span class="keyword">if</span> (field.isAnnotationPresent(MicLeeResource.class)) &#123;</div><div class="line">                            <span class="comment">//取得注解</span></div><div class="line">                            MicLeeResource resource = field.getAnnotation(MicLeeResource.class);</div><div class="line">                            Object value = <span class="keyword">null</span>;</div><div class="line">                            <span class="comment">//如果按名字找到</span></div><div class="line">                            <span class="keyword">if</span> (resource.name() != <span class="keyword">null</span> &amp;&amp; !<span class="string">""</span>.equals(resource.name())) &#123;</div><div class="line">                                <span class="comment">//取得容器中的bean对象</span></div><div class="line">                                value = sigletons.get(resource.name());</div><div class="line">                            &#125; <span class="keyword">else</span> &#123;<span class="comment">//没有按名字找到，按类型寻找</span></div><div class="line">                                <span class="comment">//取得容器中的bean对象</span></div><div class="line">                                value = sigletons.get(field.getName());</div><div class="line">                                <span class="keyword">if</span> (value == <span class="keyword">null</span>) &#123;</div><div class="line">                                    <span class="keyword">for</span> (String key : sigletons.keySet()) &#123;</div><div class="line">                                        <span class="keyword">if</span> (field.getType().isAssignableFrom(</div><div class="line">                                            sigletons.get(key).getClass())) &#123;</div><div class="line">                                            value = sigletons.get(key);</div><div class="line">                                            <span class="keyword">break</span>;</div><div class="line">                                        &#125;</div><div class="line">                                    &#125;</div><div class="line">                                &#125;</div><div class="line">                            &#125;</div><div class="line">                            <span class="comment">//允许访问private</span></div><div class="line">                            field.setAccessible(<span class="keyword">true</span>);</div><div class="line">                            field.set(bean, value);</div><div class="line">                        &#125;</div><div class="line">                    &#125;</div><div class="line">                &#125; <span class="keyword">catch</span> (IntrospectionException e) &#123;</div><div class="line">                    <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; <span class="keyword">catch</span> (IllegalArgumentException e) &#123;</div><div class="line">                    <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; <span class="keyword">catch</span> (IllegalAccessException e) &#123;</div><div class="line">                    <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125; <span class="keyword">catch</span> (InvocationTargetException e) &#123;</div><div class="line">                    <span class="comment">// TODO Auto-generated catch block</span></div><div class="line">                    e.printStackTrace();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">/**</span></div><div class="line">     *为bean对象的属性注入值</div><div class="line">     */</div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">injectObject</span><span class="params">()</span> </span>&#123;</div><div class="line">    ….</div><div class="line">    &#125;</div><div class="line">….</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<blockquote>
-<p>@MicLeeResource 注解本身不做任何事情，只是像xml文件一样起到配置作用。注解代表的是某种业务意义，注解背后处理器的工作原理如上源码实现：首先解析所有属性，判断属性上是否存在指定注解，如果存在则根据搜索规则取得bean，然后利用反射原理注入。如果标注在字段上面，也可以通过字段的反射技术取得注解，根据搜索规则取得bean，然后利用反射技术注入。</p>
-</blockquote>
-]]></content>
-    <summary type="html">
-    <![CDATA[讲述注解的基本概念和原理及其简单实用、以及自己实现一个 @Resource 注解来讲述其实现原理]]>
-    
-    </summary>
-    
-      <category term="annotation" scheme="http://miclee.cn/tags/annotation/"/>
-    
-      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[常用模板语言]]></title>
-    <link href="http://miclee.cn/2015/12/18/template-language/"/>
-    <id>http://miclee.cn/2015/12/18/template-language/</id>
-    <published>2015-12-18T09:11:40.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 常用的模板引擎语言 </em></strong><br><a id="more"></a></p>
-<hr>
-<blockquote>
-<p>在java领域，表现层技术主要有三种：jsp、freemarker、velocity<br>在javascript领域，主要有：EJS、Jade、doT、swig等等，参考<a href="http://garann.github.io/template-chooser/" target="_blank" rel="external">http://garann.github.io/template-chooser/</a></p>
-</blockquote>
-<h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
-<li>功能强大，可以写java代码</li>
-<li>支持jsp标签（jsp tag）</li>
-<li>支持表达式语言（el）</li>
-<li>官方标准，用户群广，丰富的第三方jsp标签库</li>
-<li>性能良好。jsp编译成class文件执行，有很好的性能表现<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3>jsp没有明显缺点，非要挑点骨头那就是，由于可以编写java代码，如使用不当容易破坏mvc结构。</li>
-</ol>
-<h2 id="velocity是较早出现的用于代替jsp的模板语言"><a href="#velocity是较早出现的用于代替jsp的模板语言" class="headerlink" title="velocity是较早出现的用于代替jsp的模板语言"></a>velocity是较早出现的用于代替jsp的模板语言</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ol>
-<li>不能编写java代码，可以实现严格的mvc分离</li>
-<li>性能良好，据说比jsp性能还要好些</li>
-<li>使用表达式语言，据说jsp的表达式语言就是学velocity的<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3></li>
-<li>不是官方标准</li>
-<li>用户群体和第三方标签库没有jsp多。</li>
-<li>对jsp标签支持不够好</li>
-</ol>
-<h2 id="freemarker"><a href="#freemarker" class="headerlink" title="freemarker"></a>freemarker</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ol>
-<li>不能编写java代码，可以实现严格的mvc分离</li>
-<li>性能。velocity应该是最好的，其次是jsp，普通的页面freemarker性能最差（虽然只是几毫秒到十几毫秒的差距）。但是在复杂页面上（包含大量判断. 日期金额格式化）的页面上，freemarker的性能比使用tag和el的jsp好。</li>
-<li>对jsp标签支持良好</li>
-<li>内置大量常用功能，比如html过滤，日期金额格式化等等，使用非常方便</li>
-<li>宏定义（类似jsp标签）非常方便，优于jsp的tag</li>
-<li>使用表达式语言<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3></li>
-<li>不是官方标准</li>
-<li>用户群体和第三方标签库没有jsp多</li>
-</ol>
-<h2 id="Jade"><a href="#Jade" class="headerlink" title="Jade"></a>Jade</h2><ul>
-<li>Jade 很简洁，表达能力也很强，但不够直观，学习和适应成本高，大量的tab和空格容易出错。</li>
-<li>Jade 处理模板时计算量大，在没有缓存的情况下性能低是肯定的。</li>
-<li>Jade 对于一个不擅长前端、喜欢Bootstrap和Ctrl c + v 实在不能提高开发效率。</li>
-<li>适合后端人员用</li>
-</ul>
-<h2 id="EJS"><a href="#EJS" class="headerlink" title="EJS"></a>EJS</h2><p>简单易用的模板引擎，不过不支持继承，如果只是想要个模板往里面填充数据，是最好的选择</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[常用的模板引擎语言]]>
-    
-    </summary>
-    
-      <category term="template" scheme="http://miclee.cn/tags/template/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   

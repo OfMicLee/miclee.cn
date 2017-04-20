@@ -91,34 +91,43 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em> 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 </em></strong><br><a id="more"></a></p>
-<hr>
+        <p>*** 在Makefile可以调用shell脚本，但是Makefile和shell脚本是不同的。本文试着归纳一下Makefile和shell脚本的不同。 **<em> <a id="more"></a> </em> * * * * *</p>
 <ul>
-<li><h4 id="1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。">1）shell中所有引用以$打头的变量其后要加{},而在Makefile中的变量是以$打头的后加()。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH="/data/"</div><div class="line">SUBPATH=<span class="variable">$(PATH)</span></div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH=&quot;/data/&quot;</div><div class="line">SUBPATH=$&#123;PATH&#125;</div></pre></td></tr></table></figure>
-</li>
-<li><h4 id="2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。">2）Makefile中所有以$打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位$），都需要加两个$符号（$$）。</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PATH="/data/"</div><div class="line"><span class="section">all:</span></div><div class="line">    echo $&#123;PATH&#125;</div></pre></td></tr></table></figure>
-<p>echo $$PATH例子中的第一个${PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
-</li>
-<li><h4 id="3）通配符区别">3）通配符区别</h4><p>shell 中通配符*表示所有的字符<br>Makefile 中通配符%表示所有的字符</p>
-</li>
-<li><h4 id="4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。">4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</h4><p>比如如下代码就是没有任何输出：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAR="Hello"</div><div class="line">echo "$VAR"</div><div class="line"><span class="section">all:</span></div><div class="line">......</div></pre></td></tr></table></figure>
-<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
-<figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAR="Hello"</div><div class="line"><span class="section">all:</span></div><div class="line">    echo "$VAR"</div><div class="line">......</div></pre></td></tr></table></figure>
-<p>以上代码，在make all的时候将会执行echo命令。</p>
-</li>
-<li><h4 id="5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;_\”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：">5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“;  \”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SUBDIR=src example</div><div class="line"><span class="section">all:</span></div><div class="line">    @for subdir in $(SUBDIR); \</div><div class="line">    do\</div><div class="line">        echo "building "; \</div></pre></td></tr></table></figure>
-<p>done上述可以看出for循环中每行都是以”; \”结尾的。</p>
-</li>
-<li><h4 id="6）获取当前目录">6）获取当前目录</h4><p>PATH=<code>pwd</code> 注意是``,不是’’</p>
-</li>
+<li><h4 id="shell中所有引用以打头的变量其后要加而在makefile中的变量是以打头的后加">1）shell中所有引用以<span class="math inline">\(打头的变量其后要加{},而在Makefile中的变量是以\)</span>打头的后加()。</h4></li>
 </ul>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH="/data/"</div><div class="line">SUBPATH=<span class="variable">$(PATH)</span></div></pre></td></tr></table></figure></p>
+<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">PATH=&quot;/data/&quot;</div><div class="line">SUBPATH=$&#123;PATH&#125;</div></pre></td></tr></table></figure></p>
+<ul>
+<li><h4 id="makefile中所有以打头的单词都会被解释成makefile中的变量如果你需要调用shell中的变量或者正则表达式中锚定句位都需要加两个符号">2）Makefile中所有以<span class="math inline">\(打头的单词都会被解释成Makefile中的变量。如果你需要调用shell中的变量（或者正则表达式中锚定句位\)</span>），都需要加两个<span class="math inline">\(符号（\)</span>$）。</h4></li>
+</ul>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">PATH="/data/"</div><div class="line"><span class="section">all:</span></div><div class="line">    echo $&#123;PATH&#125;</div></pre></td></tr></table></figure></p>
+<p>echo <span class="math inline">\($PATH例子中的第一个\)</span>{PATH}引用的是Makefile中的变量，而不是shell中的PATH环境变量，后者引用的事Shell中的PATH环境变量。</p>
+<ul>
+<li><h4 id="通配符区别">3）通配符区别</h4></li>
+</ul>
+<p>shell 中通配符*表示所有的字符 Makefile 中通配符%表示所有的字符</p>
+<ul>
+<li><h4 id="在makefile中只能在target中调用shell脚本其他地方是不能输出的">4）在Makefile中只能在target中调用Shell脚本，其他地方是不能输出的。</h4></li>
+</ul>
+<p>比如如下代码就是没有任何输出：</p>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAR="Hello"</div><div class="line">echo "$VAR"</div><div class="line"><span class="section">all:</span></div><div class="line">......</div></pre></td></tr></table></figure></p>
+<p>以上代码任何时候都不会输出，没有在target内，如果上述代码改为如下：</p>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">VAR="Hello"</div><div class="line"><span class="section">all:</span></div><div class="line">    echo "$VAR"</div><div class="line">......</div></pre></td></tr></table></figure></p>
+<p>以上代码，在make all的时候将会执行echo命令。</p>
+<ul>
+<li><h4 id="在makefile中执行shell命令一行创建一个进程来执行这也是为什么很多makefile中有很多行的末尾都是-以此来保证代码是一行而不是多行这样makefile可以在一个进程中执行例如">5）在Makefile中执行shell命令，一行创建一个进程来执行。这也是为什么很多Makefile中有很多行的末尾都是“; ”，以此来保证代码是一行而不是多行，这样Makefile可以在一个进程中执行，例如：</h4></li>
+</ul>
+<p><figure class="highlight makefile"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">SUBDIR=src example</div><div class="line"><span class="section">all:</span></div><div class="line">    @for subdir in $(SUBDIR); \</div><div class="line">    do\</div><div class="line">        echo "building "; \</div></pre></td></tr></table></figure></p>
+<p>done上述可以看出for循环中每行都是以”; ”结尾的。</p>
+<ul>
+<li><h4 id="获取当前目录">6）获取当前目录</h4></li>
+</ul>
+<p>PATH=<code>pwd</code> 注意是``,不是’’</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/08/19/makefile&shell/" data-id="cj1q0kw7v0020bbs6tr6bajbo" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/08/19/makefile&shell/" data-id="cj1q3wg570028x6s61wvb1fvy" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/08/19/makefile&shell/#disqus_thread" class="article-comment-link">Comments</a>
       

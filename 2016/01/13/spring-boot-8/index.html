@@ -93,30 +93,32 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em> JPA是Sun官方提出的Java持久化规范。它为Java开发人员提供了一种对象/关系映射工具来管理Java应用中的关系数据。JPA的宗旨是为POJO提供持久化标准规范，伴随 Java EE 5 发布以来，受到了各大厂商及开源社区的追捧，各种商用的和开源的 JPA 框架如雨后春笋般出现，为开发者提供了丰富的选择。它一改之前 EJB 2.x 中实体 Bean 笨重且难以使用的形象，充分吸收了在开源社区已经相对成熟的 ORM 思想。另外，它并不依赖于 EJB 容器，可以作为一个独立的持久层技术而存在。目前比较成熟的 JPA 框架主要包括 Jboss 的 Hibernate EntityManager、Oracle 捐献给 Eclipse 社区的 EclipseLink(曾经的toplink)、Apache 的 OpenJPA等。所以使用Jpa的一个好处是，可以更换实现而不必改动太多代码。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="Spring-Boot持久层发展历史">Spring-Boot持久层发展历史</h2><p><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/spring-boot-jpa.png" alt="spring-boot-jpa"></p>
-<h2 id="Spring-boot-jpa_常用配置">Spring-boot-jpa 常用配置</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  jpa:</span></div><div class="line"><span class="attr">     database:</span> <span class="string">MYSQL</span></div><div class="line"><span class="attr">     show-sql:</span> <span class="literal">true</span></div><div class="line"><span class="attr">     hibernate:</span></div><div class="line"><span class="attr">           ddl-auto:</span> <span class="string">update</span></div><div class="line">           <span class="comment"># ddl-auto: none, create, create-drop, update, validate</span></div><div class="line"><span class="attr">           naming_strategy:</span> <span class="string">org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</span></div><div class="line">           <span class="comment"># naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy</span></div></pre></td></tr></table></figure>
-<h3 id="ddl-auto">ddl-auto</h3><p>主要用于：自动创建|更新|验证数据库表结构。如果不是此方面的需求建议set value=”none”。</p>
+        <p>*** JPA是Sun官方提出的Java持久化规范。它为Java开发人员提供了一种对象/关系映射工具来管理Java应用中的关系数据。JPA的宗旨是为POJO提供持久化标准规范，伴随 Java EE 5 发布以来，受到了各大厂商及开源社区的追捧，各种商用的和开源的 JPA 框架如雨后春笋般出现，为开发者提供了丰富的选择。它一改之前 EJB 2.x 中实体 Bean 笨重且难以使用的形象，充分吸收了在开源社区已经相对成熟的 ORM 思想。另外，它并不依赖于 EJB 容器，可以作为一个独立的持久层技术而存在。目前比较成熟的 JPA 框架主要包括 Jboss 的 Hibernate EntityManager、Oracle 捐献给 Eclipse 社区的 EclipseLink(曾经的toplink)、Apache 的 OpenJPA等。所以使用Jpa的一个好处是，可以更换实现而不必改动太多代码。 **<em> <a id="more"></a> </em> * * * * *</p>
+<h2 id="spring-boot持久层发展历史">Spring-Boot持久层发展历史</h2>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/java/spring-boot-jpa.png" alt="spring-boot-jpa">
+<p class="caption">spring-boot-jpa</p>
+</div>
+<h2 id="spring-boot-jpa-常用配置">Spring-boot-jpa 常用配置</h2>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="attr">spring:</span></div><div class="line"><span class="attr">  jpa:</span></div><div class="line"><span class="attr">     database:</span> <span class="string">MYSQL</span></div><div class="line"><span class="attr">     show-sql:</span> <span class="literal">true</span></div><div class="line"><span class="attr">     hibernate:</span></div><div class="line"><span class="attr">           ddl-auto:</span> <span class="string">update</span></div><div class="line">           <span class="comment"># ddl-auto: none, create, create-drop, update, validate</span></div><div class="line"><span class="attr">           naming_strategy:</span> <span class="string">org.springframework.boot.orm.jpa.hibernate.SpringNamingStrategy</span></div><div class="line">           <span class="comment"># naming_strategy: org.hibernate.cfg.ImprovedNamingStrategy</span></div></pre></td></tr></table></figure>
+<h3 id="ddl-auto">ddl-auto</h3>
+<p>主要用于：自动创建|更新|验证数据库表结构。如果不是此方面的需求建议set value=“none”。</p>
 <ul>
-<li><p>create ：<br>每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。</p>
-</li>
-<li><p>create-drop ：<br>每次加载hibernate时根据model类生成表，但是sessionFactory一关闭,表就自动删除。</p>
-</li>
-<li><p>update：<br>最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据 model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等 应用第一次运行起来后才会。</p>
-</li>
-<li><p>validate ：<br>每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。</p>
-</li>
+<li><p>create ： 每次加载hibernate时都会删除上一次的生成的表，然后根据你的model类再重新来生成新表，哪怕两次没有任何改变也要这样执行，这就是导致数据库表数据丢失的一个重要原因。</p></li>
+<li><p>create-drop ： 每次加载hibernate时根据model类生成表，但是sessionFactory一关闭,表就自动删除。</p></li>
+<li><p>update： 最常用的属性，第一次加载hibernate时根据model类会自动建立起表的结构（前提是先建立好数据库），以后加载hibernate时根据 model类自动更新表结构，即使表结构改变了但表中的行仍然存在不会删除以前的行。要注意的是当部署到服务器后，表结构是不会被马上建立起来的，是要等 应用第一次运行起来后才会。</p></li>
+<li><p>validate ： 每次加载hibernate时，验证创建数据库表结构，只会和数据库中的表进行比较，不会创建新表，但是会插入新值。</p></li>
 </ul>
 <blockquote>
-<p>当为内嵌数据库时（hsqldb/h2/derby）默认为 create-drop<br>外部数据库默认 none</p>
+<p>当为内嵌数据库时（hsqldb/h2/derby）默认为 create-drop 外部数据库默认 none</p>
 </blockquote>
-<h3 id="naming_strategy">naming_strategy</h3><p>设置和数据库的映射方式，主要表名，字段名，外键名等。<br>SpringNamingStrategy继承了ImprovedNamingStrategy，主要修复了外键名的问题，具体请见：<a href="http://stackoverflow.com/questions/7689206/ejb3namingstrategy-vs-improvednamingstrategy-foreign-key-naming" target="_blank" rel="external">http://stackoverflow.com/questions/7689206/ejb3namingstrategy-vs-improvednamingstrategy-foreign-key-naming</a></p>
+<h3 id="naming_strategy">naming_strategy</h3>
+<p>设置和数据库的映射方式，主要表名，字段名，外键名等。 SpringNamingStrategy继承了ImprovedNamingStrategy，主要修复了外键名的问题，具体请见：<a href="http://stackoverflow.com/questions/7689206/ejb3namingstrategy-vs-improvednamingstrategy-foreign-key-naming" class="uri" target="_blank" rel="external">http://stackoverflow.com/questions/7689206/ejb3namingstrategy-vs-improvednamingstrategy-foreign-key-naming</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/01/13/spring-boot-8/" data-id="cj1q0kw9l003wbbs6kvak6khm" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/01/13/spring-boot-8/" data-id="cj1q3wg6d003wx6s6ix91nc0l" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/01/13/spring-boot-8/#disqus_thread" class="article-comment-link">Comments</a>
       

@@ -91,24 +91,29 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em> 主要自己的使用笔记，不用到处去查 </em></strong><br><a id="more"></a></p>
-<hr>
-<h3 id="摘取分支上部分功能上线：">摘取分支上部分功能上线：</h3><p><strong><em>基于某个提交点构建分支,再合入主干的某一个commit</em></strong></p>
+        <p>*** 主要自己的使用笔记，不用到处去查 **<em> <a id="more"></a> </em> * * * * *</p>
+<h3 id="摘取分支上部分功能上线">摘取分支上部分功能上线：</h3>
+<p><strong><em>基于某个提交点构建分支,再合入主干的某一个commit</em></strong></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git checkout -b publish 9eed4b17</div><div class="line"></div><div class="line">git cherry-pick 5a2623e6</div></pre></td></tr></table></figure>
-<h3 id="删除远程分支：">删除远程分支：</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete publish</div></pre></td></tr></table></figure>
-<h3 id="撤销远程分支的某次提交：">撤销远程分支的某次提交：</h3><figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">revert</span> a50a0f90</div><div class="line">git <span class="built_in">push</span></div></pre></td></tr></table></figure>
-<h3 id="拉取远程分支：">拉取远程分支：</h3><figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout origin/develop-<span class="keyword">pos</span> -b develop-<span class="keyword">pos</span></div></pre></td></tr></table></figure>
+<h3 id="删除远程分支">删除远程分支：</h3>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git push origin --delete publish</div></pre></td></tr></table></figure>
+<h3 id="撤销远程分支的某次提交">撤销远程分支的某次提交：</h3>
+<figure class="highlight maxima"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="built_in">revert</span> a50a0f90</div><div class="line">git <span class="built_in">push</span></div></pre></td></tr></table></figure>
+<h3 id="拉取远程分支">拉取远程分支：</h3>
+<figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout origin/develop-<span class="keyword">pos</span> -b develop-<span class="keyword">pos</span></div></pre></td></tr></table></figure>
 <p><em>或者</em></p>
 <figure class="highlight hsp"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b develop-<span class="keyword">pos</span> origin/develop-<span class="keyword">pos</span></div></pre></td></tr></table></figure>
-<h3 id="本地分支提交到远程：">本地分支提交到远程：</h3><p><strong><em>本地test分支提交到远程，并作为master分支或者名叫test的分支</em></strong></p>
+<h3 id="本地分支提交到远程">本地分支提交到远程：</h3>
+<p><strong><em>本地test分支提交到远程，并作为master分支或者名叫test的分支</em></strong></p>
 <figure class="highlight x86asm"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:master</div><div class="line">git <span class="keyword">push</span> origin <span class="keyword">test</span>:<span class="keyword">test</span></div></pre></td></tr></table></figure>
-<h3 id="储藏（Stashing）">储藏（Stashing）</h3><figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git stash <span class="built_in">list</span></div><div class="line">git stash <span class="built_in">apply</span></div></pre></td></tr></table></figure>
-<p><strong><em>储藏创建为新的分支</em></strong><br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">git</span> stash <span class="keyword">branch </span>newBranch</div></pre></td></tr></table></figure></p>
+<h3 id="储藏stashing">储藏（Stashing）</h3>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git stash</div><div class="line">git stash <span class="built_in">list</span></div><div class="line">git stash <span class="built_in">apply</span></div></pre></td></tr></table></figure>
+<p><strong><em>储藏创建为新的分支</em></strong> <figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">git</span> stash <span class="keyword">branch </span>newBranch</div></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="cj1q0kw73001ibbs647o03tx7" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/07/30/git/" data-id="cj1q3wg4d0013x6s6ws1wq6vl" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/07/30/git/#disqus_thread" class="article-comment-link">Comments</a>
       

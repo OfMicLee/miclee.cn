@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-20T06:26:53.000Z</updated>
+  <updated>2017-04-20T06:41:17.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -19,8 +19,9 @@
     <link href="http://miclee.cn/2017/04/20/Python%E4%B8%8B%E5%88%92%E7%BA%BF%E4%BD%BF%E7%94%A8/"/>
     <id>http://miclee.cn/2017/04/20/Python下划线使用/</id>
     <published>2017-04-20T05:43:52.000Z</published>
-    <updated>2017-04-20T06:26:53.000Z</updated>
-    <content type="html"><![CDATA[<p>*** 在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？ ***<br><a id="more"></a><br>* * * * * *</p>
+    <updated>2017-04-20T06:41:17.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？ </em></strong><br><a id="more"></a></p>
+<hr>
 <h2 id="单下划线（_）">单下划线（_）</h2><p>通常情况下，会在以下3种场景中使用：</p>
 <ol>
 <li><p>在解释器中：在这种情况下，‘_‘代表交互式解释器会话中上一条执行的语句的结果。这种用法首先被标准CPython解释器采用，然后其他类型的解释器也先后采用。</p>

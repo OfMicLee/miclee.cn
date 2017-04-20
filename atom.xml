@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-19T10:18:00.000Z</updated>
+  <updated>2017-04-20T06:16:26.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,64 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Python下划线使用]]></title>
+    <link href="http://miclee.cn/2017/04/20/Python%E4%B8%8B%E5%88%92%E7%BA%BF%E4%BD%BF%E7%94%A8/"/>
+    <id>http://miclee.cn/2017/04/20/Python下划线使用/</id>
+    <published>2017-04-20T05:43:52.000Z</published>
+    <updated>2017-04-20T06:16:26.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？ </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="单下划线（_）">单下划线（_）</h2><p>通常情况下，会在以下3种场景中使用：</p>
+<ol>
+<li><p>在解释器中：在这种情况下，“_”代表交互式解释器会话中上一条执行的语句的结果。这种用法首先被标准CPython解释器采用，然后其他类型的解释器也先后采用。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span>_ Traceback (most recent call last):</div><div class="line">File <span class="string">"&lt;stdin&gt;"</span>, line <span class="number">1</span>, <span class="keyword">in</span> &lt;module&gt;</div><div class="line">NameError: name <span class="string">'_'</span> <span class="keyword">is</span> <span class="keyword">not</span> defined</div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="number">42</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>_</div><div class="line"><span class="number">42</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="string">'alright!'</span> <span class="keyword">if</span> _ <span class="keyword">else</span> <span class="string">':('</span></div><div class="line"><span class="string">'alright!'</span></div><div class="line"><span class="meta">&gt;&gt;&gt; </span>_</div><div class="line"><span class="string">'alright!'</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>作为一个名称：这与上面一点稍微有些联系，此时“<em>”作为临时性的名称使用。这样，当其他人阅读你的代码时将会知道，你分配了一个特定的名称，但是并不会在后面再次用到该名称。例如，下面的例子中，你可能对循环计数中的实际值并不感兴趣，此时就可以使用“</em>”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">n = <span class="number">42</span></div><div class="line"><span class="keyword">for</span> _ <span class="keyword">in</span> range(n):</div><div class="line">    do_something()</div></pre></td></tr></table></figure>
+</li>
+<li><p>国际化：也许你也曾看到”_“会被作为一个函数来使用。这种情况下，它通常用于实现国际化和本地化字符串之间翻译查找的函数名称，这似乎源自并遵循相应的C约定。例如，在Django文档“转换”章节中，你将能看到如下代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">from</span> django.utils.translation <span class="keyword">import</span> ugettext <span class="keyword">as</span> _</div><div class="line"><span class="keyword">from</span> django.http <span class="keyword">import</span> HttpResponse</div><div class="line"><span class="function"><span class="keyword">def</span> <span class="title">my_view</span><span class="params">(request)</span>:</span></div><div class="line">	output = _(<span class="string">"Welcome to my site."</span>)</div><div class="line">	<span class="keyword">return</span> HttpResponse(output)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>可以发现，场景二和场景三中的使用方法可能会相互冲突，所以我们需要避免在使用“<em>”作为国际化查找转换功能的代码块中同时使用“</em>”作为临时名称。</p>
+<h2 id="名称前的单下划线（如：_shahriar）">名称前的单下划线（如：_shahriar）</h2><p>程序员使用名称前的单下划线，用于指定该名称属性为“私有”。这有点类似于惯例，为了使其他人（或你自己）使用这些代码时将会知道以“_”开头的名称只供内部使用。正如Python文档中所述：</p>
+<p>以下划线“_”为前缀的名称（如_spam）应该被视为API中非公开的部分（不管是函数、方法还是数据成员）。此时，应该将它们看作是一种实现细节，在修改它们时无需对外部通知。</p>
+<p>正如上面所说，这确实类似一种惯例，因为它对解释器来说确实有一定的意义，如果你写了代码“from &lt;模块/包名&gt; import <em>”，那么以“_”开头的名称都不会被导入，除非模块或包中的“<strong>all</strong>”列表显式地包含了它们。了解更多请查看 [Importing </em> in Python](<a href="https://shahriar.svbtle.com/importing-star-in-python" target="_blank" rel="external">https://shahriar.svbtle.com/importing-star-in-python</a>)</p>
+<h2 id="名称前的双下划线（如：__shahriar）">名称前的双下划线（如：__shahriar）</h2><p>名称（具体为一个方法名）前双下划线（<strong>）的用法并不是一种惯例，对解释器来说它有特定的意义。Python中的这种用法是为了避免与子类定义的名称冲突。Python文档指出，“</strong>spam”这种形式（至少两个前导下划线，最多一个后续下划线）的任何标识符将会被“_classname__spam”这种形式原文取代，在这里“classname”是去掉前导下划线的当前类名。例如下面的例子：<br><figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">A</span><span class="params">(object)</span>:</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">_internal_use</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">__method_name</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(A())</div><div class="line">[<span class="string">'_A__method_name'</span>, ..., <span class="string">'_internal_use'</span>]</div></pre></td></tr></table></figure></p>
+<p>正如所预料的，“_internal_use”并未改变，而“<strong>method_name”却被变成了“_ClassName</strong>method_name”。此时，如果你创建A的一个子类B，那么你将不能轻易地覆写A中的方法“__method_name”。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">B</span><span class="params">(A)</span>:</span></div><div class="line"><span class="meta">... </span><span class="function"><span class="keyword">def</span> <span class="title">__method_name</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span><span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(B())</div><div class="line">[<span class="string">'_A__method_name'</span>, <span class="string">'_B__method_name'</span>, ..., <span class="string">'_internal_use'</span>]</div></pre></td></tr></table></figure>
+<p>通常用作类的私有成员</p>
+<h2 id="名称前后的双下划线（如：init）">名称前后的双下划线（如：<strong>init</strong>）</h2><p>这种用法表示Python中特殊的方法名。其实，这只是一种惯例，对Python系统来说，这将确保不会与用户自定义的名称冲突。通常，你将会覆写这些方法，并在里面实现你所需要的功能，以便Python调用它们。例如，当定义一个类时，你经常会覆写“<strong>init</strong>”方法。</p>
+<p>双下划线开头双下划线结尾的是一些 Python 的“魔术”对象，如类成员的 <strong>init</strong>、<strong>del</strong>、<strong>add</strong>、<strong>getitem</strong> 等，以及全局的 <strong>file</strong>、<strong>name</strong> 等。 Python 官方推荐永远不要将这样的命名方式应用于自己的变量或函数，而是按照文档说明来使用。虽然你也可以编写自己的特殊方法名，但不要这样做。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">&gt;&gt;&gt; </span><span class="class"><span class="keyword">class</span> <span class="title">C</span><span class="params">(object)</span>:</span></div><div class="line"><span class="meta">... </span>    <span class="function"><span class="keyword">def</span> <span class="title">__mine__</span><span class="params">(self)</span>:</span></div><div class="line"><span class="meta">... </span>        <span class="keyword">pass</span></div><div class="line">...</div><div class="line"><span class="meta">&gt;&gt;&gt; </span>dir(C)</div><div class="line"><span class="meta">... </span>[..., <span class="string">'__mine__'</span>, ...]</div></pre></td></tr></table></figure>
+<h2 id="用_all_暴露接口">用 <strong>all</strong> 暴露接口</h2><p>Python 可以在模块级别暴露接口：</p>
+<p><strong>all</strong> = [“foo”, “bar”]</p>
+<p>很多时候这么做还是很有好处的……</p>
+<p>提供了哪些是公开接口的约定</p>
+<p>不像 Ruby 或者 Java，Python 没有语言原生的可见性控制，而是靠一套需要大家自觉遵守的”约定“下工作。比如下划线开头的应该对外部不可见。同样，<strong>all</strong> 也是对于模块公开接口的一种约定，比起下划线，<strong>all</strong> 提供了暴露接口用的”白名单“。一些不以下划线开头的变量（比如从其他地方 import 到当前模块的成员）可以同样被排除出去。</p>
+<h2 id="总结">总结</h2><p>Python 用下划线作为变量前缀和后缀指定特殊变量。</p>
+<ul>
+<li>_xxx     不能用’from module import *’导入</li>
+<li><strong>xxx</strong>  系统定义名字</li>
+<li>__xxx    类中的私有变量名</li>
+</ul>
+<p>_xxx 被看作是“私有的”，在模块或类外不可以使用。当变量是私有的时候，用_xxx 来表示变量是很好的习惯。</p>
+<p><strong>xxx</strong> 对Python 来说有特殊含义，对于普通的变量应当避免这种命名风格。</p>
+<p>__xxx 是私有成员，意思是只有类对象自己能访问，连子类对象也不能访问到这个数据。</p>
+<h2 id="PEP规范">PEP规范</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">PEP-0008:</div><div class="line"></div><div class="line">In addition, the following special forms using leading or trailing underscores are recognized (these can generally be combined with any case convention):</div><div class="line"></div><div class="line"><span class="code">    - _single_leading_underscore: weak "internal use" indicator. E.g. "from M import *" does not import objects whose name starts with an underscore.</span></div><div class="line"></div><div class="line"><span class="code">    - single_trailing_underscore_: used by convention to avoid conflicts with Python keyword, e.g.</span></div><div class="line"></div><div class="line"><span class="code">      Tkinter.Toplevel(master, class_='ClassName')</span></div><div class="line"></div><div class="line"><span class="code">    - __double_leading_underscore: when naming a class attribute, invokes name mangling (inside class FooBar, __boo becomes _FooBar__boo; see below).</span></div><div class="line"></div><div class="line"><span class="code">    - __double_leading_and_trailing_underscore__: "magic" objects or attributes that live in user-controlled namespaces. E.g. __init__,</span></div><div class="line"><span class="code">      __import__ or __file__. Never invent such names; only use them as documented.</span></div></pre></td></tr></table></figure>
+]]></content>
+    <summary type="html">
+    <![CDATA[在 python 中，下划线命名规则往往令初学者相当疑惑：单下划线、双下划线、双下划线还分前后...那它们的作用与使用场景到底有何区别呢？]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Java keytool]]></title>
@@ -886,89 +944,6 @@
       <category term="template" scheme="http://miclee.cn/tags/template/"/>
     
       <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[spring-boot哎哟不错(三) —— 使用spring-boot开发WEB应用]]></title>
-    <link href="http://miclee.cn/2015/12/18/spring-boot-3/"/>
-    <id>http://miclee.cn/2015/12/18/spring-boot-3/</id>
-    <published>2015-12-18T02:04:11.000Z</published>
-    <updated>2015-12-24T00:56:54.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用spring-boot-starter-web模块进行快速搭建和运行。spring-boot哎哟不错系列第三篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="Spring_Web_MVC_框架">Spring Web MVC 框架</h2><p>Spring MVC框架是一个富”模型，视图，控制器”的web框架。 Spring MVC允许你创建特定的 @Controller 或 @RestController beans来处理传入的HTTP请求。 使用 @RequestMapping 注解可以将控制器中的方法映射到相应的HTTP请求。以下是个典型的 @RestController ：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RestController</span></div><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/users"</span>)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyRestController</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.GET)</div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">getUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;/customers"</span>, method=RequestMethod.GET)</div><div class="line">    <span class="function">List&lt;Customer&gt; <span class="title">getUserCustomers</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@RequestMapping</span>(value=<span class="string">"/&#123;user&#125;"</span>, method=RequestMethod.DELETE)</div><div class="line">    <span class="function"><span class="keyword">public</span> User <span class="title">deleteUser</span><span class="params">(@PathVariable Long user)</span> </span>&#123;</div><div class="line">        <span class="comment">// ...</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="Spring_MVC_auto-configuration">Spring MVC auto-configuration</h2><p>Spring Boot为Spring MVC提供适用于多数应用的自动配置功能。在Spring默认基础上，自动配置添加了以下特性：</p>
-<ol>
-<li>引入ContentNegotiatingViewResolver和BeanNameViewResolver beans。</li>
-<li>对静态资源的支持，包括对WebJars的支持。</li>
-<li>自动注册Converter，GenericConverter，Formatter beans。</li>
-<li>对HttpMessageConverters的支持。</li>
-<li>自动注册MessageCodeResolver。</li>
-<li>对静态index.html的支持。</li>
-<li>对自定义Favicon的支持。<br>如果想全面控制Spring MVC，你可以添加自己的@Configuration，并使用@EnableWebMvc对其注解。如果想保留Spring Boot MVC的特性，并只是添加其他的<a href="http://docs.spring.io/spring/docs/4.1.4.RELEASE/spring-framework-reference/htmlsingle/#mvc" target="_blank" rel="external">MVC配置</a>(拦截器，formatters，视图控制器等)，你可以添加自己的WebMvcConfigurerAdapter类型的@Bean（不使用@EnableWebMvc注解）</li>
-</ol>
-<h2 id="HttpMessageConverters">HttpMessageConverters</h2><p>Spring MVC使用HttpMessageConverter接口转换HTTP请求和响应。合理的缺省值被包含的恰到好处（out of the box），例如对象可以自动转换为JSON（使用Jackson库）或XML（如果Jackson XML扩展可用则使用它，否则使用JAXB）。字符串默认使用UTF-8编码。</p>
-<p>如果需要添加或自定义转换器，你可以使用Spring Boot的HttpMessageConverters类：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.web.HttpMessageConverters;</div><div class="line"><span class="keyword">import</span> org.springframework.context.annotation.*;</div><div class="line"><span class="keyword">import</span> org.springframework.http.converter.*;</div><div class="line"></div><div class="line"><span class="meta">@Configuration</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyConfiguration</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Bean</span></div><div class="line">    <span class="function"><span class="keyword">public</span> HttpMessageConverters <span class="title">customConverters</span><span class="params">()</span> </span>&#123;</div><div class="line">        HttpMessageConverter&lt;?&gt; additional = ...</div><div class="line">        HttpMessageConverter&lt;?&gt; another = ...</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> HttpMessageConverters(additional, another);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>任何在上下文中出现的HttpMessageConverter bean将会添加到converters列表，你可以通过这种方式覆盖默认的转换器（converters）。</p>
-<h2 id="MessageCodesResolver">MessageCodesResolver</h2><p>Spring MVC有一个策略，用于从绑定的errors产生用来渲染错误信息的错误码：MessageCodesResolver。如果设置spring.mvc.message-codes-resolver.format属性为PREFIX_ERROR_CODE或POSTFIX_ERROR_CODE（具体查看DefaultMessageCodesResolver.Format枚举值），Spring Boot会为你创建一个MessageCodesResolver。</p>
-<h2 id="Static_静态内容">Static 静态内容</h2><p>默认情况下，Spring Boot从classpath下一个叫/static（/public，/resources或/META-INF/resources）的文件夹或从ServletContext根目录提供静态内容。这使用了Spring MVC的ResourceHttpRequestHandler，所以你可以通过添加自己的WebMvcConfigurerAdapter并覆写addResourceHandlers方法来改变这个行为（加载静态文件）。</p>
-<p>在一个单独的web应用中，容器默认的servlet是开启的，如果Spring决定不处理某些请求，默认的servlet作为一个回退（降级）将从ServletContext根目录加载内容。大多数时候，这不会发生（除非你修改默认的MVC配置），因为Spring总能够通过DispatcherServlet处理请求。</p>
-<p>此外，上述标准的静态资源位置有个例外情况是Webjars内容。任何在/webjars/** 路径下的资源都将从jar文件中提供，只要它们以Webjars的格式打包。</p>
-<blockquote>
-<p>注：如果你的应用将被打包成jar，那就不要使用src/main/webapp文件夹。尽管该文件夹是一个共同的标准，但它仅在打包成war的情况下起作用，并且如果产生一个jar，多数构建工具都会静悄悄的忽略它。</p>
-</blockquote>
-<h2 id="Template_engines_模板引擎">Template engines 模板引擎</h2><p>正如REST web服务，你也可以使用Spring MVC提供动态HTML内容。Spring MVC支持各种各样的模板技术，包括Velocity, FreeMarker和JSPs。很多其他的模板引擎也提供它们自己的Spring MVC集成。</p>
-<p>Spring Boot为以下的模板引擎提供自动配置支持：</p>
-<ul>
-<li>FreeMarker</li>
-<li>Groovy</li>
-<li>Thymeleaf</li>
-<li>Velocity</li>
-<li>Mustache</li>
-<li>JSPS</li>
-</ul>
-<blockquote>
-<p>注：如果可能的话，应该忽略JSPs，因为在内嵌的servlet容器使用它们时存在一些<a href="http://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-developing-web-applications.html#boot-features-jsp-limitations" target="_blank" rel="external">已知的限制</a>:</p>
-<ul>
-<li>可执行的jar包不能工作（标准war包在tomcat里可以工作；可执行war包可以直接工作或部署在tomcat里）</li>
-<li>不能使用Jetty作为内嵌式容器</li>
-<li>不能使用Undertow作为容器</li>
-</ul>
-<p>使用jsp时必须增加Jasper模块依赖：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure></p>
-</blockquote>
-<p>Jasper子模块：这个子模块负责jsp页面的解析、jsp属性的验证，同时也负责将jsp页面动态转换为java代码并编译成class文件。在Tomcat源代码中，凡是属于org.apache.jasper包及其子包中的源代码都属于这个子模块；</p>
-<p>当你使用这些引擎的任何一种，并采用默认的配置，你的模板将会从src/main/resources/templates目录下自动加载。</p>
-<p>注：IntelliJ IDEA根据你运行应用的方式会对classpath进行不同的整理。在IDE里通过main方法运行你的应用跟从Maven或Gradle或打包好的jar中运行相比会导致不同的顺序。这可能导致Spring Boot不能从classpath下成功地找到模板。如果遇到这个问题，你可以在IDE里重新对classpath进行排序，将模块的类和资源放到第一位。或者，你可以配置模块的前缀为classpath*:/templates/，这样会查找classpath下的所有模板目录。</p>
-<h2 id="Error_Handling_错误处理">Error Handling 错误处理</h2><p>Spring Boot默认提供一个/error映射用来以合适的方式处理所有的错误，并且它在servlet容器中注册了一个全局的 错误页面。对于机器客户端（相对于浏览器而言，浏览器偏重于人的行为），它会产生一个具有详细错误，HTTP状态，异常信息的JSON响应。对于浏览器客户端，它会产生一个白色标签样式（whitelabel）的错误视图，该视图将以HTML格式显示同样的数据（可以添加一个解析为erro的View来自定义它）。为了完全替换默认的行为，你可以实现ErrorController，并注册一个该类型的bean定义，或简单地添加一个ErrorAttributes类型的bean以使用现存的机制，只是替换显示的内容。</p>
-<p>如果在某些条件下需要比较多的错误页面，内嵌的servlet容器提供了一个统一的Java DSL（领域特定语言）来自定义错误处理。 示例：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> EmbeddedServletContainerCustomizer <span class="title">containerCustomizer</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> MyCustomizer();</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// ...</span></div><div class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">MyCustomizer</span> <span class="keyword">implements</span> <span class="title">EmbeddedServletContainerCustomizer</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableEmbeddedServletContainer container)</span> </span>&#123;</div><div class="line">        container.addErrorPages(<span class="keyword">new</span> ErrorPage(HttpStatus.BAD_REQUEST, <span class="string">"/400"</span>));</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>你也可以使用常规的Spring MVC特性来处理错误，比如@ExceptionHandler方法和@ControllerAdvice。ErrorController将会捡起任何没有处理的异常。</p>
-<p>N.B. 如果你为一个路径注册一个ErrorPage，最终被一个过滤器（Filter）处理（对于一些非Spring web框架，像Jersey和Wicket这很常见），然后过滤器需要显式注册为一个ERROR分发器（dispatcher）。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> FilterRegistrationBean <span class="title">myFilter</span><span class="params">()</span> </span>&#123;</div><div class="line">    FilterRegistrationBean registration = <span class="keyword">new</span> FilterRegistrationBean();</div><div class="line">    registration.setFilter(<span class="keyword">new</span> MyFilter());</div><div class="line">    ...</div><div class="line">    registration.setDispatcherTypes(EnumSet.allOf(DispatcherType.class));</div><div class="line">    <span class="keyword">return</span> registration;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>注：默认的FilterRegistrationBean没有包含ERROR分发器类型。</p>
-<h2 id="Servlets和Filters">Servlets和Filters</h2><p>当使用内嵌的servlet容器时，你可以直接将servlet和filter注册为Spring的beans。在配置期间，如果你想引用来自application.properties的值，这是非常方便的。默认情况下，如果上下文只包含单一的Servlet，那它将被映射到根路径（/）。在多Servlet beans的情况下，bean的名称将被用作路径的前缀。过滤器会被映射到 /*。</p>
-<p>如果基于约定（convention-based）的映射不够灵活，你可以使用ServletRegistrationBean和FilterRegistrationBean类实现完全的控制。如果你的bean实现了ServletContextInitializer接口，也可以直接注册它们。</p>
-<h2 id="EmbeddedWebApplicationContext">EmbeddedWebApplicationContext</h2><p>Spring Boot底层使用了一个新的ApplicationContext类型，用于对内嵌servlet容器的支持。EmbeddedWebApplicationContext是一个特殊类型的WebApplicationContext，它通过搜索一个单一的EmbeddedServletContainerFactory bean来启动自己。通常，TomcatEmbeddedServletContainerFactory，JettyEmbeddedServletContainerFactory或UndertowEmbeddedServletContainerFactory将被自动配置。</p>
-<p>注：你通常不需要知道这些实现类。大多数应用将被自动配置，并根据你的行为创建合适的ApplicationContext和EmbeddedServletContainerFactory。</p>
-<h2 id="自定义内嵌servlet容器">自定义内嵌servlet容器</h2><p>常见的Servlet容器设置可以通过Spring Environment属性进行配置。通常，你会把这些属性定义到application.properties文件中。 常见的服务器设置包括：</p>
-<p>server.port - 进来的HTTP请求的监听端口号<br>server.address - 绑定的接口地址<br>server.sessionTimeout - session超时时间<br>具体参考<a href="https://github.com/spring-projects/spring-boot/blob/master/spring-boot-autoconfigure/src/main/java/org/springframework/boot/autoconfigure/web/ServerProperties.java" target="_blank" rel="external">ServerProperties</a>。</p>
-<p>编程方式的自定义<br>如果需要以编程的方式配置内嵌的servlet容器，你可以注册一个实现EmbeddedServletContainerCustomizer接口的Spring bean。EmbeddedServletContainerCustomizer提供对ConfigurableEmbeddedServletContainer的访问，ConfigurableEmbeddedServletContainer包含很多自定义的setter方法。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> org.springframework.boot.context.embedded.*;</div><div class="line"><span class="keyword">import</span> org.springframework.stereotype.Component;</div><div class="line"></div><div class="line"><span class="meta">@Component</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CustomizationBean</span> <span class="keyword">implements</span> <span class="title">EmbeddedServletContainerCustomizer</span> </span>&#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">customize</span><span class="params">(ConfigurableEmbeddedServletContainer container)</span> </span>&#123;</div><div class="line">        container.setPort(<span class="number">9000</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>直接自定义ConfigurableEmbeddedServletContainer<br>如果上面的自定义手法过于受限，你可以自己注册TomcatEmbeddedServletContainerFactory，JettyEmbeddedServletContainerFactory或UndertowEmbeddedServletContainerFactory。</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Bean</span></div><div class="line"><span class="function"><span class="keyword">public</span> EmbeddedServletContainerFactory <span class="title">servletContainer</span><span class="params">()</span> </span>&#123;</div><div class="line">    TomcatEmbeddedServletContainerFactory factory = <span class="keyword">new</span> TomcatEmbeddedServletContainerFactory();</div><div class="line">    factory.setPort(<span class="number">9000</span>);</div><div class="line">    factory.setSessionTimeout(<span class="number">10</span>, TimeUnit.MINUTES);</div><div class="line">    factory.addErrorPages(<span class="keyword">new</span> ErrorPage(HttpStatus.NOT_FOUND, <span class="string">"/notfound.html"</span>);</div><div class="line">    <span class="keyword">return</span> factory;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>很多可选的配置都提供了setter方法，也提供了一些受保护的钩子方法以满足你的某些特殊需求。具体参考相关文档。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[Spring Boot非常适合开发WEB应用程序，你可以使用内嵌的Tomcat、Jetty或Undertow轻轻松松创建一个HTTP服务器。大多数的WEB应用都使用spring-boot-starter-web模块进行快速搭建和运行。spring-boot哎哟不错系列第三篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
-    
-    </summary>
-    
-      <category term="spring" scheme="http://miclee.cn/tags/spring/"/>
-    
-      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
     
   </entry>
   

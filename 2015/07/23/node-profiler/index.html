@@ -94,75 +94,71 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** JavaScript性能调优工具 **<em> <a id="more"></a> </em> * * * * *</p>
-<h2 id="特点">特点</h2>
-<ul>
+        <p><strong><em> JavaScript性能调优工具 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h2><ul>
 <li>基于Node.js开发</li>
 <li>深度介入V8</li>
 <li>集成Inspector</li>
 </ul>
-<h2 id="运行时优化">运行时优化</h2>
-<p>V8能在运行的过程中，收集代码的执行频度，进而对哪些高频度运行的热点代码进行动态优化， 这项优化技术十分有效，它并不优化所有的代码，而是找到该优化的代码去优化，将好钢用到刀刃上。</p>
+<h2 id="运行时优化"><a href="#运行时优化" class="headerlink" title="运行时优化"></a>运行时优化</h2><p>V8能在运行的过程中，收集代码的执行频度，进而对哪些高频度运行的热点代码进行动态优化，<br>这项优化技术十分有效，它并不优化所有的代码，而是找到该优化的代码去优化，将好钢用到刀刃上。</p>
 <ul>
 <li>原生web-inspector只给出JS函数的执行占比，未说明函数是否被优化</li>
 <li>Node Profiler展示执行占比、是否优化、未被优化的原因</li>
 </ul>
-<h2 id="bailout">Bailout</h2>
-<ul>
-<li><h3 id="概念">概念</h3>
-<p>即无法优化，或者优化失败的情况。V8针对JavaScript代码的优化是基于函数为单位的，也就是说一个函数的某段代码造成无法优化，会导致整个函数处于未优化的状态。所以即使某些Bailout情况无法避开，但可以确保它们处于一个极小的函数中，以避免整个函数无法优化。</p></li>
-<li><h3 id="case">CASE</h3></li>
+<h2 id="Bailout"><a href="#Bailout" class="headerlink" title="Bailout"></a>Bailout</h2><ul>
+<li><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>即无法优化，或者优化失败的情况。V8针对JavaScript代码的优化是基于函数为单位的，也就是说一个函数的某段代码造成无法优化，会导致整个函数处于未优化的状态。所以即使某些Bailout情况无法避开，但可以确保它们处于一个极小的函数中，以避免整个函数无法优化。</p>
+</li>
+<li><h3 id="CASE"><a href="#CASE" class="headerlink" title="CASE"></a>CASE</h3><ul>
 <li>带有try/catch或者try/finally语句的函数</li>
 <li>带有with语句的函数</li>
 <li>用for in来进行迭代并不是一种高效的做法，改进方式是使用Object.keys()取出keys，然后再进行普通的for循环</li>
 <li>带有yield语句的Generator函数</li>
 <li>赋值给形参中的参数</li>
-<li><p>其他。。。</p></li>
+<li>其他。。。</li>
 </ul>
-<h2 id="实测">实测</h2>
-<h3 id="使用示例">使用示例</h3>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span> : <span class="string">'text/plain'</span> &#125;);</div><div class="line">    res.write(<span class="string">'Hi, MicLee!\n'</span>)</div><div class="line">    res.end(<span class="string">'hello world!'</span>);</div><div class="line">  &#125;).listen(<span class="number">2014</span>, <span class="string">'127.0.0.1'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:2014/'</span>);</div></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="实测"><a href="#实测" class="headerlink" title="实测"></a>实测</h2><h3 id="使用示例"><a href="#使用示例" class="headerlink" title="使用示例"></a>使用示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">    res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-type'</span> : <span class="string">'text/plain'</span> &#125;);</div><div class="line">    res.write(<span class="string">'Hi, MicLee!\n'</span>)</div><div class="line">    res.end(<span class="string">'hello world!'</span>);</div><div class="line">  &#125;).listen(<span class="number">2014</span>, <span class="string">'127.0.0.1'</span>);</div><div class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:2014/'</span>);</div></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">Server running at http://127.0.0.1:2014/</div><div class="line">webkit-devtools-agent: Spawning websocket service process...</div><div class="line">start agent</div><div class="line"></div><div class="line">webkit-devtools-agent: A proxy got connected.</div><div class="line">webkit-devtools-agent: Waiting for commands...</div><div class="line">webkit-devtools-agent: Websockets service started on 0.0.0.0:9999  &lt;==启动成功</div></pre></td></tr></table></figure>
-<p>如出现如下： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: listen EADDRINUSE           &lt;== 可能是由于端口被占用</div></pre></td></tr></table></figure></p>
-<p>成功启动后，自动弹出chrome（如果有安装的话）url (http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0) 出现如下界面： <img src="https://cloud.githubusercontent.com/assets/3832082/8587127/7b54f88c-262a-11e5-9298-3a49c2b71d7c.jpg"></p>
+<p>如出现如下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Error: listen EADDRINUSE           &lt;== 可能是由于端口被占用</div></pre></td></tr></table></figure></p>
+<p>成功启动后，自动弹出chrome（如果有安装的话）url (<a href="http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0" target="_blank" rel="external">http://alinode.aliyun.com/profiler/inspector.html?host=localhost:9999&amp;page=0</a>)<br>出现如下界面：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587127/7b54f88c-262a-11e5-9298-3a49c2b71d7c.jpg" alt=""></p>
 <p>默认<strong>Collect JavaSript CPU Profile</strong>，单击<strong>Start</strong>。</p>
-<p>可以采用压测脚本实现对服务进行压力测试，保证更多的结果： <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ab -n1000 -c10 http://localhost:2014/</div></pre></td></tr></table></figure></p>
-<p>点击<strong>Stop</strong>，得到如下图的结果： <img src="https://cloud.githubusercontent.com/assets/3832082/8587247/8dc33cbc-262b-11e5-8a10-59c8f9de280e.jpg"></p>
+<p>可以采用压测脚本实现对服务进行压力测试，保证更多的结果：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ab -n1000 -c10 http://localhost:2014/</div></pre></td></tr></table></figure></p>
+<p>点击<strong>Stop</strong>，得到如下图的结果：<br><img src="https://cloud.githubusercontent.com/assets/3832082/8587247/8dc33cbc-262b-11e5-8a10-59c8f9de280e.jpg" alt=""></p>
 <p>可以看到更多关于函数在运行时的信息。</p>
-<h3 id="ui含义">UI含义</h3>
-<table>
+<h3 id="UI含义"><a href="#UI含义" class="headerlink" title="UI含义"></a>UI含义</h3><table>
 <thead>
-<tr class="header">
+<tr>
 <th>UI 栏目</th>
 <th>示意</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Self</td>
 <td>exclusive time</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Total</td>
 <td>inclusive time</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong># of Hidden Classes</strong></td>
 <td>隐藏类个数</td>
 </tr>
-<tr class="even">
+<tr>
 <td><strong>Bailout</strong></td>
 <td>v8中提取的最后一次去优化原因</td>
 </tr>
-<tr class="odd">
+<tr>
 <td><strong>Function</strong></td>
 <td>函数名称 script : line</td>
 </tr>
 </tbody>
 </table>
 <p><strong>红色表示函数未被优化， 淡绿色表示函数被V8优化过。</strong></p>
-<h3 id="注意事项">注意事项</h3>
-<ul>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
 <li>该工具目前只支持X64平台（Linux, Mac, Win)。</li>
 <li>切勿部署到线上，仅供自己调试使用。</li>
 </ul>
@@ -170,7 +166,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/07/23/node-profiler/" data-id="cj1q40de5001712s618phyrjl" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/07/23/node-profiler/" data-id="cj1q4o102001be9s6o4th4jkh" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/07/23/node-profiler/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -183,11 +179,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/03/koa/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/07/03/express/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          koa框架
+          express框架
         
       </div>
     </a>

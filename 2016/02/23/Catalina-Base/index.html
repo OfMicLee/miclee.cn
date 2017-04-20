@@ -91,10 +91,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** catalina.home和catalina.base这两个属性仅在你需要安装多个Tomcat实例而不想安装多个软件备份的时候使用，这样能节省磁盘空间。 **<em> <a id="more"></a> </em> * * * * *</p>
-<p>以Tomcat6.0为例，其Tomcat目录结构如下： bin (运行脚本） conf (配置文件） lib (核心库文件） logs (日志目录) temp (临时目录) webapps (自动装载的应用程序的目录） work (JVM临时文件目录[java.io.tmpdir])</p>
-<p>让我们看看这些目录那些可以被多个Tomcat实例公用，其实只有 bin 和 lib 目录,其它目录conf、logs、temp、webapps和work每个Tomcat实例必须拥有其自己独立的备份。 明白了上述关系就容易理解catalina.home和catalina.base的用途了。 catalina.home指向公用信息的位置，就是bin和lib的父目录。 catalina.base指向每个Tomcat目录私有信息的位置，就是conf、logs、temp、webapps和work的父目录。 仅运行一个Tomcat实例时，这两个属性指向的位置是相同的。 ==================================================================================================</p>
-<p>我们可以从Tomcat 5.5 的配置文档（http://tomcat.apache.org/tomcat-5.5-doc/config/host.html ）中找到答案：</p>
+        <p><strong><em> catalina.home和catalina.base这两个属性仅在你需要安装多个Tomcat实例而不想安装多个软件备份的时候使用，这样能节省磁盘空间。 </em></strong><br><a id="more"></a></p>
+<hr>
+<p>以Tomcat6.0为例，其Tomcat目录结构如下：<br>bin (运行脚本）<br>conf (配置文件）<br>lib (核心库文件）<br>logs (日志目录)<br>temp (临时目录)<br>webapps (自动装载的应用程序的目录）<br>work (JVM临时文件目录[java.io.tmpdir]) </p>
+<p>让我们看看这些目录那些可以被多个Tomcat实例公用，其实只有 bin 和 lib 目录,其它目录conf、logs、temp、webapps和work每个Tomcat实例必须拥有其自己独立的备份。<br>明白了上述关系就容易理解catalina.home和catalina.base的用途了。<br>catalina.home指向公用信息的位置，就是bin和lib的父目录。<br>catalina.base指向每个Tomcat目录私有信息的位置，就是conf、logs、temp、webapps和work的父目录。</p>
+<h1 id="仅运行一个Tomcat实例时，这两个属性指向的位置是相同的。"><a href="#仅运行一个Tomcat实例时，这两个属性指向的位置是相同的。" class="headerlink" title="仅运行一个Tomcat实例时，这两个属性指向的位置是相同的。"></a>仅运行一个Tomcat实例时，这两个属性指向的位置是相同的。</h1><p>我们可以从Tomcat 5.5 的配置文档（<a href="http://tomcat.apache.org/tomcat-5.5-doc/config/host.html" target="_blank" rel="external">http://tomcat.apache.org/tomcat-5.5-doc/config/host.html</a> ）中找到答案：</p>
 <p>The description below uses the variable name $CATALINA_HOME to refer to the directory into which you have installed Tomcat 5, and is the base directory against which most relative paths are resolved. However, if you have configured Tomcat 5 for multiple instances by setting a CATALINA_BASE directory, you should use $CATALINA_BASE instead of $CATALINA_HOME for each of these references.</p>
 <p>从这段描述可以看出CATALINA_HOME 和CATALINA_BASE 的区别。简单的说，CATALINA_HOME 是Tomcat 的安装目录，CATALINA_BASE 是Tomcat 的工作目录。如果我们想要运行Tomcat 的多个实例，但是不想安装多个Tomcat 软件副本。那么我们可以配置多个工作目录，每个运行实例独占一个工作目录，但是共享同一个安装目录。</p>
 <p>Tomcat 每个运行实例需要使用自己的conf 、logs 、temp 、webapps 、work 和shared 目录，因此CATALINA_BASE 就指向这些目录。 而其他目录主要包括了Tomcat 的二进制文件和脚本，CATALINA_HOME 就指向这些目录。</p>
@@ -103,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/02/23/Catalina-Base/" data-id="cj1q40dfx003z12s6i96trvrn" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/02/23/Catalina-Base/" data-id="cj1q4o11s0040e9s6k5kwiddz" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/02/23/Catalina-Base/#disqus_thread" class="article-comment-link">Comments</a>
       

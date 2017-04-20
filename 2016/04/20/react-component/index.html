@@ -91,22 +91,19 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** 可以这么说，一个 React 应用就是构建在 React 组件之上的。 **<em> <a id="more"></a> </em> * * * * *</p>
-<h1 id="react-组件">React 组件</h1>
-<p>组件有两个核心概念：</p>
+        <p><strong><em> 可以这么说，一个 React 应用就是构建在 React 组件之上的。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h1 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h1><p>组件有两个核心概念：</p>
 <ul>
 <li>props</li>
 <li>state</li>
 </ul>
 <p>一个组件就是通过这两个属性的值在 <code>render</code> 方法里面生成这个组件对应的 HTML 结构。</p>
-<p><em>注意：组件生成的 HTML 结构只能有一个单一的根节点。</em></p>
-<h2 id="props">props</h2>
-<p>前面也提到很多次了，<code>props</code> 就是组件的属性，由外部通过 JSX 属性传入设置，一旦初始设置完成，就可以认为 <code>this.props</code> 是不可更改的，所以<strong>不要</strong>轻易更改设置 <code>this.props</code> 里面的值（虽然对于一个 JS 对象你可以做任何事）。</p>
-<h2 id="state">state</h2>
-<p><code>state</code> 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 <code>state</code> 呈现不同的 UI 展示。</p>
-<p>一旦状态（数据）更改，组件就会自动调用 <code>render</code> 重新渲染 UI，这个更改的动作会通过 <code>this.setState</code> 方法来触发。</p>
-<h2 id="划分状态数据">划分状态数据</h2>
-<p>一条原则：让组件尽可能地少状态。</p>
+<p>_注意：组件生成的 HTML 结构只能有一个单一的根节点。_</p>
+<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>前面也提到很多次了，<code>props</code> 就是组件的属性，由外部通过 JSX<br>属性传入设置，一旦初始设置完成，就可以认为 <code>this.props</code> 是不可更改的，所以<strong>不要</strong>轻易更改设置 <code>this.props</code> 里面的值（虽然对于一个 JS 对象你可以做任何事）。</p>
+<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p><code>state</code> 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 <code>state</code><br>呈现不同的 UI 展示。</p>
+<p>一旦状态（数据）更改，组件就会自动调用 <code>render</code> 重新渲染 UI，这个更改的动作会通过<br><code>this.setState</code> 方法来触发。</p>
+<h2 id="划分状态数据"><a href="#划分状态数据" class="headerlink" title="划分状态数据"></a>划分状态数据</h2><p>一条原则：让组件尽可能地少状态。</p>
 <p>这样组件逻辑就越容易维护。</p>
 <p>什么样的数据属性可以当作状态？</p>
 <p>当更改这个状态（数据）需要更新组件 UI 的就可以认为是 <code>state</code>，下面这些可以认为<strong>不是</strong>状态：</p>
@@ -114,16 +111,15 @@
 <li>可计算的数据：比如一个数组的长度</li>
 <li>和 props 重复的数据：除非这个数据是要做变更的</li>
 </ul>
-<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in React</a>，相信会对组件有更深刻的认识。</p>
-<h2 id="无状态组件">无状态组件</h2>
-<p>你也可以用纯粹的函数来定义无状态的组件(stateless function)，这种组件没有状态，没有生命周期，只是简单的接受 props 渲染生成 DOM 结构。无状态组件非常简单，开销很低，如果可能的话尽量使用无状态组件。比如使用箭头函数定义：</p>
+<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in<br>React</a>，相信会对组件有更深刻的认识。</p>
+<h2 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h2><p>你也可以用纯粹的函数来定义无状态的组件(stateless function)，这种组件没有状态，没有生命周期，只是简单的接受 props 渲染生成 DOM 结构。无状态组件非常简单，开销很低，如果可能的话尽量使用无状态组件。比如使用箭头函数定义：</p>
 <figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const HelloMessage = (props) =&gt; &lt;div&gt; Hello &#123;props.name&#125;&lt;/div&gt;;</div><div class="line">render(&lt;HelloMessage name="John" /&gt;, mountNode);</div></pre></td></tr></table></figure>
-<p>因为无状态组件只是函数，所以它没有实例返回，这点在想用 refs 获取无状态组件的时候要注意，参见<a href="dom.md">DOM 操作</a>。</p>
+<p>因为无状态组件只是函数，所以它没有实例返回，这点在想用 refs<br>获取无状态组件的时候要注意，参见<a href="dom.md">DOM 操作</a>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/04/20/react-component/" data-id="cj1q40dfy004312s66e4dbyz8" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/04/20/react-component/" data-id="cj1q4o11t0043e9s6swwo3n15" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/04/20/react-component/#disqus_thread" class="article-comment-link">Comments</a>
       

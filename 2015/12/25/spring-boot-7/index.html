@@ -91,43 +91,52 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** 使用spring-boot 打包可执行jar和war包。spring-boot哎哟不错系列第七篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 **<em> <a id="more"></a> </em> * * * * *</p>
-<h2 id="一官方说法">一、官方说法</h2>
-<p>一旦spring-boot-maven-plugin被包含到你的pom.xml中，它就会自动尝试使用spring-boot:repackage目标重写存档以使它们能够执行。为了构建一个jar或war，你应该使用常规的packaging元素配置你的项目：</p>
+        <p><strong><em> 使用spring-boot 打包可执行jar和war包。spring-boot哎哟不错系列第七篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="一、官方说法"><a href="#一、官方说法" class="headerlink" title="一、官方说法"></a>一、官方说法</h2><p>一旦spring-boot-maven-plugin被包含到你的pom.xml中，它就会自动尝试使用spring-boot:repackage目标重写存档以使它们能够执行。为了构建一个jar或war，你应该使用常规的packaging元素配置你的项目：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>生成的存档在package阶段会被Spring Boot增强。你想启动的main类即可以通过指定一个配置选项，也可以通过为manifest添加一个Main-Class属性这种常规的方式实现。如果你没有指定一个main类，该插件会搜索带有public static void main(String[] args)方法的类。</p>
 <p>为了构建和运行一个项目的artifact，你可以输入以下命令：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mvn <span class="keyword">package</span></div><div class="line"><span class="title">$ java -jar target/mymodule-0.0.1-SNAPSHOT.jar</span></div></pre></td></tr></table></figure>
-<p><strong>为了构建一个即是可执行的，又能部署到一个外部容器的war文件，你需要标记内嵌容器依赖为“provided”</strong>，例如：</p>
+<p><strong>为了构建一个即是可执行的，又能部署到一个外部容器的war文件，你需要标记内嵌容器依赖为”provided”</strong>，例如：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="二亲测">二、亲测</h2>
-<h3 id="亲测一jsp项目">亲测一：JSP项目</h3>
-<p>存在设置情况下，各种运行情况（tomcat相关包在war包的lib-provided目录下）</p>
+<h2 id="二、亲测"><a href="#二、亲测" class="headerlink" title="二、亲测"></a>二、亲测</h2><h3 id="亲测一：JSP项目"><a href="#亲测一：JSP项目" class="headerlink" title="亲测一：JSP项目"></a>亲测一：JSP项目</h3><p>存在设置情况下，各种运行情况（tomcat相关包在war包的lib-provided目录下）</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol style="list-style-type: decimal">
-<li>java -jar test.war -&gt; OK</li>
-<li>mvn spring-boot:run -&gt; OK</li>
-<li>tomcat 容器 -&gt; OK</li>
-<li>run mainClass -&gt; error 启动报错：java.lang.NoClassDefFoundError: javax/servlet/ServletContext，位于tomcat-embed-core，被打包到lib-provided。</li>
+<ol>
+<li>java -jar test.war   -&gt; OK</li>
+<li>mvn spring-boot:run  -&gt; OK</li>
+<li>tomcat 容器           -&gt; OK</li>
+<li>run mainClass        -&gt; error 启动报错：java.lang.NoClassDefFoundError: javax/servlet/ServletContext，位于tomcat-embed-core，被打包到lib-provided。</li>
 </ol>
-<p>去掉设置或去掉provided（tomcat相关包在war包的lib目录下）: 1. java -jar test.war -&gt; OK 2. mvn spring-boot:run -&gt; OK 3. tomcat 容器 -&gt; OK 4. run mainClass -&gt; error 能启动，但访问404（无法解析JSP页面）</p>
-<h3 id="非jsp项目">非JSP项目</h3>
-<p>非JSP项目去掉依赖：</p>
+<p>去掉设置或去掉provided（tomcat相关包在war包的lib目录下）:</p>
+<ol>
+<li>java -jar test.war   -&gt; OK</li>
+<li>mvn spring-boot:run  -&gt; OK</li>
+<li>tomcat 容器           -&gt; OK</li>
+<li>run mainClass        -&gt; error 能启动，但访问404（无法解析JSP页面）</li>
+</ol>
+<h3 id="非JSP项目"><a href="#非JSP项目" class="headerlink" title="非JSP项目"></a>非JSP项目</h3><p>非JSP项目去掉依赖：</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>存在设置情况下，各种运行情况（spring-boot-starter-tomcat-1.3.0.RELEASE.jar在war包的lib-provided目录下）</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol style="list-style-type: decimal">
-<li>java -jar test.war -&gt; OK</li>
-<li>mvn spring-boot:run -&gt; OK</li>
-<li>tomcat 容器 -&gt; OK</li>
-<li>run mainClass -&gt; OK</li>
+<ol>
+<li>java -jar test.war   -&gt; OK</li>
+<li>mvn spring-boot:run  -&gt; OK</li>
+<li>tomcat 容器           -&gt; OK</li>
+<li>run mainClass        -&gt; OK</li>
 </ol>
-<p>去掉设置或去掉provided（spring-boot-starter-tomcat-1.3.0.RELEASE.jar在war包的lib包下）: 1. java -jar test.war -&gt; OK 2. mvn spring-boot:run -&gt; OK 3. tomcat 容器 -&gt; OK 4. run mainClass -&gt; OK</p>
+<p>去掉设置或去掉provided（spring-boot-starter-tomcat-1.3.0.RELEASE.jar在war包的lib包下）:</p>
+<ol>
+<li>java -jar test.war   -&gt; OK</li>
+<li>mvn spring-boot:run  -&gt; OK</li>
+<li>tomcat 容器           -&gt; OK</li>
+<li>run mainClass        -&gt; OK</li>
+</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/12/25/spring-boot-7/" data-id="cj1q40dfo003l12s6xlc5aevb" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/12/25/spring-boot-7/" data-id="cj1q4o11l003oe9s65ur4wvqx" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/12/25/spring-boot-7/#disqus_thread" class="article-comment-link">Comments</a>
       

@@ -91,55 +91,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** 常用的模板引擎语言 **<em> <a id="more"></a> </em> * * * * *</p>
+        <p><strong><em> 常用的模板引擎语言 </em></strong><br><a id="more"></a></p>
+<hr>
 <blockquote>
-<p>在java领域，表现层技术主要有三种：jsp、freemarker、velocity 在javascript领域，主要有：EJS、Jade、doT、swig等等，参考<a href="http://garann.github.io/template-chooser/" class="uri" target="_blank" rel="external">http://garann.github.io/template-chooser/</a></p>
+<p>在java领域，表现层技术主要有三种：jsp、freemarker、velocity<br>在javascript领域，主要有：EJS、Jade、doT、swig等等，参考<a href="http://garann.github.io/template-chooser/" target="_blank" rel="external">http://garann.github.io/template-chooser/</a></p>
 </blockquote>
-<h2 id="jsp">JSP</h2>
-<h3 id="优点">优点</h3>
-<ol style="list-style-type: decimal">
+<h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
 <li>功能强大，可以写java代码</li>
 <li>支持jsp标签（jsp tag）</li>
 <li>支持表达式语言（el）</li>
 <li>官方标准，用户群广，丰富的第三方jsp标签库</li>
-<li>性能良好。jsp编译成class文件执行，有很好的性能表现 ### 缺点 jsp没有明显缺点，非要挑点骨头那就是，由于可以编写java代码，如使用不当容易破坏mvc结构。</li>
+<li>性能良好。jsp编译成class文件执行，有很好的性能表现<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3>jsp没有明显缺点，非要挑点骨头那就是，由于可以编写java代码，如使用不当容易破坏mvc结构。</li>
 </ol>
-<h2 id="velocity是较早出现的用于代替jsp的模板语言">velocity是较早出现的用于代替jsp的模板语言</h2>
-<h3 id="优点-1">优点</h3>
-<ol style="list-style-type: decimal">
+<h2 id="velocity是较早出现的用于代替jsp的模板语言"><a href="#velocity是较早出现的用于代替jsp的模板语言" class="headerlink" title="velocity是较早出现的用于代替jsp的模板语言"></a>velocity是较早出现的用于代替jsp的模板语言</h2><h3 id="优点-1"><a href="#优点-1" class="headerlink" title="优点"></a>优点</h3><ol>
 <li>不能编写java代码，可以实现严格的mvc分离</li>
 <li>性能良好，据说比jsp性能还要好些</li>
-<li>使用表达式语言，据说jsp的表达式语言就是学velocity的 ### 缺点</li>
+<li>使用表达式语言，据说jsp的表达式语言就是学velocity的<h3 id="缺点-1"><a href="#缺点-1" class="headerlink" title="缺点"></a>缺点</h3></li>
 <li>不是官方标准</li>
 <li>用户群体和第三方标签库没有jsp多。</li>
 <li>对jsp标签支持不够好</li>
 </ol>
-<h2 id="freemarker">freemarker</h2>
-<h3 id="优点-2">优点</h3>
-<ol style="list-style-type: decimal">
+<h2 id="freemarker"><a href="#freemarker" class="headerlink" title="freemarker"></a>freemarker</h2><h3 id="优点-2"><a href="#优点-2" class="headerlink" title="优点"></a>优点</h3><ol>
 <li>不能编写java代码，可以实现严格的mvc分离</li>
 <li>性能。velocity应该是最好的，其次是jsp，普通的页面freemarker性能最差（虽然只是几毫秒到十几毫秒的差距）。但是在复杂页面上（包含大量判断. 日期金额格式化）的页面上，freemarker的性能比使用tag和el的jsp好。</li>
 <li>对jsp标签支持良好</li>
 <li>内置大量常用功能，比如html过滤，日期金额格式化等等，使用非常方便</li>
 <li>宏定义（类似jsp标签）非常方便，优于jsp的tag</li>
-<li>使用表达式语言 ### 缺点</li>
+<li>使用表达式语言<h3 id="缺点-2"><a href="#缺点-2" class="headerlink" title="缺点"></a>缺点</h3></li>
 <li>不是官方标准</li>
 <li>用户群体和第三方标签库没有jsp多</li>
 </ol>
-<h2 id="jade">Jade</h2>
-<ul>
+<h2 id="Jade"><a href="#Jade" class="headerlink" title="Jade"></a>Jade</h2><ul>
 <li>Jade 很简洁，表达能力也很强，但不够直观，学习和适应成本高，大量的tab和空格容易出错。</li>
 <li>Jade 处理模板时计算量大，在没有缓存的情况下性能低是肯定的。</li>
 <li>Jade 对于一个不擅长前端、喜欢Bootstrap和Ctrl c + v 实在不能提高开发效率。</li>
 <li>适合后端人员用</li>
 </ul>
-<h2 id="ejs">EJS</h2>
-<p>简单易用的模板引擎，不过不支持继承，如果只是想要个模板往里面填充数据，是最好的选择</p>
+<h2 id="EJS"><a href="#EJS" class="headerlink" title="EJS"></a>EJS</h2><p>简单易用的模板引擎，不过不支持继承，如果只是想要个模板往里面填充数据，是最好的选择</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/12/18/template-language/" data-id="cj1q40dfk003b12s6y8smmwuq" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/12/18/template-language/" data-id="cj1q4o11f003be9s6hslnwt1l" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/12/18/template-language/#disqus_thread" class="article-comment-link">Comments</a>
       

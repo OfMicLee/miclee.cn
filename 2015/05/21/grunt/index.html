@@ -91,11 +91,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** Grunt是一个自动任务运行器，会按照预先设定的顺序自动运行一系列的任务，简化工作流程，减轻重复性工作带来的负担 **<em> <a id="more"></a> </em> * * * * *</p>
+        <p><strong><em> Grunt是一个自动任务运行器，会按照预先设定的顺序自动运行一系列的任务，简化工作流程，减轻重复性工作带来的负担 </em></strong><br><a id="more"></a></p>
+<hr>
 <p>在Javascript的开发过程中，经常会遇到一些重复性的任务，比如合并文件、压缩代码、检查语法错误、将Sass代码转成CSS代码等等。通常，我们需要使用不同的工具，来完成不同的任务，既重复劳动又非常耗时。Grunt就是为了解决这个问题而发明的工具，可以帮助我们自动管理和运行各种任务。</p>
 <p>简单说，Grunt是一个自动任务运行器，会按照预先设定的顺序自动运行一系列的任务。这可以简化工作流程，减轻重复性工作带来的负担。</p>
-<h2 id="安装">安装</h2>
-<p>Grunt基于Node.js，安装之前要先安装Node.js，然后运行下面的命令。</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>Grunt基于Node.js，安装之前要先安装Node.js，然后运行下面的命令。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">sudo npm install grunt-cli -g</div></pre></td></tr></table></figure>
 <p>grunt-cli表示安装的是grunt的命令行界面，参数g表示全局安装。</p>
 <p>Grunt使用模块结构，除了安装命令行界面以外，还要根据需要安装相应的模块。这些模块应该采用局部安装，因为不同项目可能需要同一个模块的不同版本。</p>
@@ -110,14 +110,16 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install &lt;module&gt; --save-dev</div></pre></td></tr></table></figure>
 <p>比如，对应上面package.json文件指定的模块，需要运行以下npm命令。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install grunt --save-dev</div><div class="line">npm install grunt-contrib-jshint --save-dev</div><div class="line">npm install grunt-contrib-concat --save-dev</div><div class="line">npm install grunt-contrib-uglify --save-dev</div><div class="line">npm install grunt-contrib-watch --save-dev</div></pre></td></tr></table></figure>
-<h2 id="命令脚本文件gruntfile.js">命令脚本文件Gruntfile.js</h2>
-<p>模块安装完以后，下一步在项目的根目录下，新建脚本文件Gruntfile.js。它是grunt的配置文件，就好像package.json是npm的配置文件一样。Gruntfile.js就是一般的Node.js模块的写法。</p>
+<h2 id="命令脚本文件Gruntfile-js"><a href="#命令脚本文件Gruntfile-js" class="headerlink" title="命令脚本文件Gruntfile.js"></a>命令脚本文件Gruntfile.js</h2><p>模块安装完以后，下一步在项目的根目录下，新建脚本文件Gruntfile.js。它是grunt的配置文件，就好像package.json是npm的配置文件一样。Gruntfile.js就是一般的Node.js模块的写法。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span>(<span class="params">grunt</span>) </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// 配置Grunt各种模块的参数</span></div><div class="line">  grunt.initConfig(&#123;</div><div class="line">    <span class="attr">jshint</span>: &#123; <span class="comment">/* jshint的参数 */</span> &#125;,</div><div class="line">    <span class="attr">concat</span>: &#123; <span class="comment">/* concat的参数 */</span> &#125;,</div><div class="line">    <span class="attr">uglify</span>: &#123; <span class="comment">/* uglify的参数 */</span> &#125;,</div><div class="line">    <span class="attr">watch</span>:  &#123; <span class="comment">/* watch的参数 */</span> &#125;</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  <span class="comment">// 从node_modules目录加载模块文件</span></div><div class="line">  grunt.loadNpmTasks(<span class="string">'grunt-contrib-jshint'</span>);</div><div class="line">  grunt.loadNpmTasks(<span class="string">'grunt-contrib-concat'</span>);</div><div class="line">  grunt.loadNpmTasks(<span class="string">'grunt-contrib-uglify'</span>);</div><div class="line">  grunt.loadNpmTasks(<span class="string">'grunt-contrib-watch'</span>);</div><div class="line"></div><div class="line">  <span class="comment">// 每行registerTask定义一个任务</span></div><div class="line">  grunt.registerTask(<span class="string">'default'</span>, [<span class="string">'jshint'</span>, <span class="string">'concat'</span>, <span class="string">'uglify'</span>]);</div><div class="line">  grunt.registerTask(<span class="string">'check'</span>, [<span class="string">'jshint'</span>]);</div><div class="line"></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 <p>上面的代码用到了grunt代码的三个方法：</p>
 <ul>
-<li><p><strong>grunt.initConfig</strong>：定义各种模块的参数，每一个成员项对应一个同名模块。</p></li>
-<li><p><strong>grunt.loadNpmTasks</strong>：加载完成任务所需的模块。</p></li>
-<li><p><strong>grunt.registerTask</strong>：定义具体的任务。第一个参数为任务名，第二个参数是一个数组，表示该任务需要依次使用的模块。default任务名表示，如果直接输入grunt命令，后面不跟任何参数，这时所调用的模块（该例为jshint，concat和uglify）；该例的check任务则表示使用jshint插件对代码进行语法检查。</p></li>
+<li><p><strong>grunt.initConfig</strong>：定义各种模块的参数，每一个成员项对应一个同名模块。</p>
+</li>
+<li><p><strong>grunt.loadNpmTasks</strong>：加载完成任务所需的模块。</p>
+</li>
+<li><p><strong>grunt.registerTask</strong>：定义具体的任务。第一个参数为任务名，第二个参数是一个数组，表示该任务需要依次使用的模块。default任务名表示，如果直接输入grunt命令，后面不跟任何参数，这时所调用的模块（该例为jshint，concat和uglify）；该例的check任务则表示使用jshint插件对代码进行语法检查。</p>
+</li>
 </ul>
 <p>上面的代码一共加载了四个模块：jshint（检查语法错误）、concat（合并文件）、uglify（压缩代码）和watch（自动执行）。接下来，有两种使用方法。</p>
 <p>（1）命令行执行某个模块，比如</p>
@@ -127,8 +129,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">grunt check</div></pre></td></tr></table></figure>
 <p>上面代码表示运行check任务。如果运行成功，就会显示“Done, without errors.”。</p>
 <p>如果没有给出任务名，只键入grunt，就表示执行默认的default任务。</p>
-<h2 id="gruntfile.js实例grunt-contrib-cssmin模块">Gruntfile.js实例：grunt-contrib-cssmin模块</h2>
-<p>下面通过cssmin模块，演示如何编写Gruntfile.js文件。cssmin模块的作用是最小化CSS文件。</p>
+<h2 id="Gruntfile-js实例：grunt-contrib-cssmin模块"><a href="#Gruntfile-js实例：grunt-contrib-cssmin模块" class="headerlink" title="Gruntfile.js实例：grunt-contrib-cssmin模块"></a>Gruntfile.js实例：grunt-contrib-cssmin模块</h2><p>下面通过cssmin模块，演示如何编写Gruntfile.js文件。cssmin模块的作用是最小化CSS文件。</p>
 <p>首先，在项目的根目录下安装该模块。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">npm install grunt-contrib-cssmin --save-dev</div></pre></td></tr></table></figure>
 <p>然后，新建文件Gruntfile.js。</p>
@@ -146,17 +147,25 @@
 <p>cssmin（属性）指向一个对象，该对象又包含多个成员。除了一些系统设定的成员（比如options），其他自定义的成员称为目标（target）。一个模块可以有多个目标（target），上面代码里面，cssmin模块共有两个目标，一个是“minify”，用于压缩css文件；另一个是“combine”，用于将多个css文件合并一个文件。</p>
 <p>每个目标的具体设置，需要参考该模板的文档。就cssmin来讲，minify目标的参数具体含义如下：</p>
 <ul>
-<li><p><strong>expand</strong>：如果设为true，就表示下面文件名的占位符（即*号）都要扩展成具体的文件名。</p></li>
-<li><p><strong>cwd</strong>：需要处理的文件（input）所在的目录。</p></li>
-<li><p><strong>src</strong>：表示需要处理的文件。如果采用数组形式，数组的每一项就是一个文件名，可以使用通配符。</p></li>
-<li><p><strong>dest</strong>：表示处理后的文件名或所在目录。</p></li>
-<li><p><strong>ext</strong>：表示处理后的文件后缀名。</p></li>
+<li><p><strong>expand</strong>：如果设为true，就表示下面文件名的占位符（即*号）都要扩展成具体的文件名。</p>
+</li>
+<li><p><strong>cwd</strong>：需要处理的文件（input）所在的目录。</p>
+</li>
+<li><p><strong>src</strong>：表示需要处理的文件。如果采用数组形式，数组的每一项就是一个文件名，可以使用通配符。</p>
+</li>
+<li><p><strong>dest</strong>：表示处理后的文件名或所在目录。</p>
+</li>
+<li><p><strong>ext</strong>：表示处理后的文件后缀名。</p>
+</li>
 </ul>
 <p>除了上面这些参数，还有一些参数也是grunt所有模块通用的。</p>
 <ul>
-<li><p><strong>filter</strong>：一个返回布尔值的函数，用于过滤文件名。只有返回值为true的文件，才会被grunt处理。</p></li>
-<li><p><strong>dot</strong>：是否匹配以点号（.）开头的系统文件。</p></li>
-<li><p><strong>makeBase</strong>：如果设置为true，就只匹配文件路径的最后一部分。比如，a?b可以匹配/xyz/123/acb，而不匹配/xyz/acb/123。</p></li>
+<li><p><strong>filter</strong>：一个返回布尔值的函数，用于过滤文件名。只有返回值为true的文件，才会被grunt处理。</p>
+</li>
+<li><p><strong>dot</strong>：是否匹配以点号（.）开头的系统文件。</p>
+</li>
+<li><p><strong>makeBase</strong>：如果设置为true，就只匹配文件路径的最后一部分。比如，a?b可以匹配/xyz/123/acb，而不匹配/xyz/acb/123。</p>
+</li>
 </ul>
 <p>关于通配符，含义如下：</p>
 <ul>
@@ -179,8 +188,7 @@
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">grunt <span class="comment"># 默认情况下，先压缩后合并</span></div><div class="line"></div><div class="line">grunt cssmin:minify <span class="comment"># 只压缩不合并</span></div><div class="line"></div><div class="line">grunt css:combine <span class="comment"># 只合并不压缩</span></div></pre></td></tr></table></figure>
 <p>如果不指明目标，只是指明模块，就表示将所有目标依次运行一遍。</p>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">grunt cssmin</div></pre></td></tr></table></figure>
-<h2 id="常用模块设置">常用模块设置</h2>
-<p>grunt的<a href="http://gruntjs.com/plugins" target="_blank" rel="external">模块</a>已经超过了2000个，且还在快速增加。下面是一些常用的模块（按字母排序）。</p>
+<h2 id="常用模块设置"><a href="#常用模块设置" class="headerlink" title="常用模块设置"></a>常用模块设置</h2><p>grunt的<a href="http://gruntjs.com/plugins" target="_blank" rel="external">模块</a>已经超过了2000个，且还在快速增加。下面是一些常用的模块（按字母排序）。</p>
 <ul>
 <li><strong>grunt-contrib-clean</strong>：删除文件。</li>
 <li><strong>grunt-contrib-compass</strong>：使用compass编译sass文件。</li>
@@ -194,30 +202,24 @@
 </ul>
 <p>模块的前缀如果是grunt-contrib，就表示该模块由grunt开发团队维护；如果前缀是grunt（比如grunt-pakmanager），就表示由第三方开发者维护。</p>
 <p>以下选几个模块，看看它们配置参数的写法，也就是说如何在grunt.initConfig方法中配置各个模块。</p>
-<h3 id="grunt-contrib-jshint">grunt-contrib-jshint</h3>
-<p>jshint用来检查语法错误，比如分号的使用是否正确、有没有忘记写括号等等。它在grunt.initConfig方法里面的配置代码如下。</p>
+<h3 id="grunt-contrib-jshint"><a href="#grunt-contrib-jshint" class="headerlink" title="grunt-contrib-jshint"></a>grunt-contrib-jshint</h3><p>jshint用来检查语法错误，比如分号的使用是否正确、有没有忘记写括号等等。它在grunt.initConfig方法里面的配置代码如下。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">jshint: &#123;</div><div class="line">	<span class="attr">options</span>: &#123;</div><div class="line">		<span class="attr">eqeqeq</span>: <span class="literal">true</span>,</div><div class="line">		<span class="attr">trailing</span>: <span class="literal">true</span></div><div class="line">	&#125;,</div><div class="line">	<span class="attr">files</span>: [<span class="string">'Gruntfile.js'</span>, <span class="string">'lib/**/*.js'</span>]</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>上面代码先指定jshint的<a href="http://www.jshint.com/docs/options/" target="_blank" rel="external">检查项目</a>，eqeqeq表示要用严格相等运算符取代相等运算符，trailing表示行尾不得有多余的空格。然后，指定files属性，表示检查目标是Gruntfile.js文件，以及lib目录的所有子目录下面的JavaScript文件。</p>
-<h3 id="grunt-contrib-concat">grunt-contrib-concat</h3>
-<p>concat用来合并同类文件，它不仅可以合并JavaScript文件，还可以合并CSS文件。</p>
+<h3 id="grunt-contrib-concat"><a href="#grunt-contrib-concat" class="headerlink" title="grunt-contrib-concat"></a>grunt-contrib-concat</h3><p>concat用来合并同类文件，它不仅可以合并JavaScript文件，还可以合并CSS文件。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">concat: &#123;</div><div class="line">  <span class="attr">js</span>: &#123;</div><div class="line">    <span class="attr">src</span>: [<span class="string">'lib/module1.js'</span>, <span class="string">'lib/module2.js'</span>, <span class="string">'lib/plugin.js'</span>],</div><div class="line">    <span class="attr">dest</span>: <span class="string">'dist/script.js'</span></div><div class="line">  &#125;</div><div class="line">  css: &#123;</div><div class="line">    <span class="attr">src</span>: [<span class="string">'style/normalize.css'</span>, <span class="string">'style/base.css'</span>, <span class="string">'style/theme.css'</span>],</div><div class="line">    <span class="attr">dest</span>: <span class="string">'dist/screen.css'</span></div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>js目标用于合并JavaScript文件，css目标用语合并CSS文件。两者的src属性指定需要合并的文件（input），dest属性指定输出的目标文件（output）。</p>
-<h3 id="grunt-contrib-uglify">grunt-contrib-uglify</h3>
-<p>uglify模块用来压缩代码，减小文件体积。</p>
+<h3 id="grunt-contrib-uglify"><a href="#grunt-contrib-uglify" class="headerlink" title="grunt-contrib-uglify"></a>grunt-contrib-uglify</h3><p>uglify模块用来压缩代码，减小文件体积。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">uglify: &#123;</div><div class="line">  <span class="attr">options</span>: &#123;</div><div class="line">    <span class="attr">banner</span>: bannerContent,</div><div class="line">    <span class="attr">sourceMapRoot</span>: <span class="string">'../'</span>,</div><div class="line">    <span class="attr">sourceMap</span>: <span class="string">'distrib/'</span>+name+<span class="string">'.min.js.map'</span>,</div><div class="line">    <span class="attr">sourceMapUrl</span>: name+<span class="string">'.min.js.map'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">target</span> : &#123;</div><div class="line">	<span class="attr">expand</span>: <span class="literal">true</span>,</div><div class="line">	<span class="attr">cwd</span>: <span class="string">'js/origin'</span>,</div><div class="line">	<span class="attr">src</span> : <span class="string">'*.js'</span>,</div><div class="line">	<span class="attr">dest</span> : <span class="string">'js/'</span></div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>上面代码中的options属性指定压缩后文件的文件头，以及sourceMap设置；target目标指定输入和输出文件。</p>
-<h3 id="grunt-contrib-copy">grunt-contrib-copy</h3>
-<p><a href="https://github.com/gruntjs/grunt-contrib-copy" target="_blank" rel="external">copy模块</a>用于复制文件与目录。</p>
+<h3 id="grunt-contrib-copy"><a href="#grunt-contrib-copy" class="headerlink" title="grunt-contrib-copy"></a>grunt-contrib-copy</h3><p><a href="https://github.com/gruntjs/grunt-contrib-copy" target="_blank" rel="external">copy模块</a>用于复制文件与目录。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">copy: &#123;</div><div class="line">  <span class="attr">main</span>: &#123;</div><div class="line">    <span class="attr">src</span>: <span class="string">'src/*'</span>,</div><div class="line">    <span class="attr">dest</span>: <span class="string">'dest/'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>上面代码将src子目录（只包含它下面的第一层文件和子目录），拷贝到dest子目录下面（即dest/src目录）。如果要更准确控制拷贝行为，比如只拷贝文件、不拷贝目录、不保持目录结构，可以写成下面这样：</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">copy: &#123;</div><div class="line">  <span class="attr">main</span>: &#123;</div><div class="line">    <span class="attr">expand</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">cwd</span>: <span class="string">'src/'</span>,</div><div class="line">    <span class="attr">src</span>: <span class="string">'**'</span>,</div><div class="line">    <span class="attr">dest</span>: <span class="string">'dest/'</span>,</div><div class="line">    <span class="attr">flatten</span>: <span class="literal">true</span>,</div><div class="line">    <span class="attr">filter</span>: <span class="string">'isFile'</span>,</div><div class="line">  &#125;,</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<h3 id="grunt-contrib-watch">grunt-contrib-watch</h3>
-<p><a href="https://github.com/gruntjs/grunt-contrib-watch" target="_blank" rel="external">watch模块</a>用来在后台运行，监听指定事件，然后自动运行指定的任务。</p>
+<h3 id="grunt-contrib-watch"><a href="#grunt-contrib-watch" class="headerlink" title="grunt-contrib-watch"></a>grunt-contrib-watch</h3><p><a href="https://github.com/gruntjs/grunt-contrib-watch" target="_blank" rel="external">watch模块</a>用来在后台运行，监听指定事件，然后自动运行指定的任务。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">watch: &#123;</div><div class="line">   <span class="attr">scripts</span>: &#123;</div><div class="line">    <span class="attr">files</span>: <span class="string">'**/*.js'</span>,</div><div class="line">    <span class="attr">tasks</span>: <span class="string">'jshint'</span>,</div><div class="line">	<span class="attr">options</span>: &#123;</div><div class="line">      <span class="attr">livereload</span>: <span class="literal">true</span>,</div><div class="line">    &#125;,</div><div class="line">   &#125;,</div><div class="line">   <span class="attr">css</span>: &#123;</div><div class="line">    <span class="attr">files</span>: <span class="string">'**/*.sass'</span>,</div><div class="line">    <span class="attr">tasks</span>: [<span class="string">'sass'</span>],</div><div class="line">    <span class="attr">options</span>: &#123;</div><div class="line">      <span class="attr">livereload</span>: <span class="literal">true</span>,</div><div class="line">    &#125;,</div><div class="line">   &#125;,</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>设置好上面的代码，打开另一个进程，运行grunt watch。此后，任何的js代码变动，文件保存后就会自动运行jshint任务；任何sass文件变动，文件保存后就会自动运行sass任务。</p>
 <p>需要注意的是，这两个任务的options参数之中，都设置了livereload，表示任务运行结束后，自动在浏览器中重载（reload）。这需要在浏览器中安装<a href="http://livereload.com/" target="_blank" rel="external">livereload插件</a>。安装后，livereload的默认端口为localhost:35729，但是也可以用livereload: 1337的形式重设端口（localhost:1337）。</p>
-<h3 id="其他模块">其他模块</h3>
-<p>下面是另外一些有用的模块。</p>
+<h3 id="其他模块"><a href="#其他模块" class="headerlink" title="其他模块"></a>其他模块</h3><p>下面是另外一些有用的模块。</p>
 <p><strong>（1）grunt-contrib-clean</strong></p>
 <p>该模块用于删除文件或目录。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">clean: &#123;</div><div class="line">  <span class="attr">build</span>: &#123;</div><div class="line">    <span class="attr">src</span>: [<span class="string">"path/to/dir/one"</span>, <span class="string">"path/to/dir/two"</span>]</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
@@ -241,8 +243,7 @@
 <figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">markdown: &#123;</div><div class="line">    <span class="attr">all</span>: &#123;</div><div class="line">      <span class="attr">files</span>: [</div><div class="line">        &#123;</div><div class="line">          <span class="attr">expand</span>: <span class="literal">true</span>,</div><div class="line">          <span class="attr">src</span>: <span class="string">'*.md'</span>,</div><div class="line">          <span class="attr">dest</span>: <span class="string">'docs/html/'</span>,</div><div class="line">          <span class="attr">ext</span>: <span class="string">'.html'</span></div><div class="line">        &#125;</div><div class="line">      ],</div><div class="line">      <span class="attr">options</span>: &#123;</div><div class="line">        <span class="attr">template</span>: <span class="string">'templates/index.html'</span>,</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
 <p>上面代码指定将md后缀名的文件，转为docs/html/目录下的html文件。template属性指定转换时采用的模板，模板样式如下。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"main"</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">%=content%</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line"></div><div class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="参考链接">参考链接</h2>
-<ul>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
 <li>Frederic Hemberger, <a href="http://frederic-hemberger.de/artikel/grunt-buildtool-for-frontend-projects/" target="_blank" rel="external">A build tool for front-end projects</a></li>
 <li>Mária Jurčovičová, <a href="http://flippinawesome.org/2013/07/01/building-a-javascript-library-with-grunt-js/" target="_blank" rel="external">Building a JavaScript Library with Grunt.js</a></li>
 <li>Ben Briggs，<a href="http://sixrevisions.com/javascript/grunt-tutorial-01/" target="_blank" rel="external">Speed Up Your Web Development Workflow with Grunt</a></li>
@@ -259,7 +260,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/05/21/grunt/" data-id="cj1q40ddn000k12s6hdmux6nh" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/05/21/grunt/" data-id="cj1q4o0zk000ke9s6cctlem6f" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/05/21/grunt/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -272,19 +273,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/05/21/bower/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/05/21/gulp/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          ［工具篇］Bower
+          ［工具篇］Gulp：任务自动管理
         
       </div>
     </a>
   
   
-    <a href="/2015/05/21/gulp/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/05/21/bower/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">［工具篇］Gulp：任务自动管理</div>
+      <div class="article-nav-title">［工具篇］Bower</div>
     </a>
   
 </nav>

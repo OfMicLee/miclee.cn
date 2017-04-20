@@ -91,56 +91,46 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>*** ionic使用 **<em> <a id="more"></a> </em> * * * * *</p>
-<h2 id="概念">概念</h2>
-<p>Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，来构建高交互性应用。基于Sass构建和AngularJS 优化。</p>
-<h2 id="how-to-use">How to use</h2>
-<ol style="list-style-type: decimal">
-<li>安装ionic</li>
-</ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g cordova ionic</div></pre></td></tr></table></figure></p>
-<ol start="2" style="list-style-type: decimal">
-<li>初始化项目</li>
-</ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic start hosjoy</div></pre></td></tr></table></figure></p>
-<ol start="3" style="list-style-type: decimal">
-<li>增加平台</li>
-</ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd hosjoy</div><div class="line">$ ionic platform add ios</div></pre></td></tr></table></figure></p>
-<ol start="4" style="list-style-type: decimal">
-<li>更改config.xml</li>
-</ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ./config.xml</div></pre></td></tr></table></figure></p>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"index.html"</span> /&gt;</span></div><div class="line">改为</div><div class="line"><span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"http://m.ttmai.com"</span> /&gt;</span></div></pre></td></tr></table></figure></p>
-<ol start="5" style="list-style-type: decimal">
-<li>修改图标和启动页面</li>
-</ol>
-<p><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">icon</span> <span class="attr">src</span>=<span class="string">"resources/icon.png"</span>/&gt;</span></div></pre></td></tr></table></figure></p>
+        <p><strong><em> ionic使用 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>Ionic提供了一个免费且开源的移动优化HTML、CSS和JS 组件库，来构建高交互性应用。基于Sass构建和AngularJS 优化。</p>
+<h2 id="How-to-use"><a href="#How-to-use" class="headerlink" title="How to use"></a>How to use</h2><ol>
+<li><p>安装ionic</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm install -g cordova ionic</div></pre></td></tr></table></figure>
+</li>
+<li><p>初始化项目</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic start hosjoy</div></pre></td></tr></table></figure>
+</li>
+<li><p>增加平台</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ cd hosjoy</div><div class="line">$ ionic platform add ios</div></pre></td></tr></table></figure>
+</li>
+<li><p>更改config.xml</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi ./config.xml</div></pre></td></tr></table></figure>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"index.html"</span> /&gt;</span></div><div class="line">改为</div><div class="line"><span class="tag">&lt;<span class="name">content</span> <span class="attr">src</span>=<span class="string">"http://m.ttmai.com"</span> /&gt;</span></div></pre></td></tr></table></figure>
+</li>
+<li><p>修改图标和启动页面</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">icon</span> <span class="attr">src</span>=<span class="string">"resources/icon.png"</span>/&gt;</span></div></pre></td></tr></table></figure>
 <p>图标名称：icon.png， 大小192PX；</p>
 <p>启动页名称：splash.png，大小2208PX；</p>
 <p>支持格式：.png/.ai/.psd</p>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ionic resources</div></pre></td></tr></table></figure></p>
-<ol start="6" style="list-style-type: decimal">
-<li>构建APP</li>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ionic resources</div></pre></td></tr></table></figure>
+</li>
+<li><p>构建APP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic build ios</div></pre></td></tr></table></figure>
+</li>
+<li><p>模拟器打开APP</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic emulate ios</div></pre></td></tr></table></figure>
+</li>
+<li><p>部署到设备<br>xcode</p>
+</li>
 </ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic build ios</div></pre></td></tr></table></figure></p>
-<ol start="7" style="list-style-type: decimal">
-<li>模拟器打开APP</li>
-</ol>
-<p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ionic emulate ios</div></pre></td></tr></table></figure></p>
-<ol start="8" style="list-style-type: decimal">
-<li>部署到设备 xcode</li>
-</ol>
-<h2 id="ionic-vs-phonegap">Ionic VS PhoneGap</h2>
-<h4 id="phonegap">PhoneGap</h4>
-<p>Cordova是PhoneGap贡献给Apache后的开源项目，是从PhoneGap中抽离出的核心代码，是驱动PhoneGap的核心引擎。有点类似Webkit和Google Chrome的关系。渊源就是：早在2011年10月，Adobe收购了Nitobi Software和它的PhoneGap产品，然后宣布这个移动Web开发框架将会继续开源，并把它提交到Apache Incubator，以便完全接受ASF的管治。当然，由于Adobe拥有了PhoneGap商标，所以开源组织&gt;的这个PhoneGap v2.0版产品就更名为Apache Cordova。（目前Adobe PhoneGap &lt;===&gt;Apache Cordova，似乎只是包名不一样而已，未来会有多大变化与改变，拭目以待吧！！）</p>
-<h4 id="ionic">Ionic</h4>
-<p>你可以先理解是一个webapp的框架，通俗的说就是html、js、css写出来的一个h5页面， 然后它又集成了angular和sass便于开发维护，本质上还是老三样（html、js、css）， 再然后它为了方便或者为了以后盈利，又集成了cordova的功能，安装依赖后可以直接用 ionic的命令来调用cordova的创建、编译、打包等功能。 目前来看ionic后期可能收费:Pricing 路 Ionic.io Documentation，所以你可以选择只把ionic当做ui框架来用，舍弃它集成的cordova功能。</p>
+<h2 id="Ionic-VS-PhoneGap"><a href="#Ionic-VS-PhoneGap" class="headerlink" title="Ionic VS PhoneGap"></a>Ionic VS PhoneGap</h2><h4 id="PhoneGap"><a href="#PhoneGap" class="headerlink" title="PhoneGap"></a>PhoneGap</h4><p>Cordova是PhoneGap贡献给Apache后的开源项目，是从PhoneGap中抽离出的核心代码，是驱动PhoneGap的核心引擎。有点类似Webkit和Google Chrome的关系。渊源就是：早在2011年10月，Adobe收购了Nitobi Software和它的PhoneGap产品，然后宣布这个移动Web开发框架将会继续开源，并把它提交到Apache Incubator，以便完全接受ASF的管治。当然，由于Adobe拥有了PhoneGap商标，所以开源组织&gt;的这个PhoneGap v2.0版产品就更名为Apache Cordova。（目前Adobe PhoneGap &lt;===&gt;Apache Cordova，似乎只是包名不一样而已，未来会有多大变化与改变，拭目以待吧！！）</p>
+<h4 id="Ionic"><a href="#Ionic" class="headerlink" title="Ionic"></a>Ionic</h4><p>你可以先理解是一个webapp的框架，通俗的说就是html、js、css写出来的一个h5页面，<br>然后它又集成了angular和sass便于开发维护，本质上还是老三样（html、js、css），<br>再然后它为了方便或者为了以后盈利，又集成了cordova的功能，安装依赖后可以直接用<br>ionic的命令来调用cordova的创建、编译、打包等功能。<br>目前来看ionic后期可能收费:Pricing 路 Ionic.io Documentation，所以你可以选择只把ionic当做ui框架来用，舍弃它集成的cordova功能。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/08/06/ionic&&phonegap/" data-id="cj1q40dec001h12s6jyfrr9mn" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/08/06/ionic&&phonegap/" data-id="cj1q4o106001he9s624doopml" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/08/06/ionic&&phonegap/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -153,19 +143,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/07/30/git/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/06/java/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          git操作技巧
+          JAVA世界里的一些概念
         
       </div>
     </a>
   
   
-    <a href="/2015/08/06/java/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2015/08/08/resource/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JAVA世界里的一些概念</div>
+      <div class="article-nav-title">资源记录</div>
     </a>
   
 </nav>

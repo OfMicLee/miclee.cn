@@ -46,7 +46,7 @@
     <link href="http://miclee.cn/2017/04/26/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     <id>http://miclee.cn/2017/04/26/数据挖掘/</id>
     <published>2017-04-26T08:06:36.000Z</published>
-    <updated>2017-04-26T08:26:02.000Z</updated>
+    <updated>2017-04-26T08:42:37.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 在机器学习那章提到过，数据挖掘就是“机器学习+数据库”。就是在大型数据存储库中自动发现有用信息的过程。数据库中的知识发现。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="数据挖掘主要任务"><a href="#数据挖掘主要任务" class="headerlink" title="数据挖掘主要任务"></a>数据挖掘主要任务</h2><ul>
@@ -85,7 +85,7 @@
     
       <category term="数据挖掘" scheme="http://miclee.cn/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
     
-      <category term="数据挖掘" scheme="http://miclee.cn/categories/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
+      <category term="机器学习" scheme="http://miclee.cn/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   

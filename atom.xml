@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-10T06:15:25.000Z</updated>
+  <updated>2017-05-10T09:19:27.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[Numpy 矩阵乘法]]></title>
+    <link href="http://miclee.cn/2017/05/10/py-dot-multiply/"/>
+    <id>http://miclee.cn/2017/05/10/py-dot-multiply/</id>
+    <published>2017-05-10T09:02:17.000Z</published>
+    <updated>2017-05-10T09:19:27.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>使用array时，运算符 * 用于计算数量积（点乘），函数 dot() 用于计算矢量积（叉乘），例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.array([[1, 2], [3, 4]])</div><div class="line">b = np.array([[5, 6], [7, 8]])</div><div class="line"></div><div class="line">print(&apos;a * b = \n&apos;, a * b)</div><div class="line">print(&apos;dot(a, b) = \n&apos;, np.dot(a, b))</div><div class="line">```  </div><div class="line">运行结果为：   </div><div class="line">```python3</div><div class="line">a * b =</div><div class="line">[[ 5 12]</div><div class="line"> [21 32]]</div><div class="line">dot(a, b) =</div><div class="line">[[19 22]</div><div class="line"> [43 50]]</div></pre></td></tr></table></figure></p>
+<p>可见，当a和b为array时， a <em> b 计算了a和b的数量积（对应Matlab的 a .</em> b ）， dot(a, b) 计算了a和b的矢量积（对应Matlab的 a * b ）。</p>
+<h2 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h2><p>与array不同的是，使用matrix时，运算符 * 用于计算矢量积，函数 multiply() 用于计算数量积，例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.mat(&apos;1 2; 3 4&apos;)</div><div class="line">b = np.mat(&apos;5 6; 7 8&apos;);</div><div class="line"></div><div class="line">print &apos;a * b = \n&apos;, a * b</div><div class="line">print &apos;multiply(a, b) = \n&apos;, np.multiply(a, b)</div><div class="line">```  </div><div class="line">运行结果为：</div></pre></td></tr></table></figure></p>
+<p>a * b =<br>[[19 22]<br> [43 50]]<br>multiply(a, b) =<br>[[ 5 12]<br> [21 32]]<br> ```</p>
+<p>可见，当a和b为matrix时， a * b 计算了a和b的矢量积， multiply(a, b) 计算了a和b的数量积。当使用matrix时，无论是生成矩阵还是计算，Numpy的风格和Matlab更加贴近，降低了语言切换时的负担。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[range、xrange、arange比较]]></title>
@@ -766,30 +791,6 @@
       <category term="maven" scheme="http://miclee.cn/tags/maven/"/>
     
       <category term="java" scheme="http://miclee.cn/categories/java/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[iOS 和 Android 的后台推送原理]]></title>
-    <link href="http://miclee.cn/2015/12/26/ios-android-push/"/>
-    <id>http://miclee.cn/2015/12/26/ios-android-push/</id>
-    <published>2015-12-26T07:42:15.000Z</published>
-    <updated>2015-12-26T07:59:39.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 因为手机平台本身、电量、网络流量的限制，移动互联网应用在设计上跟传统 PC 上的应用很大不一样，需要根据手机本身的特点，尽量的节省电量和流量，同时又要尽可能的保证数据能及时到达客户端。为了解决数据同步的问题，在手机平台上，常用的方法有2种。一种是定时去服务器上查询数据，也叫Polling，还有一种手机跟服务器之间维护一个 TCP 长连接，当服务器有数据时，实时推送到客户端，也就是我们说的 Push。从耗费的电量、流量和数据送达的及时性来说，Push都会有明显的优势，但 Push 的实现和维护成本相对较高。在移动无线网络下维护长连接，相对也有一些技术上的难度。本文介绍下IOS和Android目前不同的PUSH方案。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="运行机制"><a href="#运行机制" class="headerlink" title="运行机制"></a>运行机制</h2><p>iOS 系统的推送（APNS，即 Apple Push Notification Service）依托一个或几个系统常驻进程运作，是全局的（接管所有应用的消息推送），所以可看作是独立于应用之外，而且是设备和苹果服务器之间的通讯，而非应用的提供商服务器。如 腾讯 QQ 的服务器（Provider）会给苹果公司对应的服务器（APNs）发出通知，然后再中转传送到你的设备（Devices）之上。当你接收到通知，打开应用，才开始从腾讯服务器接收数据，跟你之前看到通知里内容一样，但却是经由两个不同的通道而来。</p>
-<p>而 Android，就不同，更像是传统桌面电脑系统做法。每个需要后台推送的应用有各自的单独后台进程，才能和各自的服务器通讯，交换数据。另外其实 Android 也有类似 APNS 的 GCM（Google Cloud Message），属于开发者可选，非强制。所以你大概看出来区别，iOS 的消息推送机制面世之时是一种全新的解决方案（堪称平台中的平台），应用本身不能有常驻的后台进程，系统的开销少，内存使用更少，电量也更少（把更多的运算和资源开销放在云端，非设备端）。而 Android 的特点，虽然开销大，优点是更稳定快速，但不明显。</p>
-<h2 id="实现原理"><a href="#实现原理" class="headerlink" title="实现原理"></a>实现原理</h2><p>本质上，APNs 与 GCM 是类似的技术实现原理：即系统层有一个常驻的 TCP 长连接，一直保持的长连接，即使手机休眠的时候也在保持的长连接。这里对于大部分人来说，最不理解的就是，休眠时候都保持在那里的 TCP 长连接，不会耗电很厉害么？答案是：不会。这是手机的设计来做到的。TCP长连接有个心跳的时间，在国外可以很长比如30分钟，在国内则因为网络环境复杂一般10分钟。客户端发起的心跳，会短暂地消耗手机电能，但在这个心跳间隔期间，则消耗电能是很少的。当在心跳期间服务器端有推送信息过来时，客户端可以收到并做处理。</p>
-<p>再说 APNs 的设计成功处。iOS 为了真正地为用户体验负责，不允许应用在后台活动。有了这个限制，但是对于终端设备，应用又是有必要“通知”到达用户的，随时与用户主动沟通起来的（典型的如聊天应用）。这就是 APNs 的逻辑所在：iOS 自己做个长驻后台保持连接。所有应用，有必要（申请）并且被允许（用户可以改设置）的话，可以通过 APNs 中转到达用户。这样就完善了！有可能很多人没有真正地体会到 iOS 不允许后台应用的好处。我是 Android 开发人员，Android 手机上一般只保留几个常用的应用，不常用就卸载。但是我的 iPhone / iPad 上则是，除非空间不足，一般不会删除应用。Android 就像 Windows，你要真的很费心去维护：有软件在干背后干坏事么？设备又给拖慢了，要清理。要考虑杀毒了。。。Android 因为后台可以长驻，尤其是国内的 Android 的手机上 Google自家的推送服务 GCM 处于基本不可用的状态。所以，各App各显神通。聊天类应用的话，大多数直接借用 XMPP 规范里的一些成果。少量如微信有IM底子的，自己开发协议。这些在实现原理上与 APNs / GCM 没有本质的区别，但有一定的技术门槛。而大多数普遍应用，要使用推送的话，则使用轮询的方式简单实现。其实，国外如 Urban Airship 自己实现了 Android 上的第三方提供的推送平台。近期国内如极光推送也实现了第三方的推送平台（技术与微信、GCM、APNs类似）。理论上，如果一个 Android 设备上多款应用都使用极光推送这种第三方推送平台的话，也可以如 APNs 一样达到节省电量、流量消耗的效果。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[因为手机平台本身、电量、网络流量的限制，移动互联网应用在设计上跟传统 PC 上的应用很大不一样，需要根据手机本身的特点，尽量的节省电量和流量，同时又要尽可能的保证数据能及时到达客户端。为了解决数据同步的问题，在手机平台上，常用的方法有2种。一种是定时去服务器上查询数据，也叫Polling，还有一种手机跟服务器之间维护一个 TCP 长连接，当服务器有数据时，实时推送到客户端，也就是我们说的 Push。从耗费的电量、流量和数据送达的及时性来说，Push都会有明显的优势，但 Push 的实现和维护成本相对较高。在移动无线网络下维护长连接，相对也有一些技术上的难度。本文介绍下IOS和Android目前不同的PUSH方案。]]>
-    
-    </summary>
-    
-      <category term="push" scheme="http://miclee.cn/tags/push/"/>
-    
-      <category term="移动端" scheme="http://miclee.cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
     
   </entry>
   

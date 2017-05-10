@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: nodejs | MicLee&#39;s Bolg</title>
+  <title>range、xrange、arange比较 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分享技术生涯的点点滴滴">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MicLee's Bolg">
-<meta property="og:url" content="http://miclee.cn/categories/nodejs/page/2/index.html">
+  <meta name="description" content="range &amp; xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="range、xrange、arange比较">
+<meta property="og:url" content="http://miclee.cn/2017/05/10/python-range/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
-<meta property="og:description" content="分享技术生涯的点点滴滴">
+<meta property="og:description" content="range &amp; xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。">
+<meta property="og:updated_time" content="2017-05-10T06:15:25.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MicLee's Bolg">
-<meta name="twitter:description" content="分享技术生涯的点点滴滴">
+<meta name="twitter:title" content="range、xrange、arange比较">
+<meta name="twitter:description" content="range &amp; xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -63,115 +65,77 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2015" class="archive-year">2015</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/20/process/" class="archive-article-date">
-  <time datetime="2015-05-19T16:00:00.000Z" itemprop="datePublished">May 20</time>
+        <section id="main"><article id="post-python-range" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/10/python-range/" class="article-date">
+  <time datetime="2017-05-10T05:31:51.000Z" itemprop="datePublished">2017-05-10</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/20/process/">process 对象</a>
+    <h1 class="article-title" itemprop="name">
+      range、xrange、arange比较
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/20/packagejson/" class="archive-article-date">
-  <time datetime="2015-05-19T16:00:00.000Z" itemprop="datePublished">May 20</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/20/packagejson/">package.json 文件</a>
-    </h1>
-  
+        <p><strong><em> range & xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><p>官方文档：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">range(stop) -&gt; range object</div><div class="line">range(start, stop[, step]) -&gt; range object</div><div class="line"></div><div class="line">Return an object that produces a sequence of integers from start (inclusive)</div><div class="line">to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.</div><div class="line">start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.</div><div class="line">These are exactly the valid indices for a list of 4 elements.</div><div class="line">When step is given, it specifies the increment (or decrement).</div></pre></td></tr></table></figure></p>
+<p><strong>函数说明：</strong><br>根据start与stop指定的范围以及step设定的步长，生成一个序列。<br>range示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; range(5)</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(1,5)</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(0,6,2)</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
+<h2 id="xrange"><a href="#xrange" class="headerlink" title="xrange"></a>xrange</h2><p><strong>函数说明：</strong><br>用法与range完全相同，所不同的是生成的不是一个数组，而是一个生成器。<br>xrange示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; xrange(5)</div><div class="line">xrange(5)</div><div class="line">&gt;&gt;&gt; list(xrange(5))</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(1,5)</div><div class="line">xrange(1, 5)</div><div class="line">&gt;&gt;&gt; list(xrange(1,5))</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(0,6,2)</div><div class="line">xrange(0, 6, 2)</div><div class="line">&gt;&gt;&gt; list(xrange(0,6,2))</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
+<p>要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间，这两个基本上都是在循环的时候用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for i in range(0, 100):</div><div class="line">print i</div><div class="line">for i in xrange(0, 100):</div><div class="line">print i</div></pre></td></tr></table></figure></p>
+<h2 id="arange"><a href="#arange" class="headerlink" title="arange"></a>arange</h2><p><strong>官方文档：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">numpy.arange([start, ]stop, [step, ]dtype=None)</div><div class="line">Return evenly spaced values within a given interval.</div><div class="line"></div><div class="line">Values are generated within the half-open interval [start, stop) (in other words, the interval including start but excluding stop). For integer arguments the function is equivalent to the Python built-in range function, but returns an ndarray rather than a list.</div><div class="line">```   </div><div class="line">用法等同于range，区别在于返回的是ndarray而非list。</div><div class="line">```python3</div><div class="line">&gt;&gt;&gt; np.arange(3)</div><div class="line">array([0, 1, 2])</div><div class="line">&gt;&gt;&gt; np.arange(3.0)</div><div class="line">array([ 0.,  1.,  2.])</div><div class="line">&gt;&gt;&gt; np.arange(3,7)</div><div class="line">array([3, 4, 5, 6])</div><div class="line">&gt;&gt;&gt; np.arange(3,7,2)</div><div class="line">array([3, 5])</div></pre></td></tr></table></figure></p>
 
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/20/npm/" class="archive-article-date">
-  <time datetime="2015-05-19T16:00:00.000Z" itemprop="datePublished">May 20</time>
-</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/20/npm/">npm模块管理器</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/19/nodejs-basic/" class="archive-article-date">
-  <time datetime="2015-05-18T16:00:00.000Z" itemprop="datePublished">May 19</time>
-</a>
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.cn/2017/05/10/python-range/" data-id="cj2ilclvd005914s6pcc9jc1b" class="article-share-link">Share</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/19/nodejs-basic/">Node.js 概述</a>
-    </h1>
-  
-
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2015/05/18/commonjs/" class="archive-article-date">
-  <time datetime="2015-05-17T16:00:00.000Z" itemprop="datePublished">May 18</time>
-</a>
+        <a href="http://miclee.cn/2017/05/10/python-range/#disqus_thread" class="article-comment-link">Comments</a>
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2015/05/18/commonjs/">CommonJS规范</a>
-    </h1>
-  
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
-    </header>
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/04/26/机器学习里的常用数学概念/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          机器学习里的常用数学概念
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -260,11 +224,13 @@
 <script>
   var disqus_shortname = 'micleewj';
   
+  var disqus_url = 'http://miclee.cn/2017/05/10/python-range/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

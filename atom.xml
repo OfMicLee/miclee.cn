@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-04-26T08:40:40.000Z</updated>
+  <updated>2017-05-10T06:15:25.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[range、xrange、arange比较]]></title>
+    <link href="http://miclee.cn/2017/05/10/python-range/"/>
+    <id>http://miclee.cn/2017/05/10/python-range/</id>
+    <published>2017-05-10T05:31:51.000Z</published>
+    <updated>2017-05-10T06:15:25.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> range & xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><p>官方文档：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">range(stop) -&gt; range object</div><div class="line">range(start, stop[, step]) -&gt; range object</div><div class="line"></div><div class="line">Return an object that produces a sequence of integers from start (inclusive)</div><div class="line">to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.</div><div class="line">start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.</div><div class="line">These are exactly the valid indices for a list of 4 elements.</div><div class="line">When step is given, it specifies the increment (or decrement).</div></pre></td></tr></table></figure></p>
+<p><strong>函数说明：</strong><br>根据start与stop指定的范围以及step设定的步长，生成一个序列。<br>range示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; range(5)</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(1,5)</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(0,6,2)</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
+<h2 id="xrange"><a href="#xrange" class="headerlink" title="xrange"></a>xrange</h2><p><strong>函数说明：</strong><br>用法与range完全相同，所不同的是生成的不是一个数组，而是一个生成器。<br>xrange示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; xrange(5)</div><div class="line">xrange(5)</div><div class="line">&gt;&gt;&gt; list(xrange(5))</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(1,5)</div><div class="line">xrange(1, 5)</div><div class="line">&gt;&gt;&gt; list(xrange(1,5))</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(0,6,2)</div><div class="line">xrange(0, 6, 2)</div><div class="line">&gt;&gt;&gt; list(xrange(0,6,2))</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
+<p>要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间，这两个基本上都是在循环的时候用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for i in range(0, 100):</div><div class="line">print i</div><div class="line">for i in xrange(0, 100):</div><div class="line">print i</div></pre></td></tr></table></figure></p>
+<h2 id="arange"><a href="#arange" class="headerlink" title="arange"></a>arange</h2><p><strong>官方文档：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">numpy.arange([start, ]stop, [step, ]dtype=None)</div><div class="line">Return evenly spaced values within a given interval.</div><div class="line"></div><div class="line">Values are generated within the half-open interval [start, stop) (in other words, the interval including start but excluding stop). For integer arguments the function is equivalent to the Python built-in range function, but returns an ndarray rather than a list.</div><div class="line">```   </div><div class="line">用法等同于range，区别在于返回的是ndarray而非list。</div><div class="line">```python3</div><div class="line">&gt;&gt;&gt; np.arange(3)</div><div class="line">array([0, 1, 2])</div><div class="line">&gt;&gt;&gt; np.arange(3.0)</div><div class="line">array([ 0.,  1.,  2.])</div><div class="line">&gt;&gt;&gt; np.arange(3,7)</div><div class="line">array([3, 4, 5, 6])</div><div class="line">&gt;&gt;&gt; np.arange(3,7,2)</div><div class="line">array([3, 5])</div></pre></td></tr></table></figure></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[range & xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[机器学习里的常用数学概念]]></title>
@@ -765,65 +790,6 @@
       <category term="push" scheme="http://miclee.cn/tags/push/"/>
     
       <category term="移动端" scheme="http://miclee.cn/categories/%E7%A7%BB%E5%8A%A8%E7%AB%AF/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[spring-boot哎哟不错(七) —— 使用spring-boot 打包可执行jar和war包]]></title>
-    <link href="http://miclee.cn/2015/12/25/spring-boot-7/"/>
-    <id>http://miclee.cn/2015/12/25/spring-boot-7/</id>
-    <published>2015-12-25T05:00:42.000Z</published>
-    <updated>2015-12-25T05:35:25.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 使用spring-boot 打包可执行jar和war包。spring-boot哎哟不错系列第七篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="一、官方说法"><a href="#一、官方说法" class="headerlink" title="一、官方说法"></a>一、官方说法</h2><p>一旦spring-boot-maven-plugin被包含到你的pom.xml中，它就会自动尝试使用spring-boot:repackage目标重写存档以使它们能够执行。为了构建一个jar或war，你应该使用常规的packaging元素配置你的项目：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>生成的存档在package阶段会被Spring Boot增强。你想启动的main类即可以通过指定一个配置选项，也可以通过为manifest添加一个Main-Class属性这种常规的方式实现。如果你没有指定一个main类，该插件会搜索带有public static void main(String[] args)方法的类。</p>
-<p>为了构建和运行一个项目的artifact，你可以输入以下命令：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ mvn <span class="keyword">package</span></div><div class="line"><span class="title">$ java -jar target/mymodule-0.0.1-SNAPSHOT.jar</span></div></pre></td></tr></table></figure>
-<p><strong>为了构建一个即是可执行的，又能部署到一个外部容器的war文件，你需要标记内嵌容器依赖为”provided”</strong>，例如：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></div><div class="line">    <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">packaging</span>&gt;</span>war<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div><div class="line">        <span class="comment">&lt;!-- ... --&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></div></pre></td></tr></table></figure>
-<h2 id="二、亲测"><a href="#二、亲测" class="headerlink" title="二、亲测"></a>二、亲测</h2><h3 id="亲测一：JSP项目"><a href="#亲测一：JSP项目" class="headerlink" title="亲测一：JSP项目"></a>亲测一：JSP项目</h3><p>存在设置情况下，各种运行情况（tomcat相关包在war包的lib-provided目录下）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol>
-<li>java -jar test.war   -&gt; OK</li>
-<li>mvn spring-boot:run  -&gt; OK</li>
-<li>tomcat 容器           -&gt; OK</li>
-<li>run mainClass        -&gt; error 启动报错：java.lang.NoClassDefFoundError: javax/servlet/ServletContext，位于tomcat-embed-core，被打包到lib-provided。</li>
-</ol>
-<p>去掉设置或去掉provided（tomcat相关包在war包的lib目录下）:</p>
-<ol>
-<li>java -jar test.war   -&gt; OK</li>
-<li>mvn spring-boot:run  -&gt; OK</li>
-<li>tomcat 容器           -&gt; OK</li>
-<li>run mainClass        -&gt; error 能启动，但访问404（无法解析JSP页面）</li>
-</ol>
-<h3 id="非JSP项目"><a href="#非JSP项目" class="headerlink" title="非JSP项目"></a>非JSP项目</h3><p>非JSP项目去掉依赖：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.tomcat.embed<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>tomcat-embed-jasper<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>存在设置情况下，各种运行情况（spring-boot-starter-tomcat-1.3.0.RELEASE.jar在war包的lib-provided目录下）</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-tomcat<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">scope</span>&gt;</span>provided<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></div></pre></td></tr></table></figure>
-<ol>
-<li>java -jar test.war   -&gt; OK</li>
-<li>mvn spring-boot:run  -&gt; OK</li>
-<li>tomcat 容器           -&gt; OK</li>
-<li>run mainClass        -&gt; OK</li>
-</ol>
-<p>去掉设置或去掉provided（spring-boot-starter-tomcat-1.3.0.RELEASE.jar在war包的lib包下）:</p>
-<ol>
-<li>java -jar test.war   -&gt; OK</li>
-<li>mvn spring-boot:run  -&gt; OK</li>
-<li>tomcat 容器           -&gt; OK</li>
-<li>run mainClass        -&gt; OK</li>
-</ol>
-]]></content>
-    <summary type="html">
-    <![CDATA[使用spring-boot 打包可执行jar和war包。spring-boot哎哟不错系列第七篇，哎哟不错系列只记录spring-boot使用过程中重要的部分。]]>
-    
-    </summary>
-    
-      <category term="spring" scheme="http://miclee.cn/tags/spring/"/>
-    
-      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
     
   </entry>
   

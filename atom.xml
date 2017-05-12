@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-10T09:19:27.000Z</updated>
+  <updated>2017-05-12T01:58:20.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[解决MAC系统上matplotlib无法使用问题]]></title>
+    <link href="http://miclee.cn/2017/05/12/%E8%A7%A3%E5%86%B3matplotlib%E6%97%A0%E6%B3%95%E4%BD%BF%E7%94%A8%E9%97%AE%E9%A2%98/"/>
+    <id>http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/</id>
+    <published>2017-05-12T01:49:13.000Z</published>
+    <updated>2017-05-12T01:58:20.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。 </em></strong><br><a id="more"></a></p>
+<hr>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**RuntimeError**: Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. The Mac OS X backend will <span class="keyword">not</span> be able <span class="keyword">to</span> function correctly <span class="keyword">if</span> Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. See <span class="keyword">the</span> Python documentation <span class="keyword">for</span> more information <span class="keyword">on</span> installing Python <span class="keyword">as</span> a framework <span class="keyword">on</span> Mac OS X. Please either reinstall Python <span class="keyword">as</span> a framework, <span class="keyword">or</span> <span class="keyword">try</span> one <span class="keyword">of</span> <span class="keyword">the</span> other backends.</div></pre></td></tr></table></figure>
+<p><strong>原因：</strong>  </p>
+<p>Problem Cause In mac os image rendering back end of matplotlib (what-is-a-backend to render using the API of Cocoa by default). There is Qt4Agg and GTKAgg and as a back-end is not the default. Set the back end of macosx that is differ compare with other windows or linux os.</p>
+<p><strong>解决方案：</strong></p>
+<p>创建文件 ~/.matplotlib/matplotlibrc<br>增加内容:<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">backend: </span>TkAgg</div></pre></td></tr></table></figure></p>
+<p>搞定收工！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Numpy 矩阵乘法]]></title>
@@ -765,33 +791,6 @@
     </summary>
     
       <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[maven scope 类型]]></title>
-    <link href="http://miclee.cn/2015/12/28/maven-scope/"/>
-    <id>http://miclee.cn/2015/12/28/maven-scope/</id>
-    <published>2015-12-28T03:04:46.000Z</published>
-    <updated>2016-04-07T03:45:14.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 依赖范围控制哪些依赖在哪些classpath 中可用，哪些依赖包含在一个应用中。记录下以作备忘。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="一、compile（编译范围）"><a href="#一、compile（编译范围）" class="headerlink" title="一、compile（编译范围）"></a>一、compile（编译范围）</h2><p><strong>compile是默认的范围</strong>；如果没有提供一个范围，编译范围依赖在所有的classpath中可用，同时它们也会被打包。而且这些dependency会传递到依赖的项目中。</p>
-<h2 id="二、provided（已提供范围）"><a href="#二、provided（已提供范围）" class="headerlink" title="二、provided（已提供范围）"></a>二、provided（已提供范围）</h2><p>provided 指明了dependency 由JDK或者容器提供。例如如果开发了一个web 应用，可能在编译 classpath 中需要可用的Servlet API 来编译一个servlet，但是你不会想要在打包好的WAR 中包含这个Servlet API；这Servlet API JAR 由你的应用服务器或者servlet容器提供。已提供范围的依赖在编译classpath （不是运行时）可用。它们不是传递性的也不会被打包。</p>
-<p>如：javax.servlet.jsp，jsp-api</p>
-<h2 id="三、runtime（运行时范围）"><a href="#三、runtime（运行时范围）" class="headerlink" title="三、runtime（运行时范围）"></a>三、runtime（运行时范围）</h2><p>runtime 依赖在运行和测试系统的时候需要，但在编译的时候不需要。比如可能在编译的时候只需要JDBC API JAR，而只有在运行的时候才需要JDBC驱动实现。</p>
-<p>如：mysql-connector-java</p>
-<h2 id="四、test（测试范围）"><a href="#四、test（测试范围）" class="headerlink" title="四、test（测试范围）"></a>四、test（测试范围）</h2><p>test范围依赖 在一般的编译和运行时都不需要，它们只有在测试编译和测试运行阶段可用。典型的如junit。</p>
-<h2 id="五、system（系统范围）"><a href="#五、system（系统范围）" class="headerlink" title="五、system（系统范围）"></a>五、system（系统范围）</h2><p>system范围依赖与provided 类似，但是你必须显式的提供一个对于本地系统中JAR 文件的路径。这么做是为了允许基于本地对象编译，而这些对象是系统类库的一部分。这样的构件应该是一直可用的，Maven 也不会在仓库中去寻找它。如果你将一个依赖范围设置成系统范围，你必须同时提供一个 systemPath 元素。注意该范围是不推荐使用的（你应该一直尽量去从公共或定制的 Maven 仓库中引用依赖）。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[依赖范围控制哪些依赖在哪些classpath 中可用，哪些依赖包含在一个应用中。记录下以作备忘。]]>
-    
-    </summary>
-    
-      <category term="maven" scheme="http://miclee.cn/tags/maven/"/>
-    
-      <category term="java" scheme="http://miclee.cn/categories/java/"/>
     
   </entry>
   

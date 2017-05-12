@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: 机器学习 | MicLee&#39;s Bolg</title>
+  <title>解决MAC系统上matplotlib无法使用问题 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="分享技术生涯的点点滴滴">
-<meta property="og:type" content="website">
-<meta property="og:title" content="MicLee's Bolg">
-<meta property="og:url" content="http://miclee.cn/tags/机器学习/index.html">
+  <meta name="description" content="在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决MAC系统上matplotlib无法使用问题">
+<meta property="og:url" content="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
-<meta property="og:description" content="分享技术生涯的点点滴滴">
+<meta property="og:description" content="在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。">
+<meta property="og:updated_time" content="2017-05-12T01:58:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="MicLee's Bolg">
-<meta name="twitter:description" content="分享技术生涯的点点滴滴">
+<meta name="twitter:title" content="解决MAC系统上matplotlib无法使用问题">
+<meta name="twitter:description" content="在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -63,58 +65,78 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/26/机器学习里的常用数学概念/" class="archive-article-date">
-  <time datetime="2017-04-26T08:26:40.000Z" itemprop="datePublished">Apr 26</time>
+        <section id="main"><article id="post-解决matplotlib无法使用问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/12/解决matplotlib无法使用问题/" class="article-date">
+  <time datetime="2017-05-12T01:49:13.000Z" itemprop="datePublished">2017-05-12</time>
 </a>
-      
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/26/机器学习里的常用数学概念/">机器学习里的常用数学概念</a>
+    <h1 class="article-title" itemprop="name">
+      解决MAC系统上matplotlib无法使用问题
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/04/26/机器学习/" class="archive-article-date">
-  <time datetime="2017-04-26T07:13:26.000Z" itemprop="datePublished">Apr 26</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/04/26/机器学习/">机器学习</a>
-    </h1>
-  
+        <p><strong><em> 在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。 </em></strong><br><a id="more"></a></p>
+<hr>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**RuntimeError**: Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. The Mac OS X backend will <span class="keyword">not</span> be able <span class="keyword">to</span> function correctly <span class="keyword">if</span> Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. See <span class="keyword">the</span> Python documentation <span class="keyword">for</span> more information <span class="keyword">on</span> installing Python <span class="keyword">as</span> a framework <span class="keyword">on</span> Mac OS X. Please either reinstall Python <span class="keyword">as</span> a framework, <span class="keyword">or</span> <span class="keyword">try</span> one <span class="keyword">of</span> <span class="keyword">the</span> other backends.</div></pre></td></tr></table></figure>
+<p><strong>原因：</strong>  </p>
+<p>Problem Cause In mac os image rendering back end of matplotlib (what-is-a-backend to render using the API of Cocoa by default). There is Qt4Agg and GTKAgg and as a back-end is not the default. Set the back end of macosx that is differ compare with other windows or linux os.</p>
+<p><strong>解决方案：</strong></p>
+<p>创建文件 ~/.matplotlib/matplotlibrc<br>增加内容:<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">backend: </span>TkAgg</div></pre></td></tr></table></figure></p>
+<p>搞定收工！</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/" data-id="cj2l71ydj005h67s65zevpiul" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/10/py-dot-multiply/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Numpy 矩阵乘法
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
 </section>
         
           <aside id="sidebar">
@@ -203,11 +225,13 @@
 <script>
   var disqus_shortname = 'micleewj';
   
+  var disqus_url = 'http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/';
+  
   (function(){
     var dsq = document.createElement('script');
     dsq.type = 'text/javascript';
     dsq.async = true;
-    dsq.src = '//' + disqus_shortname + '.disqus.com/count.js';
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
     (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
   })();
 </script>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-15T03:21:28.000Z</updated>
+  <updated>2017-05-15T03:23:15.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -15,11 +15,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title><![CDATA[Python-Web框架一览]]></title>
+    <title><![CDATA[Python Web 框架一览]]></title>
     <link href="http://miclee.cn/2017/05/15/Python-Web%E6%A1%86%E6%9E%B6%E4%B8%80%E8%A7%88/"/>
     <id>http://miclee.cn/2017/05/15/Python-Web框架一览/</id>
     <published>2017-05-15T03:03:05.000Z</published>
-    <updated>2017-05-15T03:21:28.000Z</updated>
+    <updated>2017-05-15T03:23:15.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> Python 有许多 web 框架可以供你选择。网上甚至还有教你怎么制作自己专属的框架的教程，因为这实在是太容易了。然后就导致了现在框架的质量参差不齐。我们来对这些框架做一个概述然后你可以挑出自己喜欢的。 </em></strong><br><a id="more"></a></p>
 <hr>
 <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>我们经常谈到的 python web 框架有这些：</p>

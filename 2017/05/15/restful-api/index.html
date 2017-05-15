@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://miclee.cn/2017/05/15/restful-api/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备......）。因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现&quot;API First&quot;的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。">
-<meta property="og:updated_time" content="2017-05-15T06:53:34.000Z">
+<meta property="og:updated_time" content="2017-05-15T06:55:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RESTful API 设计指南【转】">
 <meta name="twitter:description" content="网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备......）。因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现&quot;API First&quot;的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。">
@@ -95,10 +95,8 @@
 <hr>
 <p>我以前写过一篇《理解RESTful架构》，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考了两篇文章（<a href="https://codeplanet.io/principles-good-restful-api-design/" target="_blank" rel="external">1</a>，<a href="https://bourgeois.me/rest/" target="_blank" rel="external">2</a>）。</p>
 <h2 id="一、协议"><a href="#一、协议" class="headerlink" title="一、协议"></a>一、协议</h2><p>API与用户的通信协议，总是使用  <a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">HTTPs</a> 协议。  </p>
-<h2 id="二、域名"><a href="#二、域名" class="headerlink" title="二、域名"></a>二、域名</h2><p>应该尽量将API部署在专用域名之下。</p>
-<figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span><span class="comment">//api.example.com</span></div></pre></td></tr></table></figure>
-<p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</p>
-<figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span>//example<span class="meta">.org</span>/api/</div></pre></td></tr></table></figure>
+<h2 id="二、域名"><a href="#二、域名" class="headerlink" title="二、域名"></a>二、域名</h2><p>应该尽量将API部署在专用域名之下。<br><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span><span class="comment">//api.example.com</span></div></pre></td></tr></table></figure></p>
+<p>如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。<br><figure class="highlight avrasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="symbol">https:</span>//example<span class="meta">.org</span>/api/</div></pre></td></tr></table></figure></p>
 <h2 id="三、版本（Versioning）"><a href="#三、版本（Versioning）" class="headerlink" title="三、版本（Versioning）"></a>三、版本（Versioning）</h2><p>应该将API的版本号放入URL。</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">https:<span class="regexp">//</span>api.example.com<span class="regexp">/v1/</span></div></pre></td></tr></table></figure>
 <p>另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。Github采用这种做法。</p>

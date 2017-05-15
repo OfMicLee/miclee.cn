@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-15T05:39:40.000Z</updated>
+  <updated>2017-05-15T06:49:50.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[RESTful API 设计指南【转】]]></title>
+    <link href="http://miclee.cn/2017/05/15/restful-api/"/>
+    <id>http://miclee.cn/2017/05/15/restful-api/</id>
+    <published>2017-05-15T06:40:15.000Z</published>
+    <updated>2017-05-15T06:49:50.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em>  </em></strong><br><a id="more"></a></p>
+<hr>
+<p>网络应用程序，分为前端和后端两个部分。当前的发展趋势，就是前端设备层出不穷（手机、平板、桌面电脑、其他专用设备……）。<br>因此，必须有一种统一的机制，方便不同的前端设备与后端进行通信。这导致API构架的流行，甚至出现”API First”的设计思想。RESTful API是目前比较成熟的一套互联网应用程序的API设计理论。我以前写过一篇《理解RESTful架构》，探讨如何理解这个概念。<br>今天，我将介绍RESTful API的设计细节，探讨如何设计一套合理、好用的API。我的主要参考了两篇文章（<a href="https://codeplanet.io/principles-good-restful-api-design/" target="_blank" rel="external">1</a>，<a href="https://bourgeois.me/rest/" target="_blank" rel="external">2</a>）。</p>
+<h2 id="一、协议"><a href="#一、协议" class="headerlink" title="一、协议"></a>一、协议</h2><p>API与用户的通信协议，总是使用  <a href="http://www.ruanyifeng.com/blog/2014/02/ssl_tls.html" target="_blank" rel="external">HTTPs</a> 协议。  </p>
+<h2 id="二、域名"><a href="#二、域名" class="headerlink" title="二、域名"></a>二、域名</h2><p>应该尽量将API部署在专用域名之下。<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">https:<span class="comment">//api.example.com</span></div><div class="line">```  </div><div class="line">如果确定API很简单，不会有进一步扩展，可以考虑放在主域名下。</div></pre></td></tr></table></figure></p>
+<p><a href="https://example.org/api/" target="_blank" rel="external">https://example.org/api/</a><br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 三、版本（Versioning）</div><div class="line">应该将API的版本号放入URL。</div></pre></td></tr></table></figure></p>
+<p><a href="https://api.example.com/v1/" target="_blank" rel="external">https://api.example.com/v1/</a><br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">另一种做法是，将版本号放在HTTP头信息中，但不如放入URL方便和直观。Github采用这种做法。</div><div class="line"></div><div class="line">## 四、路径（Endpoint）</div><div class="line">路径又称<span class="string">"终点"</span>（endpoint），表示API的具体网址。</div><div class="line">在RESTful架构中，每个网址代表一种资源（resource），所以网址中不能有动词，只能有名词，而且所用的名词往往与数据库的表格名对应。一般来说，数据库中的表都是同种记录的<span class="string">"集合"</span>（collection），所以API中的名词也应该使用复数。</div><div class="line">举例来说，有一个API提供动物园（zoo）的信息，还包括各种动物和雇员的信息，则它的路径应该设计成下面这样。</div></pre></td></tr></table></figure></p>
+<p><a href="https://api.example.com/v1/zoos" target="_blank" rel="external">https://api.example.com/v1/zoos</a><br><a href="https://api.example.com/v1/animals" target="_blank" rel="external">https://api.example.com/v1/animals</a><br><a href="https://api.example.com/v1/employees" target="_blank" rel="external">https://api.example.com/v1/employees</a><br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 五、HTTP动词</div><div class="line">对于资源的具体操作类型，由HTTP动词表示。</div><div class="line">常用的HTTP动词有下面五个（括号里是对应的SQL命令）。</div></pre></td></tr></table></figure></p>
+<p>GET（SELECT）：从服务器取出资源（一项或多项）。<br>POST（CREATE）：在服务器新建一个资源。<br>PUT（UPDATE）：在服务器更新资源（客户端提供改变后的完整资源）。<br>PATCH（UPDATE）：在服务器更新资源（客户端提供改变的属性）。<br>DELETE（DELETE）：从服务器删除资源。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">还有两个不常用的HTTP动词。</div></pre></td></tr></table></figure></p>
+<p>HEAD：获取资源的元数据。<br>OPTIONS：获取信息，关于资源的哪些属性是客户端可以改变的。<br>下面是一些例子。<br>GET /zoos：列出所有动物园<br>POST /zoos：新建一个动物园<br>GET /zoos/ID：获取某个指定动物园的信息<br>PUT /zoos/ID：更新某个指定动物园的信息（提供该动物园的全部信息）<br>PATCH /zoos/ID：更新某个指定动物园的信息（提供该动物园的部分信息）<br>DELETE /zoos/ID：删除某个动物园<br>GET /zoos/ID/animals：列出某个指定动物园的所有动物<br>DELETE /zoos/ID/animals/ID：删除某个指定动物园的指定动物<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 六、过滤信息（Filtering）</div><div class="line">如果记录数量很多，服务器不可能都将它们返回给用户。API应该提供参数，过滤返回结果。</div><div class="line">下面是一些常见的参数。</div></pre></td></tr></table></figure></p>
+<p>?limit=10：指定返回记录的数量<br>?offset=10：指定返回记录的开始位置。<br>?page=2&amp;per_page=100：指定第几页，以及每页的记录数。<br>?sortby=name&amp;order=asc：指定返回结果按照哪个属性排序，以及排序顺序。<br>?animal_type_id=1：指定筛选条件<br><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">参数的设计允许存在冗余，即允许API路径和URL参数偶尔有重复。比如，GET <span class="regexp">/zoo/</span>ID<span class="regexp">/animals 与 GET /</span>animals?zoo_id=ID 的含义是相同的。</div><div class="line"></div><div class="line"><span class="comment">## 七、状态码（Status Codes）</span></div><div class="line">服务器向用户返回的状态码和提示信息，常见的有以下一些（方括号中是该状态码对应的HTTP动词）。</div></pre></td></tr></table></figure></p>
+<p>200 OK - [GET]：服务器成功返回用户请求的数据，该操作是幂等的（Idempotent）。<br>201 CREATED - [POST/PUT/PATCH]：用户新建或修改数据成功。<br>202 Accepted - [<em>]：表示一个请求已经进入后台排队（异步任务）<br>204 NO CONTENT - [DELETE]：用户删除数据成功。<br>400 INVALID REQUEST - [POST/PUT/PATCH]：用户发出的请求有错误，服务器没有进行新建或修改数据的操作，该操作是幂等的。<br>401 Unauthorized - [</em>]：表示用户没有权限（令牌、用户名、密码错误）。<br>403 Forbidden - [<em>] 表示用户得到授权（与401错误相对），但是访问是被禁止的。<br>404 NOT FOUND - [</em>]：用户发出的请求针对的是不存在的记录，服务器没有进行操作，该操作是幂等的。<br>406 Not Acceptable - [GET]：用户请求的格式不可得（比如用户请求JSON格式，但是只有XML格式）。<br>410 Gone -[GET]：用户请求的资源被永久删除，且不会再得到的。<br>422 Unprocesable entity - [POST/PUT/PATCH] 当创建一个对象时，发生一个验证错误。<br>500 INTERNAL SERVER ERROR - [*]：服务器发生错误，用户将无法判断发出的请求是否成功。<br><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">状态码的完全列表参见[<span class="string">这里</span>](<span class="link">https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html</span>)。</div><div class="line"></div><div class="line"><span class="section">## 八、错误处理（Error handling）</span></div><div class="line">如果状态码是4xx，就应该向用户返回出错信息。一般来说，返回的信息中将error作为键名，出错信息作为键值即可。</div></pre></td></tr></table></figure></p>
+<p>{<br>    error: “Invalid API key”<br>}<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 九、返回结果</div><div class="line">针对不同操作，服务器向用户返回的结果应该符合以下规范。</div></pre></td></tr></table></figure></p>
+<p>GET /collection：返回资源对象的列表（数组）<br>GET /collection/resource：返回单个资源对象<br>POST /collection：返回新生成的资源对象<br>PUT /collection/resource：返回完整的资源对象<br>PATCH /collection/resource：返回完整的资源对象<br>DELETE /collection/resource：返回一个空文档<br><figure class="highlight clean"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">## 十、Hypermedia API</div><div class="line">RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。</div><div class="line">比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</div></pre></td></tr></table></figure></p>
+<p>{“link”: {<br>  “rel”:   “collection <a href="https://www.example.com/zoos" target="_blank" rel="external">https://www.example.com/zoos</a>“,<br>  “href”:  “<a href="https://api.example.com/zoos" target="_blank" rel="external">https://api.example.com/zoos</a>“,<br>  “title”: “List of zoos”,<br>  “type”:  “application/vnd.yourformat+json”<br>}}<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。</div><div class="line">Hypermedia API的设计被称为HATEOAS。Github的API就是这种设计，访问api<span class="selector-class">.github</span><span class="selector-class">.com</span>会得到一个所有可用API的网址列表。</div></pre></td></tr></table></figure></p>
+<p>{<br>  “current_user_url”: “<a href="https://api.github.com/user" target="_blank" rel="external">https://api.github.com/user</a>“,<br>  “authorizations_url”: “<a href="https://api.github.com/authorizations" target="_blank" rel="external">https://api.github.com/authorizations</a>“,<br>  // …<br>}<br><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">从上面可以看到，如果想获取当前用户的信息，应该去访问api<span class="selector-class">.github</span><span class="selector-class">.com</span>/user，然后就得到了下面结果。</div></pre></td></tr></table></figure></p>
+<p>{<br>  “message”: “Requires authentication”,<br>  “documentation_url”: “<a href="https://developer.github.com/v3" target="_blank" rel="external">https://developer.github.com/v3</a>“<br>}<br>```</p>
+<p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p>
+<h2 id="十一、其他"><a href="#十一、其他" class="headerlink" title="十一、其他"></a>十一、其他</h2><p>（1）API的身份认证应该使用OAuth 2.0框架。<br>（2）服务器返回的数据格式，应该尽量使用JSON，避免使用XML。</p>
+<hr>
+<p><a href="http://www.ruanyifeng.com/blog/2014/05/restful_api.html" target="_blank" rel="external">【原文链接】</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p><strong><em>  </em></strong><br>]]>
+    
+    </summary>
+    
+      <category term="Http" scheme="http://miclee.cn/tags/Http/"/>
+    
+      <category term="Http" scheme="http://miclee.cn/categories/Http/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[Python Web 框架一览]]></title>
@@ -855,74 +894,6 @@
 ]]></content>
     <summary type="html">
     <![CDATA[可以这么说，一个 React 应用就是构建在 React 组件之上的。]]>
-    
-    </summary>
-    
-      <category term="react" scheme="http://miclee.cn/tags/react/"/>
-    
-      <category term="react" scheme="http://miclee.cn/categories/react/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[React开发神器Webpack]]></title>
-    <link href="http://miclee.cn/2016/04/20/react-webpack/"/>
-    <id>http://miclee.cn/2016/04/20/react-webpack/</id>
-    <published>2016-04-20T09:19:55.000Z</published>
-    <updated>2016-04-20T12:01:03.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。 </em></strong><br><a id="more"></a></p>
-<hr>
-<p>Webpack将项目中用到的一切静态资源都视之为模块，模块之间可以互相依赖。Webpack对它们进行统一的管理以及打包发布。</p>
-<h2 id="一、安装Webpack"><a href="#一、安装Webpack" class="headerlink" title="一、安装Webpack"></a>一、安装Webpack</h2><p>Webpack一般作为全局的npm模块安装：</p>
-<figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> -g Webpack</div></pre></td></tr></table></figure>
-<p>直接执行此命令会默认使用当前目录的webpack.config.js作为配置文件。如果要指定另外的配置文件，可以执行：</p>
-<figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">webpack —config webpack<span class="selector-class">.custom</span><span class="selector-class">.config</span><span class="selector-class">.js</span></div></pre></td></tr></table></figure>
-<h2 id="二、Webpack模块加载器（Loaders）"><a href="#二、Webpack模块加载器（Loaders）" class="headerlink" title="二、Webpack模块加载器（Loaders）"></a>二、Webpack模块加载器（Loaders）</h2><p>Webpack将所有静态资源都认为是模块，比如JavaScript，CSS，LESS，TypeScript，JSX，CoffeeScript，图片等等，从而可以对其进行统一管理。每一种资源都可以通过对应的加载器处理成模块。和大多数包管理器不一样的是，Webpack的加载器之间可以进行串联，一个加载器的输出可以成为另一个加载器的输入。比如LESS文件先通过less-load处理成css，然后再通过css-loader加载成css模块，最后由style-loader加载器对其做最后的处理，从而运行时可以通过style标签将其应用到最终的浏览器环境。</p>
-<p>为了让Webpack识别什么样的资源应该用什么加载器去载入，需要在配置文件进行配置：通过正则表达式对文件名进行匹配。</p>
-<h3 id="特别的，使用babel解析js或jsx"><a href="#特别的，使用babel解析js或jsx" class="headerlink" title="特别的，使用babel解析js或jsx"></a>特别的，使用babel解析js或jsx</h3><figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-loader</div><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-react</div><div class="line">npm install --<span class="built_in">save</span>-<span class="built_in">dev</span> babel-preset-es2015</div></pre></td></tr></table></figure>
-<h2 id="三、config文件"><a href="#三、config文件" class="headerlink" title="三、config文件"></a>三、config文件</h2><p>配置文件通常放在项目根目录之下，其本身也是一个标准的CommonJS模块。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// webpack.config.js</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">entry</span>: <span class="string">'./js/main.js'</span>,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">    <span class="attr">path</span>: <span class="string">'./build'</span>, <span class="comment">// 打包文件存放的绝对路径</span></div><div class="line">    publicPath: <span class="string">'/build'</span>, <span class="comment">// 网站运行时的访问路径</span></div><div class="line">    filename: <span class="string">'bundle.js'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">resolve</span>: &#123; <span class="comment">//resolve 指定可以被 import 的文件后缀。比如 Hello.jsx 这样的文件就可以直接用 import Hello from 'Hello' 引用。</span></div><div class="line">       extensions: [<span class="string">''</span>, <span class="string">'.js'</span>, <span class="string">'.jsx'</span>]</div><div class="line">   &#125;,</div><div class="line">  <span class="attr">module</span>: &#123;</div><div class="line">    <span class="attr">loaders</span>: [</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.(js|jsx)$/</span>,</div><div class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'babel-loader'</span>,</div><div class="line">        <span class="attr">query</span>:</div><div class="line">        &#123;</div><div class="line">			    <span class="attr">presets</span>:[<span class="string">'es2015'</span>,<span class="string">'react'</span>]</div><div class="line">			  &#125;</div><div class="line">      &#125;, <span class="comment">//指定 babel-loader 编译后缀名为 .js 或者 .jsx 的文件</span></div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'style-loader!css-loader'</span></div><div class="line">      &#125;,</div><div class="line">      &#123; <span class="attr">test</span>: <span class="regexp">/\.(png|jpg)$/</span>,</div><div class="line">        <span class="attr">loader</span>: <span class="string">'url-loader?limit=8192'</span></div><div class="line">      &#125; <span class="comment">// inline base64 URLs for &lt;=8k images, direct URLs for the rest</span></div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure></p>
-<h2 id="四、webpack服务器"><a href="#四、webpack服务器" class="headerlink" title="四、webpack服务器"></a>四、webpack服务器</h2><p>在webpack里面有一个开发工具就是可以自动开启一个服务器。可以和webpack一样作为全局的npm模块安装：<br><figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">install</span> -g webpack-dev-<span class="keyword">server</span></div></pre></td></tr></table></figure></p>
-<h2 id="五、实现热替换-HMR-功能"><a href="#五、实现热替换-HMR-功能" class="headerlink" title="五、实现热替换(HMR)功能"></a>五、实现热替换(HMR)功能</h2><ul>
-<li><p>Webpack本身具有运行时模块替换功能，称之为Hot Module Replacement (HMR)。</p>
-<p>当某个模块代码发生变化时，Webpack实时打包将其推送到页面并进行替换，从而无需刷新页面就实现代码替换。这个过程相对比较复杂，需要进行多方面考虑和配置。</p>
-</li>
-<li><p>使用react-hot-loader加载器</p>
-<p>针对React出现了一个第三方react-hot-loader加载器，使用这个加载器就可以轻松实现React组件的热替换，非常方便。其实正是因为React的每一次更新都是全局刷新的虚拟DOM机制，让React组件的热替换可以成为通用的加载器，从而极大提高开发效率。</p>
-</li>
-<li><p>使用监听模式</p>
-<p>‘webpack –watch’命令，不过需要手动刷新页面，但不需要重启服务。</p>
-<h3 id="react-hot-loader加载器具体实现："><a href="#react-hot-loader加载器具体实现：" class="headerlink" title="react-hot-loader加载器具体实现："></a>react-hot-loader加载器具体实现：</h3><ul>
-<li><p>1、安装依赖</p>
-<figure class="highlight q"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install react-hot-loader --<span class="built_in">save</span>-<span class="built_in">dev</span></div></pre></td></tr></table></figure>
-</li>
-<li><p>2、更改webpack.config.js<br>为了热加载React组件，我们需要在前端页面中加入相应的代码，用以接收Webpack推送过来的代码模块，进而可以通知所有相关React组件进行重新Render:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack.config.js</span></div><div class="line">...</div><div class="line">entry: [</div><div class="line">  <span class="string">'webpack-dev-server/client?http://127.0.0.1:8080'</span>, <span class="comment">// WebpackDevServer host and port</span></div><div class="line">  <span class="string">'webpack/hot/only-dev-server'</span>,</div><div class="line">  <span class="string">'./js/main'</span> <span class="comment">// Your appʼs entry point</span></div><div class="line">]</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>3、下一步，我们需要让Webpack用react-hot-loader去加载React组件:</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//webpack.config.js</span></div><div class="line">...</div><div class="line">loaders: [&#123;</div><div class="line">    <span class="attr">test</span>: <span class="regexp">/\.(js|jsx)$/</span>,</div><div class="line">    <span class="attr">loader</span>: <span class="string">'react-hot!babel'</span></div><div class="line">  &#125;,</div><div class="line">  …</div><div class="line">]</div><div class="line">...</div></pre></td></tr></table></figure>
-</li>
-<li><p>4、修改package.json文件</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">"scripts": &#123;</div><div class="line">  "build": "webpack",</div><div class="line">  "dev": "webpack-dev-server --devtool eval --progress --colors --hot --content-base"</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>参数含义：</p>
-<ul>
-<li>webpack-dev-server - 在 localhost:8080 建立一个 Web 服务器</li>
-<li>devtool eval - 为你的代码创建源地址。当有任何报错的时候可以让你更加精确地定位到文件和行号</li>
-<li>progress - 显示合并代码进度</li>
-<li>colors - Yay，命令行中显示颜色！</li>
-<li>hot - 开启HMR参数hot</li>
-<li>content-base - 指向设置的输出目录,后面可以写你想指向的输出目录 不写默认为空目录</li>
-</ul>
-<ul>
-<li>5、使用<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">run</span><span class="bash"> dev</span></div></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[Webpack是功能最为强大的前端模块管理和打包工具。虽然Webpack是一个通用的工具，并不只适合于React，但是很多React的文章或者项目都使用了Webpack，尤其是react-hot-loader这样的神器存在，让Webpack成为最主流的React开发工具。]]>
     
     </summary>
     

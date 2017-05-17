@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>解决 ImportError cannot import name &#39;db&#39; | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="解决 ImportError cannot import name 'db'">
+<meta property="og:url" content="http://miclee.cn/2017/05/17/ImportError/index.html">
+<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
+<meta property="og:updated_time" content="2017-05-17T03:41:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="解决 ImportError cannot import name 'db'">
+<meta name="twitter:description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术创造价值，分享带来快乐</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-ImportError" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/17/ImportError/" class="article-date">
+  <time datetime="2017-05-17T03:19:14.000Z" itemprop="datePublished">2017-05-17</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      解决 ImportError cannot import name &#39;db&#39;
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name 'db'，解决方案如此。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__main__.py&quot;, line 28, in &lt;module&gt;</div><div class="line">    from pandora import get_app</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__init__.py&quot;, line 16, in &lt;module&gt;</div><div class="line">    import pandora.web.views</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/web/views.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora.dao import theta as ta</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/dao/theta.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora import db</div><div class="line">ImportError: cannot import name &apos;db&apos;</div></pre></td></tr></table></figure>
+<h2 id="错误相关项目结构"><a href="#错误相关项目结构" class="headerlink" title="错误相关项目结构"></a>错误相关项目结构</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pandora</div><div class="line">│   ├── __init__<span class="selector-class">.py</span></div><div class="line">│   ├── __main__<span class="selector-class">.py</span></div><div class="line">│   └── web</div><div class="line">│       ├── __init__<span class="selector-class">.py</span></div><div class="line">│       └── views.py</div></pre></td></tr></table></figure>
+<h2 id="错误相关代码"><a href="#错误相关代码" class="headerlink" title="错误相关代码"></a>错误相关代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/4/5 17:55</div><div class="line"># @File    : __init__.py</div><div class="line"></div><div class="line">from flask import Flask</div><div class="line">from flask_sqlalchemy import SQLAlchemy</div><div class="line">from flask_cors import CORS, cross_origin</div><div class="line">from pandora import config</div><div class="line">import pandora.web.views</div><div class="line"></div><div class="line">__version__ = &quot;0.1&quot;</div><div class="line">__description__ = &quot;NFQ Risk Model.&quot;</div><div class="line"></div><div class="line">db = SQLAlchemy()</div><div class="line">_app = None</div><div class="line"></div><div class="line">def _create_app():</div><div class="line">    app = Flask(__name__)</div><div class="line">    app.config.from_object(config)</div><div class="line"></div><div class="line">    CORS(app)</div><div class="line">    db.init_app(app)</div><div class="line">    return app</div><div class="line"></div><div class="line"></div><div class="line">def get_app():</div><div class="line">    global _app</div><div class="line">    if _app is None:</div><div class="line">        _app = _create_app()</div><div class="line">    return _app</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/5/16 15:28</div><div class="line"># @File    : views.py</div><div class="line"></div><div class="line">from pandora import db</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>1、开始以为是import的路径错误，仔细研究了下python的import机制，并木有发现问题。<br>2、考虑到Python顺序执行的特点，在执行 “import pandora.web.views” 时加载views.py，执行“from pandora import db”，而“db = SQLAlchemy()”语句还没执行，db对象还没有被创建，所以发生ImportError!</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将 “import pandora.web.views” 放到 __init.py__ 的最后。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.cn/2017/05/17/ImportError/" data-id="cj2sfxso600002os6rfequ7hn" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.cn/2017/05/17/ImportError/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/16/python字符串格式符/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          python字符串格式符
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">13</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/annotation/" style="font-size: 10px;">annotation</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/fs/" style="font-size: 10px;">fs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/ios-app-publish/" style="font-size: 10px;">ios-app-publish</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 12.5px;">maven</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/push/" style="font-size: 10px;">push</a> <a href="/tags/react/" style="font-size: 12.5px;">react</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 12.5px;">spring-boot</a> <a href="/tags/status/" style="font-size: 10px;">status</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/加密技术/" style="font-size: 12.5px;">加密技术</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/17/ImportError/">解决 ImportError cannot import name &#39;db&#39;</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/16/python字符串格式符/">python字符串格式符</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/16/SQLAlchemy/">SQLAlchemy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/15/restful-api/">RESTful API 设计指南【转】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/15/Python-Web框架一览/">Python Web 框架一览</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 MicLee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.cn/2017/05/17/ImportError/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-16T07:01:04.000Z</updated>
+  <updated>2017-05-17T03:41:39.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[解决 ImportError cannot import name 'db']]></title>
+    <link href="http://miclee.cn/2017/05/17/ImportError/"/>
+    <id>http://miclee.cn/2017/05/17/ImportError/</id>
+    <published>2017-05-17T03:19:14.000Z</published>
+    <updated>2017-05-17T03:41:39.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name 'db'，解决方案如此。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__main__.py&quot;, line 28, in &lt;module&gt;</div><div class="line">    from pandora import get_app</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__init__.py&quot;, line 16, in &lt;module&gt;</div><div class="line">    import pandora.web.views</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/web/views.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora.dao import theta as ta</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/dao/theta.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora import db</div><div class="line">ImportError: cannot import name &apos;db&apos;</div></pre></td></tr></table></figure>
+<h2 id="错误相关项目结构"><a href="#错误相关项目结构" class="headerlink" title="错误相关项目结构"></a>错误相关项目结构</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pandora</div><div class="line">│   ├── __init__<span class="selector-class">.py</span></div><div class="line">│   ├── __main__<span class="selector-class">.py</span></div><div class="line">│   └── web</div><div class="line">│       ├── __init__<span class="selector-class">.py</span></div><div class="line">│       └── views.py</div></pre></td></tr></table></figure>
+<h2 id="错误相关代码"><a href="#错误相关代码" class="headerlink" title="错误相关代码"></a>错误相关代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/4/5 17:55</div><div class="line"># @File    : __init__.py</div><div class="line"></div><div class="line">from flask import Flask</div><div class="line">from flask_sqlalchemy import SQLAlchemy</div><div class="line">from flask_cors import CORS, cross_origin</div><div class="line">from pandora import config</div><div class="line">import pandora.web.views</div><div class="line"></div><div class="line">__version__ = &quot;0.1&quot;</div><div class="line">__description__ = &quot;NFQ Risk Model.&quot;</div><div class="line"></div><div class="line">db = SQLAlchemy()</div><div class="line">_app = None</div><div class="line"></div><div class="line">def _create_app():</div><div class="line">    app = Flask(__name__)</div><div class="line">    app.config.from_object(config)</div><div class="line"></div><div class="line">    CORS(app)</div><div class="line">    db.init_app(app)</div><div class="line">    return app</div><div class="line"></div><div class="line"></div><div class="line">def get_app():</div><div class="line">    global _app</div><div class="line">    if _app is None:</div><div class="line">        _app = _create_app()</div><div class="line">    return _app</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/5/16 15:28</div><div class="line"># @File    : views.py</div><div class="line"></div><div class="line">from pandora import db</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>1、开始以为是import的路径错误，仔细研究了下python的import机制，并木有发现问题。<br>2、考虑到Python顺序执行的特点，在执行 “import pandora.web.views” 时加载views.py，执行“from pandora import db”，而“db = SQLAlchemy()”语句还没执行，db对象还没有被创建，所以发生ImportError!</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将 “import pandora.web.views” 放到 __init.py__ 的最后。</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name 'db'，解决方案如此。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[python字符串格式符]]></title>
@@ -926,40 +952,6 @@
       <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
     
       <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[JPA 对象关系模型之继承映射策略]]></title>
-    <link href="http://miclee.cn/2016/05/25/jpa-inherit-type/"/>
-    <id>http://miclee.cn/2016/05/25/jpa-inherit-type/</id>
-    <published>2016-05-25T09:00:27.000Z</published>
-    <updated>2017-05-11T10:56:56.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><h3 id="一、Single-table-策略"><a href="#一、Single-table-策略" class="headerlink" title="一、Single-table 策略"></a>一、Single-table 策略</h3><p>这是继承映射中的缺省策略，在不特别指明的情况下，系统默认就是采用这种映射策略进行映射的。这个策略的映射原则就是父类包括子类中新添加的属性全部映射到一张数据库表中，数据库表中有一个自动生成的字段用来存储区分不同的子类的信息。</p>
-<p><strong><em>就是不管有几张子实体，统统存在一张表里，父实体会为每个子实体冗余一条数据，通过自动生成的’DTYPE’字段来区分属于谁的数据。</em></strong></p>
-<h3 id="二、Joined-subclass-策略"><a href="#二、Joined-subclass-策略" class="headerlink" title="二、Joined-subclass 策略"></a>二、Joined-subclass 策略</h3><p>这种映射策略中，继承关系中的每一个实体类，无论是具体类 (concrete entity) 或者抽象类 (abstract entity)，数据库中都有一个单独的表与他对应。子实体对应的表中不含有从根实体继承而来的属性，它们之间通过共享主键的方式进行关联。</p>
-<p><strong><em>子实体会自动存入父实体的主键ID字段，父实体会为每个子实体存一条记录，通过自动生成的’DTYPE’字段来区分属于谁的数据。</em></strong></p>
-<h3 id="三、Table-per-concrete-class-策略"><a href="#三、Table-per-concrete-class-策略" class="headerlink" title="三、Table-per-concrete-class 策略"></a>三、Table-per-concrete-class 策略</h3><p>这个策略就是将继承关系中的每一个实体映射到数据库中的一个单独的表中，与“Joined”策略不同的是，子实体对应的表中含有从根实体继承而来的属性。这种策略在 JPA2.0 中仍然是自由选取得，也就是说实现 JPA2.0 规范的持久化引擎，如 Toplink，Hibernate 等 , 仍然可以自由选取是否实现这种策略。</p>
-<p><strong><em>每个子实体都有单独表冗余进父实体的字段</em></strong></p>
-<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>得益于注解 (annotation) 方式的使用，JPA 2.0 中实现继承关系的映射非常简单。当实体 (entity) 之间有继承关系的时候，一定有一个根实体 (root entity)，JPA2.0 中只需要在这个根实体 (root entity) 上标注 @Inheritance 注解并且指明想要采用的映射策略就可以了。如果是不用 @Inheritance 注解，或者使用了 @Inheritance 注解但是没有指明所要采用的映射策略的时候，默认就是采用单表策略 (Single-table strategy)。下面用图 1 这个继承关系分别说明这三种映射策略的使用。</p>
-<h3 id="1、-Inheritance"><a href="#1、-Inheritance" class="headerlink" title="1、@Inheritance"></a>1、@Inheritance</h3><p>用于父，对应策略一</p>
-<h3 id="2、-Inheritance-strategy-InheritanceType-JOINED"><a href="#2、-Inheritance-strategy-InheritanceType-JOINED" class="headerlink" title="2、@Inheritance(strategy=InheritanceType.JOINED)"></a>2、@Inheritance(strategy=InheritanceType.JOINED)</h3><p>用于父，对应策略二</p>
-<h3 id="3、-Inheritance-strategy-InheritanceType-TABLE-PER-CLASS"><a href="#3、-Inheritance-strategy-InheritanceType-TABLE-PER-CLASS" class="headerlink" title="3、 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)"></a>3、 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)</h3><p>用于父，对应策略三</p>
-<h3 id="4、用-MappedSuperclass来替代-Entity"><a href="#4、用-MappedSuperclass来替代-Entity" class="headerlink" title="4、用@MappedSuperclass来替代@Entity"></a>4、用@MappedSuperclass来替代@Entity</h3><p>用于父，父实体一般为抽象的不用被实例，数据库不会生成对应表，子实体会继承字段</p>
-<h3 id="5、-Embeddable-和-Embedded"><a href="#5、-Embeddable-和-Embedded" class="headerlink" title="5、@Embeddable 和 @Embedded"></a>5、@Embeddable 和 @Embedded</h3><p>@Embeddable用于父，@Embedded用于子。嵌套映射，子实体里定义父实体的类型变量。</p>
-<p><strong><em>需要注意的是，如有重复字段，需要用 @Transient 注解排除 </em></strong></p>
-<p><strong><em>实际使用中可以用改良版 Joined-subclass 策略，父实体和子实体各自一张表，父实体只存储一份数据，由子实体通过父ID共享。</em></strong></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[Java 是一种面向对象的语言，面向对象的语言特的性之一就是继承。而关系型数据库中的表与表之间的关系，并没有这种继承关系，不能说一张表继承另一张表，它们之间的关系只是关联关系。那么现在 JPA 要将 POJO 的 Java 类映射到数据库中，对于 Java 类中的这种继承关系是如何映射到数据库中的呢。JPA 规范中现在提供了三种不同的策略来实现继承与关系之间的映射。]]>
-    
-    </summary>
-    
-      <category term="jpa" scheme="http://miclee.cn/tags/jpa/"/>
-    
-      <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
     
   </entry>
   

@@ -3,19 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JAVA的23种设计模式(三) | MicLee&#39;s Bolg</title>
+  <title>Python ORM 框架对比 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="行为型模式 11种">
-<meta name="keywords" content="java">
+  <meta name="description" content="ORM技术 - Object-Relational Mapping, 把关系数据库的表结构映射到对象上。本篇对比Python几个流行的可选 ORM 库。">
+<meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JAVA的23种设计模式(三)">
-<meta property="og:url" content="http://miclee.cn/2015/08/27/java-design-pattern-3/index.html">
+<meta property="og:title" content="Python ORM 框架对比">
+<meta property="og:url" content="http://miclee.cn/2017/05/16/python-orm/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
-<meta property="og:description" content="行为型模式 11种">
-<meta property="og:updated_time" content="2016-04-07T03:45:14.000Z">
+<meta property="og:description" content="ORM技术 - Object-Relational Mapping, 把关系数据库的表结构映射到对象上。本篇对比Python几个流行的可选 ORM 库。">
+<meta property="og:updated_time" content="2017-05-17T03:42:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="JAVA的23种设计模式(三)">
-<meta name="twitter:description" content="行为型模式 11种">
+<meta name="twitter:title" content="Python ORM 框架对比">
+<meta name="twitter:description" content="ORM技术 - Object-Relational Mapping, 把关系数据库的表结构映射到对象上。本篇对比Python几个流行的可选 ORM 库。">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
   
@@ -65,14 +65,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-java-design-pattern-3" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-python-orm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/08/27/java-design-pattern-3/" class="article-date">
-  <time datetime="2015-08-27T09:18:22.000Z" itemprop="datePublished">2015-08-27</time>
+    <a href="/2017/05/16/python-orm/" class="article-date">
+  <time datetime="2017-05-16T05:52:19.000Z" itemprop="datePublished">2017-05-16</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/java/">java</a>
+    <a class="article-category-link" href="/categories/Python/">Python</a>
   </div>
 
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JAVA的23种设计模式(三)
+      Python ORM 框架对比
     </h1>
   
 
@@ -91,56 +91,68 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong><em> 行为型模式 11种 </em></strong><br><a id="more"></a></p>
+        <p><strong><em> ORM技术 - Object-Relational Mapping, 把关系数据库的表结构映射到对象上。本篇对比Python几个流行的可选 ORM 库。 </em></strong><br><a id="more"></a></p>
 <hr>
-<p>  本章是关于设计模式的最后一讲，会讲到第三种设计模式——行为型模式，共11种，这11种模式的关系：</p>
+<h2 id="SQLObject"><a href="#SQLObject" class="headerlink" title="SQLObject"></a>SQLObject</h2><p><strong>优点：</strong>  </p>
 <ul>
-<li><p>第一类：通过父类与子类的关系进行实现</p>
+<li>采用了易懂的ActiveRecord 模式；  </li>
+<li>一个相对较小的代码库；</li>
+</ul>
+<p><strong>缺点：</strong>  </p>
 <ul>
-<li>策略模式</li>
-<li>模板方法模式</li>
+<li>方法和类的命名遵循了Java 的小驼峰风格；  </li>
+<li>不支持数据库session隔离工作单元；</li>
 </ul>
-</li>
-<li><p>第二类：两个类之间</p>
+<h2 id="Storm"><a href="#Storm" class="headerlink" title="Storm"></a>Storm</h2><p><strong>优点：</strong>  </p>
 <ul>
-<li>观察者模式</li>
-<li>迭代子模式</li>
-<li>责任链模式</li>
-<li>命令模式</li>
+<li>清爽轻量的API，短学习曲线和长期可维护性；  </li>
+<li>不需要特殊的类构造函数，也没有必要的基类；</li>
 </ul>
-</li>
-<li><p>第三类：类的状态</p>
+<p><strong>缺点：</strong>  </p>
 <ul>
-<li>备忘录模式</li>
-<li>状态模式</li>
+<li>迫使程序员手工写表格创建的DDL语句，而不是从模型类自动派生；  </li>
+<li>Storm的贡献者必须把他们的贡献的版权给Canonical公司；  </li>
 </ul>
-</li>
-<li><p>第四类：通过中间类</p>
+<h2 id="Django’s-ORM"><a href="#Django’s-ORM" class="headerlink" title="Django’s ORM"></a>Django’s ORM</h2><p><strong>优点：</strong>  </p>
 <ul>
-<li>访问者模式</li>
-<li>中介者模式</li>
-<li>解释器模式</li>
+<li>易用，学习曲线短；  </li>
+<li>和Django紧密集合，用Django时使用约定俗成的方法去操作数据库；</li>
 </ul>
-</li>
+<p><strong>缺点：</strong>  </p>
+<ul>
+<li>不好处理复杂的查询，强制开发者回到原生SQL;  </li>
+<li>紧密和Django集成，使得在Django环境外很难使用;</li>
 </ul>
-<ol>
-<li><p>策略模式（strategy）<br>策略模式定义了一系列算法，并将每个算法封装起来，使他们可以相互替换，且算法的变化不会影响到使用算法的客户。<br>需要设计一个接口，为一系列实现类提供统一的方法，多个实现类实现该接口。<br>策略模式的决定权在用户，系统本身提供不同算法的实现，新增或者删除算法，对各种算法做封装。因此，策略模式多用在算法决策系统中，外部用户只需要决定用哪个算法即可。<br>其实本质就是定义个接口，并提供不同的实现。</p>
-</li>
-<li><p>模板方法模式（Template Method）<br>模板方法模式就是指：一个抽象类中，有一个主方法，再定义1…n个方法，可以是抽象的，也可以是实际的方法。<br>定义一个类，继承该抽象类，重写抽象方法，通过调用抽象类，实现对子类的调用</p>
-</li>
-<li><p>观察者模式（Observer）<br>包括这个模式在内的接下来的四个模式，都是类和类之间的关系，不涉及到继承。<br>观察者模式很好理解，类似于邮件订阅和RSS订阅，当我们浏览一些博客或wiki时，经常会看到RSS图标，就这的意思是，当你订阅了该文章，如果后续有更新，会及时通知你。其实，简单来讲就一句话：当一个对象变化时，其它依赖该对象的对象都会收到通知，并且随着变化！对象之间是一种一对多的关系。</p>
-</li>
-</ol>
+<h2 id="peewee"><a href="#peewee" class="headerlink" title="peewee"></a>peewee</h2><p><strong>优点：</strong>  </p>
+<ul>
+<li>Django式的API，使其易用;  </li>
+<li>轻量实现，很容易和任意web框架集成;</li>
+</ul>
+<p><strong>缺点：</strong>  </p>
+<ul>
+<li>不支持自动化 schema 迁移;  </li>
+<li>多对多查询写起来不直观;</li>
+</ul>
+<h2 id="SQLAlchemy"><a href="#SQLAlchemy" class="headerlink" title="SQLAlchemy"></a>SQLAlchemy</h2><p><strong>优点：</strong>  </p>
+<ul>
+<li>企业级 API，使得代码有健壮性和适应性;  </li>
+<li>灵活的设计，使得能轻松写复杂查询;</li>
+</ul>
+<p><strong>缺点：</strong>  </p>
+<ul>
+<li>工作单元概念不常;  </li>
+<li>重量级 API，导致长学习曲线;</li>
+</ul>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/08/27/java-design-pattern-3/" data-id="cj2sfrp7u002ky0s61e21bk90" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/16/python-orm/" data-id="cj2sfydf0000036s6w9rjp1vb" class="article-share-link">Share</a>
       
-        <a href="http://miclee.cn/2015/08/27/java-design-pattern-3/#disqus_thread" class="article-comment-link">Comments</a>
+        <a href="http://miclee.cn/2017/05/16/python-orm/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
 
     </footer>
   </div>
@@ -148,19 +160,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/08/27/java-design-pattern-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/15/restful-api/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          JAVA的23种设计模式(一)
+          RESTful API 设计指南【转】
         
       </div>
     </a>
   
   
-    <a href="/2015/08/27/java-design-pattern-2/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/16/SQLAlchemy/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JAVA的23种设计模式(二)</div>
+      <div class="article-nav-title">SQLAlchemy</div>
     </a>
   
 </nav>
@@ -262,7 +274,7 @@
 <script>
   var disqus_shortname = 'micleewj';
   
-  var disqus_url = 'http://miclee.cn/2015/08/27/java-design-pattern-3/';
+  var disqus_url = 'http://miclee.cn/2017/05/16/python-orm/';
   
   (function(){
     var dsq = document.createElement('script');

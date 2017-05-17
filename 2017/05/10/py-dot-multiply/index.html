@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://miclee.cn/2017/05/10/py-dot-multiply/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。">
-<meta property="og:updated_time" content="2017-05-10T09:19:27.000Z">
+<meta property="og:updated_time" content="2017-05-16T05:50:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Numpy 矩阵乘法">
 <meta name="twitter:description" content="在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。">
@@ -93,16 +93,21 @@
       
         <p><strong><em> 在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>使用array时，运算符 * 用于计算数量积（点乘），函数 dot() 用于计算矢量积（叉乘），例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.array([[1, 2], [3, 4]])</div><div class="line">b = np.array([[5, 6], [7, 8]])</div><div class="line"></div><div class="line">print(&apos;a * b = \n&apos;, a * b)</div><div class="line">print(&apos;dot(a, b) = \n&apos;, np.dot(a, b))</div><div class="line">```  </div><div class="line">运行结果为：   </div><div class="line">```python3</div><div class="line">a * b =</div><div class="line">[[ 5 12]</div><div class="line"> [21 32]]</div><div class="line">dot(a, b) =</div><div class="line">[[19 22]</div><div class="line"> [43 50]]</div></pre></td></tr></table></figure></p>
+<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>使用array时，运算符 * 用于计算数量积（点乘），函数 dot() 用于计算矢量积（叉乘），例子如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.array([[1, 2], [3, 4]])</div><div class="line">b = np.array([[5, 6], [7, 8]])</div><div class="line"></div><div class="line">print(&apos;a * b = \n&apos;, a * b)</div><div class="line">print(&apos;dot(a, b) = \n&apos;, np.dot(a, b))</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a * b =</div><div class="line">[[ 5 12]</div><div class="line"> [21 32]]</div><div class="line">dot(a, b) =</div><div class="line">[[19 22]</div><div class="line"> [43 50]]</div></pre></td></tr></table></figure>
 <p>可见，当a和b为array时， a <em> b 计算了a和b的数量积（对应Matlab的 a .</em> b ）， dot(a, b) 计算了a和b的矢量积（对应Matlab的 a * b ）。</p>
-<h2 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h2><p>与array不同的是，使用matrix时，运算符 * 用于计算矢量积，函数 multiply() 用于计算数量积，例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.mat(&apos;1 2; 3 4&apos;)</div><div class="line">b = np.mat(&apos;5 6; 7 8&apos;);</div><div class="line"></div><div class="line">print &apos;a * b = \n&apos;, a * b</div><div class="line">print &apos;multiply(a, b) = \n&apos;, np.multiply(a, b)</div><div class="line">```  </div><div class="line">运行结果为：</div></pre></td></tr></table></figure></p>
-<p>a * b =<br>[[19 22]<br> [43 50]]<br>multiply(a, b) =<br>[[ 5 12]<br> [21 32]]<br> ```</p>
+<h2 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h2><p>与array不同的是，使用matrix时，运算符 * 用于计算矢量积，函数 multiply() 用于计算数量积，例子如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.mat(&apos;1 2; 3 4&apos;)</div><div class="line">b = np.mat(&apos;5 6; 7 8&apos;);</div><div class="line"></div><div class="line">print &apos;a * b = \n&apos;, a * b</div><div class="line">print &apos;multiply(a, b) = \n&apos;, np.multiply(a, b)</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a * b =</div><div class="line"><span class="string">[[19 22]</span></div><div class="line"> [43 50]]</div><div class="line">multiply(a, b) =</div><div class="line"><span class="string">[[ 5 12]</span></div><div class="line"> [21 32]]</div></pre></td></tr></table></figure>
 <p>可见，当a和b为matrix时， a * b 计算了a和b的矢量积， multiply(a, b) 计算了a和b的数量积。当使用matrix时，无论是生成矩阵还是计算，Numpy的风格和Matlab更加贴近，降低了语言切换时的负担。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/10/py-dot-multiply/" data-id="cj2prs5b8005h9fs6tjbaspev" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/10/py-dot-multiply/" data-id="cj2sfrp9d005gy0s6h7ml8mc7" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/10/py-dot-multiply/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -149,7 +154,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">10</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
     </div>
   </div>
 
@@ -169,7 +174,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
     </div>
   </div>
 
@@ -181,6 +186,14 @@
       <ul>
         
           <li>
+            <a href="/2017/05/16/python字符串格式符/">python字符串格式符</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/16/SQLAlchemy/">SQLAlchemy</a>
+          </li>
+        
+          <li>
             <a href="/2017/05/15/restful-api/">RESTful API 设计指南【转】</a>
           </li>
         
@@ -190,14 +203,6 @@
         
           <li>
             <a href="/2017/05/12/人生苦短，我用Python/">人生苦短，我用Python【转】</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/12/解决matplotlib无法使用问题/">解决MAC系统上matplotlib无法使用问题</a>
-          </li>
-        
-          <li>
-            <a href="/2017/05/10/py-dot-multiply/">Numpy 矩阵乘法</a>
           </li>
         
       </ul>

@@ -4,7 +4,7 @@
   <subtitle><![CDATA[技术创造价值，分享带来快乐]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://miclee.cn/"/>
-  <updated>2017-05-15T06:55:06.000Z</updated>
+  <updated>2017-05-16T07:01:04.000Z</updated>
   <id>http://miclee.cn/</id>
   
   <author>
@@ -13,6 +13,119 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[python字符串格式符]]></title>
+    <link href="http://miclee.cn/2017/05/16/python%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%A0%BC%E5%BC%8F%E7%AC%A6/"/>
+    <id>http://miclee.cn/2017/05/16/python字符串格式符/</id>
+    <published>2017-05-16T06:28:00.000Z</published>
+    <updated>2017-05-16T07:01:04.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 格式化字符串时，Python使用一个字符串作为模板。模板中有格式符，这些格式符为真实值预留位置，并说明真实数值应该呈现的格式。Python用一个 tuple 或者 字典 将多个值传递给模板，每个值对应一个格式符。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(&quot;I&apos;m %s. I&apos;m %d year old&quot; % (&apos;MicLee&apos;, 30))</div><div class="line"></div><div class="line">print(&quot;I&apos;m %(name)s. I&apos;m %(age)d year old&quot; % &#123;&apos;name&apos;:&apos;MicLee&apos;, &apos;age&apos;:30&#125;)</div></pre></td></tr></table></figure>
+<h2 id="格式符"><a href="#格式符" class="headerlink" title="格式符"></a>格式符</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">%<span class="selector-tag">s</span></span>    字符串 (采用str()的显示)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">r</span>    字符串 (采用repr()的显示)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">c</span>    单个字符</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">b</span>    二进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">d</span>    十进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">i</span>    十进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">o</span>    八进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">x</span>    十六进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">e</span>    指数 (基底写为e)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">E</span>    指数 (基底写为E)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">f</span>    浮点数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">F</span>    浮点数，与上相同</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">g</span>    指数(e)或浮点数 (根据显示长度)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">G</span>    指数(E)或浮点数 (根据显示长度)</div><div class="line"><span class="tag"></span></div><div class="line">%%    字符"%"</div></pre></td></tr></table></figure>
+<h2 id="高级格式符"><a href="#高级格式符" class="headerlink" title="高级格式符"></a>高级格式符</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%[<span class="string">(name)</span>][<span class="symbol">flags</span>][<span class="string">width</span>].[precision]typecode</div></pre></td></tr></table></figure>
+<p>(name)为命名</p>
+<p>flags可以有+,-,’ ‘或0。+表示右对齐。-表示左对齐。’ ‘为一个空格，表示在正数的左侧填充一个空格，从而与负数对齐。0表示使用0填充。</p>
+<p>width表示显示宽度</p>
+<p>precision表示小数点后精度</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;%+10x&quot; % 10)</div><div class="line">        +a</div><div class="line">&gt;&gt;&gt; print(&quot;%04d&quot; % 5)</div><div class="line">0005</div><div class="line">&gt;&gt;&gt; print(&quot;%6.3f&quot; % 2.3)</div><div class="line"> 2.300</div></pre></td></tr></table></figure>
+<p>上面的width, precision为两个整数。我们可以利用*，来动态代入这两个量。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;%.*f&quot; % (4, 1.2))</div><div class="line">1.2000</div></pre></td></tr></table></figure>
+<p>Python实际上用4来替换*，所以实际的模板为”%.4f”。</p>
+<h2 id="r和-s的区别"><a href="#r和-s的区别" class="headerlink" title="%r和%s的区别"></a>%r和%s的区别</h2><p>%r用rper()方法处理对象<br>%s用str()方法处理对象</p>
+<p>有些情况下，两者处理的结果是一样的，比如int型对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s year old&quot; % 30)</div><div class="line">I&apos;m 30 year old</div><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r year old&quot; % 30)</div><div class="line">I&apos;m 30 year old</div></pre></td></tr></table></figure></p>
+<p>有些情况下是不一样的，比如str对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s.&quot; % &apos;MicLee&apos;)</div><div class="line">I&apos;m MicLee.</div><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r.&quot; % &apos;MicLee&apos;)</div><div class="line">I&apos;m &apos;MicLee&apos;.</div></pre></td></tr></table></figure></p>
+<p>还有一种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import datetime</div><div class="line">&gt;&gt;&gt; d = datetime.date.today()</div><div class="line">&gt;&gt;&gt; str(d)</div><div class="line">&apos;2011-05-14&apos;</div><div class="line">&gt;&gt;&gt; repr(d)</div><div class="line">&apos;datetime.date(2011, 5, 14)&apos;</div></pre></td></tr></table></figure></p>
+<p>%r(也就是repr()方法)打印时能够重现它所代表的对象</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[格式化字符串时，Python使用一个字符串作为模板。模板中有格式符，这些格式符为真实值预留位置，并说明真实数值应该呈现的格式。Python用一个 tuple 或者 字典 将多个值传递给模板，每个值对应一个格式符。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
+  
+  <entry>
+    <title><![CDATA[SQLAlchemy]]></title>
+    <link href="http://miclee.cn/2017/05/16/SQLAlchemy/"/>
+    <id>http://miclee.cn/2017/05/16/SQLAlchemy/</id>
+    <published>2017-05-16T06:10:26.000Z</published>
+    <updated>2017-05-16T08:23:33.000Z</updated>
+    <content type="html"><![CDATA[<p><strong><em> 在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="一、单独使用SQLAlchemy"><a href="#一、单独使用SQLAlchemy" class="headerlink" title="一、单独使用SQLAlchemy"></a>一、单独使用SQLAlchemy</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1) 安装"></a>1) 安装</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">workon py3</div><div class="line">pip <span class="keyword">install</span> sqlalchemy</div></pre></td></tr></table></figure>
+<h3 id="2-初始化DBSession"><a href="#2-初始化DBSession" class="headerlink" title="2) 初始化DBSession"></a>2) 初始化DBSession</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">from sqlalchemy import Column, String, create_engine  </div><div class="line">from sqlalchemy.orm import sessionmaker  </div><div class="line">from sqlalchemy.ext.declarative import declarative_base  </div><div class="line"></div><div class="line"># 创建对象的基类:  </div><div class="line">Base = declarative_base()  </div><div class="line"></div><div class="line"># 定义User对象:  </div><div class="line">class User(Base):  </div><div class="line">    # 表的名字:  </div><div class="line">    __tablename__ = &apos;user&apos;  </div><div class="line"></div><div class="line">    # 表的结构:  </div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line"></div><div class="line"># 初始化数据库连接:  </div><div class="line"># &apos;数据库类型+数据库驱动名称://用户名:口令@机器地址:端口号/数据库名&apos;  </div><div class="line">engine = create_engine(&apos;mysql+mysqlconnector://root:root@localhost:3306/test&apos;)  </div><div class="line"></div><div class="line"></div><div class="line"># 创建DBSession类型:  </div><div class="line">DBSession = sessionmaker(bind=engine)</div></pre></td></tr></table></figure>
+<h3 id="3-添加一行记录"><a href="#3-添加一行记录" class="headerlink" title="3) 添加一行记录"></a>3) 添加一行记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 创建session对象:  </div><div class="line">session = DBSession()  </div><div class="line"># 创建新User对象:  </div><div class="line">new_user = User(id=&apos;5&apos;, name=&apos;Bob&apos;)  </div><div class="line"># 添加到session:  </div><div class="line">session.add(new_user)  </div><div class="line"># 提交即保存到数据库:  </div><div class="line">session.commit()  </div><div class="line"># 关闭session:  </div><div class="line">session.close()</div></pre></td></tr></table></figure>
+<h3 id="4-查询数据"><a href="#4-查询数据" class="headerlink" title="4) 查询数据"></a>4) 查询数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 创建Session:  </div><div class="line">session = DBSession()  </div><div class="line"># 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:  </div><div class="line">user = session.query(User).filter(User.id==&apos;5&apos;).one()  </div><div class="line"># 打印类型和对象的name属性:  </div><div class="line">print &apos;type:&apos;, type(user)  </div><div class="line">print &apos;name:&apos;, user.name  </div><div class="line"># 关闭Session:  </div><div class="line">session.close()</div></pre></td></tr></table></figure>
+<h3 id="5-创建一个一对多的关系"><a href="#5-创建一个一对多的关系" class="headerlink" title="5) 创建一个一对多的关系"></a>5) 创建一个一对多的关系</h3><p>一个人有多本书：当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class User(Base):  </div><div class="line">    __tablename__ = &apos;user&apos;  </div><div class="line"></div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line">    # 一对多:  </div><div class="line">    books = relationship(&apos;Book&apos;)  </div><div class="line"></div><div class="line">class Book(Base):  </div><div class="line">    __tablename__ = &apos;book&apos;  </div><div class="line"></div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line">    # “多”的一方的book表是通过外键关联到user表的:  </div><div class="line">    user_id = Column(String(20), ForeignKey(&apos;user.id&apos;))</div></pre></td></tr></table></figure>
+<h2 id="二、Flask-SQLAlchemy"><a href="#二、Flask-SQLAlchemy" class="headerlink" title="二、Flask-SQLAlchemy"></a>二、Flask-SQLAlchemy</h2><p>常见情况下对于只有一个 Flask 应用，所有您需要做的事情就是创建 Flask 应用，选择加载配置接着创建 SQLAlchemy 对象时候把 Flask 应用传递给它作为参数。</p>
+<p>一旦创建，这个对象就包含 sqlalchemy 和 sqlalchemy.orm 中的所有函数和助手。此外它还提供一个名为 Model 的类，用于作为声明模型时的 delarative 基类:</p>
+<h3 id="1）安装"><a href="#1）安装" class="headerlink" title="1）安装"></a>1）安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">workon py3</div><div class="line">pip install Flask-SQLAlchemy</div></pre></td></tr></table></figure>
+<p>会附带安装 SQLAlchemy</p>
+<h3 id="2）初始化"><a href="#2）初始化" class="headerlink" title="2）初始化"></a>2）初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># myapp.py</div><div class="line">from flask import Flask</div><div class="line">from flask.ext.sqlalchemy import SQLAlchemy</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line">app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql://username:password@server/db&apos;</div><div class="line">db = SQLAlchemy(app)</div><div class="line"></div><div class="line"># 有一些部分在 SQLAlchemy 上是必选的，但是在 Flask-SQLAlchemy 上是可选的。 比如表名是自动地为您设置好的，除非您想要覆盖它。它是从转成小写的类名派生出来的，即 “CamelCase” 转换为 “camel_case”。</div><div class="line">class User(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    username = db.Column(db.String(80), unique=True)</div><div class="line">    email = db.Column(db.String(120), unique=True)</div><div class="line"></div><div class="line">    def __init__(self, username, email):</div><div class="line">        self.username = username</div><div class="line">        self.email = email</div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        return &apos;&lt;User %r&gt;&apos; % self.username</div></pre></td></tr></table></figure>
+<p><strong>常用类型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integer</td>
+<td>一个整数</td>
+</tr>
+<tr>
+<td>String(size)</td>
+<td>有长度限制的字符串</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>一些较长的 unicode 文本</td>
+</tr>
+<tr>
+<td>DateTime</td>
+<td>表示为 Python datetime 对象的 时间和日期</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>存储浮点值</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>存储布尔值</td>
+</tr>
+<tr>
+<td>PickleType</td>
+<td>存储为一个持久化的 Python 对象</td>
+</tr>
+<tr>
+<td>LargeBinary</td>
+<td>存储一个任意大的二进制数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3）添加一行记录"><a href="#3）添加一行记录" class="headerlink" title="3）添加一行记录"></a>3）添加一行记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from myapp import User</div><div class="line"></div><div class="line">admin = User(&apos;admin&apos;, &apos;admin@example.com&apos;)</div><div class="line">guest = User(&apos;guest&apos;, &apos;guest@example.com&apos;)</div><div class="line"></div><div class="line">db.session.add(admin)</div><div class="line">db.session.add(guest)</div><div class="line">db.session.commit()</div><div class="line"># 没有必要在每个请求后关闭它(session)，Flask-SQLAlchemy 会帮您完成关闭操作。</div></pre></td></tr></table></figure>
+<h3 id="4）查询记录"><a href="#4）查询记录" class="headerlink" title="4）查询记录"></a>4）查询记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from myapp import User</div><div class="line"></div><div class="line">users = User.query.all()</div><div class="line">print(users)</div><div class="line"># [&lt;User u&apos;admin&apos;&gt;, &lt;User u&apos;guest&apos;&gt;]</div><div class="line"></div><div class="line">admin = User.query.filter_by(username=&apos;admin&apos;).first()</div><div class="line">print(admin)</div><div class="line"># &lt;User u&apos;admin&apos;&gt;</div></pre></td></tr></table></figure>
+<p><strong>更多用法参考：</strong> <a href="http://www.pythondoc.com/flask-sqlalchemy/quickstart.html#id2" target="_blank" rel="external">Flask-SQLAlchemy 快速入门</a></p>
+]]></content>
+    <summary type="html">
+    <![CDATA[在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。]]>
+    
+    </summary>
+    
+      <category term="Python" scheme="http://miclee.cn/tags/Python/"/>
+    
+      <category term="Python" scheme="http://miclee.cn/categories/Python/"/>
+    
+  </entry>
   
   <entry>
     <title><![CDATA[RESTful API 设计指南【转】]]></title>
@@ -48,7 +161,7 @@
 <h2 id="十、Hypermedia-API"><a href="#十、Hypermedia-API" class="headerlink" title="十、Hypermedia API"></a>十、Hypermedia API</h2><p>RESTful API最好做到Hypermedia，即返回结果中提供链接，连向其他API方法，使得用户不查文档，也知道下一步应该做什么。<br>比如，当用户向api.example.com的根目录发出请求，会得到这样一个文档。</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;<span class="attr">"link"</span>: &#123;</div><div class="line">  <span class="attr">"rel"</span>:   <span class="string">"collection https://www.example.com/zoos"</span>,</div><div class="line">  <span class="attr">"href"</span>:  <span class="string">"https://api.example.com/zoos"</span>,</div><div class="line">  <span class="attr">"title"</span>: <span class="string">"List of zoos"</span>,</div><div class="line">  <span class="attr">"type"</span>:  <span class="string">"application/vnd.yourformat+json"</span></div><div class="line">&#125;&#125;</div></pre></td></tr></table></figure>
 <p>上面代码表示，文档中有一个link属性，用户读取这个属性就知道下一步该调用什么API了。rel表示这个API与当前网址的关系（collection关系，并给出该collection的网址），href表示API的路径，title表示API的标题，type表示返回类型。<br>Hypermedia API的设计被称为HATEOAS。Github的API就是这种设计，访问api.github.com会得到一个所有可用API的网址列表。</p>
-<figure class="highlight 1c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"current_user_url"</span>: <span class="string">"https://api.github.com/user"</span>,</div><div class="line">  <span class="string">"authorizations_url"</span>: <span class="string">"https://api.github.com/authorizations"</span>,</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"current_user_url"</span>: <span class="string">"https://api.github.com/user"</span>,</div><div class="line">  <span class="string">"authorizations_url"</span>: <span class="string">"https://api.github.com/authorizations"</span>,</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>从上面可以看到，如果想获取当前用户的信息，应该去访问api.github.com/user，然后就得到了下面结果。</p>
 <figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"message"</span>: <span class="string">"Requires authentication"</span>,</div><div class="line">  <span class="attr">"documentation_url"</span>: <span class="string">"https://developer.github.com/v3"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>上面代码表示，服务器给出了提示信息，以及文档的网址。</p>
@@ -293,13 +406,18 @@
     <link href="http://miclee.cn/2017/05/10/py-dot-multiply/"/>
     <id>http://miclee.cn/2017/05/10/py-dot-multiply/</id>
     <published>2017-05-10T09:02:17.000Z</published>
-    <updated>2017-05-10T09:19:27.000Z</updated>
+    <updated>2017-05-16T05:50:50.000Z</updated>
     <content type="html"><![CDATA[<p><strong><em> 在NumPy中，array用于表示通用的N维数组，matrix则特定用于线性代数计算。array和matrix都可以用来表示矩阵，二者在进行乘法操作时，有一些不同之处。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>使用array时，运算符 * 用于计算数量积（点乘），函数 dot() 用于计算矢量积（叉乘），例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.array([[1, 2], [3, 4]])</div><div class="line">b = np.array([[5, 6], [7, 8]])</div><div class="line"></div><div class="line">print(&apos;a * b = \n&apos;, a * b)</div><div class="line">print(&apos;dot(a, b) = \n&apos;, np.dot(a, b))</div><div class="line">```  </div><div class="line">运行结果为：   </div><div class="line">```python3</div><div class="line">a * b =</div><div class="line">[[ 5 12]</div><div class="line"> [21 32]]</div><div class="line">dot(a, b) =</div><div class="line">[[19 22]</div><div class="line"> [43 50]]</div></pre></td></tr></table></figure></p>
+<h2 id="array"><a href="#array" class="headerlink" title="array"></a>array</h2><p>使用array时，运算符 * 用于计算数量积（点乘），函数 dot() 用于计算矢量积（叉乘），例子如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.array([[1, 2], [3, 4]])</div><div class="line">b = np.array([[5, 6], [7, 8]])</div><div class="line"></div><div class="line">print(&apos;a * b = \n&apos;, a * b)</div><div class="line">print(&apos;dot(a, b) = \n&apos;, np.dot(a, b))</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a * b =</div><div class="line">[[ 5 12]</div><div class="line"> [21 32]]</div><div class="line">dot(a, b) =</div><div class="line">[[19 22]</div><div class="line"> [43 50]]</div></pre></td></tr></table></figure>
 <p>可见，当a和b为array时， a <em> b 计算了a和b的数量积（对应Matlab的 a .</em> b ）， dot(a, b) 计算了a和b的矢量积（对应Matlab的 a * b ）。</p>
-<h2 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h2><p>与array不同的是，使用matrix时，运算符 * 用于计算矢量积，函数 multiply() 用于计算数量积，例子如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.mat(&apos;1 2; 3 4&apos;)</div><div class="line">b = np.mat(&apos;5 6; 7 8&apos;);</div><div class="line"></div><div class="line">print &apos;a * b = \n&apos;, a * b</div><div class="line">print &apos;multiply(a, b) = \n&apos;, np.multiply(a, b)</div><div class="line">```  </div><div class="line">运行结果为：</div></pre></td></tr></table></figure></p>
-<p>a * b =<br>[[19 22]<br> [43 50]]<br>multiply(a, b) =<br>[[ 5 12]<br> [21 32]]<br> ```</p>
+<h2 id="matrix"><a href="#matrix" class="headerlink" title="matrix"></a>matrix</h2><p>与array不同的是，使用matrix时，运算符 * 用于计算矢量积，函数 multiply() 用于计算数量积，例子如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import numpy as np</div><div class="line"></div><div class="line">a = np.mat(&apos;1 2; 3 4&apos;)</div><div class="line">b = np.mat(&apos;5 6; 7 8&apos;);</div><div class="line"></div><div class="line">print &apos;a * b = \n&apos;, a * b</div><div class="line">print &apos;multiply(a, b) = \n&apos;, np.multiply(a, b)</div></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight lua"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">a * b =</div><div class="line"><span class="string">[[19 22]</span></div><div class="line"> [43 50]]</div><div class="line">multiply(a, b) =</div><div class="line"><span class="string">[[ 5 12]</span></div><div class="line"> [21 32]]</div></pre></td></tr></table></figure>
 <p>可见，当a和b为matrix时， a * b 计算了a和b的矢量积， multiply(a, b) 计算了a和b的数量积。当使用matrix时，无论是生成矩阵还是计算，Numpy的风格和Matlab更加贴近，降低了语言切换时的负担。</p>
 ]]></content>
     <summary type="html">
@@ -842,78 +960,6 @@
       <category term="jpa" scheme="http://miclee.cn/tags/jpa/"/>
     
       <category term="spring" scheme="http://miclee.cn/categories/spring/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[redis 安装]]></title>
-    <link href="http://miclee.cn/2016/05/12/redis-setup/"/>
-    <id>http://miclee.cn/2016/05/12/redis-setup/</id>
-    <published>2016-05-12T08:33:43.000Z</published>
-    <updated>2016-05-12T13:02:19.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/) </em></strong><br><a id="more"></a></p>
-<hr>
-<h3 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></div><div class="line">$ tar -xzf redis-<span class="number">3.2</span>.<span class="number">0</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div></pre></td></tr></table></figure>
-<h3 id="二、编译"><a href="#二、编译" class="headerlink" title="二、编译"></a>二、编译</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>cd redis-<span class="number">3.2</span>.<span class="number">0</span></div><div class="line"><span class="variable">$ </span>make</div></pre></td></tr></table></figure>
-<h3 id="三、安装"><a href="#三、安装" class="headerlink" title="三、安装"></a>三、安装</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>make PREFIX=<span class="regexp">/usr/local</span><span class="regexp">/redis install</span></div></pre></td></tr></table></figure>
-<p>这步完了之后，Redis就被安装到了/usr/local/redis/ 下面了</p>
-<h3 id="四、测试"><a href="#四、测试" class="headerlink" title="四、测试"></a>四、测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make <span class="built_in">test</span></div></pre></td></tr></table></figure>
-<blockquote>
-<p>如果没安装有tcl那么会包下面这错误：<br>    You need tcl 8.5 or newer in order to run the Redis test​<br>   【安装Tcl-8.6.3】<br>​     [root@localhost202 src]# wget <a href="http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz" target="_blank" rel="external">http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz</a><br>     [root@localhost202 src]# tar -zxf tcl8.6.3-src.tar.gz<br>     [root@localhost202 src]# cd ​tcl8.6.3/unix/<br>     [root@localhost202 src]# ./configure<br>     [root@localhost202 src]# make<br>     [root@localhost202 src]# make install</p>
-</blockquote>
-<h3 id="五、配置"><a href="#五、配置" class="headerlink" title="五、配置"></a>五、配置</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ cp src/redis-server src/redis-cli <span class="meta-keyword">/usr/</span>bin/bin</div><div class="line">$ cp ./redis.conf <span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/redis/</span></div><div class="line">$ vim <span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/redis/</span>redis.conf</div><div class="line"></div><div class="line">daemonize   yes      <span class="meta">#redis将以守护进程的方式运行，默认为no会暂用你的终端</span></div><div class="line">timeout <span class="number">300</span>​          <span class="meta">#当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span></div><div class="line">requirepass password123</div></pre></td></tr></table></figure>
-<h3 id="六、运行"><a href="#六、运行" class="headerlink" title="六、运行"></a>六、运行</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ redis-server <span class="regexp">/usr/</span>local<span class="regexp">/redis/</span>redis.conf</div></pre></td></tr></table></figure>
-<h3 id="七、防火墙里开启6379端口"><a href="#七、防火墙里开启6379端口" class="headerlink" title="七、防火墙里开启6379端口"></a>七、防火墙里开启6379端口</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi <span class="regexp">/etc/</span>sysconfig<span class="regexp">/iptables</span></div></pre></td></tr></table></figure>
-<p>加入： -A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT<br>重启防火墙<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>service iptables restart</div></pre></td></tr></table></figure></p>
-]]></content>
-    <summary type="html">
-    <![CDATA[Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/)]]>
-    
-    </summary>
-    
-      <category term="技术综合" scheme="http://miclee.cn/categories/%E6%8A%80%E6%9C%AF%E7%BB%BC%E5%90%88/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[react-component]]></title>
-    <link href="http://miclee.cn/2016/04/20/react-component/"/>
-    <id>http://miclee.cn/2016/04/20/react-component/</id>
-    <published>2016-04-20T11:01:42.000Z</published>
-    <updated>2016-04-20T11:03:50.000Z</updated>
-    <content type="html"><![CDATA[<p><strong><em> 可以这么说，一个 React 应用就是构建在 React 组件之上的。 </em></strong><br><a id="more"></a></p>
-<hr>
-<h1 id="React-组件"><a href="#React-组件" class="headerlink" title="React 组件"></a>React 组件</h1><p>组件有两个核心概念：</p>
-<ul>
-<li>props</li>
-<li>state</li>
-</ul>
-<p>一个组件就是通过这两个属性的值在 <code>render</code> 方法里面生成这个组件对应的 HTML 结构。</p>
-<p>_注意：组件生成的 HTML 结构只能有一个单一的根节点。_</p>
-<h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>前面也提到很多次了，<code>props</code> 就是组件的属性，由外部通过 JSX<br>属性传入设置，一旦初始设置完成，就可以认为 <code>this.props</code> 是不可更改的，所以<strong>不要</strong>轻易更改设置 <code>this.props</code> 里面的值（虽然对于一个 JS 对象你可以做任何事）。</p>
-<h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p><code>state</code> 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 <code>state</code><br>呈现不同的 UI 展示。</p>
-<p>一旦状态（数据）更改，组件就会自动调用 <code>render</code> 重新渲染 UI，这个更改的动作会通过<br><code>this.setState</code> 方法来触发。</p>
-<h2 id="划分状态数据"><a href="#划分状态数据" class="headerlink" title="划分状态数据"></a>划分状态数据</h2><p>一条原则：让组件尽可能地少状态。</p>
-<p>这样组件逻辑就越容易维护。</p>
-<p>什么样的数据属性可以当作状态？</p>
-<p>当更改这个状态（数据）需要更新组件 UI 的就可以认为是 <code>state</code>，下面这些可以认为<strong>不是</strong>状态：</p>
-<ul>
-<li>可计算的数据：比如一个数组的长度</li>
-<li>和 props 重复的数据：除非这个数据是要做变更的</li>
-</ul>
-<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in<br>React</a>，相信会对组件有更深刻的认识。</p>
-<h2 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h2><p>你也可以用纯粹的函数来定义无状态的组件(stateless function)，这种组件没有状态，没有生命周期，只是简单的接受 props 渲染生成 DOM 结构。无状态组件非常简单，开销很低，如果可能的话尽量使用无状态组件。比如使用箭头函数定义：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const HelloMessage = (props) =&gt; &lt;div&gt; Hello &#123;props.name&#125;&lt;/div&gt;;</div><div class="line">render(&lt;HelloMessage name="John" /&gt;, mountNode);</div></pre></td></tr></table></figure>
-<p>因为无状态组件只是函数，所以它没有实例返回，这点在想用 refs<br>获取无状态组件的时候要注意，参见<a href="dom.md">DOM 操作</a>。</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[可以这么说，一个 React 应用就是构建在 React 组件之上的。]]>
-    
-    </summary>
-    
-      <category term="react" scheme="http://miclee.cn/tags/react/"/>
-    
-      <category term="react" scheme="http://miclee.cn/categories/react/"/>
     
   </entry>
   

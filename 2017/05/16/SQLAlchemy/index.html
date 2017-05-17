@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>SQLAlchemy | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SQLAlchemy">
+<meta property="og:url" content="http://miclee.cn/2017/05/16/SQLAlchemy/index.html">
+<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:description" content="在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。">
+<meta property="og:updated_time" content="2017-05-16T08:23:33.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SQLAlchemy">
+<meta name="twitter:description" content="在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">技术创造价值，分享带来快乐</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.cn"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SQLAlchemy" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/05/16/SQLAlchemy/" class="article-date">
+  <time datetime="2017-05-16T06:10:26.000Z" itemprop="datePublished">2017-05-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Python/">Python</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SQLAlchemy
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 在上一章对比了Python几款ORM框架，决定在我的项目里使用SQLAlchemy，这里简单介绍下SQLAlchemy的使用。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h2 id="一、单独使用SQLAlchemy"><a href="#一、单独使用SQLAlchemy" class="headerlink" title="一、单独使用SQLAlchemy"></a>一、单独使用SQLAlchemy</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1) 安装"></a>1) 安装</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">workon py3</div><div class="line">pip <span class="keyword">install</span> sqlalchemy</div></pre></td></tr></table></figure>
+<h3 id="2-初始化DBSession"><a href="#2-初始化DBSession" class="headerlink" title="2) 初始化DBSession"></a>2) 初始化DBSession</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">from sqlalchemy import Column, String, create_engine  </div><div class="line">from sqlalchemy.orm import sessionmaker  </div><div class="line">from sqlalchemy.ext.declarative import declarative_base  </div><div class="line"></div><div class="line"># 创建对象的基类:  </div><div class="line">Base = declarative_base()  </div><div class="line"></div><div class="line"># 定义User对象:  </div><div class="line">class User(Base):  </div><div class="line">    # 表的名字:  </div><div class="line">    __tablename__ = &apos;user&apos;  </div><div class="line"></div><div class="line">    # 表的结构:  </div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line"></div><div class="line"># 初始化数据库连接:  </div><div class="line"># &apos;数据库类型+数据库驱动名称://用户名:口令@机器地址:端口号/数据库名&apos;  </div><div class="line">engine = create_engine(&apos;mysql+mysqlconnector://root:root@localhost:3306/test&apos;)  </div><div class="line"></div><div class="line"></div><div class="line"># 创建DBSession类型:  </div><div class="line">DBSession = sessionmaker(bind=engine)</div></pre></td></tr></table></figure>
+<h3 id="3-添加一行记录"><a href="#3-添加一行记录" class="headerlink" title="3) 添加一行记录"></a>3) 添加一行记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"># 创建session对象:  </div><div class="line">session = DBSession()  </div><div class="line"># 创建新User对象:  </div><div class="line">new_user = User(id=&apos;5&apos;, name=&apos;Bob&apos;)  </div><div class="line"># 添加到session:  </div><div class="line">session.add(new_user)  </div><div class="line"># 提交即保存到数据库:  </div><div class="line">session.commit()  </div><div class="line"># 关闭session:  </div><div class="line">session.close()</div></pre></td></tr></table></figure>
+<h3 id="4-查询数据"><a href="#4-查询数据" class="headerlink" title="4) 查询数据"></a>4) 查询数据</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"># 创建Session:  </div><div class="line">session = DBSession()  </div><div class="line"># 创建Query查询，filter是where条件，最后调用one()返回唯一行，如果调用all()则返回所有行:  </div><div class="line">user = session.query(User).filter(User.id==&apos;5&apos;).one()  </div><div class="line"># 打印类型和对象的name属性:  </div><div class="line">print &apos;type:&apos;, type(user)  </div><div class="line">print &apos;name:&apos;, user.name  </div><div class="line"># 关闭Session:  </div><div class="line">session.close()</div></pre></td></tr></table></figure>
+<h3 id="5-创建一个一对多的关系"><a href="#5-创建一个一对多的关系" class="headerlink" title="5) 创建一个一对多的关系"></a>5) 创建一个一对多的关系</h3><p>一个人有多本书：当我们查询一个User对象时，该对象的books属性将返回一个包含若干个Book对象的list。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">class User(Base):  </div><div class="line">    __tablename__ = &apos;user&apos;  </div><div class="line"></div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line">    # 一对多:  </div><div class="line">    books = relationship(&apos;Book&apos;)  </div><div class="line"></div><div class="line">class Book(Base):  </div><div class="line">    __tablename__ = &apos;book&apos;  </div><div class="line"></div><div class="line">    id = Column(String(20), primary_key=True)  </div><div class="line">    name = Column(String(20))  </div><div class="line">    # “多”的一方的book表是通过外键关联到user表的:  </div><div class="line">    user_id = Column(String(20), ForeignKey(&apos;user.id&apos;))</div></pre></td></tr></table></figure>
+<h2 id="二、Flask-SQLAlchemy"><a href="#二、Flask-SQLAlchemy" class="headerlink" title="二、Flask-SQLAlchemy"></a>二、Flask-SQLAlchemy</h2><p>常见情况下对于只有一个 Flask 应用，所有您需要做的事情就是创建 Flask 应用，选择加载配置接着创建 SQLAlchemy 对象时候把 Flask 应用传递给它作为参数。</p>
+<p>一旦创建，这个对象就包含 sqlalchemy 和 sqlalchemy.orm 中的所有函数和助手。此外它还提供一个名为 Model 的类，用于作为声明模型时的 delarative 基类:</p>
+<h3 id="1）安装"><a href="#1）安装" class="headerlink" title="1）安装"></a>1）安装</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">workon py3</div><div class="line">pip install Flask-SQLAlchemy</div></pre></td></tr></table></figure>
+<p>会附带安装 SQLAlchemy</p>
+<h3 id="2）初始化"><a href="#2）初始化" class="headerlink" title="2）初始化"></a>2）初始化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"># myapp.py</div><div class="line">from flask import Flask</div><div class="line">from flask.ext.sqlalchemy import SQLAlchemy</div><div class="line"></div><div class="line">app = Flask(__name__)</div><div class="line">app.config[&apos;SQLALCHEMY_DATABASE_URI&apos;] = &apos;mysql://username:password@server/db&apos;</div><div class="line">db = SQLAlchemy(app)</div><div class="line"></div><div class="line"># 有一些部分在 SQLAlchemy 上是必选的，但是在 Flask-SQLAlchemy 上是可选的。 比如表名是自动地为您设置好的，除非您想要覆盖它。它是从转成小写的类名派生出来的，即 “CamelCase” 转换为 “camel_case”。</div><div class="line">class User(db.Model):</div><div class="line">    id = db.Column(db.Integer, primary_key=True)</div><div class="line">    username = db.Column(db.String(80), unique=True)</div><div class="line">    email = db.Column(db.String(120), unique=True)</div><div class="line"></div><div class="line">    def __init__(self, username, email):</div><div class="line">        self.username = username</div><div class="line">        self.email = email</div><div class="line"></div><div class="line">    def __repr__(self):</div><div class="line">        return &apos;&lt;User %r&gt;&apos; % self.username</div></pre></td></tr></table></figure>
+<p><strong>常用类型：</strong></p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Integer</td>
+<td>一个整数</td>
+</tr>
+<tr>
+<td>String(size)</td>
+<td>有长度限制的字符串</td>
+</tr>
+<tr>
+<td>Text</td>
+<td>一些较长的 unicode 文本</td>
+</tr>
+<tr>
+<td>DateTime</td>
+<td>表示为 Python datetime 对象的 时间和日期</td>
+</tr>
+<tr>
+<td>Float</td>
+<td>存储浮点值</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>存储布尔值</td>
+</tr>
+<tr>
+<td>PickleType</td>
+<td>存储为一个持久化的 Python 对象</td>
+</tr>
+<tr>
+<td>LargeBinary</td>
+<td>存储一个任意大的二进制数据</td>
+</tr>
+</tbody>
+</table>
+<h3 id="3）添加一行记录"><a href="#3）添加一行记录" class="headerlink" title="3）添加一行记录"></a>3）添加一行记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from myapp import User</div><div class="line"></div><div class="line">admin = User(&apos;admin&apos;, &apos;admin@example.com&apos;)</div><div class="line">guest = User(&apos;guest&apos;, &apos;guest@example.com&apos;)</div><div class="line"></div><div class="line">db.session.add(admin)</div><div class="line">db.session.add(guest)</div><div class="line">db.session.commit()</div><div class="line"># 没有必要在每个请求后关闭它(session)，Flask-SQLAlchemy 会帮您完成关闭操作。</div></pre></td></tr></table></figure>
+<h3 id="4）查询记录"><a href="#4）查询记录" class="headerlink" title="4）查询记录"></a>4）查询记录</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from myapp import User</div><div class="line"></div><div class="line">users = User.query.all()</div><div class="line">print(users)</div><div class="line"># [&lt;User u&apos;admin&apos;&gt;, &lt;User u&apos;guest&apos;&gt;]</div><div class="line"></div><div class="line">admin = User.query.filter_by(username=&apos;admin&apos;).first()</div><div class="line">print(admin)</div><div class="line"># &lt;User u&apos;admin&apos;&gt;</div></pre></td></tr></table></figure>
+<p><strong>更多用法参考：</strong> <a href="http://www.pythondoc.com/flask-sqlalchemy/quickstart.html#id2" target="_blank" rel="external">Flask-SQLAlchemy 快速入门</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.cn/2017/05/16/SQLAlchemy/" data-id="cj2sfrp9v0063y0s6b4ndw9yz" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.cn/2017/05/16/SQLAlchemy/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/05/15/restful-api/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          RESTful API 设计指南【转】
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/05/16/python字符串格式符/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python字符串格式符</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">12</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Http/" style="font-size: 10px;">Http</a> <a href="/tags/Python/" style="font-size: 17.5px;">Python</a> <a href="/tags/annotation/" style="font-size: 10px;">annotation</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/fs/" style="font-size: 10px;">fs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/ios-app-publish/" style="font-size: 10px;">ios-app-publish</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 12.5px;">maven</a> <a href="/tags/nodejs/" style="font-size: 20px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/push/" style="font-size: 10px;">push</a> <a href="/tags/react/" style="font-size: 12.5px;">react</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 12.5px;">spring-boot</a> <a href="/tags/status/" style="font-size: 10px;">status</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/加密技术/" style="font-size: 12.5px;">加密技术</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">8</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/05/16/python字符串格式符/">python字符串格式符</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/16/SQLAlchemy/">SQLAlchemy</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/15/restful-api/">RESTful API 设计指南【转】</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/15/Python-Web框架一览/">Python Web 框架一览</a>
+          </li>
+        
+          <li>
+            <a href="/2017/05/12/人生苦短，我用Python/">人生苦短，我用Python【转】</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 MicLee<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.cn/2017/05/16/SQLAlchemy/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -12,7 +12,7 @@
 <meta property="og:url" content="http://miclee.cn/2017/05/18/python-deploy/index.html">
 <meta property="og:site_name" content="MicLee's Bolg">
 <meta property="og:description" content="flask 自带的服务器，能够完成了 web 服务的启动，但在生产环境下，无法满足性能要求。我们这里采用 gunicorn 做 wsgi容器，用来部署 python。">
-<meta property="og:updated_time" content="2017-05-20T08:54:15.000Z">
+<meta property="og:updated_time" content="2017-05-20T08:56:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python 应用部署">
 <meta name="twitter:description" content="flask 自带的服务器，能够完成了 web 服务的启动，但在生产环境下，无法满足性能要求。我们这里采用 gunicorn 做 wsgi容器，用来部署 python。">
@@ -103,11 +103,11 @@
 <ul>
 <li><strong>运行</strong>  </li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunicron -w4 -b0.0.0.0:8080 run:app</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunicorn -w4 -b0.0.0.0:8080 run:app</div></pre></td></tr></table></figure>
 <p>-w 表示开启多少个 worker，-b 表示 gunicorn 开发的访问地址</p>
 <p>为了在后台运行这个服务器（也即使它变成守护进程），可以传递-D选项给Gunicorn。这下它会持续运行，即使你关闭了当前的终端会话。</p>
 <p>如果这么做了，当想要关闭服务器时就会困惑于到底应该关闭哪个进程。我们可以让Gunicorn把进程ID储存到文件中，这样如果想要停止或者重启服务器时，我们可以不用在一大串运行中的进程中搜索它。我们使用-p <file>选项来这么做。现在，我们的Gunicorn部署命令是这样：</file></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunicron -w4 -b0.0.0.0:8080 run:app -p run.pid -D</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">gunicorn -w4 -b0.0.0.0:8080 run:app -p run.pid -D</div></pre></td></tr></table></figure>
 <ul>
 <li><strong>重启</strong></li>
 </ul>

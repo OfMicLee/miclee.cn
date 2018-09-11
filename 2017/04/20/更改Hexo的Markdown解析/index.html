@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="更改Hexo的Markdown解析">
 <meta property="og:url" content="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-04-20T09:23:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="更改Hexo的Markdown解析">
@@ -93,26 +94,26 @@
       
         <p><strong><em> Hexo默认使用marked.js去解析我们写的markdown，以前用的就很不爽，解析的效果跟atom里预览效果不一致，本来想换个引擎，无奈有一些老的博文需要调整，索性改一下marked.js的解析方法。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在写博文<a href="http://miclee.cn/2017/04/20/Python下划线使用">Python下划线使用</a>时因为有一堆的下滑线要写，hexo默认使用marked.js去解析我们写的markdown，比如一些符号，_代表斜体，会被处理为<em>标签，比如x_i在开始被渲染的时候，处理为x<em>i</em>，比如__init__会被处理成<strong>init</strong>。</em></p>
+<h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>在写博文<a href="http://miclee.cn/2017/04/20/Python下划线使用">Python下划线使用</a>时因为有一堆的下滑线要写，hexo默认使用marked.js去解析我们写的markdown，比如一些符号，_代表斜体，会被处理为<em>标签，比如x_i在开始被渲染的时候，处理为x<em>i</em>，比如<strong>init</strong>会被处理成<strong>init</strong>。</em></p>
 <p>考虑到我后面会写机器学习相关的一些东西，里面会涉及到很多数学公式，会影响解析，SO趁现在动动手。</p>
-<h2 id="利用MathJax来渲染LaTeX数学公式"><a href="#利用MathJax来渲染LaTeX数学公式" class="headerlink" title="利用MathJax来渲染LaTeX数学公式"></a>利用MathJax来渲染LaTeX数学公式</h2><p>题外一下，MathJax的hexo插件安装方法。<br>cd到博文目录：<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></div><div class="line">hexo <span class="built_in">math</span> install</div></pre></td></tr></table></figure></p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">vi ./node_modules/marked/lib/marked.js</div></pre></td></tr></table></figure>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#+\-.!_&gt;])/,</span></div><div class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/</span>,</div><div class="line"></div><div class="line"><span class="comment">//strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,</span></div><div class="line">strong: <span class="regexp">/^\*\*([\s\S]+?)\*\*(?!\*)/</span>,</div><div class="line"></div><div class="line"><span class="comment">//em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></div><div class="line">em:<span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</div></pre></td></tr></table></figure>
+<h2 id="利用MathJax来渲染LaTeX数学公式"><a href="#利用MathJax来渲染LaTeX数学公式" class="headerlink" title="利用MathJax来渲染LaTeX数学公式"></a>利用MathJax来渲染LaTeX数学公式</h2><p>题外一下，MathJax的hexo插件安装方法。<br>cd到博文目录：<br><figure class="highlight moonscript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-<span class="built_in">math</span> <span class="comment">--save</span></span><br><span class="line">hexo <span class="built_in">math</span> install</span><br></pre></td></tr></table></figure></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi ./node_modules/marked/lib/marked.js</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//escape: /^\\([\\`*&#123;&#125;\[\]()#+\-.!_&gt;])/,</span></span><br><span class="line"><span class="built_in">escape</span>: <span class="regexp">/^\\([`*&#123;&#125;\[\]()# +\-.!_&gt;])/</span>,</span><br><span class="line"></span><br><span class="line"><span class="comment">//strong: /^__([\s\S]+?)__(?!_)|^\*\*([\s\S]+?)\*\*(?!\*)/,</span></span><br><span class="line">strong: <span class="regexp">/^\*\*([\s\S]+?)\*\*(?!\*)/</span>,</span><br><span class="line"></span><br><span class="line"><span class="comment">//em: /^\b_((?:[^_]|__)+?)_\b|^\*((?:\*\*|[\s\S])+?)\*(?!\*)/,</span></span><br><span class="line">em:<span class="regexp">/^\*((?:\*\*|[\s\S])+?)\*(?!\*)/</span>,</span><br></pre></td></tr></table></figure>
 <p>So以后写 <em>斜体</em> 和 <strong>粗体</strong> 只能用* 和 ** 了</p>
 <h2 id="解决方案二：更换Markdown引擎"><a href="#解决方案二：更换Markdown引擎" class="headerlink" title="解决方案二：更换Markdown引擎"></a>解决方案二：更换Markdown引擎</h2><p>比如换成pandoc：</p>
 <ol>
 <li><p>安装pandoc</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>Pandoc</div></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>Pandoc</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>安装 <a href="https://github.com/wzpan/hexo-renderer-pandoc" target="_blank" rel="external">hexo-renderer-pandoc</a></p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></div><div class="line">npm <span class="keyword">install</span> hexo-renderer-pandoc <span class="comment">--save</span></div></pre></td></tr></table></figure>
+<li><p>安装 <a href="https://github.com/wzpan/hexo-renderer-pandoc" target="_blank" rel="noopener">hexo-renderer-pandoc</a></p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">uninstall</span> hexo-renderer-marked <span class="comment">--save</span></span><br><span class="line">npm <span class="keyword">install</span> hexo-renderer-pandoc <span class="comment">--save</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="解决方案三：一个个用-转义吧"><a href="#解决方案三：一个个用-转义吧" class="headerlink" title="解决方案三：一个个用\\转义吧"></a>解决方案三：一个个用\\转义吧</h2>
+<h2 id="解决方案三：一个个用-转义吧"><a href="#解决方案三：一个个用-转义吧" class="headerlink" title="解决方案三：一个个用\转义吧"></a>解决方案三：一个个用\转义吧</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/" data-id="cjb1wtiv0004zdts67h44tdf5" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/" data-id="cjlxfmf14003gvps6e75qx5bx" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/04/20/更改Hexo的Markdown解析/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -125,19 +126,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/20/Python下划线使用/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/26/机器学习/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Python下划线使用
+          机器学习
         
       </div>
     </a>
   
   
-    <a href="/2017/04/26/机器学习/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/20/Python下划线使用/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">机器学习</div>
+      <div class="article-nav-title">Python下划线使用</div>
     </a>
   
 </nav>
@@ -223,7 +224,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

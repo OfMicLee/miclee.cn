@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="react-component">
 <meta property="og:url" content="http://miclee.cn/2016/04/20/react-component/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="可以这么说，一个 React 应用就是构建在 React 组件之上的。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2016-04-20T11:03:50.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react-component">
@@ -99,7 +100,7 @@
 <li>state</li>
 </ul>
 <p>一个组件就是通过这两个属性的值在 <code>render</code> 方法里面生成这个组件对应的 HTML 结构。</p>
-<p>_注意：组件生成的 HTML 结构只能有一个单一的根节点。_</p>
+<p><em>注意：组件生成的 HTML 结构只能有一个单一的根节点。</em></p>
 <h2 id="props"><a href="#props" class="headerlink" title="props"></a>props</h2><p>前面也提到很多次了，<code>props</code> 就是组件的属性，由外部通过 JSX<br>属性传入设置，一旦初始设置完成，就可以认为 <code>this.props</code> 是不可更改的，所以<strong>不要</strong>轻易更改设置 <code>this.props</code> 里面的值（虽然对于一个 JS 对象你可以做任何事）。</p>
 <h2 id="state"><a href="#state" class="headerlink" title="state"></a>state</h2><p><code>state</code> 是组件的当前状态，可以把组件简单看成一个“状态机”，根据状态 <code>state</code><br>呈现不同的 UI 展示。</p>
 <p>一旦状态（数据）更改，组件就会自动调用 <code>render</code> 重新渲染 UI，这个更改的动作会通过<br><code>this.setState</code> 方法来触发。</p>
@@ -111,15 +112,15 @@
 <li>可计算的数据：比如一个数组的长度</li>
 <li>和 props 重复的数据：除非这个数据是要做变更的</li>
 </ul>
-<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="external">Thinking in<br>React</a>，相信会对组件有更深刻的认识。</p>
+<p>最后回过头来反复看几遍 <a href="http://facebook.github.io/react/docs/thinking-in-react.html" target="_blank" rel="noopener">Thinking in<br>React</a>，相信会对组件有更深刻的认识。</p>
 <h2 id="无状态组件"><a href="#无状态组件" class="headerlink" title="无状态组件"></a>无状态组件</h2><p>你也可以用纯粹的函数来定义无状态的组件(stateless function)，这种组件没有状态，没有生命周期，只是简单的接受 props 渲染生成 DOM 结构。无状态组件非常简单，开销很低，如果可能的话尽量使用无状态组件。比如使用箭头函数定义：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">const HelloMessage = (props) =&gt; &lt;div&gt; Hello &#123;props.name&#125;&lt;/div&gt;;</div><div class="line">render(&lt;HelloMessage name="John" /&gt;, mountNode);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> HelloMessage = <span class="function">(<span class="params">props</span>) =&gt;</span> &lt;div&gt; Hello &#123;props.name&#125;&lt;<span class="regexp">/div&gt;;</span></span><br><span class="line"><span class="regexp">render(&lt;HelloMessage name="John" /</span>&gt;, mountNode);</span><br></pre></td></tr></table></figure>
 <p>因为无状态组件只是函数，所以它没有实例返回，这点在想用 refs<br>获取无状态组件的时候要注意，参见<a href="dom.md">DOM 操作</a>。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/04/20/react-component/" data-id="cjb1wtiui0042dts6zaw0qr3s" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/04/20/react-component/" data-id="cjlxfmf0r002cvps62zlvkjqr" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/04/20/react-component/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -132,19 +133,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/20/react-webpack/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/12/redis-setup/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          React开发神器Webpack
+          redis 安装
         
       </div>
     </a>
   
   
-    <a href="/2016/05/12/redis-setup/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/20/react-webpack/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">redis 安装</div>
+      <div class="article-nav-title">React开发神器Webpack</div>
     </a>
   
 </nav>
@@ -230,7 +231,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

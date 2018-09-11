@@ -8,13 +8,14 @@
   <meta name="description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
 <meta name="keywords" content="Python">
 <meta property="og:type" content="article">
-<meta property="og:title" content="解决 ImportError cannot import name 'db'">
+<meta property="og:title" content="解决 ImportError cannot import name &#39;db&#39;">
 <meta property="og:url" content="http://miclee.cn/2017/05/17/ImportError/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-05-17T03:41:39.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="解决 ImportError cannot import name 'db'">
+<meta name="twitter:title" content="解决 ImportError cannot import name &#39;db&#39;">
 <meta name="twitter:description" content="在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name &apos;db&apos;，解决方案如此。">
   
     <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
@@ -93,17 +94,17 @@
       
         <p><strong><em> 在使用 flask_sqlalchemy 的时候启动项目总是报错ImportError cannot import name 'db'，解决方案如此。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">Traceback (most recent call last):</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__main__.py&quot;, line 28, in &lt;module&gt;</div><div class="line">    from pandora import get_app</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__init__.py&quot;, line 16, in &lt;module&gt;</div><div class="line">    import pandora.web.views</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/web/views.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora.dao import theta as ta</div><div class="line">  File &quot;/Users/MicLee/WorkSpace/risk-model/pandora/pandora/dao/theta.py&quot;, line 8, in &lt;module&gt;</div><div class="line">    from pandora import db</div><div class="line">ImportError: cannot import name &apos;db&apos;</div></pre></td></tr></table></figure>
-<h2 id="错误相关项目结构"><a href="#错误相关项目结构" class="headerlink" title="错误相关项目结构"></a>错误相关项目结构</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">pandora</div><div class="line">│   ├── __init__<span class="selector-class">.py</span></div><div class="line">│   ├── __main__<span class="selector-class">.py</span></div><div class="line">│   └── web</div><div class="line">│       ├── __init__<span class="selector-class">.py</span></div><div class="line">│       └── views.py</div></pre></td></tr></table></figure>
-<h2 id="错误相关代码"><a href="#错误相关代码" class="headerlink" title="错误相关代码"></a>错误相关代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/4/5 17:55</div><div class="line"># @File    : __init__.py</div><div class="line"></div><div class="line">from flask import Flask</div><div class="line">from flask_sqlalchemy import SQLAlchemy</div><div class="line">from flask_cors import CORS, cross_origin</div><div class="line">from pandora import config</div><div class="line">import pandora.web.views</div><div class="line"></div><div class="line">__version__ = &quot;0.1&quot;</div><div class="line">__description__ = &quot;NFQ Risk Model.&quot;</div><div class="line"></div><div class="line">db = SQLAlchemy()</div><div class="line">_app = None</div><div class="line"></div><div class="line">def _create_app():</div><div class="line">    app = Flask(__name__)</div><div class="line">    app.config.from_object(config)</div><div class="line"></div><div class="line">    CORS(app)</div><div class="line">    db.init_app(app)</div><div class="line">    return app</div><div class="line"></div><div class="line"></div><div class="line">def get_app():</div><div class="line">    global _app</div><div class="line">    if _app is None:</div><div class="line">        _app = _create_app()</div><div class="line">    return _app</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">#!/usr/bin/env python</div><div class="line"># -*- coding: utf-8 -*-</div><div class="line">#</div><div class="line"># @Author  : MicLee</div><div class="line"># @Date    : 2017/5/16 15:28</div><div class="line"># @File    : views.py</div><div class="line"></div><div class="line">from pandora import db</div><div class="line">...</div></pre></td></tr></table></figure>
+<h2 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Traceback (most recent call last):</span><br><span class="line">  File "/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__main__.py", line 28, in &lt;module&gt;</span><br><span class="line">    from pandora import get_app</span><br><span class="line">  File "/Users/MicLee/WorkSpace/risk-model/pandora/pandora/__init__.py", line 16, in &lt;module&gt;</span><br><span class="line">    import pandora.web.views</span><br><span class="line">  File "/Users/MicLee/WorkSpace/risk-model/pandora/pandora/web/views.py", line 8, in &lt;module&gt;</span><br><span class="line">    from pandora.dao import theta as ta</span><br><span class="line">  File "/Users/MicLee/WorkSpace/risk-model/pandora/pandora/dao/theta.py", line 8, in &lt;module&gt;</span><br><span class="line">    from pandora import db</span><br><span class="line">ImportError: cannot import name 'db'</span><br></pre></td></tr></table></figure>
+<h2 id="错误相关项目结构"><a href="#错误相关项目结构" class="headerlink" title="错误相关项目结构"></a>错误相关项目结构</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">pandora</span><br><span class="line">│   ├── __init__.py</span><br><span class="line">│   ├── __main__.py</span><br><span class="line">│   └── web</span><br><span class="line">│       ├── __init__.py</span><br><span class="line">│       └── views.py</span><br></pre></td></tr></table></figure>
+<h2 id="错误相关代码"><a href="#错误相关代码" class="headerlink" title="错误相关代码"></a>错误相关代码</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">#</span><br><span class="line"># @Author  : MicLee</span><br><span class="line"># @Date    : 2017/4/5 17:55</span><br><span class="line"># @File    : __init__.py</span><br><span class="line"></span><br><span class="line">from flask import Flask</span><br><span class="line">from flask_sqlalchemy import SQLAlchemy</span><br><span class="line">from flask_cors import CORS, cross_origin</span><br><span class="line">from pandora import config</span><br><span class="line">import pandora.web.views</span><br><span class="line"></span><br><span class="line">__version__ = &quot;0.1&quot;</span><br><span class="line">__description__ = &quot;NFQ Risk Model.&quot;</span><br><span class="line"></span><br><span class="line">db = SQLAlchemy()</span><br><span class="line">_app = None</span><br><span class="line"></span><br><span class="line">def _create_app():</span><br><span class="line">    app = Flask(__name__)</span><br><span class="line">    app.config.from_object(config)</span><br><span class="line"></span><br><span class="line">    CORS(app)</span><br><span class="line">    db.init_app(app)</span><br><span class="line">    return app</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">def get_app():</span><br><span class="line">    global _app</span><br><span class="line">    if _app is None:</span><br><span class="line">        _app = _create_app()</span><br><span class="line">    return _app</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env python</span><br><span class="line"># -*- coding: utf-8 -*-</span><br><span class="line">#</span><br><span class="line"># @Author  : MicLee</span><br><span class="line"># @Date    : 2017/5/16 15:28</span><br><span class="line"># @File    : views.py</span><br><span class="line"></span><br><span class="line">from pandora import db</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
 <h2 id="原因分析"><a href="#原因分析" class="headerlink" title="原因分析"></a>原因分析</h2><p>1、开始以为是import的路径错误，仔细研究了下python的import机制，并木有发现问题。<br>2、考虑到Python顺序执行的特点，在执行 “import pandora.web.views” 时加载views.py，执行“from pandora import db”，而“db = SQLAlchemy()”语句还没执行，db对象还没有被创建，所以发生ImportError!</p>
-<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将 “import pandora.web.views” 放到 __init.py__ 的最后。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>将 “import pandora.web.views” 放到 <strong>init.py</strong> 的最后。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/17/ImportError/" data-id="cjb1wtivw006cdts6hkf3afnu" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/17/ImportError/" data-id="cjlxfmf2g006tvps6z90smx1l" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/17/ImportError/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -116,19 +117,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/05/16/python字符串格式符/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/18/python-deploy/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          python字符串格式符
+          python 应用部署
         
       </div>
     </a>
   
   
-    <a href="/2017/05/18/python-deploy/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/16/python字符串格式符/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">python 应用部署</div>
+      <div class="article-nav-title">python字符串格式符</div>
     </a>
   
 </nav>
@@ -214,7 +215,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="解决MAC系统上matplotlib无法使用问题">
 <meta property="og:url" content="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-05-12T01:58:20.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="解决MAC系统上matplotlib无法使用问题">
@@ -93,17 +94,17 @@
       
         <p><strong><em> 在 MAC 上运行Python时，如果涉及到matplotlib画图，小火箭总是弹不出界面，有的还会报RuntimeError。 </em></strong><br><a id="more"></a></p>
 <hr>
-<figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">**RuntimeError**: Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. The Mac OS X backend will <span class="keyword">not</span> be able <span class="keyword">to</span> function correctly <span class="keyword">if</span> Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. See <span class="keyword">the</span> Python documentation <span class="keyword">for</span> more information <span class="keyword">on</span> installing Python <span class="keyword">as</span> a framework <span class="keyword">on</span> Mac OS X. Please either reinstall Python <span class="keyword">as</span> a framework, <span class="keyword">or</span> <span class="keyword">try</span> one <span class="keyword">of</span> <span class="keyword">the</span> other backends.</div></pre></td></tr></table></figure>
+<figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">**RuntimeError**: Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. The Mac OS X backend will <span class="keyword">not</span> be able <span class="keyword">to</span> function correctly <span class="keyword">if</span> Python <span class="keyword">is</span> <span class="keyword">not</span> installed <span class="keyword">as</span> a framework. See <span class="keyword">the</span> Python documentation <span class="keyword">for</span> more information <span class="keyword">on</span> installing Python <span class="keyword">as</span> a framework <span class="keyword">on</span> Mac OS X. Please either reinstall Python <span class="keyword">as</span> a framework, <span class="keyword">or</span> <span class="keyword">try</span> one <span class="keyword">of</span> <span class="keyword">the</span> other backends.</span><br></pre></td></tr></table></figure>
 <p><strong>原因：</strong>  </p>
 <p>Problem Cause In mac os image rendering back end of matplotlib (what-is-a-backend to render using the API of Cocoa by default). There is Qt4Agg and GTKAgg and as a back-end is not the default. Set the back end of macosx that is differ compare with other windows or linux os.</p>
 <p><strong>解决方案：</strong></p>
-<p>创建文件 ~/.matplotlib/matplotlibrc<br>增加内容:<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">backend: </span>TkAgg</div></pre></td></tr></table></figure></p>
+<p>创建文件 ~/.matplotlib/matplotlibrc<br>增加内容:<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">backend: </span>TkAgg</span><br></pre></td></tr></table></figure></p>
 <p>搞定收工！</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/" data-id="cjb1wtiva005ldts6q2ixyav4" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/" data-id="cjlxfmf290069vps6un9etzx2" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/12/解决matplotlib无法使用问题/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -116,19 +117,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/05/10/py-dot-multiply/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/12/人生苦短，我用Python/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Numpy 矩阵乘法
+          人生苦短，我用Python【转】
         
       </div>
     </a>
   
   
-    <a href="/2017/05/12/人生苦短，我用Python/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/10/py-dot-multiply/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">人生苦短，我用Python【转】</div>
+      <div class="article-nav-title">Numpy 矩阵乘法</div>
     </a>
   
 </nav>
@@ -214,7 +215,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

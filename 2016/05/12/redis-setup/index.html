@@ -6,12 +6,12 @@
   <title>redis 安装 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/)">
-<meta name="keywords">
 <meta property="og:type" content="article">
 <meta property="og:title" content="redis 安装">
 <meta property="og:url" content="http://miclee.cn/2016/05/12/redis-setup/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/)">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2016-05-12T13:02:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="redis 安装">
@@ -93,23 +93,23 @@
       
         <p><strong><em> Redis是一个开源、支持网络、基于内存、键值对存储数据库，使用ANSI C编写， redis中文官方网站：[http://redis.cn/](http://redis.cn/) </em></strong><br><a id="more"></a></p>
 <hr>
-<h3 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ wget http:<span class="comment">//download.redis.io/releases/redis-3.2.0.tar.gz</span></div><div class="line">$ tar -xzf redis-<span class="number">3.2</span>.<span class="number">0</span><span class="selector-class">.tar</span><span class="selector-class">.gz</span></div></pre></td></tr></table></figure>
-<h3 id="二、编译"><a href="#二、编译" class="headerlink" title="二、编译"></a>二、编译</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>cd redis-<span class="number">3.2</span>.<span class="number">0</span></div><div class="line"><span class="variable">$ </span>make</div></pre></td></tr></table></figure>
-<h3 id="三、安装"><a href="#三、安装" class="headerlink" title="三、安装"></a>三、安装</h3><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>make PREFIX=<span class="regexp">/usr/local</span><span class="regexp">/redis install</span></div></pre></td></tr></table></figure>
+<h3 id="一、下载"><a href="#一、下载" class="headerlink" title="一、下载"></a>一、下载</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> wget http://download.redis.io/releases/redis-3.2.0.tar.gz</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> tar -xzf redis-3.2.0.tar.gz</span></span><br></pre></td></tr></table></figure>
+<h3 id="二、编译"><a href="#二、编译" class="headerlink" title="二、编译"></a>二、编译</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> redis-3.2.0</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> make</span></span><br></pre></td></tr></table></figure>
+<h3 id="三、安装"><a href="#三、安装" class="headerlink" title="三、安装"></a>三、安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make PREFIX=/usr/<span class="built_in">local</span>/redis install</span></span><br></pre></td></tr></table></figure>
 <p>这步完了之后，Redis就被安装到了/usr/local/redis/ 下面了</p>
-<h3 id="四、测试"><a href="#四、测试" class="headerlink" title="四、测试"></a>四、测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ make <span class="built_in">test</span></div></pre></td></tr></table></figure>
+<h3 id="四、测试"><a href="#四、测试" class="headerlink" title="四、测试"></a>四、测试</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> make <span class="built_in">test</span></span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>如果没安装有tcl那么会包下面这错误：<br>    You need tcl 8.5 or newer in order to run the Redis test​<br>   【安装Tcl-8.6.3】<br>​     [root@localhost202 src]# wget <a href="http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz" target="_blank" rel="external">http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz</a><br>     [root@localhost202 src]# tar -zxf tcl8.6.3-src.tar.gz<br>     [root@localhost202 src]# cd ​tcl8.6.3/unix/<br>     [root@localhost202 src]# ./configure<br>     [root@localhost202 src]# make<br>     [root@localhost202 src]# make install</p>
+<p>如果没安装有tcl那么会包下面这错误：<br>    You need tcl 8.5 or newer in order to run the Redis test​<br>   【安装Tcl-8.6.3】<br>​     [root@localhost202 src]# wget <a href="http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz" target="_blank" rel="noopener">http://downloads.sourceforge.net/tcl/tcl8.6.3-src.tar.gz</a><br>     [root@localhost202 src]# tar -zxf tcl8.6.3-src.tar.gz<br>     [root@localhost202 src]# cd ​tcl8.6.3/unix/<br>     [root@localhost202 src]# ./configure<br>     [root@localhost202 src]# make<br>     [root@localhost202 src]# make install</p>
 </blockquote>
-<h3 id="五、配置"><a href="#五、配置" class="headerlink" title="五、配置"></a>五、配置</h3><figure class="highlight dts"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ cp src/redis-server src/redis-cli <span class="meta-keyword">/usr/</span>bin/bin</div><div class="line">$ cp ./redis.conf <span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/redis/</span></div><div class="line">$ vim <span class="meta-keyword">/usr/</span>local<span class="meta-keyword">/redis/</span>redis.conf</div><div class="line"></div><div class="line">daemonize   yes      <span class="meta">#redis将以守护进程的方式运行，默认为no会暂用你的终端</span></div><div class="line">timeout <span class="number">300</span>​          <span class="meta">#当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span></div><div class="line">requirepass password123</div></pre></td></tr></table></figure>
-<h3 id="六、运行"><a href="#六、运行" class="headerlink" title="六、运行"></a>六、运行</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ redis-server <span class="regexp">/usr/</span>local<span class="regexp">/redis/</span>redis.conf</div></pre></td></tr></table></figure>
-<h3 id="七、防火墙里开启6379端口"><a href="#七、防火墙里开启6379端口" class="headerlink" title="七、防火墙里开启6379端口"></a>七、防火墙里开启6379端口</h3><figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ vi <span class="regexp">/etc/</span>sysconfig<span class="regexp">/iptables</span></div></pre></td></tr></table></figure>
-<p>加入： -A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT<br>重启防火墙<br><figure class="highlight elixir"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="variable">$ </span>service iptables restart</div></pre></td></tr></table></figure></p>
+<h3 id="五、配置"><a href="#五、配置" class="headerlink" title="五、配置"></a>五、配置</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cp src/redis-server src/redis-cli /usr/bin/bin</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cp ./redis.conf /usr/<span class="built_in">local</span>/redis/</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> vim /usr/<span class="built_in">local</span>/redis/redis.conf</span></span><br><span class="line"></span><br><span class="line">daemonize   yes      #redis将以守护进程的方式运行，默认为no会暂用你的终端</span><br><span class="line">timeout 300​          #当客户端闲置多长时间后关闭连接，如果指定为0，表示关闭该功能</span><br><span class="line">requirepass password123</span><br></pre></td></tr></table></figure>
+<h3 id="六、运行"><a href="#六、运行" class="headerlink" title="六、运行"></a>六、运行</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> redis-server /usr/<span class="built_in">local</span>/redis/redis.conf</span></span><br></pre></td></tr></table></figure>
+<h3 id="七、防火墙里开启6379端口"><a href="#七、防火墙里开启6379端口" class="headerlink" title="七、防火墙里开启6379端口"></a>七、防火墙里开启6379端口</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> vi /etc/sysconfig/iptables</span></span><br></pre></td></tr></table></figure>
+<p>加入： -A INPUT -m state –state NEW -m tcp -p tcp –dport 6379 -j ACCEPT<br>重启防火墙<br><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$<span class="built_in"> service </span>iptables restart</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2016/05/12/redis-setup/" data-id="cjb1wtiuk0046dts6vme8i7fl" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2016/05/12/redis-setup/" data-id="cjlxfmf0u002kvps6vlxwp2la" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2016/05/12/redis-setup/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -120,19 +120,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2016/04/20/react-component/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2016/05/25/jpa-inherit-type/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          react-component
+          JPA 对象关系模型之继承映射策略
         
       </div>
     </a>
   
   
-    <a href="/2016/05/25/jpa-inherit-type/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2016/04/20/react-component/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">JPA 对象关系模型之继承映射策略</div>
+      <div class="article-nav-title">react-component</div>
     </a>
   
 </nav>
@@ -218,7 +218,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

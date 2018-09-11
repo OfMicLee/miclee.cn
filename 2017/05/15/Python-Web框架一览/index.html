@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Python Web 框架一览">
 <meta property="og:url" content="http://miclee.cn/2017/05/15/Python-Web框架一览/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="Python 有许多 web 框架可以供你选择。网上甚至还有教你怎么制作自己专属的框架的教程，因为这实在是太容易了。然后就导致了现在框架的质量参差不齐。我们来对这些框架做一个概述然后你可以挑出自己喜欢的。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-05-15T05:39:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Python Web 框架一览">
@@ -162,47 +163,47 @@
 <p>注释4：代码行数意思是实际的 Python 代码。使用 CLOC 计数。</p>
 <h2 id="Django"><a href="#Django" class="headerlink" title="Django"></a>Django</h2><p>这可能是最广为人知和使用最广泛的 Python web 框架了。我承认它确实非常强大。Django 有世界上最大的社区，最多的包，可以说只有你想不到的，没有它做不到的。它的文档非常完善，但是有的比较冷门的知识你还是需要去 StackOverflow 咨询一下。</p>
 <p>Django 在配置上面遵循惯例，这样对于初学者来说比较容易，而且在比较复杂的应用上也有一定的灵活性。Django 致力于快速开发以及简洁实用的设计。</p>
-<p>Django 只需要这么 几行代码 就可以实现一个“Hello World！”程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import os</div><div class="line">from django.conf.urls.defaults import patterns</div><div class="line">from django.http import HttpResponse</div><div class="line">filepath, extension = os.path.splitext(__file__)</div><div class="line">ROOT_URLCONF = os.path.basename(filepath)</div><div class="line"></div><div class="line">def hello(request):</div><div class="line">    return HttpResponse(&apos;Hello World!&apos;)</div><div class="line"></div><div class="line">urlpatterns = patterns(&apos;&apos;, (r&apos;^/$&apos;, hello))</div></pre></td></tr></table></figure></p>
+<p>Django 只需要这么 几行代码 就可以实现一个“Hello World！”程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">from django.conf.urls.defaults import patterns</span><br><span class="line">from django.http import HttpResponse</span><br><span class="line">filepath, extension = os.path.splitext(__file__)</span><br><span class="line">ROOT_URLCONF = os.path.basename(filepath)</span><br><span class="line"></span><br><span class="line">def hello(request):</span><br><span class="line">    return HttpResponse(&apos;Hello World!&apos;)</span><br><span class="line"></span><br><span class="line">urlpatterns = patterns(&apos;&apos;, (r&apos;^/$&apos;, hello))</span><br></pre></td></tr></table></figure></p>
 <p>关于 Django 我不喜欢的一点就是它有点儿被焊死的感觉。不要尝试着去改变它，否则你会碰壁的。我来解释一下这个说法：比如说我想要使用 SQLAlchemy 作为 ORM 然后 SQLAlchemy 就会把 Admin， Auth， Form 等等几乎所有的部分都给搞砸。所以你最好使用它附带的工具包。</p>
-<p>快速教程： <a href="https://www.djangoproject.com/" target="_blank" rel="external">Django</a></p>
+<p>快速教程： <a href="https://www.djangoproject.com/" target="_blank" rel="noopener">Django</a></p>
 <p>它们都基于 Django： Disqus ， EveryBlock ， Guardian (newspaper) ， Firefox add-ons (Mozilla)</p>
 <h2 id="Flask"><a href="#Flask" class="headerlink" title="Flask"></a>Flask</h2><p>这个灵巧的框架是由 Armin Ronacher 创造的。它的名字暗示了它的含义，它基本上就是一个微型的胶水框架。它把 Werkzeug 和 Jinja 粘合在了一起。所以它很容易被扩展。</p>
-<p>Flask 也有许多的 扩展 可以供你使用，Flask 也有一群忠诚的粉丝和不断增加的用户群。它有一份很完善的文档，甚至还有一份唾手可得的常见范例。Flask 很容易使用，你只需要 3(7) 行代码就可以写出来一个 Hello World。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">from flask import Flask</div><div class="line">app = Flask(__name__)</div><div class="line"></div><div class="line">@app.route(&quot;/&quot;)</div><div class="line">def hello():</div><div class="line">    return &quot;Hello World!&quot;</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run()</div></pre></td></tr></table></figure></p>
+<p>Flask 也有许多的 扩展 可以供你使用，Flask 也有一群忠诚的粉丝和不断增加的用户群。它有一份很完善的文档，甚至还有一份唾手可得的常见范例。Flask 很容易使用，你只需要 3(7) 行代码就可以写出来一个 Hello World。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">from flask import Flask</span><br><span class="line">app = Flask(__name__)</span><br><span class="line"></span><br><span class="line">@app.route(&quot;/&quot;)</span><br><span class="line">def hello():</span><br><span class="line">    return &quot;Hello World!&quot;</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure></p>
 <p>我觉得这是它最大的优点也是缺点 － Flask 并不强制一个特定的 ORM。这会使得写扩展有点儿困难，你可能会想用某种形式的数据库层，但是用哪一个呢？Python 有非常多可以选择的。这个 Blog 是用 Flask 写的，部署在 Google App Engine 上。这很容易因为 Google Datastore 和其他的不太一样。所以有时候不强制一个 ORM 也是好事儿。</p>
 <p>如果你想建一个新站的话 Flask 是个非常不错的选择。但我并不会向所有的初学者都推荐 Flask，我指的是那些不关心“为什么可以”，只关心它们“可不可以”的初学者。</p>
-<p>快速教程： <a href="http://flask.pocoo.org/docs/0.12/quickstart/" target="_blank" rel="external">Flask quickstart</a></p>
+<p>快速教程： <a href="http://flask.pocoo.org/docs/0.12/quickstart/" target="_blank" rel="noopener">Flask quickstart</a></p>
 <p>它们都基于 Flask： Dev news aggregator for Battlefield3 ， Media Queries ， Learn buffet ， Konstruktor (appengine)</p>
 <h2 id="Bottle"><a href="#Bottle" class="headerlink" title="Bottle"></a>Bottle</h2><p>这个框架相对来说比较新。它受到了 Sinatra 的影响。Bottle 才是名副其实的微框架 － 它只有大约 4500 行代码。并且我认为这是最真实的基于 Python 的微框架，它除了 Python 标准库以外没有任何其它的依赖，甚至它还有自己独特的一点儿模版语言。Bottle 还是为数不多的支持 Python 3 的框架之一。</p>
 <p>Bottle 的文档很详细并且抓住了事物的实质。Hello World 例子很像 Flask，也使用了装饰器来定义路径。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">from bottle import route, run</div><div class="line"></div><div class="line">@route(&apos;/hello/:name&apos;)</div><div class="line">def hello(name):</div><div class="line">    return &apos;&lt;h1&gt;Hello %s!&lt;/h1&gt;&apos; % name.title()</div><div class="line"></div><div class="line">run(host=&apos;localhost&apos;, port=8080)</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">from bottle import route, run</span><br><span class="line"></span><br><span class="line">@route(&apos;/hello/:name&apos;)</span><br><span class="line">def hello(name):</span><br><span class="line">    return &apos;&lt;h1&gt;Hello %s!&lt;/h1&gt;&apos; % name.title()</span><br><span class="line"></span><br><span class="line">run(host=&apos;localhost&apos;, port=8080)</span><br></pre></td></tr></table></figure>
 <p>我知道 Bottle 内部有一座桥梁来沟通各个部分，因为它只有一个文件。但是很难找到你想要的东西，它的代码散布的到处都是，看起来一团糟。</p>
 <p>对于非常小的项目或者是实验性的项目来说，Bottle 是一个不错的选择。但是对于一些大型的项目来说最好就不要使用它了，因为它的扩展并不多。</p>
-<p>快速教程： <a href="http://bottlepy.org/docs/dev/tutorial.html" target="_blank" rel="external">Bottle tutorial</a></p>
+<p>快速教程： <a href="http://bottlepy.org/docs/dev/tutorial.html" target="_blank" rel="noopener">Bottle tutorial</a></p>
 <p>它们都基于 Bottle： Plush (monitoring) ， Hobo (Blog enginee)</p>
-<h2 id="web-py"><a href="#web-py" class="headerlink" title="web.py"></a>web.py</h2><p>以前 web.py 还很流行的时候被用来写 reddit。它能很好的处理流量问题。如果你用 web.py 开发 web 应用的话，你会发现它并不会阻碍你。 标准配置 很简单也很直观。web.py 在文件和文件夹的分类上面也做的非常棒。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">import web</div><div class="line"></div><div class="line">urls = (&apos;/(.*)&apos;, &apos;hello&apos;)</div><div class="line">app = web.application(urls, globals())</div><div class="line"></div><div class="line">class hello:</div><div class="line">    def GET(self):</div><div class="line">        return &apos;Hello, World!&apos;</div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    app.run()</div></pre></td></tr></table></figure></p>
+<h2 id="web-py"><a href="#web-py" class="headerlink" title="web.py"></a>web.py</h2><p>以前 web.py 还很流行的时候被用来写 reddit。它能很好的处理流量问题。如果你用 web.py 开发 web 应用的话，你会发现它并不会阻碍你。 标准配置 很简单也很直观。web.py 在文件和文件夹的分类上面也做的非常棒。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import web</span><br><span class="line"></span><br><span class="line">urls = (&apos;/(.*)&apos;, &apos;hello&apos;)</span><br><span class="line">app = web.application(urls, globals())</span><br><span class="line"></span><br><span class="line">class hello:</span><br><span class="line">    def GET(self):</span><br><span class="line">        return &apos;Hello, World!&apos;</span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    app.run()</span><br></pre></td></tr></table></figure></p>
 <p>很遗憾的是这个库最近已经成为了 rails 框架狂热者的受害者。它有可以帮你做几乎所有事情的自己的库 － 模版，表格，数据库。可能它们并不像其它库一样得到了良好的维护，但是还是有许多人在用它。</p>
-<p>快速教程： <a href="http://webpy.org/" target="_blank" rel="external">web.py</a></p>
+<p>快速教程： <a href="http://webpy.org/" target="_blank" rel="noopener">web.py</a></p>
 <p>它们基于 web.py： Yandex (russian search engine) ， Telephone directory (Switzerland)</p>
 <h2 id="Tornado"><a href="#Tornado" class="headerlink" title="Tornado"></a>Tornado</h2><p>Tornado 不单单是个框架，还是个 web 服务器。它一开始是给 FriendFeed 开发的，后来在 2009 年的时候也给 Facebook 使用。它是为了解决实时服务而诞生的。为了做到这一点，Tornado 使用了异步非阻塞 IO。</p>
-<p>Tornado 的文档非常技术性。它并不是为初学者准备的。这是一个 Hello World 程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">import tornado.ioloop</div><div class="line">import tornado.web</div><div class="line"></div><div class="line">class MainHandler(tornado.web.RequestHandler):</div><div class="line">    def get(self):</div><div class="line">        self.write(&quot;Hello, world&quot;)</div><div class="line"></div><div class="line">application = tornado.web.Application([</div><div class="line">    (r&quot;/&quot;, MainHandler),</div><div class="line">])</div><div class="line"></div><div class="line">if __name__ == &quot;__main__&quot;:</div><div class="line">    application.listen(8888)</div><div class="line">    tornado.ioloop.IOLoop.instance().start()</div></pre></td></tr></table></figure></p>
+<p>Tornado 的文档非常技术性。它并不是为初学者准备的。这是一个 Hello World 程序：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import tornado.ioloop</span><br><span class="line">import tornado.web</span><br><span class="line"></span><br><span class="line">class MainHandler(tornado.web.RequestHandler):</span><br><span class="line">    def get(self):</span><br><span class="line">        self.write(&quot;Hello, world&quot;)</span><br><span class="line"></span><br><span class="line">application = tornado.web.Application([</span><br><span class="line">    (r&quot;/&quot;, MainHandler),</span><br><span class="line">])</span><br><span class="line"></span><br><span class="line">if __name__ == &quot;__main__&quot;:</span><br><span class="line">    application.listen(8888)</span><br><span class="line">    tornado.ioloop.IOLoop.instance().start()</span><br></pre></td></tr></table></figure></p>
 <p>默认情况下 Tornado 会传递 WSGI 层，因为 WSGI 并不能处理异步请求。Tornado 确实性能非常强，但是当调用数据库的时候它会阻塞 IO。</p>
-<p>快速教程： <a href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="external">Tornado</a></p>
+<p>快速教程： <a href="http://www.tornadoweb.org/en/stable/" target="_blank" rel="noopener">Tornado</a></p>
 <p>它们基于 Tornado： Too cool for me ， FriendFeed</p>
 <h2 id="CherryPy"><a href="#CherryPy" class="headerlink" title="CherryPy"></a>CherryPy</h2><p>这是最古老的 Python 框架的一种。CherryPy 并没有得到广泛的应用，大家提到它第一反应是 web 服务器然后才是一个框架。在处理请求方面 CherryPy 也使用了队列来优化性能，但是它使用的是 线程池 技术。</p>
-<p>CherryPy 的文档实际上非常少，但是基本上都可以涵盖主要的方面。CherryPy 也可以支持 Python 3。我必须说，它的 Hello World 例子非常漂亮：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import cherrypy</div><div class="line">class HelloWorld(object):</div><div class="line">    def index(self):</div><div class="line">    return &quot;Hello World!&quot;</div><div class="line">    index.exposed = True</div><div class="line"></div><div class="line">cherrypy.quickstart(HelloWorld())</div></pre></td></tr></table></figure></p>
-<p>快速教程： <a href="http://docs.cherrypy.org/en/latest/" target="_blank" rel="external">CherryPy</a></p>
+<p>CherryPy 的文档实际上非常少，但是基本上都可以涵盖主要的方面。CherryPy 也可以支持 Python 3。我必须说，它的 Hello World 例子非常漂亮：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import cherrypy</span><br><span class="line">class HelloWorld(object):</span><br><span class="line">    def index(self):</span><br><span class="line">    return &quot;Hello World!&quot;</span><br><span class="line">    index.exposed = True</span><br><span class="line"></span><br><span class="line">cherrypy.quickstart(HelloWorld())</span><br></pre></td></tr></table></figure></p>
+<p>快速教程： <a href="http://docs.cherrypy.org/en/latest/" target="_blank" rel="noopener">CherryPy</a></p>
 <p>它们基于 CherryPy： YouGov ， Cuil search engine (ended 2010)</p>
 <h2 id="Brubeck"><a href="#Brubeck" class="headerlink" title="Brubeck"></a>Brubeck</h2><p>这是一个新的 Python 框架。其并不使用 WSGI 而直接在语言级别用 Mongrel2 作为服务器使用，这个仅把请求处理交给 Python 程序，请求作为协同程序来处理。</p>
 <p>模块方面 Brubeck 使用了 DictShield 库，意思就是对于不同的数据库插件都可以在其之上来进行操作。</p>
-<p>Brubeck 的文档非常少，但是你看到源码以后，你会知道其实并没有多少东西。所以它还是一个非常年轻并且在不断发展的框架。Hello World 例子看起来也很漂亮。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">class DemoHandler(WebMessageHandler):</div><div class="line">    def get(self):</div><div class="line">        self.set_body(&apos;Hello world&apos;)</div><div class="line">        return self.render()</div><div class="line"></div><div class="line">urls = [(r&apos;^/&apos;, DemoHandler)]</div><div class="line">mongrel2_pair = (&apos;ipc://127.0.0.1:9999&apos;, &apos;ipc://127.0.0.1:9998&apos;)</div><div class="line"></div><div class="line">app = Brubeck(mongrel2_pair=mongrel2_pair,</div><div class="line">          handler_tuples=urls)</div><div class="line">app.run()</div></pre></td></tr></table></figure></p>
+<p>Brubeck 的文档非常少，但是你看到源码以后，你会知道其实并没有多少东西。所以它还是一个非常年轻并且在不断发展的框架。Hello World 例子看起来也很漂亮。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">class DemoHandler(WebMessageHandler):</span><br><span class="line">    def get(self):</span><br><span class="line">        self.set_body(&apos;Hello world&apos;)</span><br><span class="line">        return self.render()</span><br><span class="line"></span><br><span class="line">urls = [(r&apos;^/&apos;, DemoHandler)]</span><br><span class="line">mongrel2_pair = (&apos;ipc://127.0.0.1:9999&apos;, &apos;ipc://127.0.0.1:9998&apos;)</span><br><span class="line"></span><br><span class="line">app = Brubeck(mongrel2_pair=mongrel2_pair,</span><br><span class="line">          handler_tuples=urls)</span><br><span class="line">app.run()</span><br></pre></td></tr></table></figure></p>
 <p>唯一需要注意的是当你使用 Brubeck 的时候你也需要看看 Mongrel2 服务器的相关知识。</p>
-<p>快速教程： <a href="http://brubeck.io/" target="_blank" rel="external">Brubeck.io</a></p>
+<p>快速教程： <a href="http://brubeck.io/" target="_blank" rel="noopener">Brubeck.io</a></p>
 <p>它们基于 Brubeck： ListSurf</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/15/Python-Web框架一览/" data-id="cjb1wtive005rdts6x4z6uzrs" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/15/Python-Web框架一览/" data-id="cjlxfmf2s007fvps6fs6afs8i" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/15/Python-Web框架一览/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -215,19 +216,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/05/12/人生苦短，我用Python/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/15/restful-api/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          人生苦短，我用Python【转】
+          RESTful API 设计指南【转】
         
       </div>
     </a>
   
   
-    <a href="/2017/05/15/restful-api/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/12/人生苦短，我用Python/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">RESTful API 设计指南【转】</div>
+      <div class="article-nav-title">人生苦短，我用Python【转】</div>
     </a>
   
 </nav>
@@ -313,7 +314,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="Java keytool">
 <meta property="og:url" content="http://miclee.cn/2017/04/19/Java_keytool/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="Keytool是一个Java数据证书的管理工具，它使用户能够管理自己的公钥/私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户/服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。Keytool将密钥（key）和证书（certificates）存在一个称为秘钥仓库(keystore)的文件中。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-04-19T10:18:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java keytool">
@@ -100,19 +101,19 @@
 <li><p>可信任的证书实体（trusted certificate entries）<br>每项包含一个属于另一团体的公钥证书。它之所以叫做“可信任的证书”，是因为密钥仓库的拥有者相信证书中的公钥确实属于证书“主体”（拥有者）识别的身份。证书签发人通过对证书签名来保证这点。</p>
 </li>
 </ul>
-<h2 id="生成keystore"><a href="#生成keystore" class="headerlink" title="生成keystore"></a>生成keystore</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -genkey -<span class="built_in">alias</span> miclee -keyalg RSA -validity <span class="number">1000</span> -keystore miclee.keystore</div></pre></td></tr></table></figure>
-<h2 id="查看证书"><a href="#查看证书" class="headerlink" title="查看证书"></a>查看证书</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -<span class="type">list</span> -keystore miclee.keystore -storepass <span class="number">123456</span> -v</div></pre></td></tr></table></figure>
-<h2 id="导出证书（只能导出公钥）"><a href="#导出证书（只能导出公钥）" class="headerlink" title="导出证书（只能导出公钥）"></a>导出证书（只能导出公钥）</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -exportcert -alias miclee -keystore miclee<span class="selector-class">.keystore</span> -file miclee<span class="selector-class">.crt</span> -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
+<h2 id="生成keystore"><a href="#生成keystore" class="headerlink" title="生成keystore"></a>生成keystore</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -<span class="built_in">alias</span> miclee -keyalg RSA -validity <span class="number">1000</span> -keystore miclee.keystore</span><br></pre></td></tr></table></figure>
+<h2 id="查看证书"><a href="#查看证书" class="headerlink" title="查看证书"></a>查看证书</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="type">list</span> -keystore miclee.keystore -storepass <span class="number">123456</span> -v</span><br></pre></td></tr></table></figure>
+<h2 id="导出证书（只能导出公钥）"><a href="#导出证书（只能导出公钥）" class="headerlink" title="导出证书（只能导出公钥）"></a>导出证书（只能导出公钥）</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -exportcert -alias miclee -keystore miclee<span class="selector-class">.keystore</span> -file miclee<span class="selector-class">.crt</span> -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure>
 <p>导出的miclee.crt为二进制格式，如果想要ASCII格式，请参考博文：<a href="http://miclee.cn/2017/04/19/certificate/">安全证书</a></p>
-<h2 id="查看导出的证书"><a href="#查看导出的证书" class="headerlink" title="查看导出的证书"></a>查看导出的证书</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -printcert -<span class="built_in">file</span> miclee.crt</div></pre></td></tr></table></figure>
-<h2 id="证书条目的删除"><a href="#证书条目的删除" class="headerlink" title="证书条目的删除"></a>证书条目的删除</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -<span class="keyword">delete</span> -<span class="keyword">alias</span> miclee -keystore miclee.keystore -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
-<h2 id="证书条目口令的修改"><a href="#证书条目口令的修改" class="headerlink" title="证书条目口令的修改"></a>证书条目口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -keypasswd -alias miclee -keypass <span class="number">123456</span> -new <span class="number">654321</span> -keystore miclee.keystore -storepass <span class="number">123456</span></div></pre></td></tr></table></figure>
-<h2 id="keystore口令的修改"><a href="#keystore口令的修改" class="headerlink" title="keystore口令的修改"></a>keystore口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">keytool -storepasswd -keystore miclee.keystore -storepass <span class="number">123456</span> -new <span class="number">654321</span></div></pre></td></tr></table></figure>
+<h2 id="查看导出的证书"><a href="#查看导出的证书" class="headerlink" title="查看导出的证书"></a>查看导出的证书</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="built_in">file</span> miclee.crt</span><br></pre></td></tr></table></figure>
+<h2 id="证书条目的删除"><a href="#证书条目的删除" class="headerlink" title="证书条目的删除"></a>证书条目的删除</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="keyword">delete</span> -<span class="keyword">alias</span> miclee -keystore miclee.keystore -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+<h2 id="证书条目口令的修改"><a href="#证书条目口令的修改" class="headerlink" title="证书条目口令的修改"></a>证书条目口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keypasswd -alias miclee -keypass <span class="number">123456</span> -new <span class="number">654321</span> -keystore miclee.keystore -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure>
+<h2 id="keystore口令的修改"><a href="#keystore口令的修改" class="headerlink" title="keystore口令的修改"></a>keystore口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -storepasswd -keystore miclee.keystore -storepass <span class="number">123456</span> -new <span class="number">654321</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/04/19/Java_keytool/" data-id="cjb1wtiup004hdts6x1k54tul" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/04/19/Java_keytool/" data-id="cjlxfmf0z0033vps64s7d6wl0" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/04/19/Java_keytool/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -125,19 +126,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/19/certificate/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/20/Python下划线使用/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          安全证书
+          Python下划线使用
         
       </div>
     </a>
   
   
-    <a href="/2017/04/20/Python下划线使用/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/19/certificate/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Python下划线使用</div>
+      <div class="article-nav-title">安全证书</div>
     </a>
   
 </nav>
@@ -223,7 +224,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

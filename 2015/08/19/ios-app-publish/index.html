@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="ios app 发布流程">
 <meta property="og:url" content="http://miclee.cn/2015/08/19/ios-app-publish/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="简单描述怎样在appstore上发布你的app">
+<meta property="og:locale" content="zh">
 <meta property="og:image" content="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/app/ios-certificate.png">
 <meta property="og:updated_time" content="2015-08-27T07:20:02.000Z">
 <meta name="twitter:card" content="summary">
@@ -95,13 +96,13 @@
       
         <p><strong><em> 简单描述怎样在appstore上发布你的app </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="1、首先，你要有个开发者账号。"><a href="#1、首先，你要有个开发者账号。" class="headerlink" title="1、首先，你要有个开发者账号。"></a>1、首先，你要有个开发者账号。</h2><p>开发者账号种类：个人账号、公司账号和企业账号这三种，还有一种是教育账号，这个就不多说了。申请地址：<a href="https://developer.apple.com" target="_blank" rel="external">https://developer.apple.com</a></p>
+<h2 id="1、首先，你要有个开发者账号。"><a href="#1、首先，你要有个开发者账号。" class="headerlink" title="1、首先，你要有个开发者账号。"></a>1、首先，你要有个开发者账号。</h2><p>开发者账号种类：个人账号、公司账号和企业账号这三种，还有一种是教育账号，这个就不多说了。申请地址：<a href="https://developer.apple.com" target="_blank" rel="noopener">https://developer.apple.com</a></p>
 <ul>
 <li><p>个人账号（Individual）</p>
 <p>费用99美金一年, 该账号在App Store销售者只能显示个人的ID，比如zhitian zhang，单人使用。个人账号只能有一个开发者。100个苹果的iOS设备UDID测试。</p>
 </li>
 <li><p>公司团队账号（Company/Organization）</p>
-<p>费用99美金一年, 该账号在App Store销售者可以显示类似Studios，或者自定义的团队名称，比如Mamshare INC，<br>公司账号可以允许多个开发者协作开发，比个人多一些帐号管理的设置，可以设置多个AppleID，分4种管理级别权限，详细见备注。<br>100个苹果的iOS设备UDID测试。但是申请时需要填写公司的邓白氏编码（D-U-N-S）。<br><a href="https://developer.apple.com/programs/enroll" target="_blank" rel="external">申请地址</a></p>
+<p>费用99美金一年, 该账号在App Store销售者可以显示类似Studios，或者自定义的团队名称，比如Mamshare INC，<br>公司账号可以允许多个开发者协作开发，比个人多一些帐号管理的设置，可以设置多个AppleID，分4种管理级别权限，详细见备注。<br>100个苹果的iOS设备UDID测试。但是申请时需要填写公司的邓白氏编码（D-U-N-S）。<br><a href="https://developer.apple.com/programs/enroll" target="_blank" rel="noopener">申请地址</a></p>
 <p><strong>备注：</strong></p>
 <ul>
 <li>Admin Legal权限：超级管理员。可以管理开发者和管理app store中的应用。</li>
@@ -109,13 +110,13 @@
 <li>Member权限：是普通开发者。只能下载证书和使用证书</li>
 <li>No Access权限：没有相应的权限。</li>
 </ul>
-<p>邓白氏编码（D-U-N-S）<br><a href="https://developer.apple.com/ios/enroll/dunsLookupForm.action" target="_blank" rel="external">申请地址</a></p>
+<p>邓白氏编码（D-U-N-S）<br><a href="https://developer.apple.com/ios/enroll/dunsLookupForm.action" target="_blank" rel="noopener">申请地址</a></p>
 </li>
 <li><p>企业账号（Enterprise）</p>
 <p>费用299美金一年, 该账号开发应用不能发布到App Store，只能企业内部应用，苹果的iOS设备UDID数量不限制。企业账号适合不希望上线App Store，但是需要企业内部比如1000人的iOS设备都部署。公司测试部门需要全公司测试设备，突破100个UDID的限制。</p>
 </li>
 <li><p>教育账号(University)</p>
-<p>费用0美元 ，只能教育机构或学院内部使用。必须是苹果iOS开发者计划授权机构。不能对外正式发布iOS应用程序。<br><a href="https://developer.apple.com/programs/start/university" target="_blank" rel="external">申请地址</a></p>
+<p>费用0美元 ，只能教育机构或学院内部使用。必须是苹果iOS开发者计划授权机构。不能对外正式发布iOS应用程序。<br><a href="https://developer.apple.com/programs/start/university" target="_blank" rel="noopener">申请地址</a></p>
 </li>
 </ul>
 <h2 id="2、进入苹果开发者网站，生成证书Certificate"><a href="#2、进入苹果开发者网站，生成证书Certificate" class="headerlink" title="2、进入苹果开发者网站，生成证书Certificate"></a>2、进入苹果开发者网站，生成证书Certificate</h2><p>如果你拥有一个开发者账户的话，在iOS Dev Center打开Certificates, Indentifiers &amp; Profiles，你就可以看到如下的列表：<br><img src="https://raw.githubusercontent.com/OfMicLee/img-hosting/master/app/ios-certificate.png" alt="ios Certificates"></p>
@@ -208,7 +209,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2015/08/19/ios-app-publish/" data-id="cjb1wtit6001vdts60yhx0n4y" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2015/08/19/ios-app-publish/" data-id="cjlxfmf08000pvps6q34mci44" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2015/08/19/ios-app-publish/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -221,11 +222,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/08/10/spring-boot-1/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2015/08/20/ios-app-depolyment/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          spring-boot哎哟不错(一) —— 功能特性介绍
+          ios app 发布模式
         
       </div>
     </a>
@@ -319,7 +320,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

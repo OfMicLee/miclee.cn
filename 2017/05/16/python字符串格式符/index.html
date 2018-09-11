@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="python字符串格式符">
 <meta property="og:url" content="http://miclee.cn/2017/05/16/python字符串格式符/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="格式化字符串时，Python使用一个字符串作为模板。模板中有格式符，这些格式符为真实值预留位置，并说明真实数值应该呈现的格式。Python用一个 tuple 或者 字典 将多个值传递给模板，每个值对应一个格式符。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-05-16T07:01:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="python字符串格式符">
@@ -93,27 +94,27 @@
       
         <p><strong><em> 格式化字符串时，Python使用一个字符串作为模板。模板中有格式符，这些格式符为真实值预留位置，并说明真实数值应该呈现的格式。Python用一个 tuple 或者 字典 将多个值传递给模板，每个值对应一个格式符。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">print(&quot;I&apos;m %s. I&apos;m %d year old&quot; % (&apos;MicLee&apos;, 30))</div><div class="line"></div><div class="line">print(&quot;I&apos;m %(name)s. I&apos;m %(age)d year old&quot; % &#123;&apos;name&apos;:&apos;MicLee&apos;, &apos;age&apos;:30&#125;)</div></pre></td></tr></table></figure>
-<h2 id="格式符"><a href="#格式符" class="headerlink" title="格式符"></a>格式符</h2><figure class="highlight haml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="tag">%<span class="selector-tag">s</span></span>    字符串 (采用str()的显示)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">r</span>    字符串 (采用repr()的显示)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">c</span>    单个字符</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">b</span>    二进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">d</span>    十进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">i</span>    十进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">o</span>    八进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">x</span>    十六进制整数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">e</span>    指数 (基底写为e)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">E</span>    指数 (基底写为E)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">f</span>    浮点数</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">F</span>    浮点数，与上相同</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">g</span>    指数(e)或浮点数 (根据显示长度)</div><div class="line"><span class="tag"></span></div><div class="line">%<span class="selector-tag">G</span>    指数(E)或浮点数 (根据显示长度)</div><div class="line"><span class="tag"></span></div><div class="line">%%    字符"%"</div></pre></td></tr></table></figure>
-<h2 id="高级格式符"><a href="#高级格式符" class="headerlink" title="高级格式符"></a>高级格式符</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">%[<span class="string">(name)</span>][<span class="symbol">flags</span>][<span class="string">width</span>].[precision]typecode</div></pre></td></tr></table></figure>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">print(&quot;I&apos;m %s. I&apos;m %d year old&quot; % (&apos;MicLee&apos;, 30))</span><br><span class="line"></span><br><span class="line">print(&quot;I&apos;m %(name)s. I&apos;m %(age)d year old&quot; % &#123;&apos;name&apos;:&apos;MicLee&apos;, &apos;age&apos;:30&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="格式符"><a href="#格式符" class="headerlink" title="格式符"></a>格式符</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">%</span><span class="bash">s    字符串 (采用str()的显示)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">r    字符串 (采用repr()的显示)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">c    单个字符</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">b    二进制整数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">d    十进制整数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">i    十进制整数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">o    八进制整数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">x    十六进制整数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">e    指数 (基底写为e)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">E    指数 (基底写为E)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">f    浮点数</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">F    浮点数，与上相同</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">g    指数(e)或浮点数 (根据显示长度)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">G    指数(E)或浮点数 (根据显示长度)</span></span><br><span class="line"></span><br><span class="line"><span class="meta">%</span><span class="bash">%    字符<span class="string">"%"</span></span></span><br></pre></td></tr></table></figure>
+<h2 id="高级格式符"><a href="#高级格式符" class="headerlink" title="高级格式符"></a>高级格式符</h2><figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%[<span class="string">(name)</span>][<span class="symbol">flags</span>][<span class="string">width</span>].[precision]typecode</span><br></pre></td></tr></table></figure>
 <p>(name)为命名</p>
 <p>flags可以有+,-,’ ‘或0。+表示右对齐。-表示左对齐。’ ‘为一个空格，表示在正数的左侧填充一个空格，从而与负数对齐。0表示使用0填充。</p>
 <p>width表示显示宽度</p>
 <p>precision表示小数点后精度</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;%+10x&quot; % 10)</div><div class="line">        +a</div><div class="line">&gt;&gt;&gt; print(&quot;%04d&quot; % 5)</div><div class="line">0005</div><div class="line">&gt;&gt;&gt; print(&quot;%6.3f&quot; % 2.3)</div><div class="line"> 2.300</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;%+10x&quot; % 10)</span><br><span class="line">        +a</span><br><span class="line">&gt;&gt;&gt; print(&quot;%04d&quot; % 5)</span><br><span class="line">0005</span><br><span class="line">&gt;&gt;&gt; print(&quot;%6.3f&quot; % 2.3)</span><br><span class="line"> 2.300</span><br></pre></td></tr></table></figure>
 <p>上面的width, precision为两个整数。我们可以利用*，来动态代入这两个量。比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;%.*f&quot; % (4, 1.2))</div><div class="line">1.2000</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;%.*f&quot; % (4, 1.2))</span><br><span class="line">1.2000</span><br></pre></td></tr></table></figure>
 <p>Python实际上用4来替换*，所以实际的模板为”%.4f”。</p>
 <h2 id="r和-s的区别"><a href="#r和-s的区别" class="headerlink" title="%r和%s的区别"></a>%r和%s的区别</h2><p>%r用rper()方法处理对象<br>%s用str()方法处理对象</p>
-<p>有些情况下，两者处理的结果是一样的，比如int型对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s year old&quot; % 30)</div><div class="line">I&apos;m 30 year old</div><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r year old&quot; % 30)</div><div class="line">I&apos;m 30 year old</div></pre></td></tr></table></figure></p>
-<p>有些情况下是不一样的，比如str对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s.&quot; % &apos;MicLee&apos;)</div><div class="line">I&apos;m MicLee.</div><div class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r.&quot; % &apos;MicLee&apos;)</div><div class="line">I&apos;m &apos;MicLee&apos;.</div></pre></td></tr></table></figure></p>
-<p>还有一种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; import datetime</div><div class="line">&gt;&gt;&gt; d = datetime.date.today()</div><div class="line">&gt;&gt;&gt; str(d)</div><div class="line">&apos;2011-05-14&apos;</div><div class="line">&gt;&gt;&gt; repr(d)</div><div class="line">&apos;datetime.date(2011, 5, 14)&apos;</div></pre></td></tr></table></figure></p>
+<p>有些情况下，两者处理的结果是一样的，比如int型对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s year old&quot; % 30)</span><br><span class="line">I&apos;m 30 year old</span><br><span class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r year old&quot; % 30)</span><br><span class="line">I&apos;m 30 year old</span><br></pre></td></tr></table></figure></p>
+<p>有些情况下是不一样的，比如str对象：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; print(&quot;I&apos;m %s.&quot; % &apos;MicLee&apos;)</span><br><span class="line">I&apos;m MicLee.</span><br><span class="line">&gt;&gt;&gt; print(&quot;I&apos;m %r.&quot; % &apos;MicLee&apos;)</span><br><span class="line">I&apos;m &apos;MicLee&apos;.</span><br></pre></td></tr></table></figure></p>
+<p>还有一种情况：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; import datetime</span><br><span class="line">&gt;&gt;&gt; d = datetime.date.today()</span><br><span class="line">&gt;&gt;&gt; str(d)</span><br><span class="line">&apos;2011-05-14&apos;</span><br><span class="line">&gt;&gt;&gt; repr(d)</span><br><span class="line">&apos;datetime.date(2011, 5, 14)&apos;</span><br></pre></td></tr></table></figure></p>
 <p>%r(也就是repr()方法)打印时能够重现它所代表的对象</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/16/python字符串格式符/" data-id="cjb1wtivt0065dts6kpjiy4sw" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/16/python字符串格式符/" data-id="cjlxfmf2f006rvps6t31f5p14" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/16/python字符串格式符/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -126,19 +127,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/05/16/SQLAlchemy/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/17/ImportError/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          SQLAlchemy
+          解决 ImportError cannot import name &#39;db&#39;
         
       </div>
     </a>
   
   
-    <a href="/2017/05/17/ImportError/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/05/16/SQLAlchemy/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">解决 ImportError cannot import name &#39;db&#39;</div>
+      <div class="article-nav-title">SQLAlchemy</div>
     </a>
   
 </nav>
@@ -224,7 +225,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

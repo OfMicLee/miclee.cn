@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="range、xrange、arange比较">
 <meta property="og:url" content="http://miclee.cn/2017/05/10/python-range/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="range &amp; xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-05-11T10:56:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="range、xrange、arange比较">
@@ -93,17 +94,17 @@
       
         <p><strong><em> range & xrange属于python的原生方法，arange属于numpy库的方法，具体区别如下。 </em></strong><br><a id="more"></a></p>
 <hr>
-<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><p>官方文档：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">range(stop) -&gt; range object</div><div class="line">range(start, stop[, step]) -&gt; range object</div><div class="line"></div><div class="line">Return an object that produces a sequence of integers from start (inclusive)</div><div class="line">to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.</div><div class="line">start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.</div><div class="line">These are exactly the valid indices for a list of 4 elements.</div><div class="line">When step is given, it specifies the increment (or decrement).</div></pre></td></tr></table></figure></p>
-<p><strong>函数说明：</strong><br>根据start与stop指定的范围以及step设定的步长，生成一个序列。<br>range示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; range(5)</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(1,5)</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; range(0,6,2)</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
-<h2 id="xrange"><a href="#xrange" class="headerlink" title="xrange"></a>xrange</h2><p><strong>函数说明：</strong><br>用法与range完全相同，所不同的是生成的不是一个数组，而是一个生成器。<br>xrange示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">&gt;&gt;&gt; xrange(5)</div><div class="line">xrange(5)</div><div class="line">&gt;&gt;&gt; list(xrange(5))</div><div class="line">[0, 1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(1,5)</div><div class="line">xrange(1, 5)</div><div class="line">&gt;&gt;&gt; list(xrange(1,5))</div><div class="line">[1, 2, 3, 4]</div><div class="line">&gt;&gt;&gt; xrange(0,6,2)</div><div class="line">xrange(0, 6, 2)</div><div class="line">&gt;&gt;&gt; list(xrange(0,6,2))</div><div class="line">[0, 2, 4]</div></pre></td></tr></table></figure></p>
-<p>要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间，这两个基本上都是在循环的时候用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">for i in range(0, 100):</div><div class="line">print i</div><div class="line">for i in xrange(0, 100):</div><div class="line">print i</div></pre></td></tr></table></figure></p>
+<h2 id="range"><a href="#range" class="headerlink" title="range"></a>range</h2><p>官方文档：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">range(stop) -&gt; range object</span><br><span class="line">range(start, stop[, step]) -&gt; range object</span><br><span class="line"></span><br><span class="line">Return an object that produces a sequence of integers from start (inclusive)</span><br><span class="line">to stop (exclusive) by step.  range(i, j) produces i, i+1, i+2, ..., j-1.</span><br><span class="line">start defaults to 0, and stop is omitted!  range(4) produces 0, 1, 2, 3.</span><br><span class="line">These are exactly the valid indices for a list of 4 elements.</span><br><span class="line">When step is given, it specifies the increment (or decrement).</span><br></pre></td></tr></table></figure></p>
+<p><strong>函数说明：</strong><br>根据start与stop指定的范围以及step设定的步长，生成一个序列。<br>range示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; range(5)</span><br><span class="line">[0, 1, 2, 3, 4]</span><br><span class="line">&gt;&gt;&gt; range(1,5)</span><br><span class="line">[1, 2, 3, 4]</span><br><span class="line">&gt;&gt;&gt; range(0,6,2)</span><br><span class="line">[0, 2, 4]</span><br></pre></td></tr></table></figure></p>
+<h2 id="xrange"><a href="#xrange" class="headerlink" title="xrange"></a>xrange</h2><p><strong>函数说明：</strong><br>用法与range完全相同，所不同的是生成的不是一个数组，而是一个生成器。<br>xrange示例:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&gt;&gt;&gt; xrange(5)</span><br><span class="line">xrange(5)</span><br><span class="line">&gt;&gt;&gt; list(xrange(5))</span><br><span class="line">[0, 1, 2, 3, 4]</span><br><span class="line">&gt;&gt;&gt; xrange(1,5)</span><br><span class="line">xrange(1, 5)</span><br><span class="line">&gt;&gt;&gt; list(xrange(1,5))</span><br><span class="line">[1, 2, 3, 4]</span><br><span class="line">&gt;&gt;&gt; xrange(0,6,2)</span><br><span class="line">xrange(0, 6, 2)</span><br><span class="line">&gt;&gt;&gt; list(xrange(0,6,2))</span><br><span class="line">[0, 2, 4]</span><br></pre></td></tr></table></figure></p>
+<p>要生成很大的数字序列的时候，用xrange会比range性能优很多，因为不需要一上来就开辟一块很大的内存空间，这两个基本上都是在循环的时候用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">for i in range(0, 100):</span><br><span class="line">print i</span><br><span class="line">for i in xrange(0, 100):</span><br><span class="line">print i</span><br></pre></td></tr></table></figure></p>
 <p><strong>在Python 3中，range()的实现方式与xrange()函数相同，所以就不存在专用的xrange()（在Python 3中使用xrange()会触发NameError）。</strong>  </p>
-<h2 id="arange"><a href="#arange" class="headerlink" title="arange"></a>arange</h2><p><strong>官方文档：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">numpy.arange([start, ]stop, [step, ]dtype=None)</div><div class="line">Return evenly spaced values within a given interval.</div><div class="line"></div><div class="line">Values are generated within the half-open interval [start, stop) (in other words, the interval including start but excluding stop). For integer arguments the function is equivalent to the Python built-in range function, but returns an ndarray rather than a list.</div><div class="line">```   </div><div class="line">用法等同于range，区别在于返回的是ndarray而非list。</div><div class="line">```python3</div><div class="line">&gt;&gt;&gt; np.arange(3)</div><div class="line">array([0, 1, 2])</div><div class="line">&gt;&gt;&gt; np.arange(3.0)</div><div class="line">array([ 0.,  1.,  2.])</div><div class="line">&gt;&gt;&gt; np.arange(3,7)</div><div class="line">array([3, 4, 5, 6])</div><div class="line">&gt;&gt;&gt; np.arange(3,7,2)</div><div class="line">array([3, 5])</div></pre></td></tr></table></figure></p>
+<h2 id="arange"><a href="#arange" class="headerlink" title="arange"></a>arange</h2><p><strong>官方文档：</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">numpy.arange([start, ]stop, [step, ]dtype=None)</span><br><span class="line">Return evenly spaced values within a given interval.</span><br><span class="line"></span><br><span class="line">Values are generated within the half-open interval [start, stop) (in other words, the interval including start but excluding stop). For integer arguments the function is equivalent to the Python built-in range function, but returns an ndarray rather than a list.</span><br><span class="line">```   </span><br><span class="line">用法等同于range，区别在于返回的是ndarray而非list。</span><br><span class="line">```python3</span><br><span class="line">&gt;&gt;&gt; np.arange(3)</span><br><span class="line">array([0, 1, 2])</span><br><span class="line">&gt;&gt;&gt; np.arange(3.0)</span><br><span class="line">array([ 0.,  1.,  2.])</span><br><span class="line">&gt;&gt;&gt; np.arange(3,7)</span><br><span class="line">array([3, 4, 5, 6])</span><br><span class="line">&gt;&gt;&gt; np.arange(3,7,2)</span><br><span class="line">array([3, 5])</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/05/10/python-range/" data-id="cjb1wtivc005ndts6h248hxsh" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/05/10/python-range/" data-id="cjlxfmf2a006dvps6xcae98hf" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/05/10/python-range/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -116,19 +117,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/26/机器学习里的常用数学概念/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/05/10/py-dot-multiply/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          机器学习里的常用数学概念
+          Numpy 矩阵乘法
         
       </div>
     </a>
   
   
-    <a href="/2017/05/10/py-dot-multiply/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/26/机器学习里的常用数学概念/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Numpy 矩阵乘法</div>
+      <div class="article-nav-title">机器学习里的常用数学概念</div>
     </a>
   
 </nav>
@@ -214,7 +215,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

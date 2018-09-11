@@ -10,8 +10,9 @@
 <meta property="og:type" content="article">
 <meta property="og:title" content="virtualenvwrapper设置">
 <meta property="og:url" content="http://miclee.cn/2017/04/18/py_virtualenvwrapper/index.html">
-<meta property="og:site_name" content="MicLee's Bolg">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="virtualenv 是一个可以在同一计算机中隔离多个python版本的工具。有时，两个不同的项目可能需要不同版本的python，如 python2.6.6 / python3.0 ，但是如果都装到一起，经常会导致问题。所以需要一个工具能够将这两种或几种不同版本的环境隔离开来，需要哪个版本就切换到哪个版本做为默认版本。virtualenv 既是满足这个需求的工具。它能够用于创建独立的Python环">
+<meta property="og:locale" content="zh">
 <meta property="og:updated_time" content="2017-04-19T05:17:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="virtualenvwrapper设置">
@@ -99,9 +100,9 @@
 <li>管理（新增，删除，复制）虚拟环境</li>
 <li>切换虚拟环境</li>
 </ul>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">pip <span class="keyword">install</span> virtualenv</div><div class="line">pip <span class="keyword">install</span> virtualenvwrapper</div></pre></td></tr></table></figure>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip <span class="keyword">install</span> virtualenv</span><br><span class="line">pip <span class="keyword">install</span> virtualenvwrapper</span><br></pre></td></tr></table></figure>
 <h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>在 ~/.bash_profile 文件里添加以下配置：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> WORKON_HOME=~/.virtualenvs</div><div class="line"><span class="built_in">source</span> /usr/<span class="built_in">local</span>/bin/virtualenvwrapper.sh</div></pre></td></tr></table></figure>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="builtin-name">export</span> <span class="attribute">WORKON_HOME</span>=~/.virtualenvs</span><br><span class="line">source /usr/local/bin/virtualenvwrapper.sh</span><br></pre></td></tr></table></figure>
 <p>别忘了执行 source .bash_profile</p>
 <h2 id="使用方法"><a href="#使用方法" class="headerlink" title="使用方法"></a>使用方法</h2><p>所有的命令可使用：virtualenvwrapper –help 进行查看，这里列出几个常用的：</p>
 <ul>
@@ -112,16 +113,16 @@
 <li>列出所有环境：workon 或者 lsvirtualenv -b</li>
 </ul>
 <h2 id="安装Python3-环境"><a href="#安装Python3-环境" class="headerlink" title="安装Python3 环境"></a>安装Python3 环境</h2><p>先安装Python3：</p>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">brew </span><span class="keyword">install </span>Python3</div></pre></td></tr></table></figure>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">brew </span><span class="keyword">install </span>Python3</span><br></pre></td></tr></table></figure>
 <p>创建环境：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mkvirtualenv --python=<span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>python3 envname</div></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkvirtualenv --python=<span class="regexp">/usr/</span>local<span class="regexp">/bin/</span>python3 envname</span><br></pre></td></tr></table></figure>
 <p>查看环境：</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">workon</span></div></pre></td></tr></table></figure>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">workon</span></span><br></pre></td></tr></table></figure>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://miclee.cn/2017/04/18/py_virtualenvwrapper/" data-id="cjb1wtiuv004qdts6392lrelb" class="article-share-link">Share</a>
+      <a data-url="http://miclee.cn/2017/04/18/py_virtualenvwrapper/" data-id="cjlxfmf0y002yvps66pg2sf02" class="article-share-link">Share</a>
       
         <a href="http://miclee.cn/2017/04/18/py_virtualenvwrapper/#disqus_thread" class="article-comment-link">Comments</a>
       
@@ -134,19 +135,19 @@
     
 <nav id="article-nav">
   
-    <a href="/2017/04/18/py_jurpyter/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/04/19/Python之禅/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          Jupyter 安装
+          Python之禅
         
       </div>
     </a>
   
   
-    <a href="/2017/04/19/Python之禅/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/04/18/py_jurpyter/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Python之禅</div>
+      <div class="article-nav-title">Jupyter 安装</div>
     </a>
   
 </nav>
@@ -232,7 +233,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 MicLee
+    		&copy; 2018 MicLee
         <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量<span id="busuanzi_value_site_pv"></span>次&nbsp;&nbsp;

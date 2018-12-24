@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Spring cloud注册中心 | MicLee&#39;s Bolg</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="eureka官方已经正式宣布：自2.0起不再维护该项目，并在github 项目wiki上放出了一段吓唬人的话，大意就是：从2.x起，官方不会继续开发了，如果需要使用2.x，风险自负。">
+<meta name="keywords" content="Spring cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring cloud注册中心">
+<meta property="og:url" content="http://miclee.site/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/index.html">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
+<meta property="og:description" content="eureka官方已经正式宣布：自2.0起不再维护该项目，并在github 项目wiki上放出了一段吓唬人的话，大意就是：从2.x起，官方不会继续开发了，如果需要使用2.x，风险自负。">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-12-24T08:03:41.716Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring cloud注册中心">
+<meta name="twitter:description" content="eureka官方已经正式宣布：自2.0起不再维护该项目，并在github 项目wiki上放出了一段吓唬人的话，大意就是：从2.x起，官方不会继续开发了，如果需要使用2.x，风险自负。">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">射雕</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">道生一 一生二 二生三 三生万物</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Http/" style="font-size: 12.5px;">Http</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Spring-cloud/" style="font-size: 12.5px;">Spring cloud</a> <a href="/tags/annotation/" style="font-size: 10px;">annotation</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/fs/" style="font-size: 10px;">fs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/ios-app-publish/" style="font-size: 10px;">ios-app-publish</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 12.5px;">maven</a> <a href="/tags/nodejs/" style="font-size: 17.5px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/push/" style="font-size: 10px;">push</a> <a href="/tags/react/" style="font-size: 12.5px;">react</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 12.5px;">spring-boot</a> <a href="/tags/status/" style="font-size: 10px;">status</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/加密技术/" style="font-size: 12.5px;">加密技术</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">射雕</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">射雕</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">道生一 一生二 二生三 三生万物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-ConsulvsZookeepervsEtcdvsEureka" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/" class="article-date">
+  	<time datetime="2018-12-24T07:20:09.000Z" itemprop="datePublished">2018-12-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Spring cloud注册中心
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-cloud/">Spring cloud</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Spring-cloud/">Spring cloud</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> eureka官方已经正式宣布：自2.0起不再维护该项目，并在github 项目wiki上放出了一段吓唬人的话，大意就是：从2.x起，官方不会继续开发了，如果需要使用2.x，风险自负。 </em></strong><br><a id="more"></a></p>
+<hr>
+<p>但其实我觉得问题并不大，eureka目前的功能已经非常稳定，就算不升级，服务注册/发现这些功能已经够用。如果想寻找替代方案的话，建议采用功能更为丰富的consul，除了服务注册、发现，consul还提供了k-v存储等其它功能，consul的官网针对其它同类软件也做了详细比较，详见 <a href="https://www.consul.io/intro/vs/index.html" target="_blank" rel="noopener">consul vs other software</a>，有兴趣的可以看看，特别是有一句话，翻译成大白话就是：我不是针对在座的各位，我想说除我之外其它的都是渣渣（足见其相当的自信！）</p>
+<p>OK，回归正题，这里我们来对比下四个常用的注册中心解决方案Consul、Zookeeper、Etcd、Eureka：  </p>
+<h3 id="特性对比"><a href="#特性对比" class="headerlink" title="特性对比"></a>特性对比</h3><table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Consul</th>
+<th>zookeeper</th>
+<th>etcd</th>
+<th>euerka</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>服务健康检查</td>
+<td>服务状态，内存，硬盘等</td>
+<td>(弱)长连接，keepalive</td>
+<td>连接心跳</td>
+<td>可配支持</td>
+</tr>
+<tr>
+<td>多数据中心</td>
+<td>支持</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+<tr>
+<td>kv存储服务</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>—</td>
+</tr>
+<tr>
+<td>一致性</td>
+<td>raft</td>
+<td>paxos</td>
+<td>raft</td>
+<td>—</td>
+</tr>
+<tr>
+<td>cap</td>
+<td>ca</td>
+<td>cp</td>
+<td>cp</td>
+<td>ap</td>
+</tr>
+<tr>
+<td>使用接口(多语言能力)</td>
+<td>支持http和dns</td>
+<td>客户端</td>
+<td>http/grpc</td>
+<td>http（sidecar）</td>
+</tr>
+<tr>
+<td>watch支持</td>
+<td>全量/支持long polling</td>
+<td>支持</td>
+<td>支持 long polling</td>
+<td>支持 long polling/大部分增量</td>
+</tr>
+<tr>
+<td>自身监控</td>
+<td>metrics</td>
+<td>—</td>
+<td>metrics</td>
+<td>metrics</td>
+</tr>
+<tr>
+<td>安全</td>
+<td>acl/https</td>
+<td>acl</td>
+<td>https支持（弱）</td>
+<td>—</td>
+</tr>
+<tr>
+<td>spring cloud集成</td>
+<td>已支持</td>
+<td>已支持</td>
+<td>已支持</td>
+<td>已支持</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><h4 id="服务的健康检查"><a href="#服务的健康检查" class="headerlink" title="服务的健康检查"></a>服务的健康检查</h4><p>Euraka 使用时需要显式配置健康检查支持；Zookeeper,Etcd 则在失去了和服务进程的连接情况下任务不健康，而 Consul 相对更为详细点，比如内存是否已使用了90%，文件系统的空间是不是快不足了。</p>
+</li>
+<li><h4 id="多数据中心支持"><a href="#多数据中心支持" class="headerlink" title="多数据中心支持"></a>多数据中心支持</h4><p>Consul 通过 WAN 的 Gossip 协议，完成跨数据中心的同步；而且其他的产品则需要额外的开发工作来实现；</p>
+</li>
+<li><h4 id="KV-存储服务"><a href="#KV-存储服务" class="headerlink" title="KV 存储服务"></a>KV 存储服务</h4><p>除了 Eureka ,其他几款都能够对外支持 k-v 的存储服务，所以后面会讲到这几款产品追求高一致性的重要原因。而提供存储服务，也能够较好的转化为动态配置服务哦。</p>
+</li>
+<li><h4 id="产品设计中-CAP-理论的取舍"><a href="#产品设计中-CAP-理论的取舍" class="headerlink" title="产品设计中 CAP 理论的取舍"></a>产品设计中 CAP 理论的取舍</h4><p>Eureka 典型的 AP,作为分布式场景下的服务发现的产品较为合适，服务发现场景的可用性优先级较高，一致性并不是特别致命。其次 CA 类型的场景 Consul,也能提供较高的可用性，并能 k-v store 服务保证一致性。 而Zookeeper,Etcd则是CP类型 牺牲可用性，在服务发现场景并没太大优势。  </p>
+<p>Eureka提供了一个弱一致的服务视图，使用尽力而为复制。当客户端向服务器注册时，该服务器将尝试复制到其他服务器，但不提供保证。服务注册的生存时间（TTL）较短，要求客户端对服务器心存感激。不健康的服务或节点将停止心跳，导致它们超时并从注册表中删除。发现请求可以路由到任何服务，由于尽力而为的复制，这些服务可能会导致陈旧或丢失数据。这个简化的模型允许简单的群集管理和高可扩展性。  </p>
+<p>Consul提供强大的一致性保证，因为服务器使用Raft协议复制状态（<a href="http://www.cnblogs.com/mindwind/p/5231986.html" target="_blank" rel="noopener">Raft 协议的易理解性描述</a>）。Consul支持丰富的健康检查，包括TCP，HTTP，Nagios / Sensu兼容脚本或基于Eureka的TTL。客户端节点参与基于八卦的健康检查，该检查分发健康检查工作，而不像集中式心跳检测那样成为可扩展性挑战。发现请求被路由到选举出来的领事领导，这使他们默认情况下强烈一致。允许陈旧读取的客户端使任何服务器都可以处理他们的请求，从而实现像Eureka这样的线性可伸缩性。Consul强烈的一致性意味着它可以作为领导选举和集群协调的锁定服务。Eureka不提供类似的保证，并且通常需要为需要执行协调或具有更强一致性需求的服务运行ZooKeeper.  </p>
+</li>
+<li><h4 id="多语言能力与对外提供服务的接入协议"><a href="#多语言能力与对外提供服务的接入协议" class="headerlink" title="多语言能力与对外提供服务的接入协议"></a>多语言能力与对外提供服务的接入协议</h4><p>Zookeeper的跨语言支持较弱，其他几款支持 http11 提供接入的可能。Euraka 一般通过 sidecar的方式提供多语言客户端的接入支持。Etcd 还提供了Grpc的支持。 Consul除了标准的Rest服务api,还提供了DNS的支持。</p>
+</li>
+<li><h4 id="Watch的支持（客户端观察到服务提供者变化）"><a href="#Watch的支持（客户端观察到服务提供者变化）" class="headerlink" title="Watch的支持（客户端观察到服务提供者变化）"></a>Watch的支持（客户端观察到服务提供者变化）</h4><p>Zookeeper 支持服务器端推送变化，Eureka 2.0(正在开发中)也计划支持。 Eureka 1,Consul,Etcd则都通过长轮询的方式来实现变化的感知；</p>
+</li>
+<li><h4 id="自身集群的监控"><a href="#自身集群的监控" class="headerlink" title="自身集群的监控"></a>自身集群的监控</h4><p>除了 Zookeeper ,其他几款都默认支持 metrics，运维者可以搜集并报警这些度量信息达到监控目的；</p>
+</li>
+<li><h4 id="安全"><a href="#安全" class="headerlink" title="安全"></a>安全</h4><p>Consul,Zookeeper 支持ACL，另外 Consul,Etcd 支持安全通道https.</p>
+</li>
+<li><h4 id="Spring-Cloud的集成"><a href="#Spring-Cloud的集成" class="headerlink" title="Spring Cloud的集成"></a>Spring Cloud的集成</h4><p>目前都有相对应的 boot starter，提供了集成能力。</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/24/分布式领域CAP理论/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">&lt;</strong>
+      <div class="article-nav-title">
+        
+          分布式领域CAP理论
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/22/Web本地存储/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Web本地存储</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="ConsulvsZookeepervsEtcdvsEureka" data-title="Spring cloud注册中心" data-url="http://miclee.site/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/"  data-images="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" data-content="Spring cloud注册中心">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'micleewj'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2018 射雕
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

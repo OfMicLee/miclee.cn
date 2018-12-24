@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>分布式领域CAP理论 | MicLee&#39;s Bolg</title>
+
+  <!-- keywords -->
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
+<meta name="keywords" content="Spring cloud">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式领域CAP理论">
+<meta property="og:url" content="http://miclee.site/2018/12/24/分布式领域CAP理论/index.html">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
+<meta property="og:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-12-24T08:06:00.611Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式领域CAP理论">
+<meta name="twitter:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+  
+
+  <script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
+  <script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+
+  
+</head>
+<body>
+  <div id="container">
+    <div id="particles-js"></div>
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">射雕</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">道生一 一生二 二生三 三生万物</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						<div class="icon-wrap icon-link hide" data-idx="2">
+							<div class="loopback_l"></div>
+							<div class="loopback_r"></div>
+						</div>
+						
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						<li>友情链接</li>
+						
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/Http/" style="font-size: 12.5px;">Http</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/Spring-cloud/" style="font-size: 12.5px;">Spring cloud</a> <a href="/tags/annotation/" style="font-size: 10px;">annotation</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/books/" style="font-size: 10px;">books</a> <a href="/tags/bower/" style="font-size: 10px;">bower</a> <a href="/tags/commonjs/" style="font-size: 10px;">commonjs</a> <a href="/tags/debug/" style="font-size: 10px;">debug</a> <a href="/tags/express/" style="font-size: 10px;">express</a> <a href="/tags/fs/" style="font-size: 10px;">fs</a> <a href="/tags/git/" style="font-size: 10px;">git</a> <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/grunt/" style="font-size: 10px;">grunt</a> <a href="/tags/gulp/" style="font-size: 10px;">gulp</a> <a href="/tags/http/" style="font-size: 10px;">http</a> <a href="/tags/ide/" style="font-size: 10px;">ide</a> <a href="/tags/ionic/" style="font-size: 10px;">ionic</a> <a href="/tags/ios-app-publish/" style="font-size: 10px;">ios-app-publish</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/jpa/" style="font-size: 10px;">jpa</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/koa/" style="font-size: 10px;">koa</a> <a href="/tags/markdown/" style="font-size: 10px;">markdown</a> <a href="/tags/maven/" style="font-size: 12.5px;">maven</a> <a href="/tags/nodejs/" style="font-size: 17.5px;">nodejs</a> <a href="/tags/npm/" style="font-size: 10px;">npm</a> <a href="/tags/package/" style="font-size: 10px;">package</a> <a href="/tags/process/" style="font-size: 10px;">process</a> <a href="/tags/push/" style="font-size: 10px;">push</a> <a href="/tags/react/" style="font-size: 12.5px;">react</a> <a href="/tags/slf4j/" style="font-size: 10px;">slf4j</a> <a href="/tags/spring/" style="font-size: 15px;">spring</a> <a href="/tags/spring-boot/" style="font-size: 12.5px;">spring-boot</a> <a href="/tags/status/" style="font-size: 10px;">status</a> <a href="/tags/template/" style="font-size: 10px;">template</a> <a href="/tags/wechat/" style="font-size: 10px;">wechat</a> <a href="/tags/加密技术/" style="font-size: 12.5px;">加密技术</a> <a href="/tags/数据挖掘/" style="font-size: 10px;">数据挖掘</a> <a href="/tags/机器学习/" style="font-size: 12.5px;">机器学习</a>
+					</div>
+				</section>
+				
+				
+				
+				<section class="switch-part switch-part3">
+					<div id="js-friends">
+					
+			          <a target="_blank" class="main-nav-link switch-friends-link" href="https://github.com/smackgg/hexo-theme-smackdown">smackdown</a>
+			        
+			        </div>
+				</section>
+				
+
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">射雕</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">射雕</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">道生一 一生二 二生三 三生万物</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-分布式领域CAP理论" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/12/24/分布式领域CAP理论/" class="article-date">
+  	<time datetime="2018-12-24T08:03:56.000Z" itemprop="datePublished">2018-12-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      分布式领域CAP理论
+      
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-cloud/">Spring cloud</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Spring-cloud/">Spring cloud</a>
+	</div>
+
+
+        
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？ </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="分布式领域CAP理论"><a href="#分布式领域CAP理论" class="headerlink" title="分布式领域CAP理论"></a>分布式领域CAP理论</h3><ul>
+<li>Consistency(一致性), 数据一致更新，所有数据变动都是同步的</li>
+<li>Availability(可用性), 好的响应性能</li>
+<li>Partition tolerance(分区容错性) 可靠性</li>
+</ul>
+<p><strong>定理：</strong>任何分布式系统只可同时满足二点，没法三者兼顾。<br><strong>忠告：</strong>架构师不要将精力浪费在如何设计能满足三者的完美分布式系统，而是应该进行取舍。</p>
+<h4 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h4><p>关系数据库的ACID模型拥有高一致性和高可用性：</p>
+<ul>
+<li>Atomicity原子性：一个事务中所有操作都必须全部完成，要么全部不完成。</li>
+<li>Consistency一致性. 在事务开始或结束时，数据库应该在一致状态。</li>
+<li>Isolation隔离层. 事务将假定只有它自己在操作数据库，彼此不知晓。</li>
+<li>Durability. 一旦事务完成，就不能返回。</li>
+<li>跨数据库事务：2PC (two-phase commit)， 2PC is the anti-scalability pattern (Pat Helland) 是反可伸缩模式的，JavaEE中的JTA事务可以支持2PC。因为2PC是反模式，尽量不要使用2PC，使用BASE来回避。</li>
+</ul>
+<h4 id="BASE模型"><a href="#BASE模型" class="headerlink" title="BASE模型"></a>BASE模型</h4><p>BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性和可靠性：</p>
+<ul>
+<li>Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)</li>
+<li>Soft state软状态 状态可以有一段时间不同步，异步。</li>
+<li>Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。</li>
+</ul>
+<p>BASE思想主要强调基本的可用性，如果你需要High 可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。主要实现有：<strong>按功能划分数据库 &amp; sharding碎片</strong></p>
+<p>现在NOSQL运动丰富了拓展了BASE思想，可按照具体情况定制特别方案，比如忽视一致性，获得高可用性等等，NOSQL应该有下面两个流派：</p>
+<ol>
+<li>Key-Value存储，如Amaze Dynamo等，可根据CAP三原则灵活选择不同倾向的数据库产品。</li>
+<li>领域模型 + 分布式缓存 + 存储 （Qi4j和NoSql运动），可根据CAP三原则结合自己项目定制灵活的分布式方案，难度高。</li>
+</ol>
+<p>这两者共同点：都是关系数据库SQL以外的可选方案，逻辑随着数据分布，任何模型都可以自己持久化，将数据处理和数据存储分离，将读和写分离，存储可以是异步或同步，取决于对一致性的要求程度。<br>不同点：NOSQL之类的Key-Value存储产品是和关系数据库头碰头的产品BOX，可以适合非Java如PHP RUBY等领域，是一种可以拿来就用的产品，而领域模型 + 分布式缓存 + 存储是一种复杂的架构解决方案，不是产品，但这种方式更灵活，更应该是架构师必须掌握的。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring cloud注册中心</div>
+      <strong class="article-nav-caption">&gt;</strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="ds-share share" data-thread-key="分布式领域CAP理论" data-title="分布式领域CAP理论" data-url="http://miclee.site/2018/12/24/分布式领域CAP理论/"  data-images="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg" data-content="分布式领域CAP理论">
+    <div class="ds-share-inline">
+      <ul  class="ds-share-icons-16">
+      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+      </ul>
+      <div class="ds-share-icons-more">
+      </div>
+    </div>
+ </div>
+ 
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'micleewj'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+      <div class="footer-left">
+        &copy; 2018 射雕
+      </div>
+        <div class="footer-right">
+          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+        </div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="/js/main.js"></script>
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+
+
+  </div>
+</body>
+</html>

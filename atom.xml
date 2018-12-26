@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miclee.site/"/>
-  <updated>2018-12-24T08:06:00.611Z</updated>
+  <updated>2018-12-26T03:56:58.376Z</updated>
   <id>http://miclee.site/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>电商秒杀场景实现方案</title>
+    <link href="http://miclee.site/2018/12/26/%E7%94%B5%E5%95%86%E7%A7%92%E6%9D%80%E5%9C%BA%E6%99%AF%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%A1%88/"/>
+    <id>http://miclee.site/2018/12/26/电商秒杀场景实现方案/</id>
+    <published>2018-12-26T03:27:01.000Z</published>
+    <updated>2018-12-26T03:56:58.376Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong><em>  </em></strong><br><a id="more"></a></p><hr><p>场景特点：</p><ol><li>瞬时大访问量，流量波峰</li><li>用户不断刷新页面导致高并发</li><li>控制不能提前下单</li><li>下单防止超卖</li><li>单用户购买限制</li><li>页面更新为活动结束</li></ol><p>解决方案：</p><ol><li>如果同时秒杀商品较多，需要做服务隔离，单独部署甚至使用独立域名，避免对主应用影响；</li><li>单独设计秒杀商品页面，不使用网站原来的商品详细页面，页面内容静态化，上CDN，用户请求不需要经过应用服务；</li><li>设计单独控制秒杀按钮的JS文件（文件要非常小）放在js服务器上，由另外一台服务器写 定时任务 来控制js 推送；<br>可以使用xxx.js?v=随机数 的方式来避免js被浏览器缓存；<br>后端同时要做开始控制，避免跳过页面的接口访问；</li><li>商品秒杀库存提前放入redis。活动开始后利用redis decby原子命令或者watch乐观锁模式扣减库存；<br>扣减成功后异步通知消息到队列，可以用有界非阻塞队列，每个商品单独队列，界点为活动库存值（也可以用MQ）；<br>队列消费端连接商城正常下单逻辑；</li><li>下单成功后用户redis上锁，不再能下单</li><li>后台定时轮询读取redis活动库存，库存为0后推送新的js，方案同第3点</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;&lt;strong&gt;&lt;em&gt;  &lt;/em&gt;&lt;/strong&gt;&lt;br&gt;
+    
+    </summary>
+    
+      <category term="电商交易" scheme="http://miclee.site/categories/%E7%94%B5%E5%95%86%E4%BA%A4%E6%98%93/"/>
+    
+    
+      <category term="高并发" scheme="http://miclee.site/tags/%E9%AB%98%E5%B9%B6%E5%8F%91/"/>
+    
+  </entry>
   
   <entry>
     <title>分布式领域CAP理论</title>
@@ -431,28 +453,6 @@
     
     
       <category term="Python" scheme="http://miclee.site/tags/Python/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Java keytool</title>
-    <link href="http://miclee.site/2017/04/19/Java_keytool/"/>
-    <id>http://miclee.site/2017/04/19/Java_keytool/</id>
-    <published>2017-04-19T09:47:51.000Z</published>
-    <updated>2017-04-19T10:18:00.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong><em> Keytool是一个Java数据证书的管理工具，它使用户能够管理自己的公钥/私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户/服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。Keytool将密钥（key）和证书（certificates）存在一个称为秘钥仓库(keystore)的文件中。 </em></strong><br><a id="more"></a></p><hr><p>在keystore里，包含两种数据：</p><ul><li><p>密钥实体（Key entity）<br>每项存放极为敏感的加密密钥信息，这种信息以一种受保护的格式储存以防止未授权的访问。通常，储存在这类项中的密钥是机密密钥，或是伴有用于认证相应公钥用的证书“链”的私钥。keytool 和 jarsigner 工具只处理后一类型的项，即私钥及其关联的证书链。</p></li><li><p>可信任的证书实体（trusted certificate entries）<br>每项包含一个属于另一团体的公钥证书。它之所以叫做“可信任的证书”，是因为密钥仓库的拥有者相信证书中的公钥确实属于证书“主体”（拥有者）识别的身份。证书签发人通过对证书签名来保证这点。</p></li></ul><h2 id="生成keystore"><a href="#生成keystore" class="headerlink" title="生成keystore"></a>生成keystore</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -genkey -<span class="built_in">alias</span> miclee -keyalg RSA -validity <span class="number">1000</span> -keystore miclee.keystore</span><br></pre></td></tr></table></figure><h2 id="查看证书"><a href="#查看证书" class="headerlink" title="查看证书"></a>查看证书</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="type">list</span> -keystore miclee.keystore -storepass <span class="number">123456</span> -v</span><br></pre></td></tr></table></figure><h2 id="导出证书（只能导出公钥）"><a href="#导出证书（只能导出公钥）" class="headerlink" title="导出证书（只能导出公钥）"></a>导出证书（只能导出公钥）</h2><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -exportcert -alias miclee -keystore miclee<span class="selector-class">.keystore</span> -file miclee<span class="selector-class">.crt</span> -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure><p>导出的miclee.crt为二进制格式，如果想要ASCII格式，请参考博文：<a href="http://miclee.cn/2017/04/19/certificate/" target="_blank" rel="noopener">安全证书</a></p><h2 id="查看导出的证书"><a href="#查看导出的证书" class="headerlink" title="查看导出的证书"></a>查看导出的证书</h2><figure class="highlight applescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -printcert -<span class="built_in">file</span> miclee.crt</span><br></pre></td></tr></table></figure><h2 id="证书条目的删除"><a href="#证书条目的删除" class="headerlink" title="证书条目的删除"></a>证书条目的删除</h2><figure class="highlight d"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -<span class="keyword">delete</span> -<span class="keyword">alias</span> miclee -keystore miclee.keystore -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure><h2 id="证书条目口令的修改"><a href="#证书条目口令的修改" class="headerlink" title="证书条目口令的修改"></a>证书条目口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -keypasswd -alias miclee -keypass <span class="number">123456</span> -new <span class="number">654321</span> -keystore miclee.keystore -storepass <span class="number">123456</span></span><br></pre></td></tr></table></figure><h2 id="keystore口令的修改"><a href="#keystore口令的修改" class="headerlink" title="keystore口令的修改"></a>keystore口令的修改</h2><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">keytool -storepasswd -keystore miclee.keystore -storepass <span class="number">123456</span> -new <span class="number">654321</span></span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      Keytool是一个Java数据证书的管理工具，它使用户能够管理自己的公钥/私钥对及相关证书，用于（通过数字签名）自我认证（用户向别的用户/服务认证自己）或数据完整性以及认证服务。它还允许用户储存他们的通信对等者的公钥（以证书形式）。Keytool将密钥（key）和证书（certificates）存在一个称为秘钥仓库(keystore)的文件中。
-    
-    </summary>
-    
-      <category term="加密技术" scheme="http://miclee.site/categories/%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="加密技术" scheme="http://miclee.site/tags/%E5%8A%A0%E5%AF%86%E6%8A%80%E6%9C%AF/"/>
     
   </entry>
   

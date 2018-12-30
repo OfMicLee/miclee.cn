@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>基于sharding-sphere无需数据迁移的弹性扩容分片算法 | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="常见的分库分表方案大都用主键mod一个数（如分为8个库，则 id % 8 根据余数决定落到哪个分片）。此种方案中，如果要拓展数据库将是十分复杂的事情（例如拓展为10个，则代码需要改为 id % 10 之前的旧数据也要做迁移）。我们希望有一种支持自由规划无须数据迁移和修改路由代码的Sharding扩容方案。">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于sharding-sphere无需数据迁移的弹性扩容分片算法">
+<meta property="og:url" content="http://miclee.site/2018/12/30/无需数据迁移的弹性扩容分片算法/index.html">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
+<meta property="og:description" content="常见的分库分表方案大都用主键mod一个数（如分为8个库，则 id % 8 根据余数决定落到哪个分片）。此种方案中，如果要拓展数据库将是十分复杂的事情（例如拓展为10个，则代码需要改为 id % 10 之前的旧数据也要做迁移）。我们希望有一种支持自由规划无须数据迁移和修改路由代码的Sharding扩容方案。">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="http://cdn.processon.com/5c0f6316e4b0c87510c92820?e=1544515878&token=trhI0BY8QfVrIGn9nENop6JAc6l5nZuxhjQ62UfM:TJvZtqEh2px8v3TebojfI6HHuGU=">
+<meta property="og:updated_time" content="2018-12-30T09:11:25.091Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于sharding-sphere无需数据迁移的弹性扩容分片算法">
+<meta name="twitter:description" content="常见的分库分表方案大都用主键mod一个数（如分为8个库，则 id % 8 根据余数决定落到哪个分片）。此种方案中，如果要拓展数据库将是十分复杂的事情（例如拓展为10个，则代码需要改为 id % 10 之前的旧数据也要做迁移）。我们希望有一种支持自由规划无须数据迁移和修改路由代码的Sharding扩容方案。">
+<meta name="twitter:image" content="http://cdn.processon.com/5c0f6316e4b0c87510c92820?e=1544515878&token=trhI0BY8QfVrIGn9nENop6JAc6l5nZuxhjQ62UfM:TJvZtqEh2px8v3TebojfI6HHuGU=">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">道生一 一生二 二生三 三生万物</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.site"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-无需数据迁移的弹性扩容分片算法" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/" class="article-date">
+  <time datetime="2018-12-30T08:39:06.000Z" itemprop="datePublished">2018-12-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/电商交易/">电商交易</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      基于sharding-sphere无需数据迁移的弹性扩容分片算法
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 常见的分库分表方案大都用主键mod一个数（如分为8个库，则 id % 8 根据余数决定落到哪个分片）。此种方案中，如果要拓展数据库将是十分复杂的事情（例如拓展为10个，则代码需要改为 id % 10 之前的旧数据也要做迁移）。我们希望有一种支持自由规划无须数据迁移和修改路由代码的Sharding扩容方案。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="Sharding-sphere介绍"><a href="#Sharding-sphere介绍" class="headerlink" title="Sharding-sphere介绍"></a>Sharding-sphere介绍</h3><p>sharding-sphere是基于当当的开源框架sharding-jdbc，团队加入京东后，现在成为Apache的项目。整个集合包含三个产品：  </p>
+<h4 id="1-Sharding-jdbc"><a href="#1-Sharding-jdbc" class="headerlink" title="1. Sharding-jdbc"></a>1. Sharding-jdbc</h4><p>Sharding-JDBC是Sharding-Sphere的第一个产品，也是Sharding-Sphere的前身。 它定位为轻量级Java框架，在Java的JDBC层提供分库分表、读写分离、数据库治理、柔性事务等服务。它使用客户端直连数据库，以jar包形式提供服务，无需额外部署和依赖，可理解为增强版的JDBC驱动，完全兼容JDBC和各种ORM框架。</p>
+<h4 id="2-Sharding-Proxy"><a href="#2-Sharding-Proxy" class="headerlink" title="2. Sharding-Proxy"></a>2. Sharding-Proxy</h4><p>Sharding-Proxy是Sharding-Sphere的第二个产品。 定位为透明化的数据库代理端，提供封装了数据库二进制协议的服务端版本，用于完成对异构语言的支持。 目前先提供MySQL版本，它可以使用任何兼容MySQL协议的访问客户端(如：MySQL Command Client, MySQL Workbench等)操作数据，对DBA更加友好。</p>
+<h4 id="3-Sharding-Sidecar"><a href="#3-Sharding-Sidecar" class="headerlink" title="3. Sharding-Sidecar"></a>3. Sharding-Sidecar</h4><p>Sharding-Sidecar定位为Kubernetes或Mesos的云原生数据库代理，以DaemonSet的形式代理所有对数据库的访问。 通过无中心、零侵入的方案提供与数据库交互的的啮合层，即Database Mesh，又可称数据网格。<br>Database Mesh的关注重点在于如何将分布式的数据访问应用与数据库有机串联起来，它更加关注的是交互，是将杂乱无章的应用与数据库之间的交互有效的梳理。使用Database Mesh，访问数据库的应用和数据库终将形成一个巨大的网格体系，应用和数据库只需在网格体系中对号入座即可，它们都是被啮合层所治理的对象。</p>
+<h4 id="4-Mixed-scheme-of-Sharding-JDBC-amp-Sharding-Proxy"><a href="#4-Mixed-scheme-of-Sharding-JDBC-amp-Sharding-Proxy" class="headerlink" title="4. Mixed scheme of Sharding-JDBC &amp; Sharding-Proxy"></a>4. Mixed scheme of Sharding-JDBC &amp; Sharding-Proxy</h4><p><strong>混合架构</strong><br>Sharding-JDBC采用无中心化架构，适用于Java开发的高性能的轻量级OLTP应用；Sharding-Proxy提供静态入口以及异构语言的支持，适用于OLAP应用以及对分片数据库进行管理和运维的场景。</p>
+<p>ShardingSphere是多接入端共同组成的生态圈。 通过混合使用Sharding-JDBC和Sharding-Proxy，并采用同一注册中心统一配置分片策略，能够灵活的搭建适用于各种场景的应用系统，使得架构师更加自由的调整适合与当前业务的最佳系统架构。  </p>
+<p><img src="http://cdn.processon.com/5c0f6316e4b0c87510c92820?e=1544515878&amp;token=trhI0BY8QfVrIGn9nENop6JAc6l5nZuxhjQ62UfM:TJvZtqEh2px8v3TebojfI6HHuGU=" alt=""></p>
+<h3 id="分片方案设计"><a href="#分片方案设计" class="headerlink" title="分片方案设计"></a>分片方案设计</h3><p>前面了解了Twitter-Snowflake分库分表算法的实现，而Snowflake主键算法本身就带时间戳，我们可以基于它实现无需数据迁移的扩容方案。<br>　　Snowflake生成的ID是一个64位的Long值，通过主键可以算出两个维度的值：</p>
+<ul>
+<li>时间维度<br>主键的前42位就是一个以毫秒为单位的时间戳。  </li>
+<li>分片维度<br>对主键做Hash运算（为了得到的hash值尽可能散，使用MurmurHash算法），可以得到一个32位的hash值，我们以它的前16位作为数据库分片值，后16位作为表分片值。</li>
+</ul>
+<p>如此一来，只需根据时间戳，指定某一时间戳后使用新的分片规则，即可不迁移数据对数据库进行扩容。  </p>
+<p><strong>具体实现</strong><br>这只是个算法和框架无关，你可以基于各种分库分表中间件实现它，此处基于当当网的Sharding-JDBC写了实现（修改中，未Merge），<a href="https://github.com/sharding-sphere/sharding-sphere/issues/186" target="_blank" rel="noopener">Issue地址</a>，<a href="https://github.com/xydonne/sharding-jdbc/tree/hash-sharding/186" target="_blank" rel="noopener">Branch地址</a></p>
+<hr>
+<p>参考：<a href="http://www.jianshu.com/p/d296fa2bf61b" target="_blank" rel="noopener">http://www.jianshu.com/p/d296fa2bf61b</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.site/2018/12/30/无需数据迁移的弹性扩容分片算法/" data-id="cjqaoe99e0051dls607djobbr" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.site/2018/12/30/无需数据迁移的弹性扩容分片算法/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+      <span style="color:gray;font-weight:bold">
+      本文阅读量&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/30/分布式ID/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">分布式ID</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">ABOUT ME</h3>
+    <div class="widget">
+          80后老码农<br>
+          Sun认证SCJP工程师<br>
+          <br>
+          研究领域：<br>
+          高并发电商交易型网站设计<br>
+          微服务架构<br>
+          容器化平台搭建<br>
+          DevOps<br>
+          机器学习<br>
+          <!-- <span id="busuanzi_container_site_uv">
+          本站访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次
+          </span> -->
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-cloud/">Spring cloud</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/电商交易/">电商交易</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/">基于sharding-sphere无需数据迁移的弹性扩容分片算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/30/分布式ID/">分布式ID</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/26/电商秒杀场景实现方案/">电商秒杀场景实现方案</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/分布式领域CAP理论/">分布式领域CAP理论</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/">Spring cloud注册中心</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 射雕
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">
+            &nbsp;&nbsp;本站总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次&nbsp;&nbsp;
+            &nbsp;&nbsp;本站访客数&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;人
+            </span>
+    	</div>
+      	<!-- <div class="footer-right">
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      	</div> -->
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.site/2018/12/30/无需数据迁移的弹性扩容分片算法/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

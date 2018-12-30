@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>分布式ID | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="分布式系统下典型的一个场景就是分布式ID的设计，会有哪些可用方案呢？">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式ID">
+<meta property="og:url" content="http://miclee.site/2018/12/30/分布式ID/index.html">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
+<meta property="og:description" content="分布式系统下典型的一个场景就是分布式ID的设计，会有哪些可用方案呢？">
+<meta property="og:locale" content="zh">
+<meta property="og:updated_time" content="2018-12-30T08:55:21.627Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式ID">
+<meta name="twitter:description" content="分布式系统下典型的一个场景就是分布式ID的设计，会有哪些可用方案呢？">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">道生一 一生二 二生三 三生万物</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.site"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-分布式ID" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/30/分布式ID/" class="article-date">
+  <time datetime="2018-12-30T08:38:18.000Z" itemprop="datePublished">2018-12-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/电商交易/">电商交易</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      分布式ID
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 分布式系统下典型的一个场景就是分布式ID的设计，会有哪些可用方案呢？ </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="主键生成策略"><a href="#主键生成策略" class="headerlink" title="主键生成策略"></a>主键生成策略</h3><p>系统唯一ID是我们在设计一个系统的时候常常会遇见的问题，下面介绍一些常见的ID生成策略。  </p>
+<ul>
+<li>Sequence ID</li>
+<li>UUID</li>
+<li>GUID</li>
+<li>COMB</li>
+<li>Snowflake</li>
+</ul>
+<p>最开始的自增ID为了实现分库分别的需求，会在自增的前提下，使用不同步长(例如DB1 生成1,4,7,10，DB2生成2,5,8,11，DB3生成3,6,9,12)，但需要做数据库拓展时，极其麻烦。<br>相比自增ID，UUID生成唯一主键更加方便（数据量非常大的情况下，存在重复的可能），但由于UUID的无序性，性能不如自增ID，字符串储存，储存空间大，查询效率低。<br>COMB相对于UUID，增加了生成ID的有序性，插入与查询效率都有所提高。<br>Sonwflake是Twitter主键生成策略，可以看做是COMB的一种改进，用64位的长整型代替128位的字符串。ID构成：第一位0 + 41位的时间前缀 + 10位的节点标识 + 12位的sequence避免并发的数字。  </p>
+<h4 id="1-Sequence-ID"><a href="#1-Sequence-ID" class="headerlink" title="1. Sequence ID"></a>1. Sequence ID</h4><p>数据库自增长序列或字段，最常见的方式。由数据库维护，数据库唯一。<br><strong>优点：</strong><br>简单，代码方便，性能可以接受。<br>数字ID天然排序，对分页或者需要排序的结果很有帮助。</p>
+<p><strong>缺点：</strong><br>不同数据库语法和实现不同，数据库迁移的时候或多数据库版本支持的时候需要处理。<br>在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。<br>在性能达不到要求的情况下，比较难于扩展。<br>如果遇见多个系统需要合并或者涉及到数据迁移会相当痛苦。<br>分表分库的时候会有麻烦。</p>
+<p><strong>优化方案：</strong><br>针对主库单点，如果有多个Master库，则每个Master库设置的起始数字不一样，步长一样，可以是Master的个数。<br>比如：Master1 生成的是 1，4，7，10，Master2生成的是2,5,8,11 Master3生成的是 3,6,9,12。这样就可以有效生成集群中的唯一ID，也可以大大降低ID生成数据库操作的负载。</p>
+<h4 id="2-UUID"><a href="#2-UUID" class="headerlink" title="2. UUID"></a>2. UUID</h4><p>常见的方式,128位。可以利用数据库也可以利用程序生成，一般来说全球唯一。<br><strong>优点：</strong><br>简单，代码方便。<br>全球唯一，在遇见数据迁移，系统数据合并，或者数据库变更等情况下，可以从容应对。</p>
+<p><strong>缺点：</strong><br>没有排序，无法保证趋势递增。<br>UUID往往是使用字符串存储，查询的效率比较低。<br>存储空间比较大，如果是海量数据库，就需要考虑存储量的问题。<br>传输数据量大<br>不可读。</p>
+<p><strong>优化方案：</strong><br>为了解决UUID不可读，可以使用UUID to Int64的方法。</p>
+<h4 id="3-GUID"><a href="#3-GUID" class="headerlink" title="3. GUID"></a>3. GUID</h4><p>GUID：是微软对UUID这个标准的实现。UUID还有其它各种实现，不止GUID一种。优缺点同UUID。</p>
+<h4 id="4-COMB"><a href="#4-COMB" class="headerlink" title="4. COMB"></a>4. COMB</h4><p>COMB（combine）型是数据库特有的一种设计思想，可以理解为一种改进的GUID，它通过组合GUID和系统时间，以使其在索引和检索事有更优的性能。<br>数据库中没有COMB类型，它是Jimmy Nilsson在他的“The Cost of GUIDs as Primary Keys”一文中设计出来的。<br>COMB数据类型的基本设计思路是这样的：既然UniqueIdentifier数据因毫无规律可言造成索引效率低下，影响了系统的性能，那么我们能不能通过组合的方式，保留UniqueIdentifier的前10个字节，用后6个字节表示GUID生成的时间（DateTime），这样我们将时间信息与UniqueIdentifier组合起来，在保留UniqueIdentifier的唯一性的同时增加了有序性，以此来提高索引效率。</p>
+<p><strong>优点：</strong><br>解决UUID无序的问题，在其主键生成方式中提供了Comb算法(combined guid/timestamp)。保留GUID的10个字节，用另6个字节表示GUID生成的时间(DateTime)。<br>性能优于UUID。</p>
+<h4 id="5-Twitter的snowflake算法"><a href="#5-Twitter的snowflake算法" class="headerlink" title="5. Twitter的snowflake算法"></a>5. Twitter的snowflake算法</h4><p>snowflake是Twitter开源的分布式ID生成算法，结果是一个long型的ID。其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。snowflake算法可以根据自身项目的需要进行一定的修改。比如估算未来的数据中心个数，每个数据中心的机器数以及统一毫秒可以能的并发数来调整在算法中所需要的bit数。  </p>
+<p><strong>优点：</strong><br>不依赖于数据库，灵活方便，且性能优于数据库。<br>ID按照时间在单机上是递增的。</p>
+<p><strong>缺点：</strong><br>在单机上是递增的，但是由于涉及到分布式环境，每台机器上的时钟不可能完全同步，也许有时候也会出现不是全局递增的情况。</p>
+<hr>
+<p><a href="http://www.jianshu.com/p/a0a3aa888a49" target="_blank" rel="noopener">From Donney Young -&gt;</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.site/2018/12/30/分布式ID/" data-id="cjqaoe99c004ydls6bee5wos4" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.site/2018/12/30/分布式ID/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+      <span style="color:gray;font-weight:bold">
+      本文阅读量&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          基于sharding-sphere无需数据迁移的弹性扩容分片算法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/26/电商秒杀场景实现方案/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">电商秒杀场景实现方案</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">ABOUT ME</h3>
+    <div class="widget">
+          80后老码农<br>
+          Sun认证SCJP工程师<br>
+          <br>
+          研究领域：<br>
+          高并发电商交易型网站设计<br>
+          微服务架构<br>
+          容器化平台搭建<br>
+          DevOps<br>
+          机器学习<br>
+          <!-- <span id="busuanzi_container_site_uv">
+          本站访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次
+          </span> -->
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-cloud/">Spring cloud</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/电商交易/">电商交易</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/">基于sharding-sphere无需数据迁移的弹性扩容分片算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/30/分布式ID/">分布式ID</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/26/电商秒杀场景实现方案/">电商秒杀场景实现方案</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/分布式领域CAP理论/">分布式领域CAP理论</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/">Spring cloud注册中心</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 射雕
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">
+            &nbsp;&nbsp;本站总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次&nbsp;&nbsp;
+            &nbsp;&nbsp;本站访客数&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;人
+            </span>
+    	</div>
+      	<!-- <div class="footer-right">
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      	</div> -->
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.site/2018/12/30/分布式ID/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

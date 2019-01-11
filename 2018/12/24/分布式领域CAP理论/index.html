@@ -6,14 +6,14 @@
   <title>分布式领域CAP理论 | MicLee&#39;s Bolg</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
-<meta name="keywords" content="Spring cloud">
+<meta name="keywords" content="分布式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="分布式领域CAP理论">
 <meta property="og:url" content="http://miclee.site/2018/12/24/分布式领域CAP理论/index.html">
 <meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2019-01-11T11:28:58.955Z">
+<meta property="og:updated_time" content="2019-01-11T12:27:52.642Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式领域CAP理论">
 <meta name="twitter:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
@@ -109,10 +109,7 @@
 <li>跨数据库事务：2PC (two-phase commit)， 2PC is the anti-scalability pattern (Pat Helland) 是反可伸缩模式的，JavaEE中的JTA事务可以支持2PC。因为2PC是反模式，尽量不要使用2PC，使用BASE来回避。</li>
 </ul>
 <p>比如本地事务数据库断电的这种情况，它是怎么保证数据一致性的呢？我们使用SQL Server来举例，我们知道我们在使用 SQL Server 数据库是由两个文件组成的，一个数据库文件和一个日志文件，通常情况下，日志文件都要比数据库文件大很多。数据库进行任何写入操作的时候都是要先写日志的，同样的道理，我们在执行事务的时候数据库首先会记录下这个事务的redo操作日志，然后才开始真正操作数据库，在操作之前首先会把日志文件写入磁盘，那么当突然断电的时候，即使操作没有完成，在重新启动数据库时候，数据库会根据当前数据的情况进行undo回滚或者是redo前滚，这样就保证了数据的强一致性。</p>
-<h3 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h3><p>对数据库分布式事务有了解的同学一定知道数据库支持的2PC，又叫做 XA Transactions。  </p>
-<blockquote>
-<p>MySQL从5.5版本开始支持，SQL Server 2005 开始支持，Oracle 7 开始支持。  </p>
-</blockquote>
+<h3 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h3><p>对数据库分布式事务有了解的同学一定知道数据库支持的2PC，又叫做 XA Transactions。<br>(MySQL从5.5版本开始支持，SQL Server 2005 开始支持，Oracle 7 开始支持。)  </p>
 <p>其中，XA 是一个两阶段提交协议，该协议分为以下两个阶段：<br>第一阶段：事务协调器要求每个涉及到事务的数据库预提交(precommit)此操作，并反映是否可以提交.<br>第二阶段：事务协调器要求每个数据库提交数据。<br>其中，如果有任何一个数据库否决此次提交，那么所有数据库都会被要求回滚它们在此事务中的那部分信息。这样做的缺陷是什么呢? 咋看之下我们可以在数据库分区之间获得一致性。</p>
 <h3 id="BASE模型"><a href="#BASE模型" class="headerlink" title="BASE模型"></a>BASE模型</h3><p>在分布式系统中，我们往往追求的是可用性，它的重要程度比一致性要高，那么如何实现高可用性呢？前人已经给我们提出来了另外一个理论，就是BASE理论，它是用来对CAP定理进行进一步扩充的。BASE理论指的是：</p>
 <ul>
@@ -136,7 +133,7 @@
         <a href="http://miclee.site/2018/12/24/分布式领域CAP理论/#disqus_thread" class="article-comment-link">Comments</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-cloud/">Spring cloud</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
 
       <span style="color:gray;font-weight:bold">
       本文阅读量&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次

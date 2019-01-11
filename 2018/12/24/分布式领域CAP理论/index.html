@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="MicLee&#39;s Bolg">
 <meta property="og:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
 <meta property="og:locale" content="zh">
-<meta property="og:updated_time" content="2018-12-24T08:06:00.611Z">
+<meta property="og:updated_time" content="2019-01-11T09:30:35.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="分布式领域CAP理论">
 <meta name="twitter:description" content="上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？">
@@ -94,12 +94,12 @@
       
         <p><strong><em> 上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？ </em></strong><br><a id="more"></a></p>
 <hr>
-<h3 id="分布式领域CAP理论"><a href="#分布式领域CAP理论" class="headerlink" title="分布式领域CAP理论"></a>分布式领域CAP理论</h3><ul>
-<li>Consistency(一致性), 数据一致更新，所有数据变动都是同步的</li>
-<li>Availability(可用性), 好的响应性能</li>
-<li>Partition tolerance(分区容错性) 可靠性</li>
+<h3 id="分布式领域CAP理论"><a href="#分布式领域CAP理论" class="headerlink" title="分布式领域CAP理论"></a>分布式领域CAP理论</h3><p>CAP定理是由加州大学伯克利分校Eric Brewer教授提出来的，他指出WEB服务无法同时满足一下3个属性：</p>
+<ul>
+<li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li>
+<li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li>
+<li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用，操作依然可以完成<br>具体地讲在分布式系统中，在任何数据库设计中，一个Web应用至多只能同时支持上面的两个属性。显然，任何横向扩展策略都要依赖于数据分区。因此，设计人员必须在一致性与可用性之间做出选择。  </li>
 </ul>
-<p><strong>定理：</strong>任何分布式系统只可同时满足二点，没法三者兼顾。<br><strong>忠告：</strong>架构师不要将精力浪费在如何设计能满足三者的完美分布式系统，而是应该进行取舍。</p>
 <h4 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h4><p>关系数据库的ACID模型拥有高一致性和高可用性：</p>
 <ul>
 <li>Atomicity原子性：一个事务中所有操作都必须全部完成，要么全部不完成。</li>
@@ -250,7 +250,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 射雕
+    		&copy; 2019 射雕
         <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
             <span id="busuanzi_container_site_pv">
             &nbsp;&nbsp;本站总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次&nbsp;&nbsp;

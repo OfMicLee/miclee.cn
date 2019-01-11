@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miclee.site/"/>
-  <updated>2018-12-30T09:11:25.091Z</updated>
+  <updated>2019-01-11T12:02:50.262Z</updated>
   <id>http://miclee.site/</id>
   
   <author>
@@ -15,6 +15,28 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>分布式事务</title>
+    <link href="http://miclee.site/2019/01/11/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    <id>http://miclee.site/2019/01/11/分布式事务/</id>
+    <published>2019-01-11T10:33:31.000Z</published>
+    <updated>2019-01-11T12:02:50.262Z</updated>
+    
+    <content type="html"><![CDATA[<p><strong><em> 现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是可以接受短暂的不一致的。 </em></strong><br><a id="more"></a></p><hr><h3 id="分布式理论"><a href="#分布式理论" class="headerlink" title="分布式理论"></a>分布式理论</h3><p>关于分布式理论可以参考另一篇博文：<a href="http://miclee.site/2018/12/24/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9FCAP%E7%90%86%E8%AE%BA/">分布式领域CAP理论</a>  </p><h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><h4 id="一、两阶段提交-2PC"><a href="#一、两阶段提交-2PC" class="headerlink" title="一、两阶段提交 2PC"></a>一、两阶段提交 2PC</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/2PC.png" alt=""><br>两阶段提交这种解决方案属于牺牲了一部分可用性来换取的一致性。在实现方面，在 .NET 中，可以借助 TransactionScop 提供的 API 来编程实现分布式系统中的两阶段提交，比如WCF中就有实现这部分功能。不过在多服务器之间，需要依赖于DTC来完成事务一致性，Windows下微软搞的有MSDTC服务，Linux下就比较悲剧了。</p><p>另外说一句，TransactionScop 默认不能用于异步方法之间事务一致，因为事务上下文是存储于当前线程中的，所以如果是在异步方法，需要显式的传递事务上下文。</p><p>优点： 尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。（其实也不能100%保证强一致）<br>缺点： 实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景，如果分布式系统跨接口调用，目前 .NET 界还没有实现方案。  </p><h4 id="二、补偿事务-TCC"><a href="#二、补偿事务-TCC" class="headerlink" title="二、补偿事务 TCC"></a>二、补偿事务 TCC</h4><p>TCC 其实就是采用的补偿机制，其核心思想是：针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段：</p><p>Try 阶段主要是对业务系统做检测及资源预留<br>Confirm 阶段主要是对业务系统做确认提交，Try阶段执行成功并开始执行 Confirm阶段时，默认 Confirm阶段是不会出错的。即：只要Try成功，Confirm一定成功。<br>Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放。</p><p>举个例子，假入 Bob 要向 Smith 转账，思路大概是：<br>我们有一个本地方法，里面依次调用<br>1、首先在 Try 阶段，要先调用远程接口把 Smith 和 Bob 的钱给冻结起来。<br>2、在 Confirm 阶段，执行远程调用的转账的操作，转账成功进行解冻。<br>3、如果第2步执行成功，那么转账成功，如果第二步执行失败，则调用远程冻结接口对应的解冻方法 (Cancel)。</p><p>优点： 跟2PC比起来，实现以及流程相对简单了一些，但数据的一致性比2PC也要差一些<br>缺点： 缺点还是比较明显的，在2,3步中都有可能失败。TCC属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用TCC不太好定义及处理。</p><h4 id="三、本地消息表"><a href="#三、本地消息表" class="headerlink" title="三、本地消息表"></a>三、本地消息表</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" alt=""><br>基本思路就是：</p><p>消息生产方，需要额外建一个消息表，并记录消息发送状态。消息表和业务数据要在一个事务里提交，也就是说他们要在一个数据库里面。然后消息会经过MQ发送到消息的消费方。如果消息发送失败，会进行重试发送。</p><p>消息消费方，需要处理这个消息，并完成自己的业务逻辑。此时如果本地事务处理成功，表明已经处理成功了，如果处理失败，那么就会重试执行。如果是业务上面的失败，可以给生产方发送一个业务补偿消息，通知生产方进行回滚等操作。</p><p>生产方和消费方定时扫描本地消息表，把还没处理完成的消息或者失败的消息再发送一遍。如果有靠谱的自动对账补账逻辑，这种方案还是非常实用的。</p><p>这种方案遵循BASE理论，采用的是最终一致性，笔者认为是这几种方案里面比较适合实际业务场景的，即不会出现像2PC那样复杂的实现(当调用链很长的时候，2PC的可用性是非常低的)，也不会像TCC那样可能出现确认或者回滚不了的情况。</p><p>优点： 一种非常经典的实现，避免了分布式事务，实现了最终一致性。在 .NET中 有现成的解决方案。<br>缺点： 消息表会耦合到业务系统中，如果没有封装好的解决方案，会有很多杂活需要处理。  </p><h4 id="四、MQ-事务消息"><a href="#四、MQ-事务消息" class="headerlink" title="四、MQ 事务消息"></a>四、MQ 事务消息</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/MQ%20%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png" alt=""><br>有一些第三方的MQ是支持事务消息的，比如RocketMQ，他们支持事务消息的方式也是类似于采用的二阶段提交，但是市面上一些主流的MQ都是不支持事务消息的，比如 RabbitMQ 和 Kafka 都不支持。</p><p>以阿里的 RocketMQ 中间件为例，其思路大致为：</p><p>第一阶段Prepared消息，会拿到消息的地址。<br>第二阶段执行本地事务，第三阶段通过第一阶段拿到的地址去访问消息，并修改状态。</p><p>也就是说在业务方法内要想消息队列提交两次请求，一次发送消息和一次确认消息。如果确认消息发送失败了RocketMQ会定期扫描消息集群中的事务消息，这时候发现了Prepared消息，它会向消息发送者确认，所以生产方需要实现一个check接口，RocketMQ会根据发送端设置的策略来决定是回滚还是继续发送确认消息。这样就保证了消息发送与本地事务同时成功或同时失败。  </p><p>优点： 实现了最终一致性，不需要依赖本地数据库事务。<br>缺点： 实现难度大，主流MQ不支持，RocketMQ事务消息部分代码也未开源。  </p><h4 id="五、Sagas-事务模型"><a href="#五、Sagas-事务模型" class="headerlink" title="五、Sagas 事务模型"></a>五、Sagas 事务模型</h4><p>Saga事务模型又叫做长时间运行的事务（Long-running-transaction）, 它是由普林斯顿大学的H.Garcia-Molina等人提出，它描述的是另外一种在没有两阶段提交的的情况下解决分布式系统中复杂的业务事务问题。你可以在这里看到 Sagas 相关论文。</p><p>我们这里说的是一种基于 Sagas 机制的工作流事务模型，这个模型的相关理论目前来说还是比较新的，以至于百度上几乎没有什么相关资料。</p><p>该模型其核心思想就是拆分分布式系统中的长事务为多个短事务，或者叫多个本地事务，然后由 Sagas 工作流引擎负责协调，如果整个流程正常结束，那么就算是业务成功完成，如果在这过程中实现失败，那么Sagas工作流引擎就会以相反的顺序调用补偿操作，重新进行业务回滚。</p><p>比如我们一次关于购买旅游套餐业务操作涉及到三个操作，他们分别是预定车辆，预定宾馆，预定机票，他们分别属于三个不同的远程接口。可能从我们程序的角度来说他们不属于一个事务，但是从业务角度来说是属于同一个事务的。<br><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/Sagas%20%E4%BA%8B%E5%8A%A1%E6%A8%A1%E5%9E%8B.png" alt=""><br>他们的执行顺序如上图所示，所以当发生失败时，会依次进行取消的补偿操作。</p><p>因为长事务被拆分了很多个业务流，所以 Sagas 事务模型最重要的一个部件就是工作流或者你也可以叫流程管理器（Process Manager），工作流引擎和Process Manager虽然不是同一个东西，但是在这里，他们的职责是相同的。在选择工作流引擎之后，最终的代码也许看起来是这样:<br>‘’’<br>SagaBuilder saga = SagaBuilder.newSaga(“trip”)<br>        .activity(“Reserve car”, ReserveCarAdapter.class)<br>        .compensationActivity(“Cancel car”, CancelCarAdapter.class)<br>        .activity(“Book hotel”, BookHotelAdapter.class)<br>        .compensationActivity(“Cancel hotel”, CancelHotelAdapter.class)<br>        .activity(“Book flight”, BookFlightAdapter.class)<br>        .compensationActivity(“Cancel flight”, CancelFlightAdapter.class)<br>        .end()<br>        .triggerCompensationOnAnyError();</p><p>camunda.getRepositoryService().createDeployment()<br>        .addModelInstance(saga.getModel())<br>        .deploy();<br>‘’’   </p><p>一个.net版本的开源框架：<a href="https://github.com/dotnetcore/CAP" target="_blank" rel="noopener">https://github.com/dotnetcore/CAP</a></p>]]></content>
+    
+    <summary type="html">
+    
+      现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是可以接受短暂的不一致的。
+    
+    </summary>
+    
+      <category term="Spring cloud" scheme="http://miclee.site/categories/Spring-cloud/"/>
+    
+    
+      <category term="分布式" scheme="http://miclee.site/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
+    
+  </entry>
   
   <entry>
     <title>基于sharding-sphere无需数据迁移的弹性扩容分片算法</title>
@@ -43,7 +65,7 @@
     <link href="http://miclee.site/2018/12/30/%E5%88%86%E5%B8%83%E5%BC%8FID/"/>
     <id>http://miclee.site/2018/12/30/分布式ID/</id>
     <published>2018-12-30T08:38:18.000Z</published>
-    <updated>2018-12-30T08:55:21.627Z</updated>
+    <updated>2019-01-11T11:18:25.540Z</updated>
     
     <content type="html"><![CDATA[<p><strong><em> 分布式系统下典型的一个场景就是分布式ID的设计，会有哪些可用方案呢？ </em></strong><br><a id="more"></a></p><hr><h3 id="主键生成策略"><a href="#主键生成策略" class="headerlink" title="主键生成策略"></a>主键生成策略</h3><p>系统唯一ID是我们在设计一个系统的时候常常会遇见的问题，下面介绍一些常见的ID生成策略。  </p><ul><li>Sequence ID</li><li>UUID</li><li>GUID</li><li>COMB</li><li>Snowflake</li></ul><p>最开始的自增ID为了实现分库分别的需求，会在自增的前提下，使用不同步长(例如DB1 生成1,4,7,10，DB2生成2,5,8,11，DB3生成3,6,9,12)，但需要做数据库拓展时，极其麻烦。<br>相比自增ID，UUID生成唯一主键更加方便（数据量非常大的情况下，存在重复的可能），但由于UUID的无序性，性能不如自增ID，字符串储存，储存空间大，查询效率低。<br>COMB相对于UUID，增加了生成ID的有序性，插入与查询效率都有所提高。<br>Sonwflake是Twitter主键生成策略，可以看做是COMB的一种改进，用64位的长整型代替128位的字符串。ID构成：第一位0 + 41位的时间前缀 + 10位的节点标识 + 12位的sequence避免并发的数字。  </p><h4 id="1-Sequence-ID"><a href="#1-Sequence-ID" class="headerlink" title="1. Sequence ID"></a>1. Sequence ID</h4><p>数据库自增长序列或字段，最常见的方式。由数据库维护，数据库唯一。<br><strong>优点：</strong><br>简单，代码方便，性能可以接受。<br>数字ID天然排序，对分页或者需要排序的结果很有帮助。</p><p><strong>缺点：</strong><br>不同数据库语法和实现不同，数据库迁移的时候或多数据库版本支持的时候需要处理。<br>在单个数据库或读写分离或一主多从的情况下，只有一个主库可以生成。有单点故障的风险。<br>在性能达不到要求的情况下，比较难于扩展。<br>如果遇见多个系统需要合并或者涉及到数据迁移会相当痛苦。<br>分表分库的时候会有麻烦。</p><p><strong>优化方案：</strong><br>针对主库单点，如果有多个Master库，则每个Master库设置的起始数字不一样，步长一样，可以是Master的个数。<br>比如：Master1 生成的是 1，4，7，10，Master2生成的是2,5,8,11 Master3生成的是 3,6,9,12。这样就可以有效生成集群中的唯一ID，也可以大大降低ID生成数据库操作的负载。</p><h4 id="2-UUID"><a href="#2-UUID" class="headerlink" title="2. UUID"></a>2. UUID</h4><p>常见的方式,128位。可以利用数据库也可以利用程序生成，一般来说全球唯一。<br><strong>优点：</strong><br>简单，代码方便。<br>全球唯一，在遇见数据迁移，系统数据合并，或者数据库变更等情况下，可以从容应对。</p><p><strong>缺点：</strong><br>没有排序，无法保证趋势递增。<br>UUID往往是使用字符串存储，查询的效率比较低。<br>存储空间比较大，如果是海量数据库，就需要考虑存储量的问题。<br>传输数据量大<br>不可读。</p><p><strong>优化方案：</strong><br>为了解决UUID不可读，可以使用UUID to Int64的方法。</p><h4 id="3-GUID"><a href="#3-GUID" class="headerlink" title="3. GUID"></a>3. GUID</h4><p>GUID：是微软对UUID这个标准的实现。UUID还有其它各种实现，不止GUID一种。优缺点同UUID。</p><h4 id="4-COMB"><a href="#4-COMB" class="headerlink" title="4. COMB"></a>4. COMB</h4><p>COMB（combine）型是数据库特有的一种设计思想，可以理解为一种改进的GUID，它通过组合GUID和系统时间，以使其在索引和检索事有更优的性能。<br>数据库中没有COMB类型，它是Jimmy Nilsson在他的“The Cost of GUIDs as Primary Keys”一文中设计出来的。<br>COMB数据类型的基本设计思路是这样的：既然UniqueIdentifier数据因毫无规律可言造成索引效率低下，影响了系统的性能，那么我们能不能通过组合的方式，保留UniqueIdentifier的前10个字节，用后6个字节表示GUID生成的时间（DateTime），这样我们将时间信息与UniqueIdentifier组合起来，在保留UniqueIdentifier的唯一性的同时增加了有序性，以此来提高索引效率。</p><p><strong>优点：</strong><br>解决UUID无序的问题，在其主键生成方式中提供了Comb算法(combined guid/timestamp)。保留GUID的10个字节，用另6个字节表示GUID生成的时间(DateTime)。<br>性能优于UUID。</p><h4 id="5-Twitter的snowflake算法"><a href="#5-Twitter的snowflake算法" class="headerlink" title="5. Twitter的snowflake算法"></a>5. Twitter的snowflake算法</h4><p>snowflake是Twitter开源的分布式ID生成算法，结果是一个long型的ID。其核心思想是：使用41bit作为毫秒数，10bit作为机器的ID（5个bit是数据中心，5个bit的机器ID），12bit作为毫秒内的流水号（意味着每个节点在每毫秒可以产生 4096 个 ID），最后还有一个符号位，永远是0。snowflake算法可以根据自身项目的需要进行一定的修改。比如估算未来的数据中心个数，每个数据中心的机器数以及统一毫秒可以能的并发数来调整在算法中所需要的bit数。  </p><p><strong>优点：</strong><br>不依赖于数据库，灵活方便，且性能优于数据库。<br>ID按照时间在单机上是递增的。</p><p><strong>缺点：</strong><br>在单机上是递增的，但是由于涉及到分布式环境，每台机器上的时钟不可能完全同步，也许有时候也会出现不是全局递增的情况。</p><hr><p><a href="http://www.jianshu.com/p/a0a3aa888a49" target="_blank" rel="noopener">From Donney Young -&gt;</a></p>]]></content>
     
@@ -53,7 +75,7 @@
     
     </summary>
     
-      <category term="电商交易" scheme="http://miclee.site/categories/%E7%94%B5%E5%95%86%E4%BA%A4%E6%98%93/"/>
+      <category term="Spring cloud" scheme="http://miclee.site/categories/Spring-cloud/"/>
     
     
       <category term="分布式" scheme="http://miclee.site/tags/%E5%88%86%E5%B8%83%E5%BC%8F/"/>
@@ -87,9 +109,9 @@
     <link href="http://miclee.site/2018/12/24/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9FCAP%E7%90%86%E8%AE%BA/"/>
     <id>http://miclee.site/2018/12/24/分布式领域CAP理论/</id>
     <published>2018-12-24T08:03:56.000Z</published>
-    <updated>2019-01-11T09:30:35.749Z</updated>
+    <updated>2019-01-11T11:28:58.955Z</updated>
     
-    <content type="html"><![CDATA[<p><strong><em> 上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？ </em></strong><br><a id="more"></a></p><hr><h3 id="分布式领域CAP理论"><a href="#分布式领域CAP理论" class="headerlink" title="分布式领域CAP理论"></a>分布式领域CAP理论</h3><p>CAP定理是由加州大学伯克利分校Eric Brewer教授提出来的，他指出WEB服务无法同时满足一下3个属性：</p><ul><li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li><li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li><li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用，操作依然可以完成<br>具体地讲在分布式系统中，在任何数据库设计中，一个Web应用至多只能同时支持上面的两个属性。显然，任何横向扩展策略都要依赖于数据分区。因此，设计人员必须在一致性与可用性之间做出选择。  </li></ul><h4 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h4><p>关系数据库的ACID模型拥有高一致性和高可用性：</p><ul><li>Atomicity原子性：一个事务中所有操作都必须全部完成，要么全部不完成。</li><li>Consistency一致性. 在事务开始或结束时，数据库应该在一致状态。</li><li>Isolation隔离层. 事务将假定只有它自己在操作数据库，彼此不知晓。</li><li>Durability. 一旦事务完成，就不能返回。</li><li>跨数据库事务：2PC (two-phase commit)， 2PC is the anti-scalability pattern (Pat Helland) 是反可伸缩模式的，JavaEE中的JTA事务可以支持2PC。因为2PC是反模式，尽量不要使用2PC，使用BASE来回避。</li></ul><h4 id="BASE模型"><a href="#BASE模型" class="headerlink" title="BASE模型"></a>BASE模型</h4><p>BASE模型反ACID模型，完全不同ACID模型，牺牲高一致性，获得可用性和可靠性：</p><ul><li>Basically Available基本可用。支持分区失败(e.g. sharding碎片划分数据库)</li><li>Soft state软状态 状态可以有一段时间不同步，异步。</li><li>Eventually consistent最终一致，最终数据是一致的就可以了，而不是时时高一致。</li></ul><p>BASE思想主要强调基本的可用性，如果你需要High 可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。主要实现有：<strong>按功能划分数据库 &amp; sharding碎片</strong></p><p>现在NOSQL运动丰富了拓展了BASE思想，可按照具体情况定制特别方案，比如忽视一致性，获得高可用性等等，NOSQL应该有下面两个流派：</p><ol><li>Key-Value存储，如Amaze Dynamo等，可根据CAP三原则灵活选择不同倾向的数据库产品。</li><li>领域模型 + 分布式缓存 + 存储 （Qi4j和NoSql运动），可根据CAP三原则结合自己项目定制灵活的分布式方案，难度高。</li></ol><p>这两者共同点：都是关系数据库SQL以外的可选方案，逻辑随着数据分布，任何模型都可以自己持久化，将数据处理和数据存储分离，将读和写分离，存储可以是异步或同步，取决于对一致性的要求程度。<br>不同点：NOSQL之类的Key-Value存储产品是和关系数据库头碰头的产品BOX，可以适合非Java如PHP RUBY等领域，是一种可以拿来就用的产品，而领域模型 + 分布式缓存 + 存储是一种复杂的架构解决方案，不是产品，但这种方式更灵活，更应该是架构师必须掌握的。</p>]]></content>
+    <content type="html"><![CDATA[<p><strong><em> 上篇文章讲到各注册中心设计中CAP的取舍，究竟什么是CAP呢？ </em></strong><br><a id="more"></a></p><hr><h3 id="分布式领域CAP理论"><a href="#分布式领域CAP理论" class="headerlink" title="分布式领域CAP理论"></a>分布式领域CAP理论</h3><p>CAP定理是由加州大学伯克利分校Eric Brewer教授提出来的，他指出WEB服务无法同时满足一下3个属性：</p><ul><li>一致性(Consistency) ： 客户端知道一系列的操作都会同时发生(生效)</li><li>可用性(Availability) ： 每个操作都必须以可预期的响应结束</li><li>分区容错性(Partition tolerance) ： 即使出现单个组件无法可用，操作依然可以完成<br>具体地讲在分布式系统中，在任何数据库设计中，一个Web应用至多只能同时支持上面的两个属性。显然，任何横向扩展策略都要依赖于数据分区。因此，设计人员必须在一致性与可用性之间做出选择。  </li></ul><h3 id="关系数据库"><a href="#关系数据库" class="headerlink" title="关系数据库"></a>关系数据库</h3><p>关系数据库的ACID模型拥有高一致性和高可用性：</p><ul><li>Atomicity 原子性：一个事务中所有操作都必须全部完成，要么全部不完成。</li><li>Consistency 一致性：在事务开始或结束时，数据库应该在一致状态。</li><li>Isolation 隔离性：事务将假定只有它自己在操作数据库，彼此不知晓。</li><li>Durability 持久性：一旦事务完成，就不能返回。</li><li>跨数据库事务：2PC (two-phase commit)， 2PC is the anti-scalability pattern (Pat Helland) 是反可伸缩模式的，JavaEE中的JTA事务可以支持2PC。因为2PC是反模式，尽量不要使用2PC，使用BASE来回避。</li></ul><p>比如本地事务数据库断电的这种情况，它是怎么保证数据一致性的呢？我们使用SQL Server来举例，我们知道我们在使用 SQL Server 数据库是由两个文件组成的，一个数据库文件和一个日志文件，通常情况下，日志文件都要比数据库文件大很多。数据库进行任何写入操作的时候都是要先写日志的，同样的道理，我们在执行事务的时候数据库首先会记录下这个事务的redo操作日志，然后才开始真正操作数据库，在操作之前首先会把日志文件写入磁盘，那么当突然断电的时候，即使操作没有完成，在重新启动数据库时候，数据库会根据当前数据的情况进行undo回滚或者是redo前滚，这样就保证了数据的强一致性。</p><h3 id="2PC"><a href="#2PC" class="headerlink" title="2PC"></a>2PC</h3><p>对数据库分布式事务有了解的同学一定知道数据库支持的2PC，又叫做 XA Transactions。  </p><blockquote><p>MySQL从5.5版本开始支持，SQL Server 2005 开始支持，Oracle 7 开始支持。  </p></blockquote><p>其中，XA 是一个两阶段提交协议，该协议分为以下两个阶段：<br>第一阶段：事务协调器要求每个涉及到事务的数据库预提交(precommit)此操作，并反映是否可以提交.<br>第二阶段：事务协调器要求每个数据库提交数据。<br>其中，如果有任何一个数据库否决此次提交，那么所有数据库都会被要求回滚它们在此事务中的那部分信息。这样做的缺陷是什么呢? 咋看之下我们可以在数据库分区之间获得一致性。</p><h3 id="BASE模型"><a href="#BASE模型" class="headerlink" title="BASE模型"></a>BASE模型</h3><p>在分布式系统中，我们往往追求的是可用性，它的重要程度比一致性要高，那么如何实现高可用性呢？前人已经给我们提出来了另外一个理论，就是BASE理论，它是用来对CAP定理进行进一步扩充的。BASE理论指的是：</p><ul><li>Basically Available：基本可用。支持分区失败(e.g. sharding碎片划分数据库)</li><li>Soft state：软状态，状态可以有一段时间不同步，异步。</li><li>Eventually consistent：最终一致性，最终数据是一致的就可以了，而不是时时高一致。</li></ul><p>BASE理论是对CAP中的一致性和可用性进行一个权衡的结果，理论的核心思想就是：我们无法做到强一致，但每个应用都可以根据自身的业务特点，采用适当的方式来使系统达到最终一致性（Eventual consistency）。BASE思想主要强调基本的可用性，如果你需要High 可用性，也就是纯粹的高性能，那么就要以一致性或容错性为牺牲，BASE思想的方案在性能上还是有潜力可挖的。主要实现有：<strong>按功能划分数据库 &amp; sharding碎片</strong></p><p>现在NOSQL运动丰富了拓展了BASE思想，可按照具体情况定制特别方案，比如忽视一致性，获得高可用性等等，NOSQL应该有下面两个流派：</p><ol><li>Key-Value存储，如Amaze Dynamo等，可根据CAP三原则灵活选择不同倾向的数据库产品。</li><li>领域模型 + 分布式缓存 + 存储 （Qi4j和NoSql运动），可根据CAP三原则结合自己项目定制灵活的分布式方案，难度高。</li></ol><p>这两者共同点：都是关系数据库SQL以外的可选方案，逻辑随着数据分布，任何模型都可以自己持久化，将数据处理和数据存储分离，将读和写分离，存储可以是异步或同步，取决于对一致性的要求程度。<br>不同点：NOSQL之类的Key-Value存储产品是和关系数据库头碰头的产品BOX，可以适合非Java如PHP RUBY等领域，是一种可以拿来就用的产品，而领域模型 + 分布式缓存 + 存储是一种复杂的架构解决方案，不是产品，但这种方式更灵活，更应该是架构师必须掌握的。</p>]]></content>
     
     <summary type="html">
     
@@ -431,28 +453,6 @@
     
     
       <category term="数据挖掘" scheme="http://miclee.site/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>机器学习</title>
-    <link href="http://miclee.site/2017/04/26/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    <id>http://miclee.site/2017/04/26/机器学习/</id>
-    <published>2017-04-26T07:13:26.000Z</published>
-    <updated>2017-04-26T08:14:55.000Z</updated>
-    
-    <content type="html"><![CDATA[<p><strong><em> 今年正式开始学习机器学习，记了很多笔记在小本子上（本人还是比较偏爱传统书写），缺点就是回头翻阅起来检索比较困难，So干脆花点时间整理到博客上吧，方便自己也方便他人。由于我目前的工作主要用到机器学习的分类算法，所以会先入手研究这方面，其他的以后再慢慢补充吧。 </em></strong><br><a id="more"></a></p><hr><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><p>机器学习是人工智能的一个分支。<br>机器学习方法是指用某些算法指导计算机利用已有的数据，得出适当的模型，并利用此模型对新的情境给出判断（预测未来）的一种方法。  </p><p>人工智能 &gt; 机器学习 &gt; 深度学习（即多层神经网络）</p><h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><ul><li><p><strong>监督学习</strong><br>从给定的训练数据集中学习出一个函数，当新的数据到来时，可以根据这个函数预测结果。<br>监督学习的训练集要求是包括输入和输出，也可以说是特征和目标。训练集中的目标是由人标注的。<br>常见的监督学习算法包括 <em>回归分析</em> 和 <em>统计分类</em>。  </p><ul><li><strong>回归分析（Regression）</strong><br>预测一个连续值的输出，比如房价。</li><li><strong>统计分类（Classification）</strong><br>预测一个离散值的输出。又细分为二元分类和多元分类。  </li></ul></li><li><p><strong>无监督学习</strong><br>它是一种学习机制，给算法大量的数据，自动找出数据中蕴含的数据结构。<br>无监督学习中，没有属性或标签这一概念，也就是说所有数据都是一样的，没有区别。<br>与监督学习相比，训练集没有人为标注的结果。<br>常见的无监督学习算法有 <em>聚类算法</em> 和 <em>鸡尾酒会算法</em>。  </p><ul><li><strong>聚类算法</strong><br>不同的个体归入不同的类。如谷歌新闻分类。</li><li><strong>鸡尾酒会算法</strong><br>分离出叠加在一起的分类。</li></ul></li><li><p><strong>半监督学习</strong><br>介于监督学习与无监督学习之间。</p></li><li><p><strong>增强学习</strong><br>强调如何基于环境而行动，以取得最大化的预期利益。其灵感来源于心理学中的行为主义理论，即有机体如何在环境给予的奖励或惩罚的刺激下，逐步形成对刺激的预期，产生能获得最大利益的习惯性行为。这个方法具有普适性，因此在其他许多领域都有研究，例如博弈论、控制论、运筹学、信息论、仿真优化、多主体系统学习、群体智能、统计学以及遗传算法。  </p><p>增强学习和标准的监督式学习之间的区别在于，它并不需要出现正确的输入/输出对，也不需要精确校正次优化的行为。强化学习更加专注于在线规划，需要在探索（在未知的领域）和遵从（现有知识）之间找到平衡。强化学习中的“探索-遵从”的交换，在“多臂老虎机问题”和“有限MDP”中研究得最多。</p><h2 id="使用范围"><a href="#使用范围" class="headerlink" title="使用范围"></a>使用范围</h2><ul><li><strong>模式识别</strong><br>模式识别 = 机器学习，前者是工业界的概念。  </li><li><strong>数据挖掘</strong><br>数据挖掘 = 机器学习 + 数据库   </li><li><strong>统计学习</strong><br>统计学习 ≈ 机器学习，前者偏数学，后者偏实践。</li><li><strong>语音识别</strong><br>语言处理 + 机器学习</li><li><strong>计算机视觉</strong><br>图像处理 + 机器学习</li><li><strong>自然语言处理</strong><br>文本处理 + 机器学习</li></ul></li></ul><h2 id="经典代表算法"><a href="#经典代表算法" class="headerlink" title="经典代表算法"></a>经典代表算法</h2><ul><li><strong>监督学习算法</strong>  <ul><li>线性回归</li><li>逻辑回归</li><li>神经网络</li><li>SVM  </li></ul></li><li><strong>无监督算法</strong>  <ul><li>聚类算法</li><li>降维算法</li></ul></li><li><strong>特殊</strong><ul><li>推荐算法</li></ul></li></ul><h2 id="开发机器学习应用程序的步骤"><a href="#开发机器学习应用程序的步骤" class="headerlink" title="开发机器学习应用程序的步骤"></a>开发机器学习应用程序的步骤</h2><ol><li>收集数据    </li><li>准备数据  </li><li>分析数据  </li><li>训练算法（无监督学习不需要这一步）  </li><li>测试算法  </li><li>使用算法  </li></ol>]]></content>
-    
-    <summary type="html">
-    
-      今年正式开始学习机器学习，记了很多笔记在小本子上（本人还是比较偏爱传统书写），缺点就是回头翻阅起来检索比较困难，So干脆花点时间整理到博客上吧，方便自己也方便他人。由于我目前的工作主要用到机器学习的分类算法，所以会先入手研究这方面，其他的以后再慢慢补充吧。
-    
-    </summary>
-    
-      <category term="机器学习" scheme="http://miclee.site/categories/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
-    
-    
-      <category term="机器学习" scheme="http://miclee.site/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/"/>
     
   </entry>
   

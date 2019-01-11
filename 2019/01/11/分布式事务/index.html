@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>分布式事务 | MicLee&#39;s Bolg</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是">
+<meta name="keywords" content="分布式">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式事务">
+<meta property="og:url" content="http://miclee.site/2019/01/11/分布式事务/index.html">
+<meta property="og:site_name" content="MicLee&#39;s Bolg">
+<meta property="og:description" content="现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是">
+<meta property="og:locale" content="zh">
+<meta property="og:image" content="https://github.com/ofmiclee/img-hosting/blob/master/distributed/2PC.png">
+<meta property="og:image" content="https://github.com/ofmiclee/img-hosting/blob/master/distributed/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png">
+<meta property="og:image" content="https://github.com/ofmiclee/img-hosting/blob/master/distributed/MQ%20%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png">
+<meta property="og:image" content="https://github.com/ofmiclee/img-hosting/blob/master/distributed/Sagas%20%E4%BA%8B%E5%8A%A1%E6%A8%A1%E5%9E%8B.png">
+<meta property="og:updated_time" content="2019-01-11T12:02:50.262Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="分布式事务">
+<meta name="twitter:description" content="现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是">
+<meta name="twitter:image" content="https://github.com/ofmiclee/img-hosting/blob/master/distributed/2PC.png">
+  
+    <link rel="alternative" href="/atom.xml" title="MicLee&#39;s Bolg" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">MicLee&#39;s Bolg</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">道生一 一生二 二生三 三生万物</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://miclee.site"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-分布式事务" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/01/11/分布式事务/" class="article-date">
+  <time datetime="2019-01-11T10:33:31.000Z" itemprop="datePublished">2019-01-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Spring-cloud/">Spring cloud</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      分布式事务
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong><em> 现今互联网界，分布式系统和微服务架构盛行。一个简单操作，在服务端非常可能是由多个服务和数据库实例协同完成的。在互联网金融等一致性要求较高的场景下，多个独立操作之间的一致性问题显得格外棘手。基于水平扩容能力和成本考虑，传统的强一致的解决方案（e.g.单机事务）纷纷被抛弃。其理论依据就是响当当的CAP原理。我们往往为了可用性和分区容错性，忍痛放弃强一致支持，转而追求最终一致性。大部分业务场景下，我们是可以接受短暂的不一致的。 </em></strong><br><a id="more"></a></p>
+<hr>
+<h3 id="分布式理论"><a href="#分布式理论" class="headerlink" title="分布式理论"></a>分布式理论</h3><p>关于分布式理论可以参考另一篇博文：<a href="http://miclee.site/2018/12/24/%E5%88%86%E5%B8%83%E5%BC%8F%E9%A2%86%E5%9F%9FCAP%E7%90%86%E8%AE%BA/">分布式领域CAP理论</a>  </p>
+<h3 id="分布式事务"><a href="#分布式事务" class="headerlink" title="分布式事务"></a>分布式事务</h3><h4 id="一、两阶段提交-2PC"><a href="#一、两阶段提交-2PC" class="headerlink" title="一、两阶段提交 2PC"></a>一、两阶段提交 2PC</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/2PC.png" alt=""><br>两阶段提交这种解决方案属于牺牲了一部分可用性来换取的一致性。在实现方面，在 .NET 中，可以借助 TransactionScop 提供的 API 来编程实现分布式系统中的两阶段提交，比如WCF中就有实现这部分功能。不过在多服务器之间，需要依赖于DTC来完成事务一致性，Windows下微软搞的有MSDTC服务，Linux下就比较悲剧了。</p>
+<p>另外说一句，TransactionScop 默认不能用于异步方法之间事务一致，因为事务上下文是存储于当前线程中的，所以如果是在异步方法，需要显式的传递事务上下文。</p>
+<p>优点： 尽量保证了数据的强一致，适合对数据强一致要求很高的关键领域。（其实也不能100%保证强一致）<br>缺点： 实现复杂，牺牲了可用性，对性能影响较大，不适合高并发高性能场景，如果分布式系统跨接口调用，目前 .NET 界还没有实现方案。  </p>
+<h4 id="二、补偿事务-TCC"><a href="#二、补偿事务-TCC" class="headerlink" title="二、补偿事务 TCC"></a>二、补偿事务 TCC</h4><p>TCC 其实就是采用的补偿机制，其核心思想是：针对每个操作，都要注册一个与其对应的确认和补偿（撤销）操作。它分为三个阶段：</p>
+<p>Try 阶段主要是对业务系统做检测及资源预留<br>Confirm 阶段主要是对业务系统做确认提交，Try阶段执行成功并开始执行 Confirm阶段时，默认 Confirm阶段是不会出错的。即：只要Try成功，Confirm一定成功。<br>Cancel 阶段主要是在业务执行错误，需要回滚的状态下执行的业务取消，预留资源释放。</p>
+<p>举个例子，假入 Bob 要向 Smith 转账，思路大概是：<br>我们有一个本地方法，里面依次调用<br>1、首先在 Try 阶段，要先调用远程接口把 Smith 和 Bob 的钱给冻结起来。<br>2、在 Confirm 阶段，执行远程调用的转账的操作，转账成功进行解冻。<br>3、如果第2步执行成功，那么转账成功，如果第二步执行失败，则调用远程冻结接口对应的解冻方法 (Cancel)。</p>
+<p>优点： 跟2PC比起来，实现以及流程相对简单了一些，但数据的一致性比2PC也要差一些<br>缺点： 缺点还是比较明显的，在2,3步中都有可能失败。TCC属于应用层的一种补偿方式，所以需要程序员在实现的时候多写很多补偿的代码，在一些场景中，一些业务流程可能用TCC不太好定义及处理。</p>
+<h4 id="三、本地消息表"><a href="#三、本地消息表" class="headerlink" title="三、本地消息表"></a>三、本地消息表</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/%E6%9C%AC%E5%9C%B0%E6%B6%88%E6%81%AF%E8%A1%A8.png" alt=""><br>基本思路就是：</p>
+<p>消息生产方，需要额外建一个消息表，并记录消息发送状态。消息表和业务数据要在一个事务里提交，也就是说他们要在一个数据库里面。然后消息会经过MQ发送到消息的消费方。如果消息发送失败，会进行重试发送。</p>
+<p>消息消费方，需要处理这个消息，并完成自己的业务逻辑。此时如果本地事务处理成功，表明已经处理成功了，如果处理失败，那么就会重试执行。如果是业务上面的失败，可以给生产方发送一个业务补偿消息，通知生产方进行回滚等操作。</p>
+<p>生产方和消费方定时扫描本地消息表，把还没处理完成的消息或者失败的消息再发送一遍。如果有靠谱的自动对账补账逻辑，这种方案还是非常实用的。</p>
+<p>这种方案遵循BASE理论，采用的是最终一致性，笔者认为是这几种方案里面比较适合实际业务场景的，即不会出现像2PC那样复杂的实现(当调用链很长的时候，2PC的可用性是非常低的)，也不会像TCC那样可能出现确认或者回滚不了的情况。</p>
+<p>优点： 一种非常经典的实现，避免了分布式事务，实现了最终一致性。在 .NET中 有现成的解决方案。<br>缺点： 消息表会耦合到业务系统中，如果没有封装好的解决方案，会有很多杂活需要处理。  </p>
+<h4 id="四、MQ-事务消息"><a href="#四、MQ-事务消息" class="headerlink" title="四、MQ 事务消息"></a>四、MQ 事务消息</h4><p><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/MQ%20%E4%BA%8B%E5%8A%A1%E6%B6%88%E6%81%AF.png" alt=""><br>有一些第三方的MQ是支持事务消息的，比如RocketMQ，他们支持事务消息的方式也是类似于采用的二阶段提交，但是市面上一些主流的MQ都是不支持事务消息的，比如 RabbitMQ 和 Kafka 都不支持。</p>
+<p>以阿里的 RocketMQ 中间件为例，其思路大致为：</p>
+<p>第一阶段Prepared消息，会拿到消息的地址。<br>第二阶段执行本地事务，第三阶段通过第一阶段拿到的地址去访问消息，并修改状态。</p>
+<p>也就是说在业务方法内要想消息队列提交两次请求，一次发送消息和一次确认消息。如果确认消息发送失败了RocketMQ会定期扫描消息集群中的事务消息，这时候发现了Prepared消息，它会向消息发送者确认，所以生产方需要实现一个check接口，RocketMQ会根据发送端设置的策略来决定是回滚还是继续发送确认消息。这样就保证了消息发送与本地事务同时成功或同时失败。  </p>
+<p>优点： 实现了最终一致性，不需要依赖本地数据库事务。<br>缺点： 实现难度大，主流MQ不支持，RocketMQ事务消息部分代码也未开源。  </p>
+<h4 id="五、Sagas-事务模型"><a href="#五、Sagas-事务模型" class="headerlink" title="五、Sagas 事务模型"></a>五、Sagas 事务模型</h4><p>Saga事务模型又叫做长时间运行的事务（Long-running-transaction）, 它是由普林斯顿大学的H.Garcia-Molina等人提出，它描述的是另外一种在没有两阶段提交的的情况下解决分布式系统中复杂的业务事务问题。你可以在这里看到 Sagas 相关论文。</p>
+<p>我们这里说的是一种基于 Sagas 机制的工作流事务模型，这个模型的相关理论目前来说还是比较新的，以至于百度上几乎没有什么相关资料。</p>
+<p>该模型其核心思想就是拆分分布式系统中的长事务为多个短事务，或者叫多个本地事务，然后由 Sagas 工作流引擎负责协调，如果整个流程正常结束，那么就算是业务成功完成，如果在这过程中实现失败，那么Sagas工作流引擎就会以相反的顺序调用补偿操作，重新进行业务回滚。</p>
+<p>比如我们一次关于购买旅游套餐业务操作涉及到三个操作，他们分别是预定车辆，预定宾馆，预定机票，他们分别属于三个不同的远程接口。可能从我们程序的角度来说他们不属于一个事务，但是从业务角度来说是属于同一个事务的。<br><img src="https://github.com/ofmiclee/img-hosting/blob/master/distributed/Sagas%20%E4%BA%8B%E5%8A%A1%E6%A8%A1%E5%9E%8B.png" alt=""><br>他们的执行顺序如上图所示，所以当发生失败时，会依次进行取消的补偿操作。</p>
+<p>因为长事务被拆分了很多个业务流，所以 Sagas 事务模型最重要的一个部件就是工作流或者你也可以叫流程管理器（Process Manager），工作流引擎和Process Manager虽然不是同一个东西，但是在这里，他们的职责是相同的。在选择工作流引擎之后，最终的代码也许看起来是这样:<br>‘’’<br>SagaBuilder saga = SagaBuilder.newSaga(“trip”)<br>        .activity(“Reserve car”, ReserveCarAdapter.class)<br>        .compensationActivity(“Cancel car”, CancelCarAdapter.class)<br>        .activity(“Book hotel”, BookHotelAdapter.class)<br>        .compensationActivity(“Cancel hotel”, CancelHotelAdapter.class)<br>        .activity(“Book flight”, BookFlightAdapter.class)<br>        .compensationActivity(“Cancel flight”, CancelFlightAdapter.class)<br>        .end()<br>        .triggerCompensationOnAnyError();</p>
+<p>camunda.getRepositoryService().createDeployment()<br>        .addModelInstance(saga.getModel())<br>        .deploy();<br>‘’’   </p>
+<p>一个.net版本的开源框架：<a href="https://github.com/dotnetcore/CAP" target="_blank" rel="noopener">https://github.com/dotnetcore/CAP</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://miclee.site/2019/01/11/分布式事务/" data-id="cjqrzsxa8008ffls687oqhb1c" class="article-share-link">Share</a>
+      
+        <a href="http://miclee.site/2019/01/11/分布式事务/#disqus_thread" class="article-comment-link">Comments</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/分布式/">分布式</a></li></ul>
+
+      <span style="color:gray;font-weight:bold">
+      本文阅读量&nbsp;<span id="busuanzi_value_page_pv"></span>&nbsp;次
+      </span>
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">基于sharding-sphere无需数据迁移的弹性扩容分片算法</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<section id="comments">
+  <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+  </div>
+</section>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">ABOUT ME</h3>
+    <div class="widget">
+          80后老码农<br>
+          Sun认证SCJP工程师<br>
+          <br>
+          研究领域：<br>
+          高并发电商交易型网站设计<br>
+          微服务架构<br>
+          容器化平台搭建<br>
+          DevOps<br>
+          机器学习<br>
+          <!-- <span id="busuanzi_container_site_uv">
+          本站访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次
+          </span> -->
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Http/">Http</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Python/">Python</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/Spring-cloud/">Spring cloud</a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/blog/">blog</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/java/">java</a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/nodejs/">nodejs</a><span class="category-list-count">15</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/react/">react</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/spring/">spring</a><span class="category-list-count">11</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/tomcat/">tomcat</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/加密技术/">加密技术</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/技术综合/">技术综合</a><span class="category-list-count">5</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/机器学习/">机器学习</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/电商交易/">电商交易</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/移动端/">移动端</a><span class="category-list-count">4</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a><span class="archive-list-count">11</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/04/">April 2017</a><span class="archive-list-count">10</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/05/">May 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/04/">April 2016</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/02/">February 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/01/">January 2016</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/12/">December 2015</a><span class="archive-list-count">12</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/11/">November 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/08/">August 2015</a><span class="archive-list-count">13</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/07/">July 2015</a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/06/">June 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05/">May 2015</a><span class="archive-list-count">11</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recents</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/01/11/分布式事务/">分布式事务</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/30/无需数据迁移的弹性扩容分片算法/">基于sharding-sphere无需数据迁移的弹性扩容分片算法</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/30/分布式ID/">分布式ID</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/26/电商秒杀场景实现方案/">电商秒杀场景实现方案</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/24/分布式领域CAP理论/">分布式领域CAP理论</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2019 射雕
+        <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <span id="busuanzi_container_site_pv">
+            &nbsp;&nbsp;本站总访问量&nbsp;<span id="busuanzi_value_site_pv"></span>&nbsp;次&nbsp;&nbsp;
+            &nbsp;&nbsp;本站访客数&nbsp;<span id="busuanzi_value_site_uv"></span>&nbsp;人
+            </span>
+    	</div>
+      	<!-- <div class="footer-right">
+          Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      	</div> -->
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+<script>
+  var disqus_shortname = 'micleewj';
+  
+  var disqus_url = 'http://miclee.site/2019/01/11/分布式事务/';
+  
+  (function(){
+    var dsq = document.createElement('script');
+    dsq.type = 'text/javascript';
+    dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

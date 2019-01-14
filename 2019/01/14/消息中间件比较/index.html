@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/ofmiclee/img-hosting/master/distributed/MQvs2.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ofmiclee/img-hosting/master/distributed/MQvs3.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ofmiclee/img-hosting/master/distributed/MQvs4.png">
-<meta property="og:updated_time" content="2019-01-14T10:35:46.046Z">
+<meta property="og:updated_time" content="2019-01-14T10:37:33.489Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="消息中间件比较">
 <meta name="twitter:description" content="一发一存一消费，没有最好的消息队列中间件(简称消息中间件)，只有最合适的消息中间件。">
@@ -104,7 +104,7 @@
 <li>应用耦合<br>多应用间通过消息队列对同一消息进行处理，避免调用接口失败导致整个过程失败；（如：订单-&gt;库存）</li>
 <li>异步处理<br>多应用对消息队列中同一消息进行处理，应用间并发处理消息，相比串行处理，减少处理时间；(点对多场景，广播场景(注册发短信，发邮件)等等)</li>
 <li>限流削峰<br>应用于秒杀或抢购活动中，避免流量过大导致应用系统挂掉的情况；</li>
-<li>消息驱动的系统<br>系统分为消息队列、消息生产者、消息消费者，生产者负责产生消息，消费者(可能有多个)负责对消息进行处理；(分工处理(各自对应相应的队列)，灵活应用(收到就处理/定时处理))</li>
+<li>消息驱动的系统<br>系统分为消息队列、消息生产者、消息消费者，生产者负责产生消息，消费者(可能有多个)负责对消息进行处理；分工处理(各自对应相应的队列)，灵活应用(收到就处理/定时处理)</li>
 </ul>
 <h3 id="两种模式"><a href="#两种模式" class="headerlink" title="两种模式"></a>两种模式</h3><ul>
 <li>点对点<br>每个消息只有一个消费者（Consumer），不可重复消费(一旦被消费，消息就不再在消息队列中)</li>

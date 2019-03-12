@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://miclee.site/"/>
-  <updated>2019-03-12T10:08:32.997Z</updated>
+  <updated>2019-03-12T10:12:21.889Z</updated>
   <id>http://miclee.site/</id>
   
   <author>
@@ -17,11 +17,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Spring-Cloud</title>
+    <title>Spring Cloud 组件</title>
     <link href="http://miclee.site/2019/03/12/Spring-Cloud/"/>
     <id>http://miclee.site/2019/03/12/Spring-Cloud/</id>
     <published>2019-03-12T06:38:56.000Z</published>
-    <updated>2019-03-12T10:08:32.997Z</updated>
+    <updated>2019-03-12T10:12:21.889Z</updated>
     
     <content type="html"><![CDATA[<p><strong><em> Spring Cloud 各组件整合 </em></strong><br><a id="more"></a></p><hr><h4 id="标准化整合"><a href="#标准化整合" class="headerlink" title="标准化整合"></a>标准化整合</h4><ol><li><p>服务网关</p><ul><li>Netflix Zuul  </li><li>Spring Cloud Gateway<br>(Spring Cloud的新项目，推荐zuul用此替换)</li></ul></li><li><p>服务注册发现</p><ul><li>Netflix Eureka</li><li>Spring Cloud Consul</li><li>Zookeeper</li><li>Etcd<br>（各注册中心区别详见另一边博文：<a href="http://miclee.site/2018/12/24/ConsulvsZookeepervsEtcdvsEureka/">Spring Cloud注册中心</a>）</li></ul></li><li><p>服务调用</p><ul><li>Spring Cloud Feign<br>(声明式、模板化的HTTP客户端)</li></ul></li><li><p>负载均衡（Client Side Load Balancer）</p><ul><li>Netflix Ribbon  </li></ul></li><li><p>统一配置中心</p><ul><li>Spring Cloud Config</li><li>Netflix Archaius</li><li>Ctrip Apollo</li><li>Disconf</li></ul></li></ol><h4 id="高级整合"><a href="#高级整合" class="headerlink" title="高级整合"></a>高级整合</h4><ol start="6"><li><p>服务短路</p><ul><li>Netflix Hystrix</li></ul></li><li><p>调用链路跟踪</p><ul><li>Spring Cloud Sleuth<br>(日志收集工具包，封装了Dapper和log-based追踪以及Zipkin和HTrace操作，为SpringCloud应用实现了一种分布式追踪解决方案。)</li></ul></li><li><p>安全框架</p><ul><li>Spring Cloud Security</li><li>Apache Shiro (比 Security 更加轻量）</li></ul></li><li><p>消息驱动</p><ul><li>Spring Cloud Stream<br>（Spring Cloud Stream 是一个构建消息驱动的微服务应用的框架，数据流操作开发包，封装了与Redis、RabbitMQ、Kafka等发送接收消息的操作。通过 Binder 实现的抽象中间件，可以无改动迁移到不同的消息中间件实现。）</li></ul></li><li><p>消息总线</p><ul><li>Spring Cloud Bus<br>（Spring Cloud Bus整合了java的事件处理机制和消息中间件，让微服务与微服务之间也能享受应用内的事件机制。具体的消息中间件还是整合rabbitmq、kafka之类的。 服务A:Event -&gt; Channel:Message -&gt; 服务B:Event）</li></ul></li></ol>]]></content>
     
